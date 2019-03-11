@@ -1,0 +1,9 @@
+@import '../modules/_all.scss';
+
+body {
+  font-family: $font-default;
+}
+
+body * {
+  font-family: inherit;
+}

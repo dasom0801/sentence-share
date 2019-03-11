@@ -1,0 +1,13 @@
+@font-face {
+  font-family: 'KCCEunYeong';
+  src: url('../../assets/KCCEunYeongche.ttf');
+}
+
+@font-face {
+  font-family: 'NanumBarunpen';
+  src: url('../../assets/NanumBarunpenR.ttf');
+}
+
+
+$font-default: NanumBarunpen, Helvetica, Arial, sans-serif;
+$font-sentence: KCCEunYeong, Georgia, Myeongjo, serif;
