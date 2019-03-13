@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 
 import Intro from './Intro';
 import NavBar from './NavBar';
-import ListMain from '../List/ListMain';
+// import ListMain from '../List/ListMain';
 // import UserInfo from '../UserMenu/UserInfo';
 // import UserSentence from '../UserMenu/UserSentence';
 // import UserLikes from '../UserMenu/UserLikes';
@@ -14,6 +14,8 @@ import BookDetail from '../Detail/BookDetail';
 import ListKeywordSearch from '../List/ListKeywordSearch';
 import AddSentence from '../Add/AddSentence'
 import UserContainer from '../../containers/UserContainer';
+import ListContainer from '../../containers/ListContainer';
+
 
 import * as actions from '../../store/actions';
 import { firestore } from '../../modules/firebaseConfig';
@@ -49,7 +51,7 @@ class App extends Component {
       <div className="App">
         <NavBar changeLoginStatus={changeLoginStatus} history={history}/>
         <Switch>
-          <Route exact path="/" component={ListMain} />
+          <Route exact path="/" component={ListContainer} />
           <Route path="/info" component={UserContainer('UserInfo')} />
           <Route path="/sentence" component={UserContainer('UserSentence')} />
           <Route path="/likes" component={UserContainer('UserLikes')} />
