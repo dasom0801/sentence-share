@@ -3,12 +3,14 @@ import ListItem from './ListItem';
 import ListSort from './ListSort';
 import AddButton from '../Add/AddButton';
 
-const MainList = ({ getSentenceListFromDB, lastItem, list, showMoreSentenceBody, toggleSort, showSort, orderBy}) => {
+const MainList = ({ getSentenceListFromDB, lastItem, list, showMoreSentenceBody, toggleSort, showSort, orderBy, likeUp, userId}) => {
   const handleMoreClick = () => {
     getSentenceListFromDB(orderBy, lastItem);
   }
   
-  const printList = list && list.map((item, index) => <ListItem key={item.id} item={item} index={index} showMoreSentenceBody={showMoreSentenceBody}/>)
+  const printList = list && list.map((item, index) => 
+    <ListItem key={item.id} item={item} index={index} showMoreSentenceBody={showMoreSentenceBody} likeUp={likeUp} userId={userId} orderBy={orderBy}/>
+  );
   return ( 
     <div className="main-list">
       <p>MainList</p>

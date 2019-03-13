@@ -19,24 +19,27 @@ class ListContainer extends Component {
   }
 
   render() { 
-    const { orderBy, getSentenceListFromDB, lastItem, list, showMoreSentenceBody} = this.props;
+    const { orderBy, getSentenceListFromDB, lastItem, list, showMoreSentenceBody, likeUp, userId} = this.props;
     return ( 
       <ListMain 
         showSort={this.state.showSort}
+        userId={userId}
         orderBy={orderBy}
         list={list} 
         lastItem={lastItem} 
         toggleSort={this.toggleSort}
         getSentenceListFromDB={getSentenceListFromDB} 
         showMoreSentenceBody={showMoreSentenceBody}
+        likeUp={likeUp}
       />
      );
   }
 }
  
 
-const mapStateToProps = ({ list }) => {
+const mapStateToProps = ({ list, user}) => {
   return {
+   userId: user.get('id'),
    list: list.get('list'),
    lastItem: list.get('lastItem'),
    orderBy: list.get('orderBy')
@@ -47,6 +50,7 @@ const mapDispatchToProps = dispatch => {
   return {
     getSentenceListFromDB: (orderBy, startItem) => {dispatch(actions.getSentenceListFromDB(orderBy, startItem))},
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
+    likeUp: (index, id, likes, userId) => { dispatch(actions.likeUp(index,id,likes, userId))}
   }
 };
 

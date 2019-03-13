@@ -45,6 +45,8 @@ export const list = (state = listInitialState, action) => {
                       .setIn(['list', action.index, 'showMoreButton'], !state.getIn(['list', action.index, 'showMoreButton']));
     case actions.CLEAR_LIST_ITEM: 
       return state.set('list', List());                  
+    case actions.CHAHNGE_LIST_ITEM: 
+      return state.setIn(['list', action.index, action.key], action.value);
     default:
       return state;
   }

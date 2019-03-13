@@ -99,3 +99,57 @@ export const clearListItem = () => {
     type: types.CLEAR_LIST_ITEM
   }
 }
+
+// 좋아요 수 올리기
+export const likeUp = (index, id, likes, userId, orderBy) => dispatch => {
+  const sentenceRef = firestore.collection('sentences').doc(id), 
+  userRef = firestore.collection('users').doc(userId);
+  
+  // 해당 문장의 user정보를 비교하여 좋아요를 추가해야하는지 취소해야하는지 판단
+  sentenceRef.get().then(snapshot => {
+    const data = snapshot.data();
+    const likeUser = data.likeUser,
+    userIndex = likeUser.indexOf(userId);
+    // 사용자가 좋아요를 누르지 않은 문장 
+    // sentences에 사용자를 추가하고, users에는 문장을 추가한다
+    // state의 likes값 증가
+      if (userIndex < 0) {
+        const updateUserData = {
+          body: data.body,
+          bookImage: data.bookImage,
+          bookTitle: data.bookTitle,
+          sentenceId: firestore.doc('/sentences/' + id),
+          updateDate: data.updateDate
+        },
+          updateSentenceData = [...likeUser, userId];
+        likes++;
+        sentenceRef.update({likeUser: updateSentenceData, likes: likes})
+        userRef.get().then(snapshot => {
+          userRef.update({ userLikes: [...snapshot.data().userLikes, updateUserData] });
+          dispatch(changeListItem(index, 'likes', likes));
+          dispatch(changeListItem(index, 'likeUser', updateSentenceData));
+        })
+      } else {
+        // 사용자가 이미 좋아요를 누른 문장은 좋아요 취소
+        const updateSentenceData = likeUser.filter(user => user !== userId)
+        likes--;
+        sentenceRef.update({ likeUser: updateSentenceData , likes: likes});
+        userRef.get().then(snapshot => {
+          const updateUserData = snapshot.data().userLikes.filter(like => like.sentenceId.id !== id);
+          userRef.update({ userLikes: updateUserData});
+          dispatch(changeListItem(index, 'likes', likes));
+          dispatch(changeListItem(index, 'likeUser', updateSentenceData));
+
+        })
+      }
+  });
+}
+
+export const changeListItem = (index, key, value) => {
+  return {
+    type: types.CHAHNGE_LIST_ITEM, 
+    index,
+    key,
+    value
+  }
+}
