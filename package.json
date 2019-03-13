@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@react-firebase/auth": "^0.2.9",
+    "axios": "^0.18.0",
     "firebase": "^5.8.6",
+    "immutable": "^4.0.0-rc.12",
     "node-sass": "^4.11.0",
     "react": "^16.8.4",
     "react-dom": "^16.8.4",

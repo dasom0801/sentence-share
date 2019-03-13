@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 
 import NavMenu from './NavMenu';
 
-const NavBar = () => {
+const NavBar = ({ changeLoginStatus, history}) => {
   return ( 
     <div className="top-bar">
       <div className="defualt">
@@ -11,7 +11,7 @@ const NavBar = () => {
         <NavLink to="/">SentenceShare</NavLink>
         <button type="button" className="search-button close">검색</button>
       </div>
-      <NavMenu />
+      <NavMenu changeLoginStatus={changeLoginStatus}  history={history} />
     </div>
    );
 }

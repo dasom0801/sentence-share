@@ -1,7 +1,19 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import { auth } from '../../modules/firebaseConfig';
 
-const NavMenu = () => {
+const NavMenu = ({ changeLoginStatus, history }) => {
+  const handleLogout = () => {
+    // 사용자 로그아웃
+    // localStorage의 정보를 삭제하고 state의 로그인 상태를 변경한다.
+    auth.signOut().then(() => {
+      window.localStorage.removeItem('user');
+      changeLoginStatus(false, '');
+      history.push('/');
+    })
+    
+
+  }
   return ( 
     <div className="nav-menu">
       <ul>
@@ -9,7 +21,7 @@ const NavMenu = () => {
         <li><NavLink to="/likes">내가 좋아한 문장</NavLink></li>
         <li><NavLink to="/info">내 정보</NavLink></li>
       </ul>
-      <button className="logout" type="button">로그아웃</button>
+      <button className="logout" type="button" onClick={() => {handleLogout()}}>로그아웃</button>
     </div>
    );
 }

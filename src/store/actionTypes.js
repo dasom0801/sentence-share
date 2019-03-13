@@ -1,0 +1,5 @@
+export const CHANGE_LOGIN_STATUS  = 'CHANGE_LOGIN_STATUS';
+export const SET_USER_INFO = 'SET_USER_INFO';
+export const SET_USER_ID = 'SET_USER_ID';
+export const CHANGE_NAME_INPUT = 'CHANGE_NAME_INPUT';
+export const CHANGE_NAME = 'CHANGE_NAME';
