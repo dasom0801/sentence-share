@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import { firestore } from '../modules/firebaseConfig';
+import axios from 'axios';
 
 // =================== 사용자 
 
@@ -144,7 +145,7 @@ export const likeUp = (index, id, likes, userId, orderBy) => dispatch => {
       }
   });
 }
-
+// state의 단일 요소 수정
 export const changeListItem = (index, key, value) => {
   return {
     type: types.CHAHNGE_LIST_ITEM, 
@@ -153,3 +154,48 @@ export const changeListItem = (index, key, value) => {
     value
   }
 }
+
+
+// ================ Book
+
+export const inputBookSearch = (input) => {
+  return {
+    type: types.INPUT_BOOK_SEARCH,
+    input
+  }
+}
+
+// 책 정보 검색
+export const searchBookInfo = (keyword,page) => dispatch => {
+     axios.get(`https://dapi.kakao.com/v3/search/book?target=title&query="${keyword}"&page=${page}`, { headers: { Authorization: 'KakaoAK 75545d6d5e327c2f363ab16539f81c7b'}}).then(result =>dispatch(setBookSearchResult(result,page)));
+}
+
+// 검색된 책 정보로 state 업데이트
+export const setBookSearchResult = (result,page) => {
+  const {meta, documents} = result.data;
+  const list = documents.map(doc => {
+    return {
+      author: doc.authors,
+      bookImage: doc.thumbnail,
+      bookTitle: doc.title,
+      publisher: doc.publisher,
+      isbn: doc.isbn
+    }
+  })
+  return {
+    type: types.SET_BOOK_SEARCH_RESULT,
+    list,
+    page,
+    pageable: meta.pageable_count
+  }
+}
+
+// 검색 결과에서 책 선택
+export const selectSearchedBook = (book) => {
+  return {
+    type: types.SELECT_SEARCHED_BOOK,
+    book
+  }
+}
+
+// https://firebasestorage.googleapis.com/v0/b/sentence-share.appspot.com/o/sample_image.jpg?alt=media&token=70d87ab2-41c3-4b6b-bfbc-bf4ef7f6e4c9

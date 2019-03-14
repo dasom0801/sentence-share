@@ -51,3 +51,27 @@ export const list = (state = listInitialState, action) => {
       return state;
   }
 }
+
+//---------- book
+
+const bookInitialState = Map({
+  searchKeyword: '',
+  page: 0,
+  pageableCount: 0,
+  isBookSelected: false, // 사용자가 검색 결과에서 책을 선택했는지 여부 확인
+  bookList: List([]), // 검색 결과 리스트
+  selectedBook: Map({}) // 검색 결과에서 선택한 책
+});
+
+export const book = (state = bookInitialState, action) => {
+  switch (action.type) {
+    case actions.INPUT_BOOK_SEARCH:
+      return state.set('searchKeyword', action.input);
+    case actions.SET_BOOK_SEARCH_RESULT:
+      return state.merge({'bookList': action.list, 'page': action.page, 'pageableCount': action.pageable});
+    case actions.SELECT_SEARCHED_BOOK:
+      return state.merge({'selectedBook': action.book, 'isBookSelected': true})
+    default:
+      return state;
+  }
+}

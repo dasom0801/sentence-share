@@ -12,9 +12,10 @@ import NavBar from './NavBar';
 import UserDetail from '../Detail/UserDetail';
 import BookDetail from '../Detail/BookDetail';
 import ListKeywordSearch from '../List/ListKeywordSearch';
-import AddSentence from '../Add/AddSentence'
+// import AddSentence from '../Add/AddSentence'
 import UserContainer from '../../containers/UserContainer';
 import ListContainer from '../../containers/ListContainer';
+import BookContainer from '../../containers/BookContainer';
 
 
 import * as actions from '../../store/actions';
@@ -58,7 +59,7 @@ class App extends Component {
           <Route path="/user-detail" component={UserDetail} />
           <Route path="/book-detail" component={BookDetail} />
           <Route path="/search" component={ListKeywordSearch} />
-          <Route path="/add" component={AddSentence} />
+          <Route path="/add" component={BookContainer} />
         </Switch>
       </div>
     ) : (<Intro changeLoginStatus={changeLoginStatus} setUserInfo={setUserInfo} setUserId={setUserId}/>);

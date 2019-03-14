@@ -1,13 +1,14 @@
-import React, {Fragment} from 'react';
+import React from 'react';
 
-const BookSearchResult = () => {
+const BookResultItem = ({ book, selectBook}) => {
+
   return (
-    <Fragment>
-      <img src="" alt="책표지" />
-      <p>Title</p>
-      <p>저자 | 출판사</p>
-    </Fragment>
+    <li onClick={() => selectBook(book)}>
+      <img src={book.bookImage} alt="책표지" />
+      <p>{book.bookTitle}</p>
+      <p>{book.author.join(",")} | {book.publisher}</p>
+    </li>
   );
 }
  
-export default BookSearchResult;
+export default BookResultItem;
