@@ -1,6 +1,19 @@
 import * as types from './actionTypes';
 import { firestore } from '../modules/firebaseConfig';
 import axios from 'axios';
+import uuid from 'uuid/v1';
+
+const bookImageDefaultUrl =' https://firebasestorage.googleapis.com/v0/b/sentence-share.appspot.com/o/sample_image-min%20(1).jpg?alt=media&token=9b22fef4-f7e1-40d3-b88b-c69ffaf41638'
+
+// ======= common
+export const togglePopup = (msg) => {
+  return {
+    type: types.TOGGLE_POPUP,
+    msg
+  }
+}
+
+
 
 // =================== 사용자 
 
@@ -96,6 +109,8 @@ export const showMoreSentenceBody = (index) => {
 
 // 리스트 비우기 > 최신순,인기순 정렬시 이전 List에 추가되어버리기 떄문에
 export const clearListItem = () => {
+  console.log('check');
+  
   return {
     type: types.CLEAR_LIST_ITEM
   }
@@ -157,6 +172,18 @@ export const changeListItem = (index, key, value) => {
 
 
 // ================ Book
+export const resetBookState = () => {
+  return {
+    type: types.RESET_BOOK_STATE
+  }
+}
+
+export const checkInputAlert = (bool) => {
+  return {
+    type: types.SHOW_INPUT_ALERT,
+    bool
+  }
+}
 
 export const inputBookSearch = (input) => {
   return {
@@ -174,12 +201,15 @@ export const searchBookInfo = (keyword,page) => dispatch => {
 export const setBookSearchResult = (result,page) => {
   const {meta, documents} = result.data;
   const list = documents.map(doc => {
+    // 이미지가 없는 경우 기본 이미지로 대체함
+    const image = doc.thumbnail ? doc.thumbnail : bookImageDefaultUrl;
+    const isbn = doc.isbn ? doc.isbn : uuid();
     return {
       author: doc.authors,
-      bookImage: doc.thumbnail,
+      bookImage: image,
       bookTitle: doc.title,
       publisher: doc.publisher,
-      isbn: doc.isbn
+      isbn: isbn
     }
   })
   return {
@@ -198,4 +228,72 @@ export const selectSearchedBook = (book) => {
   }
 }
 
-// https://firebasestorage.googleapis.com/v0/b/sentence-share.appspot.com/o/sample_image.jpg?alt=media&token=70d87ab2-41c3-4b6b-bfbc-bf4ef7f6e4c9
+// 책정보 입력창 보여주기
+export const showBookInfoInput = () => {
+  return {
+    type: types.SHOW_BOOKINFO_INPUT
+  }
+}
+
+// 사용자 입력 책정보 인풋 핸들링
+export const changeBookInfoInput = ({value, key}) => {
+  return {
+    type: types.CHANGE_BOOKINFO_INPUT,
+    value,
+    key
+  }
+}
+// 사용자 입력 책정보 등록
+// 만약에 모든 정보가 입력되지 않으면 등록하지 않고 알림문구를 보여준다.
+export const submitBookInfoInput = ({ infoVisible, book, selected}) => {
+  // 사용자가 정보를 전부 입력했다면 image와 uuid를 추가한다. 
+  if(selected) {  
+    book.bookImage = bookImageDefaultUrl;
+    book.isbn = uuid();
+  }
+  return {
+    type: types.SUBMIT_BOOKINFO_INPUT,
+    infoVisible,
+    selected,
+    book,
+  }
+}
+
+// 문장 textarea 
+export const changeSentenceTextarea = (value) => {
+  return {
+    type: types.CHANGE_SENTENCE_TEXTAREA,
+    value
+  }
+}
+
+// 문장등록
+export const submitSentence = ({user, selectedBook, sentenceTextValue}) => dispatch => {
+  firestore.collection('books').where('isbn','==',selectedBook.isbn).get().then(snapshot => {
+    const senetenceObj = {
+      body: sentenceTextValue,
+      bookId: '',
+      bookImage: selectedBook.bookImage,
+      bookTitle: selectedBook.bookTitle,
+      likeUser: [],
+      likes: 0,
+      updateDate: new Date(),
+      userInfo: {
+        id: `/users/${user.userId}`,
+        name: user.userName,
+        picture: user.userPicture
+     }
+  }
+    // 책이 등록되지 않은 경우 새로 추가
+    if(snapshot.empty) {
+      firestore.collection('books').add(selectedBook).then(snapshot => {
+        senetenceObj.bookId = `/books/${snapshot.id}`
+        firestore.collection('sentences').add(senetenceObj);
+      })
+    } else {
+      // 같은 책이 이미 등록되어있는 경우 문장만 등록
+      senetenceObj.bookId= `/books/${snapshot.docs[0].id}`
+      firestore.collection('sentences').add(senetenceObj);
+    }
+  })
+}

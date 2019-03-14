@@ -1,40 +1,53 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import {connect} from 'react-redux';
 import * as actions from '../store/actions';
 
 import AddSentence from '../components/Add/AddSentence';
+import BookInfoInput from '../components/Add/BookInfoInput';
 
 class BookContainer extends Component {
-  componentDidMount() {
-    window.Kakao.init('75545d6d5e327c2f363ab16539f81c7b');
-  }
   render() { 
-    const { searchKeyword, inputBookSearch, searchBookInfo, bookList, isBookSelected, selectBook } = this.props;
+    const printItem = this.props.isBookInfoVisible 
+      ? <BookInfoInput {...this.pops}/> 
+    : <AddSentence {...this.props} />;
     return ( 
-      <AddSentence 
-        searchKeyword={searchKeyword} 
-        inputBookSearch={inputBookSearch}
-        searchBookInfo={searchBookInfo}
-        bookList={bookList}
-        isBookSelected={isBookSelected}
-        selectBook={selectBook}
-      />
+      <Fragment>
+        { printItem}
+      </Fragment>
      );
   }
 }
-const mapStateToProps = ({ book }) => {
+const mapStateToProps = ({ book, common, user}) => {
   return {
+    showPopup: common.get('showPopup'),
+    popupMsg: common.get('popupMsg'),
     searchKeyword: book.get('searchKeyword'),
     bookList: book.get('bookList'),
-    isBookSelected: book.get('isBookSelected')
+    bookInputValue: book.get('bookInputValue'),
+    isBookSelected: book.get('isBookSelected'),
+    isBookInfoVisible: book.get('isBookInfoVisible'),
+    showInputAlert: book.get('showInputAlert'),
+    selectedBook: book.get('selectedBook'),
+    sentenceTextValue: book.get('sentenceTextValue'),
+    userId: user.get('id'),
+    userName: user.get('name'),
+    userPicture: user.get('picture')
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    togglePopup: (target) => dispatch(actions.togglePopup(target)),
+    resetBookState: () => dispatch(actions.resetBookState()),
     inputBookSearch: (input) => dispatch(actions.inputBookSearch(input)),
     searchBookInfo: ({keyword, page}) => dispatch(actions.searchBookInfo(keyword, page)),
-    selectBook: (book) => dispatch(actions.selectSearchedBook(book))
+    selectBook: (book) => dispatch(actions.selectSearchedBook(book)),
+    showBookInfoInput: () => dispatch(actions.showBookInfoInput()),
+    changeBookInfoInput: (input) => dispatch(actions.changeBookInfoInput(input)),
+    submitBookInfoInput: (data) => dispatch(actions.submitBookInfoInput(data)),
+    checkInputAlert: (bool) => dispatch(actions.checkInputAlert(bool)),
+    changeSentenceTextarea: (value) => dispatch(actions.changeSentenceTextarea(value)),
+    submitSentence: (value) => dispatch(actions.submitSentence(value)),
   }
 };
 

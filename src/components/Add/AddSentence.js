@@ -2,15 +2,33 @@ import React from 'react';
 import BookSearch from './BookSearch';
 import AddSentenceInput from './AddSentenceInput';
 
-const AddSentence = ({ inputBookSearch, searchKeyword, searchBookInfo, bookList, isBookSelected, selectBook}) => {
+const AddSentence = ({ inputBookSearch, searchKeyword, searchBookInfo, bookList, isBookSelected, selectBook, showBookInfoInput, checkInputAlert, showInputAlert, selectedBook, sentenceTextValue, changeSentenceTextarea, togglePopup, showPopup, popupMsg, resetBookState, history, userId, userName, userPicture, submitSentence }) => {
   const printComponent = isBookSelected ? 
-  <AddSentenceInput /> 
+  <AddSentenceInput 
+      selectedBook={selectedBook}
+      checkInputAlert={checkInputAlert}
+      showInputAlert={showInputAlert}
+      sentenceTextValue={sentenceTextValue}
+      changeSentenceTextarea={changeSentenceTextarea}
+      togglePopup={togglePopup}
+      showPopup={showPopup}
+      popupMsg={popupMsg}
+      resetBookState={resetBookState}
+      submitSentence={submitSentence}
+      history={history}
+      userId={userId}
+      userName={userName}
+      userPicture={userPicture}
+  /> 
     : (<BookSearch
       keyword={searchKeyword}
       inputBookSearch={inputBookSearch}
       searchBookInfo={searchBookInfo}
       bookList={bookList}
       selectBook={selectBook}
+      showBookInfoInput={showBookInfoInput}
+      checkInputAlert={checkInputAlert}
+      showInputAlert={showInputAlert}
     />); 
   return ( 
     <div className="add-sentence">
