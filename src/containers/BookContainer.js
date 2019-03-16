@@ -6,6 +6,10 @@ import AddSentence from '../components/Add/AddSentence';
 import BookInfoInput from '../components/Add/BookInfoInput';
 
 class BookContainer extends Component {
+  componentDidMount() {
+    // 데이터가 남아있을지 모르니 삭제
+    this.props.resetBookState();
+  }
   render() { 
     const printItem = this.props.isBookInfoVisible 
       ? <BookInfoInput {...this.pops}/> 

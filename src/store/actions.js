@@ -13,6 +13,30 @@ export const togglePopup = (msg) => {
   }
 }
 
+// DB에서 가져온 리스트를 출력형식에 맞게 정리
+export const getList = ({docs, target, filter, userId}) => dispatch =>{
+  const list = docs.map(doc => {
+    const { body } = doc.data();
+    // 본문 길이 체크
+    const bodyLengthCheck = body.length > 200
+      ? { printBody: body.slice(0, 200) + '...', showMoreButton: true }
+      : { printBody: body, showMoreButton: false };
+    return Object.assign({}, { id: doc.id }, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
+  });
+  if (target === 'detail') {
+    if (filter === 'book') { 
+      const userList = list.filter(item => item.userInfo.id.indexOf(userId) > -1);
+      dispatch(setDetailList(list, userList));
+    } else {
+      const userList = [];
+      dispatch(setDetailList(list, userList));
+    }
+
+  // 이건 처음 List state에 적용하는 거 (수정하기) target list 이렇게...
+  //dispatch(setSentenceList(list, lastItem, orderBy));
+  }
+}
+
 
 
 // =================== 사용자 
@@ -109,8 +133,6 @@ export const showMoreSentenceBody = (index) => {
 
 // 리스트 비우기 > 최신순,인기순 정렬시 이전 List에 추가되어버리기 떄문에
 export const clearListItem = () => {
-  console.log('check');
-  
   return {
     type: types.CLEAR_LIST_ITEM
   }
@@ -296,4 +318,48 @@ export const submitSentence = ({user, selectedBook, sentenceTextValue}) => dispa
       firestore.collection('sentences').add(senetenceObj);
     }
   })
+}
+
+
+// ================ detail
+export const getDetailListFromDB = (payload) => dispatch=> {
+  const { filter, id, orderBy, userId} = payload;
+  const queryString = filter === 'book' ? { where: 'bookId', value: `/books/${id}` } : { where: 'userInfo.id', value: `/users/${id}`};
+  const seneteceRefs = firestore.collection('sentences');
+  seneteceRefs.where(queryString.where, '==', queryString.value).orderBy(orderBy, "desc").get().then(snapshot => {
+    dispatch(getList({docs: snapshot.docs, target: 'detail', filter, userId}));
+  });
+  filter === 'book' && firestore.collection('books').doc(id).get().then(snapshot => {
+    dispatch(setSelectedBookInfo(snapshot.data()));
+  })
+}
+
+// 가공한 list를 받아서 state로 
+export const setDetailList = (list, userList) => {
+  return {
+    type: types.SET_DETAIL_LIST,
+    list, 
+    userList
+  }
+}
+
+export const changeDetailTab = (tab) => {
+  return {
+    type: types.CHANGE_DETAIL_TAB,
+    tab
+  }
+}
+
+export const setSelectedBookInfo = (book) => {
+  return {
+    type: types.SET_SELECTED_BOOK_INFO,
+    book
+  }
+}
+export const setSelectedUserInfo = (user) => {
+  console.log('check', user)
+  return {
+    type: types.SET_SELECTED_USER_INFO,
+    user
+  }
 }

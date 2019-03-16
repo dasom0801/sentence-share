@@ -10,8 +10,10 @@ const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, chang
       const user = {userId, userName, userPicture};
       selectedBook.author = selectedBook.author.join(" ");
       submitSentence({user, selectedBook, sentenceTextValue});
-      resetBookState();
-      history.push('/');
+      setTimeout(() => {
+        resetBookState();
+        history.push('/');
+      }, 5000);
     } else {
       checkInputAlert(true);
     }

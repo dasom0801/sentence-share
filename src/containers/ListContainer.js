@@ -19,7 +19,7 @@ class ListContainer extends Component {
   }
 
   render() { 
-    const { orderBy, getSentenceListFromDB, lastItem, list, showMoreSentenceBody, likeUp, userId} = this.props;
+    const { orderBy, getSentenceListFromDB, lastItem, list, showMoreSentenceBody, likeUp, userId, getDetailListFromDB, history, setSelectedUserInfo} = this.props;
     return ( 
       <ListMain 
         showSort={this.state.showSort}
@@ -31,6 +31,9 @@ class ListContainer extends Component {
         getSentenceListFromDB={getSentenceListFromDB} 
         showMoreSentenceBody={showMoreSentenceBody}
         likeUp={likeUp}
+        getDetailListFromDB={getDetailListFromDB}
+        history = {history}
+        setSelectedUserInfo={setSelectedUserInfo}
       />
      );
   }
@@ -49,8 +52,10 @@ const mapStateToProps = ({ list, user}) => {
 const mapDispatchToProps = dispatch => {
   return {
     getSentenceListFromDB: (orderBy, startItem) => {dispatch(actions.getSentenceListFromDB(orderBy, startItem))},
+    getDetailListFromDB: (payload) => { dispatch(actions.getDetailListFromDB(payload)) },
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
-    likeUp: (index, id, likes, userId) => { dispatch(actions.likeUp(index,id,likes, userId))}
+    likeUp: (index, id, likes, userId) => { dispatch(actions.likeUp(index,id,likes, userId))},
+    setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user))},
   }
 };
 

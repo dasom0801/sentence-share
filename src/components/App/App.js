@@ -9,13 +9,14 @@ import NavBar from './NavBar';
 // import UserInfo from '../UserMenu/UserInfo';
 // import UserSentence from '../UserMenu/UserSentence';
 // import UserLikes from '../UserMenu/UserLikes';
-import UserDetail from '../Detail/UserDetail';
-import BookDetail from '../Detail/BookDetail';
+// import UserDetail from '../Detail/UserDetail';
+// import BookDetail from '../Detail/BookDetail';
 import ListKeywordSearch from '../List/ListKeywordSearch';
 // import AddSentence from '../Add/AddSentence'
 import UserContainer from '../../containers/UserContainer';
 import ListContainer from '../../containers/ListContainer';
 import BookContainer from '../../containers/BookContainer';
+import DetailContainer from '../../containers/DetailContainer';
 
 
 import * as actions from '../../store/actions';
@@ -56,8 +57,8 @@ class App extends Component {
           <Route path="/info" component={UserContainer('UserInfo')} />
           <Route path="/sentence" component={UserContainer('UserSentence')} />
           <Route path="/likes" component={UserContainer('UserLikes')} />
-          <Route path="/user-detail" component={UserDetail} />
-          <Route path="/book-detail" component={BookDetail} />
+          <Route path="/user-detail/:id" component={DetailContainer} />
+          <Route path="/book-detail/:id" component={DetailContainer} />
           <Route path="/search" component={ListKeywordSearch} />
           <Route path="/add" component={BookContainer} />
         </Switch>
