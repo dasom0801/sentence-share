@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import { withRouter } from "react-router";
-import * as actions from '../store/actions';
+import * as actions from '../store/actions/index';
 
 import BookDetail from '../components/Detail/BookDetail';
 import UserDetail from '../components/Detail/UserDetail';

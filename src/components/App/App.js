@@ -5,28 +5,19 @@ import { connect } from 'react-redux';
 
 import Intro from './Intro';
 import NavBar from './NavBar';
-// import ListMain from '../List/ListMain';
-// import UserInfo from '../UserMenu/UserInfo';
-// import UserSentence from '../UserMenu/UserSentence';
-// import UserLikes from '../UserMenu/UserLikes';
-// import UserDetail from '../Detail/UserDetail';
-// import BookDetail from '../Detail/BookDetail';
 import ListKeywordSearch from '../List/ListKeywordSearch';
-// import AddSentence from '../Add/AddSentence'
 import UserContainer from '../../containers/UserContainer';
 import ListContainer from '../../containers/ListContainer';
 import BookContainer from '../../containers/BookContainer';
 import DetailContainer from '../../containers/DetailContainer';
 
-
-import * as actions from '../../store/actions';
-import { firestore } from '../../modules/firebaseConfig';
+import * as actions from '../../store/actions/index';
 
 import '../../styles/components/App.scss';
 
 class App extends Component {
   componentDidMount() {
-    const { changeLoginStatus, setUserInfo, setUserId} = this.props;
+    const { changeLoginStatus, getFirebaseUserData} = this.props;
     
     // 사용자 로그인 여부 확인
     const user =JSON.parse(window.localStorage.getItem('user'));
@@ -34,12 +25,8 @@ class App extends Component {
     if (user) {
       changeLoginStatus(true);
       // DB에서 사용자 정보 가져오기
-      firestore.collection('users').where("email", "==", user.email).get().then(querySnapshot => {
-        const { email, name, picture } = querySnapshot.docs[0].data();
-        const { id } = querySnapshot.docs[0];
-        setUserInfo({email, name, picture});
-        setUserId(id);
-      });
+      getFirebaseUserData(user.email);
+     
     } else {
       changeLoginStatus(false);
       // 로그인하지 않은 사용자는 메인으로 이동
@@ -47,9 +34,9 @@ class App extends Component {
     }
   }
   render() {
-    const { login, changeLoginStatus, setUserInfo, setUserId, history} = this.props;
+    const { history, loginStatus, changeLoginStatus, loginWithFirebase} = this.props;
     
-    return login ? (
+    return loginStatus ? (
       <div className="App">
         <NavBar changeLoginStatus={changeLoginStatus} history={history}/>
         <Switch>
@@ -63,13 +50,13 @@ class App extends Component {
           <Route path="/add" component={BookContainer} />
         </Switch>
       </div>
-    ) : (<Intro changeLoginStatus={changeLoginStatus} setUserInfo={setUserInfo} setUserId={setUserId}/>);
+    ) : (<Intro loginWithFirebase={loginWithFirebase}/>);
   }
 }
 
 const mapStateToProps = ({ user }) => {
   return {
-    login: user.get('login'),
+    loginStatus: user.get('loginStatus'),
     id: user.get('id'),
     email: user.get('email'),
     name: user.get('name'),
@@ -79,9 +66,11 @@ const mapStateToProps = ({ user }) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    changeLoginStatus: (login) =>dispatch(actions.changeLoginStatus(login)),
     setUserInfo: (user) => dispatch(actions.setUserInfo(user)),
-    setUserId: (id) => dispatch(actions.setUserId(id))
+    setUserId: (id) => dispatch(actions.setUserId(id)),
+    changeLoginStatus: (login) =>dispatch(actions.changeLoginStatus(login)),
+    loginWithFirebase: () => dispatch(actions.loginWithFirebase()),
+    getFirebaseUserData: (email) => dispatch(actions.getFirebaseUserData(email)),
   }
 };
 

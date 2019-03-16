@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import * as actions from '../store/actions';
+import * as actions from '../store/actions/index';
 
 import UserInfo from '../components/UserMenu/UserInfo';
 import UserSentence from '../components/UserMenu/UserSentence';
