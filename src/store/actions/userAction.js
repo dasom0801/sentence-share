@@ -58,6 +58,8 @@ export const getFirebaseUserData = ({ email, getListDB, page}) => dispatch => {
         dispatch(getDetailListFromDB(getListDB));
       } else if (page === 'likes') {
         dispatch(getUserLikesListDB(getListDB))
+      } else if (page === 'sentence') {
+        dispatch(getUserSentenceListDB(getListDB))
       }
     }
   });
@@ -114,4 +116,18 @@ export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
         
     dispatch(setSentenceList({list: userLikes, orderBy: orderBy, userList: []}));
   });
+}
+
+// 사용자가 작성한 문장 출력
+export const getUserSentenceListDB = ({userId, orderBy}) => dispatch => {
+  dispatch(clearListItem());
+  firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
+    const list = snapshot.docs.map(doc => {
+      const item = doc.data();
+      item.id = doc.id;
+      item.time = item.updateDate.toDate();
+      return item;
+    });
+    dispatch(setSentenceList({ list, orderBy, userList: [] }));
+  })
 }

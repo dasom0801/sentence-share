@@ -65,6 +65,7 @@ const mapDispatchToProps = dispatch => {
     loginWithFirebase: () => dispatch(actions.loginWithFirebase()),
     getFirebaseUserData: (payload) => dispatch(actions.getFirebaseUserData(payload)),
     getUserLikesListDB: (payload) => dispatch(actions.getUserLikesListDB(payload)),
+    getUserSentenceListDB: (payload) => dispatch(actions.getUserSentenceListDB(payload)),
   }
 };
 
