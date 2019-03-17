@@ -103,8 +103,6 @@ export const userDelete = (userId) => dispatch => {
       firestore.collection('users').doc(userId).get().then(snapshot => {
         snapshot.ref.delete();
       });
-      // const email = JSON.parse(window.localStorage.getItem('user')).email;
-      // firestore.collection('users').where('email')
       firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
         snapshot.docs.forEach(doc => doc.ref.delete());
       })
@@ -116,15 +114,12 @@ export const userDelete = (userId) => dispatch => {
 export const deleteUserLikesData = (userId) =>() => {
   const sentenceRef = firestore.collection('sentences');
   sentenceRef.get().then(snapshot => {
-    console.log(snapshot);
-    
     snapshot.docs.forEach(doc => {
       const data = doc.data();
       const likeUser = data.likeUser, userIndex = likeUser.indexOf(userId);
       if (userIndex > -1) {
         const updateLikeUserData = likeUser.filter(user => user !== userId);
         const likes = --data.likes;
-        console.log(doc, { likeUser: updateLikeUserData, likes: likes });
         doc.ref.update({ likeUser: updateLikeUserData, likes: likes});
       }
     });
@@ -147,8 +142,15 @@ export const changeNameInput = (input) => {
   }
 }
 // 변경된 이름을 DB에 저장
-export const setChangedName = ({userId, nameInput}) => {
+export const setChangedName = ({userId, nameInput}) =>() => {
   firestore.collection('users').doc(userId).set({ name: nameInput }, { merge: true });
+  firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
+    snapshot.docs.forEach(doc => {
+      const userInfo = doc.data().userInfo;
+      userInfo.name = nameInput;
+      doc.ref.update({userInfo: userInfo})
+    })
+  })
 }
 
 // 사용자 이름 변경
