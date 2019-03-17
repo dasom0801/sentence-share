@@ -1,5 +1,6 @@
 import * as types from './actionTypes';
 import { auth, provider, firestore } from '../../modules/firebaseConfig';
+import firebase from 'firebase/app';
 import { getDetailListFromDB } from './detailAction';
 import { setSentenceList, clearListItem } from './listAction';
 
@@ -9,7 +10,7 @@ export const loginWithFirebase = () => dispatch =>{
   // firebase를 통해서  google 계정으로 로그인
   auth.signInWithPopup(provider).then(result => {
     const { isNewUser } = result.additionalUserInfo;
-    const token = result.credential.accessToken;
+    const token = result.credential.idToken;
     const { email, picture, name } = result.additionalUserInfo.profile;
 
     if (isNewUser) {
@@ -24,7 +25,7 @@ export const loginWithFirebase = () => dispatch =>{
         firestore.collection('users').add(userInfo).then(docRef => fn(docRef.id));
       }
       dispatch(setUserInfo({ email, name, picture }));
-      dispatch(setNewUser(id => setUserId(id)));
+      setNewUser(id => dispatch(setUserId(id)));
     } else {
       // 새로운 사용자가 아니라면 email로 query하여 정보를 찾는다.
       firestore.collection('users').where("email", "==", email).get().then(querySnapshot => {
@@ -72,6 +73,7 @@ export const changeLoginStatus = (login) => {
     login
   };
 }
+
 // 사용자 정보 등록
 export const setUserInfo = (user) => {
   return {
@@ -80,7 +82,56 @@ export const setUserInfo = (user) => {
   }
 }
 
-// firestore 문서 id
+// 사용자 탈퇴
+export const userDelete = (userId) => dispatch => {
+  const user = auth.currentUser
+  const idToken = JSON.parse(window.localStorage.getItem('user')).token;
+  // delete 하기 위해서는 재인증이 필요하다. 
+  const credential = firebase.auth.GoogleAuthProvider.credential(idToken);
+  user.reauthenticateAndRetrieveDataWithCredential(credential).then(() => {
+      // state와 localStorage에서 삭제
+    dispatch(changeLoginStatus(false));
+    dispatch(setUserInfo({ name: '', email: '', picture: '' }));
+    dispatch(setUserId(''));
+    dispatch(deleteUserLikesData(userId));
+    window.localStorage.removeItem('user');
+    console.log(userId);
+    
+    // auth 회원 삭제 
+    user.delete().then(() => {
+      // firestore.collection('users').doc(userId).delete() is not working... why...
+      firestore.collection('users').doc(userId).get().then(snapshot => {
+        snapshot.ref.delete();
+      });
+      // const email = JSON.parse(window.localStorage.getItem('user')).email;
+      // firestore.collection('users').where('email')
+      firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
+        snapshot.docs.forEach(doc => doc.ref.delete());
+      })
+    })
+  });
+}
+
+// 탈퇴한 사용자가 좋아요한 데이터 삭제 
+export const deleteUserLikesData = (userId) =>() => {
+  const sentenceRef = firestore.collection('sentences');
+  sentenceRef.get().then(snapshot => {
+    console.log(snapshot);
+    
+    snapshot.docs.forEach(doc => {
+      const data = doc.data();
+      const likeUser = data.likeUser, userIndex = likeUser.indexOf(userId);
+      if (userIndex > -1) {
+        const updateLikeUserData = likeUser.filter(user => user !== userId);
+        const likes = --data.likes;
+        console.log(doc, { likeUser: updateLikeUserData, likes: likes });
+        doc.ref.update({ likeUser: updateLikeUserData, likes: likes});
+      }
+    });
+  });
+}
+
+// firestore User id set
 export const setUserId = (id) => {
   return {
     type: types.SET_USER_ID,
@@ -94,6 +145,10 @@ export const changeNameInput = (input) => {
     type: types.CHANGE_NAME_INPUT,
     input
   }
+}
+// 변경된 이름을 DB에 저장
+export const setChangedName = ({userId, nameInput}) => {
+  firestore.collection('users').doc(userId).set({ name: nameInput }, { merge: true });
 }
 
 // 사용자 이름 변경

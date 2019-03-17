@@ -71,6 +71,8 @@ const mapDispatchToProps = dispatch => {
     likeCountUp: (index, id, likes, userId, orderBy) => { dispatch(actions.likeCountUp(index, id, likes, userId, orderBy)) },
     getDetailListFromDB: (payload) => { dispatch(actions.getDetailListFromDB(payload)) },
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
+    userDelete: (userId) => { dispatch(actions.userDelete(userId)) },
+    setChangedName: (userInfo) => { dispatch(actions.setChangedName(userInfo)) },
   }
 };
 

@@ -67,7 +67,7 @@ export const clearListItem = () => {
 }
 
 // 좋아요 수 올리기
-export const likeCountUp = (index, id, likes, userId, orderBy) => dispatch => {
+export const likeCountUp = (index, id, likes, userId) => dispatch => {
   const sentenceRef = firestore.collection('sentences').doc(id),
     userRef = firestore.collection('users').doc(userId);
       
