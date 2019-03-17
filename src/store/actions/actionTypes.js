@@ -1,5 +1,6 @@
 // common
 export const TOGGLE_POPUP = 'TOGGLE_POPUP';
+export const TOGGLE_SORT = 'TOGGLE_SORT';
 
 // user
 export const LOGIN_WITH_FIREBASE = 'LOGIN_WITH_FIREBASE';
@@ -7,6 +8,7 @@ export const CHANGE_LOGIN_STATUS  = 'CHANGE_LOGIN_STATUS';
 export const GET_FIREBASE_USER_DATA = 'GET_FIREBASE_USER_DATA';
 export const SET_USER_INFO = 'SET_USER_INFO';
 export const SET_USER_ID = 'SET_USER_ID';
+export const SET_USER_LIKES_LIST = 'SET_USER_LIKES_LIST';
 export const CHANGE_NAME_INPUT = 'CHANGE_NAME_INPUT';
 export const CHANGE_NAME = 'CHANGE_NAME';
 

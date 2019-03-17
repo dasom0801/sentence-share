@@ -1,13 +1,13 @@
 import React from 'react';
 
-const ListSort = ({ showSort, toggleSort, getSentenceListFromDB, orderBy}) => {
+const ListSort = ({ isSortOpen, toggleSort, getSentenceListFromDB, orderBy}) => {
   const handleSortClick = (clickItem) => {
     if (clickItem !== orderBy) {
       getSentenceListFromDB(clickItem);
     }
     toggleSort();
   }
-  const selectList = showSort && (
+  const selectList = isSortOpen && (
     <ul className="select-list">
       <li className="select-item"><button onClick={() => {handleSortClick('updateDate')}}>최신순</button></li>
       <li className="select-item"><button onClick={()=> {handleSortClick('likes')}}>인기순</button></li>

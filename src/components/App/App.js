@@ -6,10 +6,10 @@ import { connect } from 'react-redux';
 import Intro from './Intro';
 import NavBar from './NavBar';
 import ListKeywordSearch from '../List/ListKeywordSearch';
-import UserContainer from '../../containers/UserContainer';
 import ListContainer from '../../containers/ListContainer';
 import BookContainer from '../../containers/BookContainer';
 import DetailContainer from '../../containers/DetailContainer';
+import UserContainer from '../../containers/UserContainer';
 
 import * as actions from '../../store/actions/index';
 
@@ -21,12 +21,10 @@ class App extends Component {
     
     // 사용자 로그인 여부 확인
     const user =JSON.parse(window.localStorage.getItem('user'));
-    
     if (user) {
       changeLoginStatus(true);
       // DB에서 사용자 정보 가져오기
-      getFirebaseUserData(user.email);
-     
+      getFirebaseUserData({email: user.email, getListDB: false});
     } else {
       changeLoginStatus(false);
       // 로그인하지 않은 사용자는 메인으로 이동
@@ -34,16 +32,16 @@ class App extends Component {
     }
   }
   render() {
-    const { history, loginStatus, changeLoginStatus, loginWithFirebase} = this.props;
+    const { history, loginStatus, changeLoginStatus, loginWithFirebase, userId} = this.props;
     
     return loginStatus ? (
       <div className="App">
-        <NavBar changeLoginStatus={changeLoginStatus} history={history}/>
+        <NavBar changeLoginStatus={changeLoginStatus} history={history} userId={userId}/>
         <Switch>
           <Route exact path="/" component={ListContainer} />
-          <Route path="/info" component={UserContainer('UserInfo')} />
-          <Route path="/sentence" component={UserContainer('UserSentence')} />
-          <Route path="/likes" component={UserContainer('UserLikes')} />
+          <Route path="/info" component={UserContainer} />
+          <Route path="/sentence" component={UserContainer} />
+          <Route path="/likes" component={UserContainer} />
           <Route path="/user-detail/:id" component={DetailContainer} />
           <Route path="/book-detail/:id" component={DetailContainer} />
           <Route path="/search" component={ListKeywordSearch} />
@@ -57,20 +55,16 @@ class App extends Component {
 const mapStateToProps = ({ user }) => {
   return {
     loginStatus: user.get('loginStatus'),
-    id: user.get('id'),
-    email: user.get('email'),
-    name: user.get('name'),
-    picture: user.get('picture'),
+    userId: user.get('id'),
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
-    setUserInfo: (user) => dispatch(actions.setUserInfo(user)),
-    setUserId: (id) => dispatch(actions.setUserId(id)),
     changeLoginStatus: (login) =>dispatch(actions.changeLoginStatus(login)),
     loginWithFirebase: () => dispatch(actions.loginWithFirebase()),
-    getFirebaseUserData: (email) => dispatch(actions.getFirebaseUserData(email)),
+    getFirebaseUserData: (payload) => dispatch(actions.getFirebaseUserData(payload)),
+    getUserLikesListDB: (payload) => dispatch(actions.getUserLikesListDB(payload)),
   }
 };
 

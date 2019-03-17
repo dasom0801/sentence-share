@@ -9,12 +9,19 @@ import UserDetail from '../components/Detail/UserDetail';
 class DetailContainer extends Component {
   componentDidMount() {
     const filter = this.props.match.path.indexOf('/book') > -1 ? 'book' : 'user';
-    this.props.getDetailListFromDB({
-      filter,
-      id: this.props.match.params.id,
-      orderBy: 'updateDate',
-      userId: this.props.userId,
-    });
+    if (!this.props.userId) {
+      const user = JSON.parse(window.localStorage.getItem('user'));
+      this.props.getFirebaseUserData({
+        email: user.email,
+        getListDB: {
+          filter,
+          id: this.props.match.params.id,
+          orderBy: 'updateDate'
+        },
+        page: 'detail'
+      })
+    }
+    this.props.getSelectedUserInfoDB(this.props.match.params.id);
   }
   render () {
     return (
@@ -28,11 +35,11 @@ class DetailContainer extends Component {
 
 
 
-const mapStateToProps = ({ user, detail}) => {
+const mapStateToProps = ({ user, detail, list}) => {
   return {
     userId: user.get('id'),
-    list: detail.get('list'),
-    userList: detail.get('userList'),
+    list: list.get('list'),
+    userList: list.get('userList'),
     activeTab: detail.get('activeTab'),
     selectedBook: detail.get('selectedBook'),
     selectedUser: detail.get('selectedUser')
@@ -44,8 +51,10 @@ const mapDispatchToProps = dispatch => {
     getDetailListFromDB: (payload) => { dispatch(actions.getDetailListFromDB(payload)) },
     changeDetailTab: (tab) => { dispatch(actions.changeDetailTab(tab))},
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
-    likeUp: (index, id, likes, userId, orderBy) => { dispatch(actions.showMoreSentenceBody(index, id, likes, userId, orderBy)) },
-    setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) }
+    likeCountUp: (index, id, likes, userId, orderBy) => { dispatch(actions.likeCountUp(index, id, likes, userId, orderBy)) },
+    getSelectedUserInfoDB: (user) => { dispatch(actions.getSelectedUserInfoDB(user)) },
+    setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
+    getFirebaseUserData: (payload) => { dispatch(actions.getFirebaseUserData (payload)) },
   }
 };
 

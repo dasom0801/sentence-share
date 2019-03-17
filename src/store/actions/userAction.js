@@ -1,5 +1,8 @@
 import * as types from './actionTypes';
 import { auth, provider, firestore } from '../../modules/firebaseConfig';
+import { getDetailListFromDB } from './detailAction';
+import { setSentenceList, clearListItem } from './listAction';
+
 
 //firebase로 로그인 하기
 export const loginWithFirebase = () => dispatch =>{
@@ -41,19 +44,27 @@ export const loginWithFirebase = () => dispatch =>{
 }
 
 // 사용자가 접속했을 때 localstorage의 값으로 DB에서 user 정보를 가져온다
-export const getFirebaseUserData = (email) => dispatch => {
+export const getFirebaseUserData = ({ email, getListDB, page}) => dispatch => {
   firestore.collection('users').where("email", "==", email).get().then(querySnapshot => {
     const { email, name, picture } = querySnapshot.docs[0].data();
     const { id } = querySnapshot.docs[0];
     dispatch(setUserInfo({ email, name, picture }));
     dispatch(setUserId(id));
+    // 사용자가 새로고침하거나 URL로 바로 접속하여 유저정보가 없는 경우
+    // 유저정보를 먼저 저장한 다음에 DB에서 리스트를 받아온다.
+    if(page) {
+      getListDB.userId = id;
+      if(page === 'detail') {
+        dispatch(getDetailListFromDB(getListDB));
+      } else if (page === 'likes') {
+        dispatch(getUserLikesListDB(getListDB))
+      }
+    }
   });
 }
 
 // 사용자 로그인 상태 확인
 export const changeLoginStatus = (login) => {
-  console.log(login);
-  
   return {
     type: types.CHANGE_LOGIN_STATUS,
     login
@@ -66,6 +77,7 @@ export const setUserInfo = (user) => {
     user
   }
 }
+
 // firestore 문서 id
 export const setUserId = (id) => {
   return {
@@ -81,10 +93,25 @@ export const changeNameInput = (input) => {
     input
   }
 }
+
 // 사용자 이름 변경
 export const changeName = (name) => {
   return {
     type: types.CHANGE_NAME,
     name
   }
+}
+
+// 사용자가 좋아요를 누른 문장 출력
+export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
+  dispatch(clearListItem());
+  firestore.collection('users').doc(userId).get().then(snapshot => {
+    const userLikes = snapshot.data().userLikes;
+    userLikes.map(item => { 
+      item.time = item.updateDate.toDate(); 
+      return item;
+    });
+        
+    dispatch(setSentenceList({list: userLikes, orderBy: orderBy, userList: []}));
+  });
 }

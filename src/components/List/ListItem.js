@@ -1,25 +1,18 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
 
-
-
-const ListItem = ({ item, showMoreSentenceBody, index, likeUp, userId, getDetailListFromDB, history, setSelectedUserInfo}) => {
+const ListItem = ({ item, showMoreSentenceBody, index, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo}) => {
   // 날짜 형식 지정
   const time = item.time.toISOString().slice(0, 10);
   const body = item.showMore ? item.body : item.printBody;
   const bookLinkTo = `/book-detail/${item.bookId.replace('/books/','')}`;
   const userLinkTo = `/user-detail/${item.userInfo.id.replace('/users/', '')}`;
 
-  const handleLikeUp = () => {
-    const {id, likes} = item;
-    likeUp(index, id, likes, userId);
-  }
   // 사용자가 해당 문장의 좋아요를 눌렀는지 확인
   const userLikeCheck = item.likeUser.indexOf(userId) > -1? "O": "X";
   
   // 링크를 눌렀을 때 상세페이지로 이동하면서 DB를 호출한다.
   const handleDetailList = ({filter, id, user}) => {
-    console.log('user', user, 'filter', filter, 'func', setSelectedUserInfo);
     getDetailListFromDB({filter, id, orderBy: 'updateDate', userId});
     filter === 'user' && setSelectedUserInfo(user);
     filter === 'book' ? history.push(bookLinkTo) : history.push(userLinkTo);
@@ -56,7 +49,7 @@ const ListItem = ({ item, showMoreSentenceBody, index, likeUp, userId, getDetail
       </div>
       <p className="sentence body">{body}</p>
       {moreBotton}
-      <button className="likes" type="button" onClick={() => handleLikeUp()}>좋아요 <span>{item.likes} {userLikeCheck}</span></button>
+      <button className="likes" type="button" onClick={() => likeCountUp(index, item.id, item.likes, userId)}>좋아요 <span>{item.likes} {userLikeCheck}</span></button>
     </li>
    );
 }

@@ -2,6 +2,8 @@ import React from 'react';
 import { firestore, auth} from '../../modules/firebaseConfig';
 
 const UserInfo = ({ id, email, nameInput, changeNameInput, changeName, changeLoginStatus, setUserInfo, setUserId, history}) => {
+  console.log(id);
+  
   const handleInputChange = (event) => {
     const {value} = event.currentTarget;
     changeNameInput(value);
