@@ -3,9 +3,11 @@ import React from 'react';
 import ListItem from '../List/ListItem';
 // import AddButton from '../Add/AddButton';
 
-const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo }) => {
+const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea }) => {
   const printList = list.map((item, index) => (
     <ListItem
+      match={match}
+      history={history}
       key={item.id}
       item={item}
       index={index}
@@ -13,8 +15,15 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
       likeCountUp={likeCountUp}
       userId={userId}
       getDetailListFromDB={getDetailListFromDB}
-      history={history}
       setSelectedUserInfo={setSelectedUserInfo}
+      toggleModifyButton={toggleModifyButton}
+      isModifyOpen={isModifyOpen}
+      togglePopup={togglePopup}
+      showPopup={showPopup}
+      popupMsg={popupMsg} 
+      deleteListItem={deleteListItem}
+      selectSearchedBook={selectSearchedBook}
+      changeSentenceTextarea={changeSentenceTextarea}
     />
   ));
   return ( 

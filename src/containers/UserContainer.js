@@ -47,7 +47,7 @@ class UserContainer extends Component {
 }
 
 
-const mapStateToProps = ({ user, list }) => {
+const mapStateToProps = ({ user, list, common }) => {
   return {
     userId: user.get('id'),
     email: user.get('email'),
@@ -55,6 +55,9 @@ const mapStateToProps = ({ user, list }) => {
     nameInput: user.get('nameInput'),
     picture: user.get('picture'),
     list: list.get('list'),
+    isModifyOpen: list.get('isModifyOpen'),
+    showPopup: common.get('showPopup'),
+    popupMsg: common.get('popupMsg')
   }
 };
 
@@ -73,6 +76,11 @@ const mapDispatchToProps = dispatch => {
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
     userDelete: (userId) => { dispatch(actions.userDelete(userId)) },
     setChangedName: (userInfo) => { dispatch(actions.setChangedName(userInfo)) },
+    toggleModifyButton: () => { dispatch(actions.toggleModifyButton()) },
+    togglePopup: (msg) => { dispatch(actions.togglePopup(msg)) },
+    deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload)) },
+    selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },
+    changeSentenceTextarea: (value) => { dispatch(actions.changeSentenceTextarea(value)) },
   }
 };
 

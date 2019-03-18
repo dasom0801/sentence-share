@@ -3,19 +3,28 @@ import React from 'react';
 import ListItem from '../List/ListItem';
 // import AddButton from '../Add/AddButton';
 
-const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo}) => {
+const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, isModifyOpen, togglePopup, showPopup, popupMsg, toggleModifyButton, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
 
   const printList = list.map((item, index)=> (
     <ListItem 
-      key={item.id} 
-      item={item} 
+      match={match}
+      history={history}
+      key={item.id}
+      item={item}
       index={index}
       showMoreSentenceBody={showMoreSentenceBody}
       likeCountUp={likeCountUp}
       userId={userId}
       getDetailListFromDB={getDetailListFromDB}
-      history={history}
       setSelectedUserInfo={setSelectedUserInfo}
+      toggleModifyButton={toggleModifyButton}
+      isModifyOpen={isModifyOpen}
+      togglePopup={togglePopup}
+      showPopup={showPopup}
+      popupMsg={popupMsg}
+      deleteListItem={deleteListItem} 
+      selectSearchedBook={selectSearchedBook}
+      changeSentenceTextarea={changeSentenceTextarea}
     />
   ));
   return ( 

@@ -7,8 +7,12 @@ import BookInfoInput from '../components/Add/BookInfoInput';
 
 class BookContainer extends Component {
   componentDidMount() {
-    // 데이터가 남아있을지 모르니 삭제
-    this.props.resetBookState();
+    if (this.props.match.path === '/add') {
+      // 데이터가 남아있을지 모르니 삭제
+      this.props.resetBookState();
+    } else if(this.props.match.path ==='/modify/:id') {
+      this.props.getModifyItemDB(this.props.match.params.id);
+    }
   }
   render() { 
     const printItem = this.props.isBookInfoVisible 
@@ -41,7 +45,7 @@ const mapStateToProps = ({ book, common, user}) => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    togglePopup: (target) => dispatch(actions.togglePopup(target)),
+    togglePopup: (msg) => dispatch(actions.togglePopup(msg)),
     resetBookState: () => dispatch(actions.resetBookState()),
     inputBookSearch: (input) => dispatch(actions.inputBookSearch(input)),
     searchBookInfo: ({keyword, page}) => dispatch(actions.searchBookInfo(keyword, page)),
@@ -52,6 +56,8 @@ const mapDispatchToProps = dispatch => {
     checkInputAlert: (bool) => dispatch(actions.checkInputAlert(bool)),
     changeSentenceTextarea: (value) => dispatch(actions.changeSentenceTextarea(value)),
     submitSentence: (value) => dispatch(actions.submitSentence(value)),
+    modifySentence: (sentence) => dispatch(actions.modifySentence(sentence)),
+    getModifyItemDB: (sentenceId) => dispatch(actions.getModifyItemDB(sentenceId)),
   }
 };
 

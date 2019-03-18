@@ -107,6 +107,7 @@ export const submitSentence = ({ user, selectedBook, sentenceTextValue }) => dis
       bookId: '',
       bookImage: selectedBook.bookImage,
       bookTitle: selectedBook.bookTitle,
+      publisher: selectedBook.publisher,
       likeUser: [],
       likes: 0,
       updateDate: new Date(),
@@ -129,3 +130,32 @@ export const submitSentence = ({ user, selectedBook, sentenceTextValue }) => dis
     }
   })
 }
+
+export const setModifyStatus = () => {
+  return {
+    type: types.SET_MODIFY_STATUS,
+
+  }
+}
+
+// 문장 수정
+export const modifySentence = ({ sentenceId, sentenceTextValue}) => () => {
+  firestore.collection('sentences').doc(sentenceId).update({body: sentenceTextValue});
+}
+
+// Component did mount 시점에 수정할 Item의 data를 가져온다. 
+export const getModifyItemDB = (sentenceId) => dispatch => {
+  firestore.collection('sentences').doc(sentenceId).get().then(snapshot => {
+    const data = snapshot.data();
+    const {author, bookImage, bookTitle, publisher, isbn} = data;
+    const selectedItemBookInfo = {
+      author: [author],
+      bookImage,
+      bookTitle,
+      publisher,
+      isbn
+    }
+    dispatch(changeSentenceTextarea(data.body));
+    dispatch(selectSearchedBook(selectedItemBookInfo));
+  });
+} 

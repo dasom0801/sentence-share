@@ -16,7 +16,8 @@ class DetailContainer extends Component {
         getListDB: {
           filter,
           id: this.props.match.params.id,
-          orderBy: 'updateDate'
+          orderBy: 'updateDate',
+          startItem: false
         },
         page: 'detail'
       })
@@ -31,18 +32,18 @@ class DetailContainer extends Component {
     );
   }
 }
- 
 
-
-
-const mapStateToProps = ({ user, detail, list}) => {
+const mapStateToProps = ({ user, detail, list, common}) => {
   return {
     userId: user.get('id'),
     list: list.get('list'),
     userList: list.get('userList'),
     activeTab: detail.get('activeTab'),
     selectedBook: detail.get('selectedBook'),
-    selectedUser: detail.get('selectedUser')
+    selectedUser: detail.get('selectedUser'),
+    isModifyOpen: list.get('isModifyOpen'),
+    showPopup: common.get('showPopup'),
+    popupMsg: common.get('popupMsg')
   }
 };
  
@@ -55,6 +56,11 @@ const mapDispatchToProps = dispatch => {
     getSelectedUserInfoDB: (user) => { dispatch(actions.getSelectedUserInfoDB(user)) },
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
     getFirebaseUserData: (payload) => { dispatch(actions.getFirebaseUserData (payload)) },
+    toggleModifyButton: () => { dispatch(actions.toggleModifyButton()) },
+    togglePopup: (msg) => { dispatch(actions.togglePopup(msg)) },
+    deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload)) },
+    selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },
+    changeSentenceTextarea: (value) => { dispatch(actions.changeSentenceTextarea(value)) },
   }
 };
 

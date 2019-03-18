@@ -1,7 +1,10 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
+import ListModifyButton from './ListModifyButton';
+import Popup from '../App/Popup';
 
-const ListItem = ({ item, showMoreSentenceBody, index, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo}) => {
+
+const ListItem = ({ item, showMoreSentenceBody, index, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, popupMsg, showPopup, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
   // 날짜 형식 지정
   const time = item.time.toISOString().slice(0, 10);
   const body = item.showMore ? item.body : item.printBody;
@@ -18,11 +21,15 @@ const ListItem = ({ item, showMoreSentenceBody, index, likeCountUp, userId, getD
     filter === 'book' ? history.push(bookLinkTo) : history.push(userLinkTo);
   }
 
+    
   // 본문이 긴 경우만 더보기 버튼을 출력한다.
   const moreBotton = item.showMoreButton ? <button onClick={() => { showMoreSentenceBody(index) }} className="sentence more" type="button">더보기</button> : '';
   return ( 
     <li className="list-item">
+      {showPopup && <Popup popupMsg={popupMsg} togglePopup={togglePopup} target="list" history={history} toggleModifyButton={toggleModifyButton} match={match} deleteListItem={deleteListItem} id={item.id} userId={userId}/>}
       <div className="info">
+        {item.userInfo.id.indexOf(userId) > -1
+          && <ListModifyButton userId={userId} toggleModifyButton={toggleModifyButton} isModifyOpen={isModifyOpen} togglePopup={togglePopup} history={history} sentenceItem={item} selectSearchedBook={selectSearchedBook} changeSentenceTextarea={changeSentenceTextarea}/>}
         <Link to={bookLinkTo} 
           onClick={(event) => {
             event.preventDefault();

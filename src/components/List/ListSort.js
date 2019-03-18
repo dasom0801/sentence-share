@@ -16,7 +16,7 @@ const ListSort = ({ isSortOpen, toggleSort, getSentenceListFromDB, orderBy}) => 
   const orderName = orderBy === "likes" ? "인기순" : "최신순" 
   return ( 
     <div className="list-sort">
-      <button className="selected" type="button" onClick={() => toggleSort()}>{orderName}</button>
+      <button className="toggle-button" type="button" onClick={() => toggleSort()}>{orderName}</button>
       {selectList}
     </div>
    );

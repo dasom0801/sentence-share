@@ -46,6 +46,7 @@ class App extends Component {
           <Route path="/book-detail/:id" component={DetailContainer} />
           <Route path="/search" component={ListKeywordSearch} />
           <Route path="/add" component={BookContainer} />
+          <Route path="/modify/:id" component={BookContainer} />
         </Switch>
       </div>
     ) : (<Intro loginWithFirebase={loginWithFirebase}/>);

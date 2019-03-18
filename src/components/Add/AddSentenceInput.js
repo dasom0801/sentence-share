@@ -1,7 +1,7 @@
 import React from 'react';
 import Popup from '../App/Popup';
 
-const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, changeSentenceTextarea, sentenceTextValue, showPopup, togglePopup, popupMsg, resetBookState, history, userId, userName, userPicture, submitSentence}) => {
+const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, changeSentenceTextarea, sentenceTextValue, showPopup, togglePopup, popupMsg, resetBookState, history, userId, userName, userPicture, submitSentence, match, modifySentence}) => {
   const { bookImage, bookTitle, author, publisher } = selectedBook
   const handleTextareaSubmit = (event) => {
     event.preventDefault();
@@ -9,11 +9,14 @@ const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, chang
       checkInputAlert(false);
       const user = {userId, userName, userPicture};
       selectedBook.author = selectedBook.author.join(" ");
-      submitSentence({user, selectedBook, sentenceTextValue});
+      // 글을 등록하는 것인지 수정하는 것인지 path로 구분하여 dispatch
+      match.path === '/add' 
+        ? submitSentence({ user, selectedBook, sentenceTextValue }) 
+        : modifySentence({ sentenceId: match.params.id ,sentenceTextValue});
       setTimeout(() => {
         resetBookState();
         history.push('/');
-      }, 5000);
+      }, 2000);
     } else {
       checkInputAlert(true);
     }
@@ -30,7 +33,10 @@ const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, chang
       <form onSubmit={(event) => { handleTextareaSubmit(event)}}>
         <textarea cols="30" rows="10" value={sentenceTextValue} onChange={(event) => { changeSentenceTextarea(event.currentTarget.value)}} />
         <button type="button" onClick={() => { togglePopup('취소')}}>취소</button>
-        <button type="submit">완료</button>
+        { match.path ==='/add' 
+          ? <button type="submit">완료</button> 
+          : <button type="submit">수정</button>
+        }
         {alertPrint}
       </form>
       {popupPrint}

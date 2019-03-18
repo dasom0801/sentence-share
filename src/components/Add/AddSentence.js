@@ -2,7 +2,7 @@ import React from 'react';
 import BookSearch from './BookSearch';
 import AddSentenceInput from './AddSentenceInput';
 
-const AddSentence = ({ inputBookSearch, searchKeyword, searchBookInfo, bookList, isBookSelected, selectBook, showBookInfoInput, checkInputAlert, showInputAlert, selectedBook, sentenceTextValue, changeSentenceTextarea, togglePopup, showPopup, popupMsg, resetBookState, history, userId, userName, userPicture, submitSentence }) => {
+const AddSentence = ({ inputBookSearch, searchKeyword, searchBookInfo, bookList, isBookSelected, selectBook, showBookInfoInput, checkInputAlert, showInputAlert, selectedBook, sentenceTextValue, changeSentenceTextarea, togglePopup, showPopup, popupMsg, resetBookState, history, userId, userName, userPicture, submitSentence, match, modifySentence }) => {
   const printComponent = isBookSelected ? 
   <AddSentenceInput 
       selectedBook={selectedBook}
@@ -19,6 +19,8 @@ const AddSentence = ({ inputBookSearch, searchKeyword, searchBookInfo, bookList,
       userId={userId}
       userName={userName}
       userPicture={userPicture}
+      match={match}
+      modifySentence={modifySentence}
   /> 
     : (<BookSearch
       keyword={searchKeyword}

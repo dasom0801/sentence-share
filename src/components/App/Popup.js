@@ -1,11 +1,23 @@
 import React from 'react';
 
-const Popup = ({ popupMsg, togglePopup, target, resetBookState, history}) => {
+const Popup = ({ popupMsg, togglePopup, target, resetBookState, history, toggleModifiedButton, match, deleteListItem, id, userId}) => {
   const handlePopupSubmit= () =>{
     togglePopup('');
     if(target === 'book') {
       resetBookState();
       history.push('/');
+    } else if (target === 'list') {
+      const {path} = match;
+      const filter = path.indexOf('detail') > -1 && path.indexOf('/book') > -1 ? 'book' : 'user';
+      // DB에 데이터를 요청한다음 store의 list에 넣을 때 필요한 값
+      const getListDB = {
+        userId,
+        filter,
+        id: match.params.id,
+        orderBy: 'updateDate', 
+      }
+      toggleModifiedButton();
+      deleteListItem({path, sentenceId: id, getListDB})
     }
   }
   return ( 

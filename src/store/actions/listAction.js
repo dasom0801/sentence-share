@@ -1,5 +1,7 @@
 import * as types from './actionTypes';
 import { firestore } from '../../modules/firebaseConfig';
+import { getDetailListFromDB } from './detailAction';
+import { getUserLikesListDB, getUserSentenceListDB } from './userAction';
 
 
 // 리스트==================================
@@ -15,7 +17,7 @@ export const getList = ({ docs, userId, orderBy }) => dispatch => {
       
     return Object.assign({}, { id: doc.id }, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
   });
-  const lastItem = list[list.length - 1].id;
+  const lastItem = list.length &&  list[list.length - 1].id;
   if (userId) {
     const userList = list.filter(item => item.userInfo.id.indexOf(userId) > -1);
     dispatch(setSentenceList({ list, lastItem, userList, orderBy }));
@@ -115,5 +117,28 @@ export const changeListItem = (index, key, value) => {
     index,
     key,
     value
+  }
+}
+
+// 글 수정, 삭제 버튼 토글
+export const toggleModifyButton = () =>{
+  return {
+    type: types.TOGGLE_MODIFY_BUTTON
+  }
+}
+
+// 글 삭제
+export const deleteListItem = ({sentenceId, path, getListDB}) => dispatch => {
+  firestore.collection('sentences').doc(sentenceId).delete();
+  console.log(path);
+  
+  if(path === '/') {
+    dispatch(getSentenceListFromDB('updateDate'));
+  } else if (path.indexOf('detail') > -1) {
+    dispatch(getDetailListFromDB(getListDB));
+  } else if (path.indexOf('likes') > -1) {
+    dispatch(getUserLikesListDB(getListDB))
+  } else if (path.indexOf('sentences') > -1) {
+    dispatch(getUserSentenceListDB(getListDB))
   }
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from '../List/ListItem';
 
-const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo}) => {
+const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
   return (
     <div className="user-detail">
       <div className="user-info">
@@ -12,15 +12,24 @@ const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCoun
       <ul className="result-list">
         {list.map((item, index) =>
           (<ListItem
-            key={item.id}
-            item={item}
-            index={index}
-            likeCountUp={likeCountUp}
-            showMoreSentenceBody={showMoreSentenceBody}
-            userId={userId}
-            getDetailListFromDB={getDetailListFromDB}
-            history={history}
-            setSelectedUserInfo={setSelectedUserInfo}
+              match={match}
+              history={history}
+              key={item.id}
+              item={item}
+              index={index}
+              showMoreSentenceBody={showMoreSentenceBody}
+              likeCountUp={likeCountUp}
+              userId={userId}
+              getDetailListFromDB={getDetailListFromDB}
+              setSelectedUserInfo={setSelectedUserInfo}
+              toggleModifyButton={toggleModifyButton}
+              isModifyOpen={isModifyOpen}
+              togglePopup={togglePopup}
+              showPopup={showPopup}
+              popupMsg={popupMsg} 
+              deleteListItem={deleteListItem}
+              selectSearchedBook={selectSearchedBook}
+            changeSentenceTextarea={changeSentenceTextarea}
           />)) }
       </ul>
     </div>

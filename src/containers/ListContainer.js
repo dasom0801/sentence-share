@@ -18,11 +18,14 @@ class ListContainer extends Component {
 
 const mapStateToProps = ({ list, user, common}) => {
   return {
-   isSortOpen: common.get('isSortOpen'),
-   userId: user.get('id'),
-   list: list.get('list'),
-   lastItem: list.get('lastItem'),
-   orderBy: list.get('orderBy')
+    isSortOpen: common.get('isSortOpen'),
+    userId: user.get('id'),
+    list: list.get('list'),
+    lastItem: list.get('lastItem'),
+    orderBy: list.get('orderBy'),
+    isModifyOpen: list.get('isModifyOpen'),
+    showPopup: common.get('showPopup'),
+    popupMsg: common.get('popupMsg')
   }
 };
 
@@ -34,6 +37,11 @@ const mapDispatchToProps = dispatch => {
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
     likeCountUp: (index, id, likes, userId) => { dispatch(actions.likeCountUp(index,id,likes, userId))},
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user))},
+    toggleModifyButton: () => { dispatch(actions.toggleModifyButton())},
+    togglePopup: (msg) => { dispatch(actions.togglePopup(msg))},
+    deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload))},
+    selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book))},
+    changeSentenceTextarea: (value) => { dispatch(actions.changeSentenceTextarea(value))},
   }
 };
 
