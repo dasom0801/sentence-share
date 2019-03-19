@@ -2,6 +2,8 @@ import * as types from './actionTypes';
 import { firestore } from '../../modules/firebaseConfig';
 import axios from 'axios';
 import uuid from 'uuid/v1';
+import { changeLoadingStatus } from './commonAction';
+
 const bookImageDefaultUrl = ' https://firebasestorage.googleapis.com/v0/b/sentence-share.appspot.com/o/sample_image-min%20(1).jpg?alt=media&token=9b22fef4-f7e1-40d3-b88b-c69ffaf41638'
 
 export const resetBookState = () => {
@@ -128,6 +130,7 @@ export const submitSentence = ({ user, selectedBook, sentenceTextValue }) => dis
       senetenceObj.bookId = `/books/${snapshot.docs[0].id}`
       firestore.collection('sentences').add(senetenceObj);
     }
+    dispatch(changeLoadingStatus(false));
   })
 }
 
@@ -139,8 +142,11 @@ export const setModifyStatus = () => {
 }
 
 // 문장 수정
-export const modifySentence = ({ sentenceId, sentenceTextValue}) => () => {
+export const modifySentence = ({ sentenceId, sentenceTextValue}) => dispatch => {
   firestore.collection('sentences').doc(sentenceId).update({body: sentenceTextValue});
+  setTimeout(() => {
+    dispatch(changeLoadingStatus(false));
+  }, 500);
 }
 
 // Component did mount 시점에 수정할 Item의 data를 가져온다. 

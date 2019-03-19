@@ -29,6 +29,7 @@ const mapStateToProps = ({ book, common, user}) => {
   return {
     showPopup: common.get('showPopup'),
     popupMsg: common.get('popupMsg'),
+    isLoading: common.get('isLoading'),
     searchKeyword: book.get('searchKeyword'),
     bookList: book.get('bookList'),
     bookInputValue: book.get('bookInputValue'),
@@ -58,6 +59,8 @@ const mapDispatchToProps = dispatch => {
     submitSentence: (value) => dispatch(actions.submitSentence(value)),
     modifySentence: (sentence) => dispatch(actions.modifySentence(sentence)),
     getModifyItemDB: (sentenceId) => dispatch(actions.getModifyItemDB(sentenceId)),
+    changeLoadingStatus: (bool) => { dispatch(actions.changeLoadingStatus(bool)) },
+    toggleModifyButton: () => { dispatch(actions.toggleModifyButton()) },
   }
 };
 

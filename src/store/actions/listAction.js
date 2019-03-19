@@ -19,7 +19,6 @@ export const getList = ({ docs, userId, orderBy }) => dispatch => {
     return Object.assign({}, { id: doc.id }, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
   });
   const lastItem = list.length &&  list[list.length - 1].id;
-  console.log(lastItem);
   // 내가 좋아요한 문장에서 내가 등록한 문장을 구분하기 위해서 userId로 필터링한다. 
   if (userId) {
     const userList = list.filter(item => item.userInfo.id.indexOf(userId) > -1);
@@ -37,7 +36,13 @@ export const getSentenceListFromDB = (orderBy, startItem) => dispatch => {
   if (!startItem) {
     dispatch(clearListItem());
     sentenceRef.orderBy(orderBy, "desc").limit(5).get().then(snapshot => {
-      dispatch(getList({docs: snapshot.docs, orderBy}));
+      // 쿼리 결과가 있을 때만 리스트를 출력한다
+      if (snapshot.docs.length > 0) {
+        dispatch(getList({ docs: snapshot.docs, orderBy }));
+      } else {
+        // 출력할 리스트가 없다면 스피너를 숨긴다.
+        dispatch(changeLoadingStatus(false));
+      }
     });
   } else {
     // 추가로 데이터 호출
@@ -46,6 +51,9 @@ export const getSentenceListFromDB = (orderBy, startItem) => dispatch => {
         // 쿼리 결과가 있을 때만 리스트를 출력한다
         if(snapshot.docs.length > 0) {
           dispatch(getList({ docs: snapshot.docs, orderBy }));
+        } else {
+          // 추가로 출력할 리스트가 없다면 스피너를 숨긴다.
+          dispatch(changeLoadingStatus(false));
         }
       });
     })

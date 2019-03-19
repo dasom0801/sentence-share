@@ -1,6 +1,7 @@
 import * as types from './actionTypes';
 import { firestore } from '../../modules/firebaseConfig';
 import { getList, clearListItem } from './listAction';
+import { changeLoadingStatus } from './commonAction';
 
 
 export const getDetailListFromDB = (payload) => dispatch => {
@@ -16,13 +17,25 @@ export const getDetailListFromDB = (payload) => dispatch => {
   if(!startItem) {
     dispatch(clearListItem());
     sentenceRefs.where(queryString.where, '==', queryString.value).orderBy(orderBy, "desc").limit(5).get().then(snapshot => {
-      dispatch(getList({ docs: snapshot.docs, filter, userId }));
+      // 쿼리 결과가 있을 때만 리스트를 출력한다
+      if (snapshot.docs.length > 0) {
+        dispatch(getList({ docs: snapshot.docs, orderBy, userId }));
+      } else {
+        // 출력할 리스트가 없다면 스피너를 숨긴다.
+        dispatch(changeLoadingStatus(false));
+      }
     });
   } else {
-    // more 버튼 누를 때 
+    // 추가로 데이터 가져오기
     sentenceRefs.doc(startItem).get().then(snapshot => {
       sentenceRefs.where(queryString.where, '==', queryString.value).orderBy(orderBy, "desc").startAfter(snapshot).limit(5).get().then(snapshot => {
-      dispatch(getList({ docs: snapshot.docs, filter, userId }));
+        // 쿼리 결과가 있을 때만 리스트를 출력한다
+        if (snapshot.docs.length > 0) {
+          dispatch(getList({ docs: snapshot.docs, orderBy, userId }));
+        } else {
+          // 추가로 출력할 리스트가 없다면 스피너를 숨긴다.
+          dispatch(changeLoadingStatus(false));
+        }
       });
     })
   }

@@ -10,9 +10,11 @@ import UserLikes from '../components/UserMenu/UserLikes';
 class UserContainer extends Component {
   componentDidMount() {
     // componentDidMount 시점에 데이터가 없다면 가져오기
-    const { path } = this.props.match, { userId, getFirebaseUserData } = this.props;
+    const { path } = this.props.match, { userId, getFirebaseUserData, changeLoadingStatus } = this.props;
     const user = JSON.parse(window.localStorage.getItem('user'));
     if (!userId) {
+      // 스피너 보여주기
+      changeLoadingStatus(true);
       getFirebaseUserData({
         email: user.email,
         getListDB: {
@@ -58,7 +60,8 @@ const mapStateToProps = ({ user, list, common }) => {
     list: list.get('list'),
     isModifyOpen: list.get('isModifyOpen'),
     showPopup: common.get('showPopup'),
-    popupMsg: common.get('popupMsg')
+    popupMsg: common.get('popupMsg'),
+    isLoading: common.get('isLoading')
   }
 };
 
@@ -82,6 +85,7 @@ const mapDispatchToProps = dispatch => {
     deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload)) },
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },
     changeSentenceTextarea: (value) => { dispatch(actions.changeSentenceTextarea(value)) },
+    changeLoadingStatus: (bool) => { dispatch(actions.changeLoadingStatus(bool)) },
   }
 };
 

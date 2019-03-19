@@ -1,1 +1,21 @@
 @import '../modules/_all.scss';
+
+.App {
+  .loading-spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    width: 3em;
+    height: 3em;
+    transform: translateY(-50%);
+    animation: spin 2.5s ease-out infinite;
+    @keyframes spin {
+      from { 
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
+}

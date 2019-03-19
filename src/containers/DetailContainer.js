@@ -12,6 +12,7 @@ class DetailContainer extends Component {
     const filter = this.props.match.path.indexOf('/book') > -1 ? 'book' : 'user';
     if (!this.props.userId) {
       const user = JSON.parse(window.localStorage.getItem('user'));
+      this.props.changeLoadingStatus(true);
       this.props.getFirebaseUserData({
         email: user.email,
         getListDB: {
@@ -62,6 +63,7 @@ const mapDispatchToProps = dispatch => {
     deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload)) },
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },
     changeSentenceTextarea: (value) => { dispatch(actions.changeSentenceTextarea(value)) },
+    changeLoadingStatus: (bool) => { dispatch(actions.changeLoadingStatus(bool)) },
   }
 };
 

@@ -10,6 +10,7 @@ import ListContainer from '../../containers/ListContainer';
 import BookContainer from '../../containers/BookContainer';
 import DetailContainer from '../../containers/DetailContainer';
 import UserContainer from '../../containers/UserContainer';
+import Loading from './Loading';
 
 import * as actions from '../../store/actions/index';
 
@@ -32,10 +33,11 @@ class App extends Component {
     }
   }
   render() {
-    const { history, loginStatus, changeLoginStatus, loginWithFirebase, userId} = this.props;
+    const { history, loginStatus, changeLoginStatus, loginWithFirebase, userId, isLoading} = this.props;
     
     return loginStatus ? (
       <div className="App">
+        {isLoading && <Loading />}
         <NavBar changeLoginStatus={changeLoginStatus} history={history} userId={userId}/>
         <Switch>
           <Route exact path="/" component={ListContainer} />
@@ -53,10 +55,11 @@ class App extends Component {
   }
 }
 
-const mapStateToProps = ({ user }) => {
+const mapStateToProps = ({ user, common}) => {
   return {
     loginStatus: user.get('loginStatus'),
     userId: user.get('id'),
+    isLoading: common.get('isLoading')
   }
 };
 

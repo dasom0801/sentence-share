@@ -3,7 +3,7 @@ import { auth, provider, firestore } from '../../modules/firebaseConfig';
 import firebase from 'firebase/app';
 import { getDetailListFromDB } from './detailAction';
 import { setSentenceList, clearListItem, getList } from './listAction';
-
+import { changeLoadingStatus } from './commonAction';
 
 //firebase로 로그인 하기
 export const loginWithFirebase = () => dispatch =>{
@@ -61,7 +61,11 @@ export const getFirebaseUserData = ({ email, getListDB, page}) => dispatch => {
         dispatch(getUserLikesListDB(getListDB))
       } else if (page === 'sentence') {
         dispatch(getUserSentenceListDB(getListDB))
+      } else {
+        dispatch(changeLoadingStatus(false));
       }
+    } else {
+      dispatch(changeLoadingStatus(false));
     }
   });
 }
@@ -95,8 +99,6 @@ export const userDelete = (userId) => dispatch => {
     dispatch(setUserId(''));
     dispatch(deleteUserLikesData(userId));
     window.localStorage.removeItem('user');
-    console.log(userId);
-    
     // auth 회원 삭제 
     user.delete().then(() => {
       // firestore.collection('users').doc(userId).delete() is not working... why...
@@ -141,8 +143,9 @@ export const changeNameInput = (input) => {
     input
   }
 }
+
 // 변경된 이름을 DB에 저장
-export const setChangedName = ({userId, nameInput}) =>() => {
+export const setChangedName = ({userId, nameInput}) => dispatch => {
   firestore.collection('users').doc(userId).set({ name: nameInput }, { merge: true });
   firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
     snapshot.docs.forEach(doc => {
@@ -150,7 +153,12 @@ export const setChangedName = ({userId, nameInput}) =>() => {
       userInfo.name = nameInput;
       doc.ref.update({userInfo: userInfo})
     })
-  })
+  });
+  // 너무 빨리 실행되어 스피너가 표시되지 않기때문에 타이밍을 조절함
+  // 스피너가 표시되지 않으면 실행되었다고 사용자가 인식하기 어렵기때문
+  setTimeout(() => {
+    dispatch(changeLoadingStatus(false));
+  }, 500);
 }
 
 // 사용자 이름 변경
@@ -170,15 +178,20 @@ export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
       item.time = item.updateDate.toDate(); 
       return item;
     });
-        
-    dispatch(setSentenceList({list: userLikes, orderBy: orderBy, userList: []}));
-  });
+    if (userLikes.length > 0) {
+      dispatch(setSentenceList({ list: userLikes, orderBy: orderBy, userList: [] }));
+    }
+    dispatch(changeLoadingStatus(false));
+  })
 }
 
 // 사용자가 작성한 문장 출력
 export const getUserSentenceListDB = ({userId, orderBy}) => dispatch => {
   dispatch(clearListItem());
   firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
-    dispatch(getList({ docs : snapshot.docs, orderBy, userList: [] }));
+    if (snapshot.docs.length > 0) {
+      dispatch(getList({ docs: snapshot.docs, orderBy, userList: [] }));
+    } 
+    dispatch(changeLoadingStatus(false));
   })
 }

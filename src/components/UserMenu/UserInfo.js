@@ -1,7 +1,8 @@
 import React from 'react';
 
-const UserInfo = ({ userId, email, nameInput, changeNameInput, changeName, history, userDelete, setChangedName}) => {
+const UserInfo = ({ userId, email, nameInput, changeNameInput, changeName, history, userDelete, setChangedName, changeLoadingStatus, isLoading}) => {
   const handleNameChange = () => {
+    changeLoadingStatus(true); // 스피너 표시
     setChangedName({userId, nameInput})
     changeName(nameInput);
   }
