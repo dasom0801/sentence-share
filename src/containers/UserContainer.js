@@ -59,9 +59,11 @@ const mapStateToProps = ({ user, list, common }) => {
     picture: user.get('picture'),
     list: list.get('list'),
     isModifyOpen: list.get('isModifyOpen'),
+    orderBy: list.get('orderBy'),
     showPopup: common.get('showPopup'),
     popupMsg: common.get('popupMsg'),
-    isLoading: common.get('isLoading')
+    isLoading: common.get('isLoading'),
+    isSortOpen: common.get('isSortOpen'),
   }
 };
 
@@ -86,6 +88,9 @@ const mapDispatchToProps = dispatch => {
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },
     changeSentenceTextarea: (value) => { dispatch(actions.changeSentenceTextarea(value)) },
     changeLoadingStatus: (bool) => { dispatch(actions.changeLoadingStatus(bool)) },
+    getUserLikesListDB: (payload) => { dispatch(actions.getUserLikesListDB(payload)) },
+    getUserSentenceListDB: (payload) => { dispatch(actions.getUserSentenceListDB(payload)) },
+    toggleSort: () => { dispatch(actions.toggleSort()) },
   }
 };
 

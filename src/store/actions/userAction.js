@@ -174,12 +174,17 @@ export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
   dispatch(clearListItem());
   firestore.collection('users').doc(userId).get().then(snapshot => {
     const userLikes = snapshot.data().userLikes;
-    userLikes.map(item => { 
-      item.time = item.updateDate.toDate(); 
-      return item;
-    });
+    let list = [];
+    // 시간 표시 형식에 맞게 설정
+    userLikes.forEach(item => { item.time = item.updateDate.toDate();});
+    // 시간순으로 정렬
+    if(orderBy === 'updateDate') {
+      list = userLikes.sort((a, b) => b.time - a.time);
+    } else {
+      list = userLikes.sort((a, b) => b.likes - a.likes);
+    }
     if (userLikes.length > 0) {
-      dispatch(setSentenceList({ list: userLikes, orderBy: orderBy, userList: [] }));
+      dispatch(setSentenceList({ list, orderBy: orderBy, userList: [] }));
     }
     dispatch(changeLoadingStatus(false));
   })
@@ -188,7 +193,7 @@ export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
 // 사용자가 작성한 문장 출력
 export const getUserSentenceListDB = ({userId, orderBy}) => dispatch => {
   dispatch(clearListItem());
-  firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
+  firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).orderBy(orderBy, 'desc').get().then(snapshot => {
     if (snapshot.docs.length > 0) {
       dispatch(getList({ docs: snapshot.docs, orderBy, userList: [] }));
     } 

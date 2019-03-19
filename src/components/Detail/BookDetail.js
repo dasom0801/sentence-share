@@ -1,8 +1,10 @@
 import React from 'react';
 import ListItem from '../List/ListItem';
+import ListSort from '../List/ListSort';
 
-const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, selectedBook, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem}) => {
-  const { bookTitle, bookImage, author, publisher, selectSearchedBook, changeSentenceTextarea} = selectedBook;
+const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, selectedBook, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, toggleSort, isSortOpen, orderBy, changeSentenceTextarea, selectSearchedBook}) => {
+
+  const { bookTitle, bookImage, author, publisher} = selectedBook;
   const listPrint = activeTab === 'all' 
     ? list.map((item, index) => ( 
       <ListItem 
@@ -44,8 +46,16 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
         popupMsg={popupMsg} 
         deleteListItem={deleteListItem}
         selectSearchedBook={selectSearchedBook}
-        changeSentenceTextarea={changeSentenceTextarea}
-    />) ); 
+        changeSentenceTextarea={changeSentenceTextarea}/>));
+
+    // 정렬할 때 DB를 불러오기 위한 값
+    const getListDB = {
+        filter: 'book',
+        id: match.params.id,
+        orderBy: orderBy,
+        startItem: false,
+        userId
+    }
   return ( 
     <div className="book-detail">
       <div className="book-info">
@@ -63,12 +73,19 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
           type="button" 
           className={`user ${activeTab === 'user'? 'active' : ''}`}
           onClick={() => { 
-            if(userList.length) {
+            if(userList.size) {
               changeDetailTab('user');
             }
           }}
           >내문장({userList ? userList.size : 0})</button>
       </div>
+      <ListSort
+        toggleSort={toggleSort}
+        isSortOpen={isSortOpen}
+        orderBy={orderBy}
+        getDetailListFromDB={getDetailListFromDB}
+        getListDB={getListDB}
+      />
       <ul className="result-list">
         {listPrint}
       </ul>

@@ -26,6 +26,9 @@ class DetailContainer extends Component {
     }
     this.props.getSelectedUserInfoDB(this.props.match.params.id);
   }
+  componentWillUnmount() {
+    this.props.changeDetailTab('all');
+  }
   render () {
     return (
       <div>
@@ -40,10 +43,12 @@ const mapStateToProps = ({ user, detail, list, common}) => {
     userId: user.get('id'),
     list: list.get('list'),
     userList: list.get('userList'),
+    isModifyOpen: list.get('isModifyOpen'),
+    orderBy: list.get('orderBy'),
     activeTab: detail.get('activeTab'),
     selectedBook: detail.get('selectedBook'),
     selectedUser: detail.get('selectedUser'),
-    isModifyOpen: list.get('isModifyOpen'),
+    isSortOpen: common.get('isSortOpen'),
     showPopup: common.get('showPopup'),
     popupMsg: common.get('popupMsg')
   }
@@ -64,6 +69,7 @@ const mapDispatchToProps = dispatch => {
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },
     changeSentenceTextarea: (value) => { dispatch(actions.changeSentenceTextarea(value)) },
     changeLoadingStatus: (bool) => { dispatch(actions.changeLoadingStatus(bool)) },
+    toggleSort: () => { dispatch(actions.toggleSort()) },
   }
 };
 

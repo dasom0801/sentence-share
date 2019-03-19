@@ -1,7 +1,15 @@
 import React from 'react';
 import ListItem from '../List/ListItem';
+import ListSort from '../List/ListSort';
 
-const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
+const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy }) => {
+  const getListDB = {
+    filter: 'user',
+    id: match.params.id,
+    orderBy: orderBy,
+    startItem: false,
+    userId
+  }
   return (
     <div className="user-detail">
       <div className="user-info">
@@ -9,6 +17,13 @@ const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCoun
         {selectedUser.name}
       </div>
       <p>등록문장({list.size? list.size : 0})</p>
+      <ListSort
+        toggleSort={toggleSort}
+        isSortOpen={isSortOpen}
+        orderBy={orderBy}
+        getDetailListFromDB={getDetailListFromDB}
+        getListDB={getListDB}
+      />
       <ul className="result-list">
         {list.map((item, index) =>
           (<ListItem

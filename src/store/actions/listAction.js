@@ -46,6 +46,8 @@ export const getSentenceListFromDB = (orderBy, startItem) => dispatch => {
     });
   } else {
     // 추가로 데이터 호출
+    console.log('check2');
+    
     sentenceRef.doc(startItem).get().then(snapshot => {
       sentenceRef.orderBy(orderBy, "desc").startAfter(snapshot).limit(5).get().then(snapshot => {
         // 쿼리 결과가 있을 때만 리스트를 출력한다

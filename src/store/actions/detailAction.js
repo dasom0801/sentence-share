@@ -39,7 +39,6 @@ export const getDetailListFromDB = (payload) => dispatch => {
       });
     })
   }
-
 }
 
 export const changeDetailTab = (tab) => {

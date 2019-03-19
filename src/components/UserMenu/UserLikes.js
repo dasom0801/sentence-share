@@ -1,9 +1,8 @@
 import React from 'react';
-// import ListSort from '../List/ListSort';
+import ListSort from '../List/ListSort';
 import ListItem from '../List/ListItem';
-// import AddButton from '../Add/AddButton';
 
-const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, isModifyOpen, togglePopup, showPopup, popupMsg, toggleModifyButton, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
+const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, isModifyOpen, togglePopup, showPopup, popupMsg, toggleModifyButton, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, orderBy, isSortOpen, toggleSort, getUserLikesListDB}) => {
 
   const printList = list.map((item, index)=> (
     <ListItem 
@@ -27,13 +26,25 @@ const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailL
       changeSentenceTextarea={changeSentenceTextarea}
     />
   ));
+  // 정렬할 때 DB를 불러오기 위한 값
+  const getListDB = {
+    filter: 'likes',
+    orderBy: orderBy,
+    startItem: false,
+    userId
+  }
   return ( 
     <div className="user-likes">
       <p>내가 좋아한 문장</p>
       <p>{list.size? list.size : 0}건</p>
-      {/* <ListSort /> */}
+      <ListSort
+        toggleSort={toggleSort}
+        isSortOpen={isSortOpen}
+        orderBy={orderBy}
+        getUserLikesListDB={getUserLikesListDB}
+        getListDB={getListDB}
+      />
       {printList}
-      {/* <AddButton /> */}
     </div>
    );
 }

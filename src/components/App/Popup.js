@@ -25,7 +25,13 @@ const Popup = ({ popupMsg, togglePopup, target, resetBookState, history, toggleM
     <div className="popup">
       <div className="message-box">
         <p>{popupMsg}하시겠습니까?</p>
-        <button className="cancel" onClick={() => { togglePopup(popupMsg)}}>아니오</button>
+        <button className="cancel" 
+        onClick={() => { 
+          toggleModifyButton(false);
+          togglePopup(popupMsg)
+        }}>
+          아니오
+        </button>
         <button className="submit"onClick={() => { handlePopupSubmit()}} >네</button>
       </div>
     </div>

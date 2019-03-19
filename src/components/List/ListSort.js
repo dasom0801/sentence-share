@@ -1,9 +1,24 @@
 import React from 'react';
 
-const ListSort = ({ isSortOpen, toggleSort, getSentenceListFromDB, orderBy}) => {
+const ListSort = ({ isSortOpen, toggleSort, getSentenceListFromDB, orderBy, getListDB, getDetailListFromDB, getUserLikesListDB, getUserSentenceListDB}) => {
+  console.log(isSortOpen, toggleSort);
   const handleSortClick = (clickItem) => {
+    
+    // 현재의 정렬을 선택했는지 여부 확인
     if (clickItem !== orderBy) {
-      getSentenceListFromDB(clickItem);
+      // 정렬 순서를 바꿔서 DB 재요청
+      if (getListDB) {
+        getListDB.orderBy = clickItem;
+        if(getListDB.filter === 'book' || getListDB.filter === 'user') {
+          getDetailListFromDB(getListDB);
+        } else if (getListDB.filter === 'sentence') {
+          getUserSentenceListDB(getListDB);
+        } else if (getListDB.filter === 'likes') {
+          getUserLikesListDB(getListDB);
+        }
+      } else {
+        getSentenceListFromDB(clickItem);
+      }
     }
     toggleSort();
   }

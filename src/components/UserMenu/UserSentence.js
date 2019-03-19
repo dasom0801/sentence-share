@@ -1,9 +1,9 @@
 import React from 'react';
-// import ListSort from '../List/ListSort';
+import ListSort from '../List/ListSort';
 import ListItem from '../List/ListItem';
-// import AddButton from '../Add/AddButton';
 
-const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea }) => {
+const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy, getUserSentenceListDB}) => {
+  // 출력할 리스트 아이템 만들기
   const printList = list.map((item, index) => (
     <ListItem
       match={match}
@@ -26,13 +26,25 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
       changeSentenceTextarea={changeSentenceTextarea}
     />
   ));
+  // 정렬할 때 DB를 불러오기 위한 값
+  const getListDB = {
+    filter: 'sentence',
+    orderBy: orderBy,
+    startItem: false,
+    userId
+  }
   return ( 
     <div className="book-detail">
       <p>내가 공유한 문장</p>
       <p>{list.size ? list.size : 0}건</p> 
-      {/* <ListSort /> */}
+      <ListSort
+        toggleSort={toggleSort}
+        isSortOpen={isSortOpen}
+        orderBy={orderBy}
+        getUserSentenceListDB={getUserSentenceListDB}
+        getListDB={getListDB}
+      />
       {printList}
-      {/* <AddButton /> */}
     </div>
    );
 }
