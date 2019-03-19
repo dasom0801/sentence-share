@@ -136,9 +136,10 @@ export const changeListItem = (index, key, value) => {
 }
 
 // 글 수정, 삭제 버튼 토글
-export const toggleModifyButton = () =>{
+export const toggleModifyButton = (bool) =>{
   return {
-    type: types.TOGGLE_MODIFY_BUTTON
+    type: types.TOGGLE_MODIFY_BUTTON,
+    bool
   }
 }
 

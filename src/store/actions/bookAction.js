@@ -27,12 +27,12 @@ export const inputBookSearch = (input) => {
 }
 
 // 책 정보 검색
-export const searchBookInfo = (keyword, page) => dispatch => {
-  axios.get(`https://dapi.kakao.com/v3/search/book?target=title&query="${keyword}"&page=${page}`, { headers: { Authorization: 'KakaoAK 75545d6d5e327c2f363ab16539f81c7b' } }).then(result => dispatch(setBookSearchResult(result, page)));
+export const searchBookInfo = (keyword, bookSearchPage) => dispatch => {
+  axios.get(`https://dapi.kakao.com/v3/search/book?target=title&query="${keyword}"&page=${bookSearchPage}`, { headers: { Authorization: 'KakaoAK 75545d6d5e327c2f363ab16539f81c7b' } }).then(result => dispatch(setBookSearchResult(result, bookSearchPage)));
 }
 
 // 검색된 책 정보로 state 업데이트
-export const setBookSearchResult = (result, page) => {
+export const setBookSearchResult = (result, bookSearchPage) => {
   const { meta, documents } = result.data;
   const list = documents.map(doc => {
     // 이미지가 없는 경우 기본 이미지로 대체함
@@ -49,7 +49,7 @@ export const setBookSearchResult = (result, page) => {
   return {
     type: types.SET_BOOK_SEARCH_RESULT,
     list,
-    page,
+    bookSearchPage,
     pageable: meta.pageable_count
   }
 }

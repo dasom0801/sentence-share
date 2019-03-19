@@ -58,7 +58,7 @@ const mapDispatchToProps = dispatch => {
     getSelectedUserInfoDB: (user) => { dispatch(actions.getSelectedUserInfoDB(user)) },
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
     getFirebaseUserData: (payload) => { dispatch(actions.getFirebaseUserData (payload)) },
-    toggleModifyButton: () => { dispatch(actions.toggleModifyButton()) },
+    toggleModifyButton: (bool) => { dispatch(actions.toggleModifyButton(bool)) },
     togglePopup: (msg) => { dispatch(actions.togglePopup(msg)) },
     deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload)) },
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },

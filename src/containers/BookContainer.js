@@ -33,6 +33,8 @@ const mapStateToProps = ({ book, common, user}) => {
     searchKeyword: book.get('searchKeyword'),
     bookList: book.get('bookList'),
     bookInputValue: book.get('bookInputValue'),
+    pageableCount: book.get('pageableCount'),
+    bookSearchPage: book.get('bookSearchPage'),
     isBookSelected: book.get('isBookSelected'),
     isBookInfoVisible: book.get('isBookInfoVisible'),
     showInputAlert: book.get('showInputAlert'),
@@ -49,7 +51,7 @@ const mapDispatchToProps = dispatch => {
     togglePopup: (msg) => dispatch(actions.togglePopup(msg)),
     resetBookState: () => dispatch(actions.resetBookState()),
     inputBookSearch: (input) => dispatch(actions.inputBookSearch(input)),
-    searchBookInfo: ({keyword, page}) => dispatch(actions.searchBookInfo(keyword, page)),
+    searchBookInfo: ({keyword, bookSearchPage}) => dispatch(actions.searchBookInfo(keyword, bookSearchPage)),
     selectBook: (book) => dispatch(actions.selectSearchedBook(book)),
     showBookInfoInput: () => dispatch(actions.showBookInfoInput()),
     changeBookInfoInput: (input) => dispatch(actions.changeBookInfoInput(input)),
@@ -60,7 +62,7 @@ const mapDispatchToProps = dispatch => {
     modifySentence: (sentence) => dispatch(actions.modifySentence(sentence)),
     getModifyItemDB: (sentenceId) => dispatch(actions.getModifyItemDB(sentenceId)),
     changeLoadingStatus: (bool) => { dispatch(actions.changeLoadingStatus(bool)) },
-    toggleModifyButton: () => { dispatch(actions.toggleModifyButton()) },
+    toggleModifyButton: (bool) => { dispatch(actions.toggleModifyButton(bool)) },
   }
 };
 

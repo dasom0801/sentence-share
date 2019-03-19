@@ -22,7 +22,7 @@ export const list = (state = listInitialState, action) => {
     case actions.CHAHNGE_LIST_ITEM:
       return state.setIn(['list', action.index, action.key], action.value);
     case actions.TOGGLE_MODIFY_BUTTON: 
-      return state.set('isModifyOpen', !state.get('isModifyOpen'));
+      return state.set('isModifyOpen', action.bool);
     default:
       return state;
   }

@@ -58,7 +58,7 @@ const mapDispatchToProps = dispatch => {
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
     likeCountUp: (index, id, likes, userId) => { dispatch(actions.likeCountUp(index,id,likes, userId))},
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user))},
-    toggleModifyButton: () => { dispatch(actions.toggleModifyButton())},
+    toggleModifyButton: (bool) => { dispatch(actions.toggleModifyButton(bool))},
     togglePopup: (msg) => { dispatch(actions.togglePopup(msg))},
     deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload))},
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book))},

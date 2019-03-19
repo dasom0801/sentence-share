@@ -9,7 +9,7 @@ const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, chang
     // Textarea를 체크해서 내용을 입력했다면 업데이트 
     if (sentenceTextValue.trim()) {
       // 글수정 버튼 숨김 
-      toggleModifyButton();
+      toggleModifyButton(false);
       // 알림 숨김
       checkInputAlert(false);
       const user = {userId, userName, userPicture};

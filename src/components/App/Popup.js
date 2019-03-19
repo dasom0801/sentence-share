@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Popup = ({ popupMsg, togglePopup, target, resetBookState, history, toggleModifiedButton, match, deleteListItem, id, userId}) => {
+const Popup = ({ popupMsg, togglePopup, target, resetBookState, history, toggleModifyButton, match, deleteListItem, id, userId}) => {
   const handlePopupSubmit= () =>{
     togglePopup('');
     if(target === 'book') {
@@ -16,7 +16,8 @@ const Popup = ({ popupMsg, togglePopup, target, resetBookState, history, toggleM
         id: match.params.id,
         orderBy: 'updateDate', 
       }
-      toggleModifiedButton();
+      // 리스트 아이템 삭제할 때 수정 버튼 닫기
+      toggleModifyButton(false);
       deleteListItem({path, sentenceId: id, getListDB})
     }
   }

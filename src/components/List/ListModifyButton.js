@@ -22,7 +22,7 @@ const ListModifyButton = ({ toggleModifyButton, isModifyOpen, togglePopup, histo
   );
   return (
     <div className="list-modify">
-      <button className="toggle-button" type="button" onClick={() => toggleModifyButton()}>...</button>
+      <button className="toggle-button" type="button" onClick={() => toggleModifyButton(!isModifyOpen)}>...</button>
       {selectList}
     </div>
   );
