@@ -21,3 +21,11 @@ export const setDetailList = (list, userList) => {
     userList
   }
 }
+
+// 로딩중 플래그
+export const changeLoadingStatus = (bool) => {
+  return {
+    type: types.CHANGE_LOADGIN_STATUS,
+    bool
+  }
+}

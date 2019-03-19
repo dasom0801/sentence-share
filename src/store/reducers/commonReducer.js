@@ -7,7 +7,8 @@ const commonInitialState = Map({
   isSortOpen: false,
   showPopup: false,
   popupMsg: '',
-  target: ''
+  target: '',
+  isLoading: false
 });
 
 export const common = (state = commonInitialState, action) => {
@@ -16,6 +17,8 @@ export const common = (state = commonInitialState, action) => {
       return state.set('isSortOpen', !state.get('isSortOpen'));
     case actions.TOGGLE_POPUP:
       return state.merge({ showPopup: !state.get('showPopup'), popupMsg: action.msg });
+    case actions.CHANGE_LOADGIN_STATUS:
+      return state.set('isLoading', action.bool);
     default:
       return state;
   }

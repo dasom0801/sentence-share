@@ -8,6 +8,7 @@ import UserDetail from '../components/Detail/UserDetail';
 
 class DetailContainer extends Component {
   componentDidMount() {
+    // componentDidMount 시점에 데이터가 없다면 가져오기
     const filter = this.props.match.path.indexOf('/book') > -1 ? 'book' : 'user';
     if (!this.props.userId) {
       const user = JSON.parse(window.localStorage.getItem('user'));

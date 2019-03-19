@@ -2,7 +2,7 @@ import * as types from './actionTypes';
 import { auth, provider, firestore } from '../../modules/firebaseConfig';
 import firebase from 'firebase/app';
 import { getDetailListFromDB } from './detailAction';
-import { setSentenceList, clearListItem } from './listAction';
+import { setSentenceList, clearListItem, getList } from './listAction';
 
 
 //firebase로 로그인 하기
@@ -179,12 +179,6 @@ export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
 export const getUserSentenceListDB = ({userId, orderBy}) => dispatch => {
   dispatch(clearListItem());
   firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
-    const list = snapshot.docs.map(doc => {
-      const item = doc.data();
-      item.id = doc.id;
-      item.time = item.updateDate.toDate();
-      return item;
-    });
-    dispatch(setSentenceList({ list, orderBy, userList: [] }));
+    dispatch(getList({ docs : snapshot.docs, orderBy, userList: [] }));
   })
 }

@@ -3,10 +3,7 @@ import ListItem from './ListItem';
 import ListSort from './ListSort';
 import AddButton from '../Add/AddButton';
 
-const MainList = ({ getSentenceListFromDB, lastItem, list, showMoreSentenceBody, toggleSort, isSortOpen, orderBy, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
-  const handleMoreClick = () => {
-    getSentenceListFromDB(orderBy, lastItem);
-  }
+const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSort, isSortOpen, orderBy, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
   const printList = list && list.map((item, index) => 
     <ListItem 
       match={match}
@@ -33,6 +30,7 @@ const MainList = ({ getSentenceListFromDB, lastItem, list, showMoreSentenceBody,
   return ( 
     <div className="main-list">
       <p>MainList</p>
+      <AddButton />
       <ListSort 
         toggleSort={toggleSort} 
         isSortOpen={isSortOpen} 
@@ -42,8 +40,6 @@ const MainList = ({ getSentenceListFromDB, lastItem, list, showMoreSentenceBody,
       <ul className="senetence-list">
         {printList}
       </ul>
-      <button onClick={() => { handleMoreClick()}} type="button">More</button>
-      <AddButton />
     </div>
    );
 }

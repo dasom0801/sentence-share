@@ -9,6 +9,7 @@ import UserLikes from '../components/UserMenu/UserLikes';
 
 class UserContainer extends Component {
   componentDidMount() {
+    // componentDidMount 시점에 데이터가 없다면 가져오기
     const { path } = this.props.match, { userId, getFirebaseUserData } = this.props;
     const user = JSON.parse(window.localStorage.getItem('user'));
     if (!userId) {

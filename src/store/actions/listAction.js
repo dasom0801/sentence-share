@@ -2,6 +2,7 @@ import * as types from './actionTypes';
 import { firestore } from '../../modules/firebaseConfig';
 import { getDetailListFromDB } from './detailAction';
 import { getUserLikesListDB, getUserSentenceListDB } from './userAction';
+import { changeLoadingStatus } from './commonAction';
 
 
 // 리스트==================================
@@ -18,6 +19,8 @@ export const getList = ({ docs, userId, orderBy }) => dispatch => {
     return Object.assign({}, { id: doc.id }, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
   });
   const lastItem = list.length &&  list[list.length - 1].id;
+  console.log(lastItem);
+  // 내가 좋아요한 문장에서 내가 등록한 문장을 구분하기 위해서 userId로 필터링한다. 
   if (userId) {
     const userList = list.filter(item => item.userInfo.id.indexOf(userId) > -1);
     dispatch(setSentenceList({ list, lastItem, userList, orderBy }));
@@ -25,6 +28,7 @@ export const getList = ({ docs, userId, orderBy }) => dispatch => {
     const userList = [];
     dispatch(setSentenceList({ list, lastItem, userList, orderBy }));
   }
+  dispatch(changeLoadingStatus(false));
 }
 // DB에서 리스트 가져오기
 export const getSentenceListFromDB = (orderBy, startItem) => dispatch => {
@@ -36,10 +40,13 @@ export const getSentenceListFromDB = (orderBy, startItem) => dispatch => {
       dispatch(getList({docs: snapshot.docs, orderBy}));
     });
   } else {
-    // more버튼을 누를 때
+    // 추가로 데이터 호출
     sentenceRef.doc(startItem).get().then(snapshot => {
       sentenceRef.orderBy(orderBy, "desc").startAfter(snapshot).limit(5).get().then(snapshot => {
-        dispatch(getList({ docs: snapshot.docs, orderBy }));
+        // 쿼리 결과가 있을 때만 리스트를 출력한다
+        if(snapshot.docs.length > 0) {
+          dispatch(getList({ docs: snapshot.docs, orderBy }));
+        }
       });
     })
   }

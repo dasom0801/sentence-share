@@ -5,13 +5,8 @@ import { getList, clearListItem } from './listAction';
 
 export const getDetailListFromDB = (payload) => dispatch => {
   const { filter, id, orderBy, userId, startItem } = payload;
-  console.log('check', payload);
-  
-
   const queryString = filter === 'book' ? { where: 'bookId', value: `/books/${id}` } : { where: 'userInfo.id', value: `/users/${id}` };
   const sentenceRefs = firestore.collection('sentences');
-  console.log(queryString);
-  
 
   // bookDetail인 경우 책 정보를 상단에 표시하기위해 DB에서 값을 가져와야한다. 
   filter === 'book' && firestore.collection('books').doc(id).get().then(snapshot => {

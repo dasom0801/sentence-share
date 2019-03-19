@@ -1,6 +1,7 @@
 // common
 export const TOGGLE_POPUP = 'TOGGLE_POPUP';
 export const TOGGLE_SORT = 'TOGGLE_SORT';
+export const CHANGE_LOADGIN_STATUS = 'CHANGE_LOADGIN_STATUS';
 
 // user
 export const LOGIN_WITH_FIREBASE = 'LOGIN_WITH_FIREBASE';
