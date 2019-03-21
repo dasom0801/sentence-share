@@ -19,7 +19,7 @@ export const getList = ({ docs, userId, orderBy }) => dispatch => {
     return Object.assign({}, { id: doc.id }, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
   });
   const lastItem = list.length &&  list[list.length - 1].id;
-  // 내가 좋아요한 문장에서 내가 등록한 문장을 구분하기 위해서 userId로 필터링한다. 
+  // 책에 등록된 문장 리스트에서 내가 등록한 문장을 구분하기 위해서 userId로 필터링한다. 
   if (userId) {
     const userList = list.filter(item => item.userInfo.id.indexOf(userId) > -1);
     dispatch(setSentenceList({ list, lastItem, userList, orderBy }));
@@ -85,43 +85,45 @@ export const clearListItem = () => {
 
 // 좋아요 수 올리기
 export const likeCountUp = (index, id, likes, userId) => dispatch => {
-  const sentenceRef = firestore.collection('sentences').doc(id),
-    userRef = firestore.collection('users').doc(userId);
+  const sentenceRef = firestore.collection('sentences').doc(id);
+  
+    // userRef = firestore.collection('users').doc(userId);
       
   // 해당 문장의 user정보를 비교하여 좋아요를 추가해야하는지 취소해야하는지 판단
   sentenceRef.get().then(snapshot => {
     const data = snapshot.data();
     const likeUser = data.likeUser, userIndex = likeUser.indexOf(userId);
 
+    // 좋아요 추가하기
     // 사용자가 좋아요를 누르지 않은 문장은 sentences에 사용자를 추가하고, users에는 문장을 추가한다
-    // state의 likes값 증가
+    // 좋아요를 눌렀던 다른 사용자들의 
     if (userIndex < 0) {
-      const bodyLengthCheck = data.body.length > 200
-        ? { printBody: data.body.slice(0, 200) + '...', showMoreButton: true }
-        : { printBody: data.body, showMoreButton: false };
+      // const bodyLengthCheck = data.body.length > 200
+      //   ? { printBody: data.body.slice(0, 200) + '...', showMoreButton: true }
+      //   : { printBody: data.body, showMoreButton: false };
 
       
       data.likes = ++likes;
       const updateLikeUserData = [...likeUser, userId];
-      const updateUserData = Object.assign({}, { id: id }, data, bodyLengthCheck, { showMore: false }, { likeUser: updateLikeUserData})
-      
+      // const updateUserData = Object.assign({}, { id: id }, data, bodyLengthCheck, { showMore: false }, { likeUser: updateLikeUserData})
       sentenceRef.update({ likeUser: updateLikeUserData, likes: likes })
-      userRef.get().then(snapshot => {
-        userRef.update({ userLikes: [...snapshot.data().userLikes, updateUserData] });
-        dispatch(changeListItem(index, 'likes', likes));
-        dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
-      })
+      dispatch(changeListItem(index, 'likes', likes));
+      dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
+      
+      // userRef.get().then(snapshot => {
+      //   userRef.update({ userLikes: [...snapshot.data().userLikes, updateUserData] });
+      // })
     } else {
       // 사용자가 이미 좋아요를 누른 문장은 좋아요 취소
       const updateLikeUserData = likeUser.filter(user => user !== userId)
       likes--;
       sentenceRef.update({ likeUser: updateLikeUserData, likes: likes });
-      userRef.get().then(snapshot => {
-        const updateUserData = snapshot.data().userLikes.filter(like => like.id !== id);
-        userRef.update({ userLikes: updateUserData });
-        dispatch(changeListItem(index, 'likes', likes));
+      dispatch(changeListItem(index, 'likes', likes));
         dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
-      })
+      // userRef.get().then(snapshot => {
+      //   const updateUserData = snapshot.data().userLikes.filter(like => like.id !== id);
+      //   userRef.update({ userLikes: updateUserData });
+      // })
     }
   });
 }
@@ -137,8 +139,6 @@ export const changeListItem = (index, key, value) => {
 
 // 글 수정, 삭제 버튼 토글
 export const toggleModifyButton = (bool, id ) =>{
-  console.log('modify', id);
-  
   return {
     type: types.TOGGLE_MODIFY_BUTTON,
     bool, 

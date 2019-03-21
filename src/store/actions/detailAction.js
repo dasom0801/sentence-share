@@ -5,7 +5,7 @@ import { changeLoadingStatus } from './commonAction';
 
 
 export const getDetailListFromDB = (payload) => dispatch => {
-  const { filter, orderBy, userId, startItem, bookId } = payload;
+  const { filter, orderBy, userId, bookId } = payload;
   const queryString = filter === 'book' ? { where: 'bookId', value: `/books/${bookId}` } : { where: 'userInfo.id', value: `/users/${userId}` };
   const sentenceRefs = firestore.collection('sentences');
 
@@ -14,18 +14,16 @@ export const getDetailListFromDB = (payload) => dispatch => {
     dispatch(setSelectedBookInfo(snapshot.data()));
   }) 
   // 리스트 첫 페이지 가져오기
-  if(!startItem) {
-    dispatch(clearListItem());
-     sentenceRefs.where(queryString.where, '==', queryString.value).orderBy(orderBy, "desc").get().then(snapshot => {
-        // 쿼리 결과가 있을 때만 리스트를 출력한다  
-        if (snapshot.docs.length > 0) {
-          dispatch(getList({ docs: snapshot.docs, orderBy, userId }));
-        } else {
-          // 출력할 리스트가 없다면 스피너를 숨긴다.
-          dispatch(changeLoadingStatus(false));
-      }
-    });
-  }
+  dispatch(clearListItem());
+    sentenceRefs.where(queryString.where, '==', queryString.value).orderBy(orderBy, "desc").get().then(snapshot => {
+      // 쿼리 결과가 있을 때만 리스트를 출력한다  
+      if (snapshot.docs.length > 0) {
+        dispatch(getList({ docs: snapshot.docs, orderBy, userId }));
+      } else {
+        // 출력할 리스트가 없다면 스피너를 숨긴다.
+        dispatch(changeLoadingStatus(false));
+    }
+  });
 }
 
 export const changeDetailTab = (tab) => {

@@ -101,17 +101,30 @@ export const userDelete = (userId) => dispatch => {
     window.localStorage.removeItem('user');
     // auth 회원 삭제 
     user.delete().then(() => {
-      // firestore.collection('users').doc(userId).delete() is not working... why...
+      
+      // 회원 기록 삭제
       firestore.collection('users').doc(userId).get().then(snapshot => {
+        // firestore.collection('users').doc(userId).delete() is not working... why...
         snapshot.ref.delete();
       });
+      
+      // 해당 사용자가 작성한 글 삭제
       firestore.collection('sentences').where('userInfo.id', '==', `/users/${userId}`).get().then(snapshot => {
         snapshot.docs.forEach(doc => doc.ref.delete());
-      })
-    })
+      });
+      // 삭제 된 글을 좋아요한 이력 삭제
+      firestore.collection('users').get().then(snapshot => {
+        snapshot.docs.forEach(doc => {
+          const data = doc.data();
+          if (userId !== doc.id && JSON.stringify(data).indexOf(userId) > -1) {
+            const userLikes = data.userLikes.filter(like => like.userInfo.id.indexOf(userId) === -1);
+            firestore.collection('users').doc(doc.id).update({ userLikes: userLikes });
+          }
+        });
+       })
+    });
   });
 }
-
 // 탈퇴한 사용자가 좋아요한 데이터 삭제 
 export const deleteUserLikesData = (userId) =>() => {
   const sentenceRef = firestore.collection('sentences');
@@ -172,22 +185,27 @@ export const changeName = (name) => {
 // 사용자가 좋아요를 누른 문장 출력
 export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
   dispatch(clearListItem());
-  firestore.collection('users').doc(userId).get().then(snapshot => {
-    const userLikes = snapshot.data().userLikes;
-    let list = [];
-    // 시간 표시 형식에 맞게 설정
-    userLikes.forEach(item => { item.time = item.updateDate.toDate();});
-    // 시간순으로 정렬
+  firestore.collection('sentences').orderBy(orderBy).get().then(snapshot => {
+   let list = snapshot.docs.filter(doc => doc.data().likeUser.indexOf(userId) > -1).map(doc => {
+      const data = doc.data();
+      const { body} = data;
+      const bodyLengthCheck = body.length > 200
+       ? { printBody: body.slice(0, 200) + '...', showMoreButton: true }
+       : { printBody: body, showMoreButton: false };
+     return Object.assign({}, { id: doc.id}, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
+    });
+
+    console.log(list);
+    
     if(orderBy === 'updateDate') {
-      list = userLikes.sort((a, b) => b.time - a.time);
+      list = list.sort((a, b) => b.time - a.time);
     } else {
-      list = userLikes.sort((a, b) => b.likes - a.likes);
+      list = list.sort((a, b) => b.likes - a.likes);
     }
-    if (userLikes.length > 0) {
-      dispatch(setSentenceList({ list, orderBy: orderBy, userList: [] }));
-    }
+    dispatch(setSentenceList({ list, orderBy: orderBy, userList: [] }));
     dispatch(changeLoadingStatus(false));
   })
+    dispatch(changeLoadingStatus(false));
 }
 
 // 사용자가 작성한 문장 출력
