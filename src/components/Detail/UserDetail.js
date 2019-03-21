@@ -2,7 +2,8 @@ import React from 'react';
 import ListItem from '../List/ListItem';
 import ListSort from '../List/ListSort';
 
-const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy }) => {
+
+const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy, selectedModifyItem }) => {
   const getListDB = {
     filter: 'user',
     id: match.params.id,
@@ -13,10 +14,9 @@ const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCoun
   return (
     <div className="user-detail">
       <div className="user-info">
-        <img src={selectedUser.picture} alt="" />
-        {selectedUser.name}
+        <img src={selectedUser.picture} alt="사용자 프로필 이미지" />
+        <p> {selectedUser.name} </p>
       </div>
-      <p>등록문장({list.size? list.size : 0})</p>
       <ListSort
         toggleSort={toggleSort}
         isSortOpen={isSortOpen}
@@ -24,8 +24,9 @@ const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCoun
         getDetailListFromDB={getDetailListFromDB}
         getListDB={getListDB}
       />
-      <ul className="result-list">
-        {list.map((item, index) =>
+      <p className="sentence-count">등록문장({list.size ? list.size : 0})</p>
+      <ul className="sentence-list">
+        {list.size ? list.map((item, index) =>
           (<ListItem
               match={match}
               history={history}
@@ -45,7 +46,8 @@ const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCoun
               deleteListItem={deleteListItem}
               selectSearchedBook={selectSearchedBook}
             changeSentenceTextarea={changeSentenceTextarea}
-          />)) }
+            selectedModifyItem={selectedModifyItem}
+          />)) : <p>등록된 문장이 없습니다.</p>}
       </ul>
     </div>
   );

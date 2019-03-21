@@ -13,7 +13,6 @@ const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, chang
       // 알림 숨김
       checkInputAlert(false);
       const user = {userId, userName, userPicture};
-      selectedBook.author = selectedBook.author.join(" ");
       
       // 스피너 보여주기
       changeLoadingStatus(true);
@@ -36,7 +35,7 @@ const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, chang
     }
   }
   const alertPrint = showInputAlert ? (<p className="alert">문장을 입력해주세요.</p>) : '';
-  const popupPrint = showPopup ? <Popup popupMsg={popupMsg} togglePopup={togglePopup} target="book" resetBookState={resetBookState} history={history}/> : '';
+  const popupPrint = showPopup ? <Popup popupMsg={popupMsg} togglePopup={togglePopup} target="book" resetBookState={resetBookState} history={history} toggleModifyButton={toggleModifyButton} /> : '';
   return ( 
     <div className="add-sentence-input">
       <div className="book-info">
@@ -46,11 +45,13 @@ const AddSentenceInput = ({ selectedBook, checkInputAlert, showInputAlert, chang
       </div>
       <form onSubmit={(event) => { handleTextareaSubmit(event)}}>
         <textarea cols="30" rows="10" value={sentenceTextValue} onChange={(event) => { changeSentenceTextarea(event.currentTarget.value)}} />
-        <button type="button" onClick={() => { togglePopup('취소')}}>취소</button>
-        { match.path ==='/add' 
-          ? <button type="submit">완료</button> 
-          : <button type="submit">수정</button>
-        }
+        <div className="buttons">
+          <button type="button" onClick={() => { togglePopup('취소')}}>취소</button>
+          { match.path ==='/add' 
+            ? <button type="submit">완료</button> 
+            : <button type="submit">수정</button>
+          }
+        </div>
         {alertPrint}
       </form>
       {popupPrint}

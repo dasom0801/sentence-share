@@ -1,5 +1,11 @@
 import * as types from './actionTypes';
 
+export const toggleMenu = () => {
+  return {
+    type: types.TOGGLE_MENU
+  }
+}
+
 export const toggleSort = () => {
   return {
     type: types.TOGGLE_SORT

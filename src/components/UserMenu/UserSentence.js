@@ -2,7 +2,10 @@ import React from 'react';
 import ListSort from '../List/ListSort';
 import ListItem from '../List/ListItem';
 
-const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy, getUserSentenceListDB}) => {
+import '../../styles/components/ListItem.scss';
+import '../../styles/components/User.scss';
+
+const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy, getUserSentenceListDB, selectedModifyItem}) => {
   // 출력할 리스트 아이템 만들기
   const printList = list.map((item, index) => (
     <ListItem
@@ -24,6 +27,7 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
       deleteListItem={deleteListItem}
       selectSearchedBook={selectSearchedBook}
       changeSentenceTextarea={changeSentenceTextarea}
+      selectedModifyItem={selectedModifyItem}
     />
   ));
   // 정렬할 때 DB를 불러오기 위한 값
@@ -34,9 +38,9 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
     userId
   }
   return ( 
-    <div className="book-detail">
-      <p>내가 공유한 문장</p>
-      <p>{list.size ? list.size : 0}건</p> 
+    <div className="user-sentence">
+      <p className="page-title">내가 공유한 문장</p>
+      <p className="count">{list.size ? list.size : 0}건</p> 
       <ListSort
         toggleSort={toggleSort}
         isSortOpen={isSortOpen}
@@ -44,7 +48,10 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
         getUserSentenceListDB={getUserSentenceListDB}
         getListDB={getListDB}
       />
-      {printList}
+      <ul className="sentence-list">
+        {list.size ? printList : <p className="no-result"> 등록된 문장이 없습니다. </p>}
+      </ul>
+
     </div>
    );
 }

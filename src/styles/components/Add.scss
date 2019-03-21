@@ -1,0 +1,157 @@
+@import '../modules/_all.scss';
+
+.add-sentence {
+  text-align: center;
+  button {
+    width: 70px;
+    height: 30px;
+    color: #fff;
+    font-size: 18px;
+    background: $base-color;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px $base-color-dark;
+    cursor: pointer;
+  }
+  .book-search {
+    .page-title {
+      margin-bottom: 30px;
+      font-size: 30px;
+      font-weight: bold;
+      text-align: left;
+    }
+    form {
+      margin-bottom: 40px;
+      input {
+        margin-right: 10px;
+        margin-bottom: 10px;
+        width: 300px;
+        height: 30px;
+        font-size: 18px;
+        border: none;
+        border-bottom: 2px solid $base-color;
+      }
+    }
+
+    .book-search-result {
+      .book-list{
+        margin-bottom: 20px;
+        li {
+          padding: 15px 10px;
+          text-align: left;
+          border-bottom: 1px solid #999;
+          cursor: pointer;
+          &:after {
+            content: '';
+            display: block;
+            clear: both;
+          }
+        }
+        img {
+          float: left;
+          margin-right: 20px;
+          width: 80px;
+          box-shadow: 3px 3px #ccc;
+        }
+        .title {
+          margin-bottom: 10px;
+          padding-top: 3px;
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+      .page{
+        margin-bottom: 25px;
+        text-align: center;
+        li {
+          display: inline-block;
+          margin: 0 3px 5px 0;
+          padding: 1px 7px;
+          cursor: pointer;
+        }
+        .active {
+          color: $base-color;
+          font-weight: bold;
+          border-bottom: 1px solid $base-color;
+        }
+        &:after{
+          content: '';
+          display: block;
+          clear: both;;
+        }
+      }
+    }
+    .no-result{
+      p {
+        font-size: 25px;
+        margin-bottom: 25px;
+      }
+    }
+    .self-input {
+      margin-top: 10px;
+      font-size: 15px;
+      width: 120px;
+      cursor: pointer;
+    }
+  }
+    .add-sentence-input{
+      .book-info {
+        margin-bottom: 25px;
+        img {
+          margin-bottom: 20px;
+        }
+        .book-title{
+          margin-bottom: 10px;
+          font-size: 18px;
+          font-weight: bold;
+        }
+      }
+      form {
+        textarea {
+          margin-bottom: 20px;
+          width: 70%;
+        }
+        button {
+          margin-bottom: 10px;
+          margin-left: 30px;
+        }
+      }
+    }
+}
+
+.book-info-input{
+  font-size: 20px;
+  text-align: center;
+  div {
+    margin-bottom: 30px;
+  }
+  label{
+    display: inline-block;
+    margin-right: 20px;
+    padding-top: 3px;
+    width: 50px;
+    height: 30px;
+    line-height: 30px;
+    vertical-align: sub;
+    text-align: right;
+  }
+  input {
+    display: inline-block;
+    width: 300px;
+    height: 30px;
+    border: none;
+    border-bottom: 2px solid $base-color; 
+  }
+  button {
+    margin-bottom: 20px;
+    width: 70px;
+    height: 30px;
+    color: #fff;
+    font-size: 18px;
+    background: $base-color;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 1px 1px $base-color-dark;
+    cursor: pointer;
+  }
+}

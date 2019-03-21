@@ -105,6 +105,7 @@ export const changeSentenceTextarea = (value) => {
 export const submitSentence = ({ user, selectedBook, sentenceTextValue }) => dispatch => {
   firestore.collection('books').where('isbn', '==', selectedBook.isbn).get().then(snapshot => {
     const senetenceObj = {
+      author: selectedBook.author,
       body: sentenceTextValue,
       bookId: '',
       bookImage: selectedBook.bookImage,

@@ -5,8 +5,11 @@ import * as actions from '../store/actions/index';
 import AddSentence from '../components/Add/AddSentence';
 import BookInfoInput from '../components/Add/BookInfoInput';
 
+import '../styles/components/Add.scss';
+
 class BookContainer extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     if (this.props.match.path === '/add') {
       // 데이터가 남아있을지 모르니 삭제
       this.props.resetBookState();
@@ -16,7 +19,7 @@ class BookContainer extends Component {
   }
   render() { 
     const printItem = this.props.isBookInfoVisible 
-      ? <BookInfoInput {...this.pops}/> 
+      ? <BookInfoInput {...this.props}/> 
     : <AddSentence {...this.props} />;
     return ( 
       <Fragment>

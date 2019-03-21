@@ -9,6 +9,7 @@ import UserLikes from '../components/UserMenu/UserLikes';
 
 class UserContainer extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     // componentDidMount 시점에 데이터가 없다면 가져오기
     const { path } = this.props.match, { userId, getFirebaseUserData, changeLoadingStatus } = this.props;
     const user = JSON.parse(window.localStorage.getItem('user'));
@@ -59,6 +60,7 @@ const mapStateToProps = ({ user, list, common }) => {
     picture: user.get('picture'),
     list: list.get('list'),
     isModifyOpen: list.get('isModifyOpen'),
+    selectedModifyItem: list.get('selectedModifyItem'),
     orderBy: list.get('orderBy'),
     showPopup: common.get('showPopup'),
     popupMsg: common.get('popupMsg'),
@@ -82,7 +84,7 @@ const mapDispatchToProps = dispatch => {
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
     userDelete: (userId) => { dispatch(actions.userDelete(userId)) },
     setChangedName: (userInfo) => { dispatch(actions.setChangedName(userInfo)) },
-    toggleModifyButton: () => { dispatch(actions.toggleModifyButton()) },
+    toggleModifyButton: (bool, id) => { dispatch(actions.toggleModifyButton(bool, id)) },
     togglePopup: (msg) => { dispatch(actions.togglePopup(msg)) },
     deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload)) },
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },
@@ -90,7 +92,7 @@ const mapDispatchToProps = dispatch => {
     changeLoadingStatus: (bool) => { dispatch(actions.changeLoadingStatus(bool)) },
     getUserLikesListDB: (payload) => { dispatch(actions.getUserLikesListDB(payload)) },
     getUserSentenceListDB: (payload) => { dispatch(actions.getUserSentenceListDB(payload)) },
-    toggleSort: () => { dispatch(actions.toggleSort()) },
+    toggleSort: () => { dispatch(actions.toggleSort())},
   }
 };
 

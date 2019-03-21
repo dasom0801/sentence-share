@@ -40,7 +40,6 @@ const AddSentence = ({ inputBookSearch, searchKeyword, searchBookInfo, bookList,
     />); 
   return ( 
     <div className="add-sentence">
-      <p>새 문장 추가</p>
       {printComponent}
     </div>
    );

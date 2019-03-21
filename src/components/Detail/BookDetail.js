@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '../List/ListItem';
 import ListSort from '../List/ListSort';
 
-const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, selectedBook, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, toggleSort, isSortOpen, orderBy, changeSentenceTextarea, selectSearchedBook}) => {
+const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, selectedBook, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, toggleSort, isSortOpen, orderBy, changeSentenceTextarea, selectSearchedBook, selectedModifyItem}) => {
 
   const { bookTitle, bookImage, author, publisher} = selectedBook;
   const listPrint = activeTab === 'all' 
@@ -26,6 +26,7 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
         deleteListItem={deleteListItem}
         selectSearchedBook={selectSearchedBook}
         changeSentenceTextarea={changeSentenceTextarea}
+        selectedModifyItem={selectedModifyItem}
       /> )
     ) : userList.map((item, index) => (
       <ListItem 
@@ -46,7 +47,9 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
         popupMsg={popupMsg} 
         deleteListItem={deleteListItem}
         selectSearchedBook={selectSearchedBook}
-        changeSentenceTextarea={changeSentenceTextarea}/>));
+        changeSentenceTextarea={changeSentenceTextarea}
+        selectedModifyItem={selectedModifyItem}
+      />));
 
     // 정렬할 때 DB를 불러오기 위한 값
     const getListDB = {
@@ -60,24 +63,11 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
     <div className="book-detail">
       <div className="book-info">
         <img src={bookImage} alt="책표지"/>
-        <p>{bookTitle}</p>
-        <p>{author}</p>
-        <p>{publisher}</p>
-      </div>
-      <div className="result-tab">
-        <button 
-          type="button" 
-          className={`all ${activeTab === 'all' ? 'active' : ''}`} 
-          onClick={() => { changeDetailTab('all')}}>전체문장({list ? list.size : 0})</button>
-        <button 
-          type="button" 
-          className={`user ${activeTab === 'user'? 'active' : ''}`}
-          onClick={() => { 
-            if(userList.size) {
-              changeDetailTab('user');
-            }
-          }}
-          >내문장({userList ? userList.size : 0})</button>
+        <div className="text-container">
+          <p className="title">{bookTitle}</p>
+          <p>작가: {author}</p>
+          <p>출판사: {publisher}</p>
+        </div>
       </div>
       <ListSort
         toggleSort={toggleSort}
@@ -86,8 +76,24 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
         getDetailListFromDB={getDetailListFromDB}
         getListDB={getListDB}
       />
-      <ul className="result-list">
-        {listPrint}
+      <div className="result-tab">
+        <button 
+          type="button" 
+          className={`all ${activeTab === 'all' ? 'active' : ''}`} 
+          onClick={() => { changeDetailTab('all')}}>전체 문장({list ? list.size : 0})</button>
+        <button 
+          type="button" 
+          className={`user ${activeTab === 'user'? 'active' : ''}`}
+          onClick={() => { 
+            if(userList.size) {
+              changeDetailTab('user');
+            }
+          }}
+          >내 문장({userList ? userList.size : 0})</button>
+      </div>
+
+      <ul className="sentence-list">
+        {list.size? listPrint : <p>등록된 문장이 없습니다.</p>}
       </ul>
     </div>
    );

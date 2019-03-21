@@ -1,0 +1,72 @@
+@import '../modules/_all.scss';
+
+.book-detail {
+  .book-info {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #333;
+    border-radius: 5px;
+
+    img {
+      float: left;
+      margin-right: 30px;
+      box-shadow: 4px 4px #ccc;
+    }
+
+    .text-container {
+      float: left;
+      .title {
+        margin-bottom: 10px;
+        padding-top: 5px;
+        font-size: 25px;
+        font-weight: bold;
+      }
+      p {
+        margin-bottom: 10px;
+      }
+    }
+
+    &:after {
+      content: '';
+      clear: both;
+      display: block;
+    }
+  }
+  .result-tab {
+    margin: 20px 0 0 0;
+    font-size: 18px;
+
+    button {
+      margin-right: 20px;
+      padding: 3px;
+      width: 100px;
+      background: #fff;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+    .active {
+      font-weight: bold;
+      color: $base-color;
+      border-bottom: 2px solid $base-color;
+    }
+  }
+}
+
+.user-detail {
+  .user-info {
+    img {
+      margin-bottom: 25px;
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+    }
+    p {
+      font-size: 30px;
+      font-weight: bold;
+    }
+  }
+  .sentence-count {
+    font-size: 18px;
+  }
+}

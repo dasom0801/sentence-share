@@ -1,6 +1,10 @@
 @import '../modules/_all.scss';
 
 .App {
+  .container {
+    padding: 40px 20px 30px 20px;
+  }
+  // 로딩시 스피너 회전
   .loading-spinner {
     position: fixed;
     top: 50%;
@@ -9,6 +13,7 @@
     height: 3em;
     transform: translateY(-50%);
     animation: spin 2.5s ease-out infinite;
+    z-index: 1000;
     @keyframes spin {
       from { 
         transform: rotate(0deg);
@@ -16,6 +21,54 @@
       to {
         transform: rotate(360deg);
       }
+    }
+  }
+  &.menu-open {
+    height: 100vh;
+    overflow: hidden;
+  }
+
+  &.popup-open {
+    height: 100vh;
+    overflow:hidden;
+  }
+  .popup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 5000;
+  }
+  .message-box{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 250px;
+    height: 250px;
+    border-radius: 5px;
+    background: #fff;
+    box-shadow: 3px 3px #777;
+    text-align: center;
+    p {
+      margin-top: 35%;
+      margin-bottom: 20px;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    button {
+      margin: 0 10px;
+      width: 70px;
+      height: 30px;
+      color: #fff;
+      font-size: 18px;
+      background: $base-color;
+      border: none;
+      border-radius: 5px;
+      box-shadow: 1px 1px $base-color-dark;
+      cursor: pointer;
     }
   }
 }

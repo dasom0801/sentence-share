@@ -6,6 +6,7 @@ import ListMain from '../components/List/ListMain';
 
 class ListContainer extends Component {
   componentDidMount() {
+    window.scrollTo(0, 0);
     this.props.getSentenceListFromDB('updateDate');
     // 스크롤 이벤트 추가 > 리스트 데이터 불러오기
     window.addEventListener("scroll", this.handleScroll);
@@ -45,10 +46,11 @@ const mapStateToProps = ({ list, user, common}) => {
     list: list.get('list'),
     lastItem: list.get('lastItem'),
     orderBy: list.get('orderBy'),
+    selectedModifyItem: list.get('selectedModifyItem'),
     isModifyOpen: list.get('isModifyOpen'),
     showPopup: common.get('showPopup'),
     popupMsg: common.get('popupMsg'),
-    isLoading: common.get('isLoading')
+    isLoading: common.get('isLoading'),
   }
 };
 
@@ -60,7 +62,7 @@ const mapDispatchToProps = dispatch => {
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
     likeCountUp: (index, id, likes, userId) => { dispatch(actions.likeCountUp(index,id,likes, userId))},
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user))},
-    toggleModifyButton: (bool) => { dispatch(actions.toggleModifyButton(bool))},
+    toggleModifyButton: (bool, id) => { dispatch(actions.toggleModifyButton(bool, id))},
     togglePopup: (msg) => { dispatch(actions.togglePopup(msg))},
     deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload))},
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book))},

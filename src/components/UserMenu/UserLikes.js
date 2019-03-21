@@ -2,7 +2,7 @@ import React from 'react';
 import ListSort from '../List/ListSort';
 import ListItem from '../List/ListItem';
 
-const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, isModifyOpen, togglePopup, showPopup, popupMsg, toggleModifyButton, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, orderBy, isSortOpen, toggleSort, getUserLikesListDB}) => {
+const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, isModifyOpen, togglePopup, showPopup, popupMsg, toggleModifyButton, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, orderBy, isSortOpen, toggleSort, getUserLikesListDB, selectedModifyItem}) => {
 
   const printList = list.map((item, index)=> (
     <ListItem 
@@ -24,6 +24,7 @@ const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailL
       deleteListItem={deleteListItem} 
       selectSearchedBook={selectSearchedBook}
       changeSentenceTextarea={changeSentenceTextarea}
+      selectedModifyItem={selectedModifyItem}
     />
   ));
   // 정렬할 때 DB를 불러오기 위한 값
@@ -35,8 +36,8 @@ const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailL
   }
   return ( 
     <div className="user-likes">
-      <p>내가 좋아한 문장</p>
-      <p>{list.size? list.size : 0}건</p>
+      <p className="page-title">내가 좋아한 문장</p>
+      <p className="count">{list.size? list.size : 0}건</p>
       <ListSort
         toggleSort={toggleSort}
         isSortOpen={isSortOpen}
@@ -44,7 +45,10 @@ const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailL
         getUserLikesListDB={getUserLikesListDB}
         getListDB={getListDB}
       />
-      {printList}
+      <ul className="sentence-list">
+        {list.size ? printList : <p className="no-result"> 좋아한 문장이 없습니다. </p>}
+      </ul>
+
     </div>
    );
 }

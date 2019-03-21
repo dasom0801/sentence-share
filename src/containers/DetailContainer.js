@@ -5,11 +5,18 @@ import * as actions from '../store/actions/index';
 
 import BookDetail from '../components/Detail/BookDetail';
 import UserDetail from '../components/Detail/UserDetail';
+import '../styles/components/ListItem.scss';
+import '../styles/components/Detail.scss';
+
 
 class DetailContainer extends Component {
   componentDidMount() {
+    console.log(this.props.selectedBook);
+    
+    window.scrollTo(0, 0);
     // componentDidMount 시점에 데이터가 없다면 가져오기
     const filter = this.props.match.path.indexOf('/book') > -1 ? 'book' : 'user';
+    const bookId = filter === 'book' && this.props.match.params.id;
     if (!this.props.userId) {
       const user = JSON.parse(window.localStorage.getItem('user'));
       this.props.changeLoadingStatus(true);
@@ -19,7 +26,8 @@ class DetailContainer extends Component {
           filter,
           id: this.props.match.params.id,
           orderBy: 'updateDate',
-          startItem: false
+          startItem: false,
+          bookId
         },
         page: 'detail'
       })
@@ -44,13 +52,14 @@ const mapStateToProps = ({ user, detail, list, common}) => {
     list: list.get('list'),
     userList: list.get('userList'),
     isModifyOpen: list.get('isModifyOpen'),
+    selectedModifyItem: list.get('selectedModifyItem'),
     orderBy: list.get('orderBy'),
     activeTab: detail.get('activeTab'),
     selectedBook: detail.get('selectedBook'),
     selectedUser: detail.get('selectedUser'),
     isSortOpen: common.get('isSortOpen'),
     showPopup: common.get('showPopup'),
-    popupMsg: common.get('popupMsg')
+    popupMsg: common.get('popupMsg'),
   }
 };
  
@@ -63,7 +72,7 @@ const mapDispatchToProps = dispatch => {
     getSelectedUserInfoDB: (user) => { dispatch(actions.getSelectedUserInfoDB(user)) },
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
     getFirebaseUserData: (payload) => { dispatch(actions.getFirebaseUserData (payload)) },
-    toggleModifyButton: (bool) => { dispatch(actions.toggleModifyButton(bool)) },
+    toggleModifyButton: (bool, id) => { dispatch(actions.toggleModifyButton(bool, id)) },
     togglePopup: (msg) => { dispatch(actions.togglePopup(msg)) },
     deleteListItem: (payload) => { dispatch(actions.deleteListItem(payload)) },
     selectSearchedBook: (book) => { dispatch(actions.selectSearchedBook(book)) },

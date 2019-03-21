@@ -15,7 +15,7 @@ const BookInfoInput = ({ changeBookInfoInput, bookInputValue, submitBookInfoInpu
       submitBookInfoInput({ 
         infoVisible: false, 
         book: {
-          author: [author],
+          author: author,
           bookTitle: title,
           publisher: publisher
         },
@@ -29,22 +29,30 @@ const BookInfoInput = ({ changeBookInfoInput, bookInputValue, submitBookInfoInpu
   printAlert = emptyValue.length && showInputAlert ? (<p className="alert">{emptyValue.join(',')}를 입력해주세요.</p>) : '';
   
   return ( 
-    <form className="book-info-input" onSubmit={(event) => {handleInputSubmit(event)}}>
-      <label htmlFor="title">제목</label>
-      <input type="text" id="title" value={bookInputValue.title} 
-        onChange={(event) => { changeBookInfoInput({key: 'title', value: event.currentTarget.value})}}
-      />
-      <label htmlFor="author">저자</label>
-      <input type="text" id="author" value={bookInputValue.author} 
-        onChange={(event) => { changeBookInfoInput({ key: 'author', value: event.currentTarget.value })}}
-      />
-      <label htmlFor="publisher">출판사</label>
-      <input type="text" id="publisher" value={bookInputValue.publisher}
-        onChange={(event) => changeBookInfoInput({ key: 'publisher', value: event.currentTarget.value })}
-      />
-      <button type="submit">완료</button>
-      {printAlert}
-    </form>
+    <div>
+      <form className="book-info-input" onSubmit={(event) => {handleInputSubmit(event)}}>
+        <div className="title">
+          <label htmlFor="title">제목</label>
+          <input type="text" id="title" value={bookInputValue.title} 
+            onChange={(event) => { changeBookInfoInput({key: 'title', value: event.currentTarget.value})}}
+          />
+        </div>
+        <div className="author">
+          <label htmlFor="author">저자</label>
+          <input type="text" id="author" value={bookInputValue.author} 
+            onChange={(event) => { changeBookInfoInput({ key: 'author', value: event.currentTarget.value })}}
+          />
+        </div>
+        <div className="publisher">
+          <label htmlFor="publisher">출판사</label>
+          <input type="text" id="publisher" value={bookInputValue.publisher}
+            onChange={(event) => changeBookInfoInput({ key: 'publisher', value: event.currentTarget.value })}
+          />
+        </div>
+        <button type="submit" class="info-submit">완료</button>
+        {printAlert}
+      </form>
+    </div>
    );
 }
  

@@ -46,8 +46,6 @@ export const getSentenceListFromDB = (orderBy, startItem) => dispatch => {
     });
   } else {
     // 추가로 데이터 호출
-    console.log('check2');
-    
     sentenceRef.doc(startItem).get().then(snapshot => {
       sentenceRef.orderBy(orderBy, "desc").startAfter(snapshot).limit(5).get().then(snapshot => {
         // 쿼리 결과가 있을 때만 리스트를 출력한다
@@ -138,25 +136,29 @@ export const changeListItem = (index, key, value) => {
 }
 
 // 글 수정, 삭제 버튼 토글
-export const toggleModifyButton = (bool) =>{
+export const toggleModifyButton = (bool, id ) =>{
+  console.log('modify', id);
+  
   return {
     type: types.TOGGLE_MODIFY_BUTTON,
-    bool
+    bool, 
+    id
   }
 }
 
 // 글 삭제
 export const deleteListItem = ({sentenceId, path, getListDB}) => dispatch => {
   firestore.collection('sentences').doc(sentenceId).delete();
-  console.log(path);
+  dispatch(clearListItem());
   
+  // 글을 삭제한 곳에 따라 다른 DB 요청
   if(path === '/') {
     dispatch(getSentenceListFromDB('updateDate'));
   } else if (path.indexOf('detail') > -1) {
     dispatch(getDetailListFromDB(getListDB));
   } else if (path.indexOf('likes') > -1) {
     dispatch(getUserLikesListDB(getListDB))
-  } else if (path.indexOf('sentences') > -1) {
+  } else if (path.indexOf('sentence') > -1) {
     dispatch(getUserSentenceListDB(getListDB))
   }
 }

@@ -7,7 +7,8 @@ const listInitialState = Map({
   userList: List([]),
   lastItem: '',
   orderBy: 'updateDate',
-  isModifyOpen: false
+  isModifyOpen: false,
+  selectedModifyItem: '',
 })
 
 export const list = (state = listInitialState, action) => {
@@ -22,7 +23,7 @@ export const list = (state = listInitialState, action) => {
     case actions.CHAHNGE_LIST_ITEM:
       return state.setIn(['list', action.index, action.key], action.value);
     case actions.TOGGLE_MODIFY_BUTTON: 
-      return state.set('isModifyOpen', action.bool);
+      return state.merge({ isModifyOpen: action.bool, selectedModifyItem: action.id});
     default:
       return state;
   }

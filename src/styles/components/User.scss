@@ -1,0 +1,56 @@
+@import '../modules/_all.scss';
+
+.user-sentence, .user-likes, .user-info {
+  .page-title{
+    margin-bottom: 10px;
+    font-size: 30px;
+    font-weight: bold;
+  }
+  .count {
+    font-size: 25px;
+  }
+}
+
+.user-info {
+  padding: 30px;
+  text-align: center;
+  .page-title {
+    text-align: left;
+  }
+  .info-container {
+    margin-top: 30px;
+    padding: 20px;
+    font-size: 20px;
+    p {
+      margin-top: 20px;
+      text-align: left;
+      cursor: default;
+    }
+    span {
+      display: inline-block;
+      margin-right: 30px;
+      width:70px;
+    }
+    input {
+      padding: 3px;
+      width: 250px;
+      border: none;
+      border-bottom: 2px solid $base-color;
+    }
+  }
+  button {
+    margin-top: 20px;
+    width: 100px;
+    height: 30px;
+    background-color: $base-color;
+    border: 1px solid $base-color-dark;
+    box-shadow: 1px 1px $base-color-dark;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  .user-delete {
+    position: relative;
+    right: -45%;
+    margin-top: 100px;
+  }
+}

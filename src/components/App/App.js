@@ -33,23 +33,25 @@ class App extends Component {
     }
   }
   render() {
-    const { history, loginStatus, changeLoginStatus, loginWithFirebase, userId, isLoading} = this.props;
+    const { history, loginStatus, changeLoginStatus, loginWithFirebase, userId, userPicture, userName, isLoading, toggleMenu, isMenuOpen, showPopup} = this.props;
     
     return loginStatus ? (
-      <div className="App">
+      <div className={`App${isMenuOpen ? ' menu-open' : ''} ${showPopup? 'popup-open': ''}`}>
         {isLoading && <Loading />}
-        <NavBar changeLoginStatus={changeLoginStatus} history={history} userId={userId}/>
-        <Switch>
-          <Route exact path="/" component={ListContainer} />
-          <Route path="/info" component={UserContainer} />
-          <Route path="/sentence" component={UserContainer} />
-          <Route path="/likes" component={UserContainer} />
-          <Route path="/user-detail/:id" component={DetailContainer} />
-          <Route path="/book-detail/:id" component={DetailContainer} />
-          <Route path="/search" component={ListKeywordSearch} />
-          <Route path="/add" component={BookContainer} />
-          <Route path="/modify/:id" component={BookContainer} />
-        </Switch>
+        <NavBar changeLoginStatus={changeLoginStatus} history={history} userId={userId} toggleMenu={toggleMenu} isMenuOpen={isMenuOpen} userPicture={userPicture} userName={userName}/>
+        <div className="container">
+          <Switch>
+            <Route exact path="/" component={ListContainer} />
+            <Route path="/info" component={UserContainer} />
+            <Route path="/sentence" component={UserContainer} />
+            <Route path="/likes" component={UserContainer} />
+            <Route path="/user-detail/:id" component={DetailContainer} />
+            <Route path="/book-detail/:id" component={DetailContainer} />
+            <Route path="/search" component={ListKeywordSearch} />
+            <Route path="/add" component={BookContainer} />
+            <Route path="/modify/:id" component={BookContainer} />
+          </Switch>
+        </div>
       </div>
     ) : (<Intro loginWithFirebase={loginWithFirebase}/>);
   }
@@ -57,14 +59,19 @@ class App extends Component {
 
 const mapStateToProps = ({ user, common}) => {
   return {
-    loginStatus: user.get('loginStatus'),
     userId: user.get('id'),
-    isLoading: common.get('isLoading')
+    userName: user.get('name'),
+    userPicture: user.get('picture'),
+    loginStatus: user.get('loginStatus'),
+    isMenuOpen: common.get('isMenuOpen'),
+    isLoading: common.get('isLoading'),
+    showPopup: common.get('showPopup'),
   }
 };
 
 const mapDispatchToProps = dispatch => {
   return {
+    toggleMenu: () => dispatch(actions.toggleMenu()),
     changeLoginStatus: (login) =>dispatch(actions.changeLoginStatus(login)),
     loginWithFirebase: () => dispatch(actions.loginWithFirebase()),
     getFirebaseUserData: (payload) => dispatch(actions.getFirebaseUserData(payload)),

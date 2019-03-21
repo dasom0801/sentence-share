@@ -4,6 +4,7 @@ import * as actions from '../actions/actionTypes';
 
 // common 
 const commonInitialState = Map({
+  isMenuOpen: false,
   isSortOpen: false,
   showPopup: false,
   popupMsg: '',
@@ -13,6 +14,8 @@ const commonInitialState = Map({
 
 export const common = (state = commonInitialState, action) => {
   switch (action.type) {
+    case actions.TOGGLE_MENU:
+      return state.set('isMenuOpen', !state.get('isMenuOpen'));
     case actions.TOGGLE_SORT: 
       return state.set('isSortOpen', !state.get('isSortOpen'));
     case actions.TOGGLE_POPUP:

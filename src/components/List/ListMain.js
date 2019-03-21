@@ -3,7 +3,9 @@ import ListItem from './ListItem';
 import ListSort from './ListSort';
 import AddButton from '../Add/AddButton';
 
-const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSort, isSortOpen, orderBy, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea}) => {
+import '../../styles/components/List.scss';
+
+const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSort, isSortOpen, orderBy, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, selectedModifyItem}) => {
   const printList = list && list.map((item, index) => 
     <ListItem 
       match={match}
@@ -25,11 +27,11 @@ const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSor
       deleteListItem={deleteListItem}
       selectSearchedBook={selectSearchedBook}
       changeSentenceTextarea={changeSentenceTextarea}
+      selectedModifyItem={selectedModifyItem}
     />
   );
   return ( 
     <div className="main-list">
-      <p>MainList</p>
       <AddButton />
       <ListSort 
         toggleSort={toggleSort} 
@@ -37,7 +39,7 @@ const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSor
         orderBy={orderBy} 
         getSentenceListFromDB={getSentenceListFromDB} 
       />
-      <ul className="senetence-list">
+      <ul className="sentence-list">
         {printList}
       </ul>
     </div>

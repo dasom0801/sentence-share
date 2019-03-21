@@ -2,14 +2,8 @@
 breakpoint
 *********************/
 @mixin breakpoint($point) {
-  @if $point==huge {
-    @media (min-width: 1200px) {
-      @content ;
-    }
-  }
-
-  @else if $point==large {
-    @media (min-width: 1024px) and (max-width: 1119px) {
+ @if $point==large {
+    @media (min-width: 1024px) {
       @content ;
     }
   }
