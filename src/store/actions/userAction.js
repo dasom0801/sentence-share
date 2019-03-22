@@ -1,9 +1,11 @@
 import * as types from './actionTypes';
-import { auth, provider, firestore } from '../../modules/firebaseConfig';
+import { auth, provider, firestore, storage } from '../../modules/firebaseConfig';
 import firebase from 'firebase/app';
 import { getDetailListFromDB } from './detailAction';
 import { setSentenceList, clearListItem, getList } from './listAction';
 import { changeLoadingStatus } from './commonAction';
+import uuid from 'uuid/v1';
+
 
 //firebase로 로그인 하기
 export const loginWithFirebase = () => dispatch =>{
@@ -217,4 +219,40 @@ export const getUserSentenceListDB = ({userId, orderBy}) => dispatch => {
     } 
     dispatch(changeLoadingStatus(false));
   })
+}
+
+
+// 사용자 프로필 이미지 변경
+export const handleImageChange = ({file, userId}) => dispatch  => {
+  const randomId = uuid();
+  const fileName = `${userId}_${randomId}`
+  const ref = storage.ref().child(`user-profile/${fileName}`);
+  const uploadTask = ref.put(file);
+  uploadTask.on('state_changed' , () => {
+  }, (error) => {
+    console.log(error);
+  }, () => {
+    // 업로드가 성공적으로 완료되면 url을 받을 수 있다. 
+    // url을 받아서 DB & state에 반영 
+      uploadTask.snapshot.ref.getDownloadURL().then(downloadURL => {
+        firestore.collection('users').doc(userId).set({ picture: downloadURL }, { merge: true });
+        dispatch(changeUserPicture(downloadURL));
+        dispatch(changeLoadingStatus(false));
+        firestore.collection('sentences').get().then(snapshot => {
+          snapshot.docs.forEach(doc => {
+            const data = doc.data();
+            if( data.userInfo.id.indexOf(userId) > -1) {
+              doc.ref.update({ "userInfo.picture": downloadURL });
+            }
+          })
+        })
+      });
+  })
+}
+
+export const changeUserPicture = (url) => {
+  return {
+    type: types.CHANGE_USER_PICTURE,
+    url
+  }
 }

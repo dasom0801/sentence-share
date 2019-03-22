@@ -13,6 +13,7 @@ export const SET_USER_ID = 'SET_USER_ID';
 export const SET_USER_LIKES_LIST = 'SET_USER_LIKES_LIST';
 export const CHANGE_NAME_INPUT = 'CHANGE_NAME_INPUT';
 export const CHANGE_NAME = 'CHANGE_NAME';
+export const CHANGE_USER_PICTURE = 'CHANGE_USER_PICTURE';
 
 // list
 export const SET_SENTENCE_LIST = 'SET_SENTENCE_LIST';

@@ -93,6 +93,7 @@ const mapDispatchToProps = dispatch => {
     getUserLikesListDB: (payload) => { dispatch(actions.getUserLikesListDB(payload)) },
     getUserSentenceListDB: (payload) => { dispatch(actions.getUserSentenceListDB(payload)) },
     toggleSort: () => { dispatch(actions.toggleSort())},
+    handleImageChange: (image) => { dispatch(actions.handleImageChange(image))},
   }
 };
 

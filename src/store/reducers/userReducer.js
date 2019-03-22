@@ -25,6 +25,8 @@ export const user = (state = userInitailState, action) => {
       return state.set('nameInput', action.input);
     case actions.CHANGE_NAME:
       return state.merge({ 'name': action.name, 'nameInput': action.name });
+    case actions.CHANGE_USER_PICTURE: 
+      return state.set('picture', action.url);
     default:
       return state;
   }

@@ -31,11 +31,40 @@
         text-align: right;
       }
       &.picture {
-        padding-bottom: 40px;
         text-align: center;
-        img {
-          width: 100px;
-          border-radius: 50%;
+        padding-bottom: 40px;
+        label {
+          position: relative;
+          img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+          }
+          &:hover {
+            &::after {
+              content: "사진 변경";
+              position: absolute;
+              left: 0;
+              display: inline-block;
+              width: 150px;
+              height: 150px;
+              color: #fff;
+              line-height: 150px;
+              text-align: center;
+              background: rgba(0, 0, 0, 0.5);
+              border-radius: 50%;
+              cursor: pointer;
+            }
+          }
+        }
+        #file-input{
+          position: absolute !important;
+          height: 1px;
+          width: 1px;
+          overflow: hidden;
+          clip: rect(1px 1px 1px 1px);
+          /* IE6, IE7 */
+          clip: rect(1px, 1px, 1px, 1px);
         }
       }
       input {
@@ -69,7 +98,7 @@
   .user-delete {
     position: relative;
     right: -45%;
-    margin-top: 100px;
+    margin-top: 40px;
   }
 }
 
