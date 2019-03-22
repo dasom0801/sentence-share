@@ -91,10 +91,9 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
           }}
           >내 문장({userList ? userList.size : 0})</button>
       </div>
-
-      <ul className="sentence-list">
-        {list.size? listPrint : <p>등록된 문장이 없습니다.</p>}
-      </ul>
+        <ul className="sentence-list">
+          {list.size? listPrint : <p>등록된 문장이 없습니다.</p>}
+        </ul>
     </div>
    );
 }

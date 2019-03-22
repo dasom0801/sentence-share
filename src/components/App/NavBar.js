@@ -17,6 +17,7 @@ const NavBar = ({ changeLoginStatus, history, toggleMenu, isMenuOpen, userName, 
         <NavLink to="/">Sentence Share</NavLink>
       </div>
       <NavMenu changeLoginStatus={changeLoginStatus} history={history} isMenuOpen={isMenuOpen} userName={userName} userPicture={userPicture} toggleMenu={toggleMenu} />
+      <div className={`nav-background ${isMenuOpen ? 'is-open' : ''}`} onClick={() => { toggleMenu() }}></div>
     </div>
    );
 }

@@ -17,29 +17,47 @@
   .page-title {
     text-align: left;
   }
-  .info-container {
+  .info-table {
+    width: 100%;
+    margin-left: 50%;
+    transform: translateX(-50%);
     margin-top: 30px;
-    padding: 20px;
     font-size: 20px;
-    p {
-      margin-top: 20px;
-      text-align: left;
-      cursor: default;
+    text-align: left;
+    td {
+      padding: 10px 5px;
+      &.label {
+        width: 25%;
+        text-align: right;
+      }
+      &.picture {
+        padding-bottom: 40px;
+        text-align: center;
+        img {
+          width: 100px;
+          border-radius: 50%;
+        }
+      }
+      input {
+        margin-right: 10px;
+        padding: 3px;
+        width: 100%;
+        border: none;
+        border-bottom: 2px solid $base-color;
+      }
+      button {
+        width: 60px;
+        font-size: 18px;
+      }
     }
-    span {
-      display: inline-block;
-      margin-right: 30px;
-      width:70px;
-    }
-    input {
-      padding: 3px;
-      width: 250px;
-      border: none;
-      border-bottom: 2px solid $base-color;
+    &:after{
+      content: '';
+      display: block;
+      clear: both;
     }
   }
   button {
-    margin-top: 20px;
+    margin-top: 10px;
     width: 100px;
     height: 30px;
     background-color: $base-color;
@@ -54,3 +72,19 @@
     margin-top: 100px;
   }
 }
+
+ @include breakpoint(large) {
+   .user-info {
+    .info-table {
+      width: 500px;
+    }
+   }
+ }
+
+ @include breakpoint(medium) {
+   .user-info {
+     .info-table {
+       width: 500px;
+     }
+   }
+ }

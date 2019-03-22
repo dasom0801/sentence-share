@@ -70,3 +70,17 @@
     font-size: 18px;
   }
 }
+
+ @include breakpoint(large) {
+    .book-info {
+      margin: 0 auto;
+      width: 700px;
+    }
+ }
+
+ @include breakpoint(medium) {
+    .book-info {
+      margin: 0 auto;
+      width: 500px;
+    }
+ }

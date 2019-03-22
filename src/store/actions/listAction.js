@@ -98,32 +98,19 @@ export const likeCountUp = (index, id, likes, userId) => dispatch => {
     // 사용자가 좋아요를 누르지 않은 문장은 sentences에 사용자를 추가하고, users에는 문장을 추가한다
     // 좋아요를 눌렀던 다른 사용자들의 
     if (userIndex < 0) {
-      // const bodyLengthCheck = data.body.length > 200
-      //   ? { printBody: data.body.slice(0, 200) + '...', showMoreButton: true }
-      //   : { printBody: data.body, showMoreButton: false };
-
-      
       data.likes = ++likes;
       const updateLikeUserData = [...likeUser, userId];
-      // const updateUserData = Object.assign({}, { id: id }, data, bodyLengthCheck, { showMore: false }, { likeUser: updateLikeUserData})
       sentenceRef.update({ likeUser: updateLikeUserData, likes: likes })
       dispatch(changeListItem(index, 'likes', likes));
       dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
       
-      // userRef.get().then(snapshot => {
-      //   userRef.update({ userLikes: [...snapshot.data().userLikes, updateUserData] });
-      // })
     } else {
       // 사용자가 이미 좋아요를 누른 문장은 좋아요 취소
       const updateLikeUserData = likeUser.filter(user => user !== userId)
       likes--;
       sentenceRef.update({ likeUser: updateLikeUserData, likes: likes });
       dispatch(changeListItem(index, 'likes', likes));
-        dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
-      // userRef.get().then(snapshot => {
-      //   const updateUserData = snapshot.data().userLikes.filter(like => like.id !== id);
-      //   userRef.update({ userLikes: updateUserData });
-      // })
+      dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
     }
   });
 }

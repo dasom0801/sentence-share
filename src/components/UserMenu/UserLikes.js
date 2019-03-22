@@ -48,7 +48,6 @@ const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailL
       <ul className="sentence-list">
         {list.size ? printList : <p className="no-result"> 좋아한 문장이 없습니다. </p>}
       </ul>
-
     </div>
    );
 }

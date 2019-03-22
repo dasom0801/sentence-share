@@ -7,7 +7,7 @@ breakpoint
       @content ;
     }
   }
-  @if $point==meduim {
+  @if $point==medium {
     @media (min-width: 769px) and (max-width: 1023px) {
       @content ;
     }

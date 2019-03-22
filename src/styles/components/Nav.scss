@@ -11,7 +11,7 @@
     width: 100%;
     font-size: 35px;
     background: $base-color;
-    z-index: 2500;
+    z-index: 3000;
     button {
       position: absolute;
       left: 5px;
@@ -28,13 +28,14 @@
   }
   .nav-menu {
     position: absolute;
-    width: 100vw;
+    width: 80vw;
     height: calc(100vh - 50px);
     top: 50px;
     left: -110%;
     transition: 0.5s ease-out;
     background: #fff;
-    z-index: 3000;
+    box-shadow: 3px 0px 5px rgba(0, 0, 0, 0.9);
+    z-index: 2500;
     &.is-open {
       left: 0;
     }
@@ -75,5 +76,36 @@
       box-shadow: 1px 1px $base-color-dark;
       cursor: pointer;
     } 
+  }
+  .nav-background {
+    position: absolute;
+    left: -110%;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 2000;
+    cursor: pointer;
+    &.is-open {
+      left: 0;
+    }
+  }
+}
+
+@include breakpoint(large) {
+  .top-bar {
+    .nav-menu {
+      width: 30vw;
+      left: -50%;
+    }
+  }
+}
+
+@include breakpoint(medium) {
+  .top-bar {
+    .nav-menu {
+      width: 50vw;
+      left: -60%;
+    }
   }
 }
