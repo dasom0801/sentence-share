@@ -21,7 +21,7 @@ class ListContainer extends Component {
     let scrollHeight = Math.max(document.documentElement.scrollHeight, document.body.scrollHeight);
     let scrollTop = Math.max(document.documentElement.scrollTop, document.body.scrollTop);
     let clientHeight = document.documentElement.clientHeight;
-    if (scrollTop + clientHeight >= scrollHeight - 10) {
+    if (scrollTop + clientHeight >= scrollHeight - 300) {
       changeLoadingStatus(true);
       // 데이터를 불러오는 중에는 데이터 요청을 하지 않는다. 
       if (!isLoading) {
