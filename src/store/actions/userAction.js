@@ -53,8 +53,7 @@ export const getFirebaseUserData = ({ email, getListDB, page}) => dispatch => {
     const { id } = querySnapshot.docs[0];
     dispatch(setUserInfo({ email, name, picture }));
     dispatch(setUserId(id));
-    // 사용자가 새로고침하거나 URL로 바로 접속하여 유저정보가 없는 경우
-    // 유저정보를 먼저 저장한 다음에 DB에서 리스트를 받아온다.
+    // 사용자가 새로고침하거나 URL로 바로 접속하여 유저정보가 없는 경우, 유저정보를 먼저 저장한 다음에 DB에서 리스트를 받아온다.
     if(page) {
       getListDB.userId = id;
       if(page === 'detail') {
@@ -197,8 +196,6 @@ export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
      return Object.assign({}, { id: doc.id}, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
     });
 
-    console.log(list);
-    
     if(orderBy === 'updateDate') {
       list = list.sort((a, b) => b.time - a.time);
     } else {

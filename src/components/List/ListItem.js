@@ -18,7 +18,7 @@ const ListItem = ({ item, showMoreSentenceBody, index, likeCountUp, userId, getD
   
   // 링크를 눌렀을 때 상세페이지로 이동하면서 DB를 호출한다.
   const handleDetailList = ({ filter, user, bookId}) => {
-    getDetailListFromDB({filter, orderBy: 'updateDate', userId, bookId});
+    getDetailListFromDB({filter, orderBy: 'updateDate', userId, bookId, user});
     filter === 'user' && setSelectedUserInfo(user);
     filter === 'book' ? history.push(bookLinkTo) : history.push(userLinkTo);
   }

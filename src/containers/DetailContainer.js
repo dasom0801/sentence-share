@@ -11,28 +11,32 @@ import '../styles/components/Detail.scss';
 
 class DetailContainer extends Component {
   componentDidMount() {
-    console.log(this.props.selectedBook);
-    
     window.scrollTo(0, 0);
     // componentDidMount 시점에 데이터가 없다면 가져오기
+    // 사용자 상세 정보를 가져와야하는지 책 상세정보를 가져와야하는지 확인하기 위한 값
     const filter = this.props.match.path.indexOf('/book') > -1 ? 'book' : 'user';
+    // 쿼리에 사용할 책Id
     const bookId = filter === 'book' && this.props.match.params.id;
     if (!this.props.userId) {
       const user = JSON.parse(window.localStorage.getItem('user'));
       this.props.changeLoadingStatus(true);
+      // 로그인 한 사용자 정보를 가져온 뒤 List를 가져올 수 있도록 필요한 정보를 전달한다.
       this.props.getFirebaseUserData({
         email: user.email,
         getListDB: {
           filter,
-          id: this.props.match.params.id,
           orderBy: 'updateDate',
           startItem: false,
-          bookId
+          bookId,
+          user: {
+            id: `/users/${this.props.match.params.id}`
+          } 
         },
         page: 'detail'
       })
     }
-    this.props.getSelectedUserInfoDB(this.props.match.params.id);
+    // 사용자 상세 페이지라면 선택된 사용자의 정보를 가져온다.
+    filter === 'user' && this.props.getSelectedUserInfoDB(this.props.match.params.id);
   }
   componentWillUnmount() {
     this.props.changeDetailTab('all');
