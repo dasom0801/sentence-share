@@ -2,7 +2,7 @@ import React from 'react';
 import ListSort from '../List/ListSort';
 import ListItem from '../List/ListItem';
 
-const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, isModifyOpen, togglePopup, showPopup, popupMsg, toggleModifyButton, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, orderBy, isSortOpen, toggleSort, getUserLikesListDB, selectedModifyItem}) => {
+const UserLikes = ({ list, showMoreSentenceBody, handleLikeClick, userId, getDetailListFromDB, history, setSelectedUserInfo, isModifyOpen, togglePopup, showPopup, popupMsg, toggleModifyButton, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, orderBy, isSortOpen, toggleSort, getUserLikesListDB, selectedModifyItem}) => {
 
   const printList = list.map((item, index)=> (
     <ListItem 
@@ -12,7 +12,7 @@ const UserLikes = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailL
       item={item}
       index={index}
       showMoreSentenceBody={showMoreSentenceBody}
-      likeCountUp={likeCountUp}
+      handleLikeClick={handleLikeClick}
       userId={userId}
       getDetailListFromDB={getDetailListFromDB}
       setSelectedUserInfo={setSelectedUserInfo}

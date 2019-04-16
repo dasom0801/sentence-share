@@ -9,7 +9,7 @@ import { faHeart as faHeartRegular} from '@fortawesome/fontawesome-free-regular'
 import '../../styles/components/ListItem.scss';
 
 
-const ListItem = ({ item, showMoreSentenceBody, index, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, popupMsg, showPopup, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, selectedModifyItem}) => {
+const ListItem = ({ item, showMoreSentenceBody, index, handleLikeClick, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, popupMsg, showPopup, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, selectedModifyItem}) => {
   // 날짜 형식 지정
   const time = item.time.toISOString().slice(0, 10);
   const body = item.showMore ? item.body : item.printBody;
@@ -62,7 +62,7 @@ return (
         {item.showMoreButton ? <button onClick={() => { showMoreSentenceBody(index) }} className="more" type="button"><FontAwesomeIcon icon={CircleDown} aria-label="문장 더보기" />더보기</button> : ''}
       </div>
       
-      <button className="likes" type="button" onClick={() => likeCountUp(index, item.id, item.likes, userId)}> 
+      <button className="likes" type="button" onClick={() => handleLikeClick(index, item.id, item.likes, userId)}> 
         {item.likeUser.indexOf(userId) > -1 ? <FontAwesomeIcon icon={faHeart} aria-label="좋아요 선택" /> : <FontAwesomeIcon icon={faHeartRegular} aria-label="좋아요 선택하지 않음" /> }
         {item.likes ? <span> 좋아요 {item.likes}개 </span> : ''}
       </button>

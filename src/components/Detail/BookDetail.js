@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '../List/ListItem';
 import ListSort from '../List/ListSort';
 
-const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, selectedBook, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, toggleSort, isSortOpen, orderBy, changeSentenceTextarea, selectSearchedBook, selectedModifyItem}) => {
+const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, selectedBook, showMoreSentenceBody, handleLikeClick, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, toggleSort, isSortOpen, orderBy, changeSentenceTextarea, selectSearchedBook, selectedModifyItem}) => {
 
   const { bookTitle, bookImage, author, publisher} = selectedBook;
   const listPrint = activeTab === 'all' 
@@ -14,7 +14,7 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
         item={item}
         index={index}
         showMoreSentenceBody={showMoreSentenceBody}
-        likeCountUp={likeCountUp}
+        handleLikeClick={handleLikeClick}
         userId={userId}
         getDetailListFromDB={getDetailListFromDB}
         setSelectedUserInfo={setSelectedUserInfo}
@@ -36,7 +36,7 @@ const BookDetail = ({ userId, activeTab, changeDetailTab, list, userList, select
         item={item}
         index={index}
         showMoreSentenceBody={showMoreSentenceBody}
-        likeCountUp={likeCountUp}
+        handleLikeClick={handleLikeClick}
         userId={userId}
         getDetailListFromDB={getDetailListFromDB}
         setSelectedUserInfo={setSelectedUserInfo}

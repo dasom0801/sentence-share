@@ -60,7 +60,7 @@ const mapDispatchToProps = dispatch => {
     getSentenceListFromDB: (orderBy, startItem) => {dispatch(actions.getSentenceListFromDB(orderBy, startItem))},
     getDetailListFromDB: (payload) => { dispatch(actions.getDetailListFromDB(payload))},
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
-    likeCountUp: (index, id, likes, userId) => { dispatch(actions.likeCountUp(index,id,likes, userId))},
+    handleLikeClick: (index, id, likes, userId) => { dispatch(actions.handleLikeClick(index,id,likes, userId))},
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user))},
     toggleModifyButton: (bool, id) => { dispatch(actions.toggleModifyButton(bool, id))},
     togglePopup: (msg) => { dispatch(actions.togglePopup(msg))},

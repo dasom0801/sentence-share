@@ -83,37 +83,27 @@ export const clearListItem = () => {
   }
 }
 
-// 좋아요 수 올리기
-export const likeCountUp = (index, id, likes, userId) => dispatch => {
-  const sentenceRef = firestore.collection('sentences').doc(id);
-  
-    // userRef = firestore.collection('users').doc(userId);
-      
+// 좋아요 클릭 
+export const handleLikeClick = (index, id, likes, userId) => dispatch => {
   // 해당 문장의 user정보를 비교하여 좋아요를 추가해야하는지 취소해야하는지 판단
+  const sentenceRef = firestore.collection('sentences').doc(id);
   sentenceRef.get().then(snapshot => {
     const data = snapshot.data();
     const likeUser = data.likeUser, userIndex = likeUser.indexOf(userId);
-
-    // 좋아요 추가하기
-    // 사용자가 좋아요를 누르지 않은 문장은 sentences에 사용자를 추가하고, users에는 문장을 추가한다
-    // 좋아요를 눌렀던 다른 사용자들의 
+    let updateLikeUserData = [];
     if (userIndex < 0) {
-      data.likes = ++likes;
-      const updateLikeUserData = [...likeUser, userId];
-      sentenceRef.update({ likeUser: updateLikeUserData, likes: likes })
-      dispatch(changeListItem(index, 'likes', likes));
-      dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
-      
+      likes++;
+      updateLikeUserData = [...likeUser, userId];
     } else {
-      // 사용자가 이미 좋아요를 누른 문장은 좋아요 취소
-      const updateLikeUserData = likeUser.filter(user => user !== userId)
       likes--;
-      sentenceRef.update({ likeUser: updateLikeUserData, likes: likes });
-      dispatch(changeListItem(index, 'likes', likes));
-      dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
+      updateLikeUserData = likeUser.filter(user => user !== userId);
     }
+    sentenceRef.update({ likeUser: updateLikeUserData, likes: likes });
+    dispatch(changeListItem(index, 'likes', likes));
+    dispatch(changeListItem(index, 'likeUser', updateLikeUserData));
   });
 }
+
 // state의 단일 요소 수정
 export const changeListItem = (index, key, value) => {
   return {

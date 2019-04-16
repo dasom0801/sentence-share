@@ -3,7 +3,7 @@ import ListItem from '../List/ListItem';
 import ListSort from '../List/ListSort';
 
 
-const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCountUp, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy, selectedModifyItem }) => {
+const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, handleLikeClick, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy, selectedModifyItem }) => {
   const getListDB = {
     filter: 'user',
     id: match.params.id,
@@ -34,7 +34,7 @@ const UserDetail = ({ list, userId, selectedUser, showMoreSentenceBody, likeCoun
               item={item}
               index={index}
               showMoreSentenceBody={showMoreSentenceBody}
-              likeCountUp={likeCountUp}
+              handleLikeClick={handleLikeClick}
               userId={userId}
               getDetailListFromDB={getDetailListFromDB}
               setSelectedUserInfo={setSelectedUserInfo}

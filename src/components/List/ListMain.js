@@ -5,7 +5,7 @@ import AddButton from '../Add/AddButton';
 
 import '../../styles/components/List.scss';
 
-const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSort, isSortOpen, orderBy, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, selectedModifyItem}) => {
+const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSort, isSortOpen, orderBy, handleLikeClick, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, selectedModifyItem}) => {
   const printList = list && list.map((item, index) => 
     <ListItem 
       match={match}
@@ -14,7 +14,7 @@ const MainList = ({ getSentenceListFromDB, list, showMoreSentenceBody, toggleSor
       item={item} 
       index={index} 
       showMoreSentenceBody={showMoreSentenceBody} 
-      likeCountUp={likeCountUp} 
+      handleLikeClick={handleLikeClick} 
       userId={userId} 
       orderBy={orderBy} 
       getDetailListFromDB={getDetailListFromDB} 

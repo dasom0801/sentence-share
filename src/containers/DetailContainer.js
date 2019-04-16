@@ -72,7 +72,7 @@ const mapDispatchToProps = dispatch => {
     getDetailListFromDB: (payload) => { dispatch(actions.getDetailListFromDB(payload)) },
     changeDetailTab: (tab) => { dispatch(actions.changeDetailTab(tab))},
     showMoreSentenceBody: (index) => { dispatch(actions.showMoreSentenceBody(index))},
-    likeCountUp: (index, id, likes, userId, orderBy) => { dispatch(actions.likeCountUp(index, id, likes, userId, orderBy)) },
+    handleLikeClick: (index, id, likes, userId, orderBy) => { dispatch(actions.handleLikeClick(index, id, likes, userId, orderBy)) },
     getSelectedUserInfoDB: (user) => { dispatch(actions.getSelectedUserInfoDB(user)) },
     setSelectedUserInfo: (user) => { dispatch(actions.setSelectedUserInfo(user)) },
     getFirebaseUserData: (payload) => { dispatch(actions.getFirebaseUserData (payload)) },

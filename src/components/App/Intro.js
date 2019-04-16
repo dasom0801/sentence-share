@@ -45,7 +45,6 @@ const Intro = ({ loginWithFirebase }) => {
           Google로 시작하기
         </button>
       </div>
-      <p className="desktop-alert">Sentece Share는 모바일에 최적화되어있습니다.</p>
     </div>
     );
 }
