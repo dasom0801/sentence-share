@@ -120,17 +120,13 @@ export const submitSentence = ({ user, selectedBook, sentenceTextValue }) => dis
         picture: user.userPicture
       }
     }
-    // 책이 등록되지 않은 경우 새로 추가
-    if (snapshot.empty) {
-      firestore.collection('books').add(selectedBook).then(snapshot => {
-        senetenceObj.bookId = `/books/${snapshot.id}`
-        firestore.collection('sentences').add(senetenceObj);
-      })
-    } else {
-      // 같은 책이 이미 등록되어있는 경우 문장만 등록
-      senetenceObj.bookId = `/books/${snapshot.docs[0].id}`
-      firestore.collection('sentences').add(senetenceObj);
-    }
+    // 책이 등록되지 않은 경우 새로 추가, 아니면 문장만 추가
+    snapshot.empty ? 
+    firestore.collection('books').add(selectedBook).then(snapshot => {
+      senetenceObj.bookId = `/books/${snapshot.id}`
+    })
+    : senetenceObj.bookId = `/books/${snapshot.docs[0].id}`;
+    firestore.collection('sentences').add(senetenceObj);
     dispatch(changeLoadingStatus(false));
   })
 }
