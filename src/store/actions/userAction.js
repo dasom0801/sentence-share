@@ -105,7 +105,6 @@ export const userDelete = (userId) => dispatch => {
       
       // 회원 기록 삭제
       firestore.collection('users').doc(userId).get().then(snapshot => {
-        // firestore.collection('users').doc(userId).delete() is not working... why...
         snapshot.ref.delete();
       });
       
@@ -187,7 +186,7 @@ export const changeName = (name) => {
 export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
   dispatch(clearListItem());
   firestore.collection('sentences').orderBy(orderBy).get().then(snapshot => {
-   let list = snapshot.docs.filter(doc => doc.data().likeUser.indexOf(userId) > -1).map(doc => {
+    let list = snapshot.docs.filter(doc => doc.data().likeUser.indexOf(userId) > -1).map(doc => {
       const data = doc.data();
       const { body} = data;
       const bodyLengthCheck = body.length > 200
@@ -195,16 +194,10 @@ export const getUserLikesListDB = ({userId, orderBy}) => dispatch => {
        : { printBody: body, showMoreButton: false };
      return Object.assign({}, { id: doc.id}, doc.data(), { time: doc.data().updateDate.toDate() }, bodyLengthCheck, { showMore: false });
     });
-
-    if(orderBy === 'updateDate') {
-      list = list.sort((a, b) => b.time - a.time);
-    } else {
-      list = list.sort((a, b) => b.likes - a.likes);
-    }
+    list = orderBy === 'updateDate' ? list.sort((a, b) => b.time - a.time) : list.sort((a, b) => b.likes - a.likes);
     dispatch(setSentenceList({ list, orderBy: orderBy, userList: [] }));
     dispatch(changeLoadingStatus(false));
-  })
-    dispatch(changeLoadingStatus(false));
+  });
 }
 
 // 사용자가 작성한 문장 출력
