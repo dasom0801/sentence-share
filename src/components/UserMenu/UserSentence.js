@@ -2,10 +2,29 @@ import React from 'react';
 import ListSort from '../List/ListSort';
 import ListItem from '../List/ListItem';
 
-import '../../styles/components/ListItem.scss';
-import '../../styles/components/User.scss';
-
-const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDetailListFromDB, history, setSelectedUserInfo, toggleModifyButton, isModifyOpen, togglePopup, showPopup, popupMsg, match, deleteListItem, selectSearchedBook, changeSentenceTextarea, toggleSort, isSortOpen, orderBy, getUserSentenceListDB, selectedModifyItem}) => {
+const UserSentence = ({
+  list,
+  showMoreSentenceBody,
+  likeCountUp,
+  userId,
+  getDetailListFromDB,
+  history,
+  setSelectedUserInfo,
+  toggleModifyButton,
+  isModifyOpen,
+  togglePopup,
+  showPopup,
+  popupMsg,
+  match,
+  deleteListItem,
+  selectSearchedBook,
+  changeSentenceTextarea,
+  toggleSort,
+  isSortOpen,
+  orderBy,
+  getUserSentenceListDB,
+  selectedModifyItem,
+}) => {
   // 출력할 리스트 아이템 만들기
   const printList = list.map((item, index) => (
     <ListItem
@@ -23,7 +42,7 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
       isModifyOpen={isModifyOpen}
       togglePopup={togglePopup}
       showPopup={showPopup}
-      popupMsg={popupMsg} 
+      popupMsg={popupMsg}
       deleteListItem={deleteListItem}
       selectSearchedBook={selectSearchedBook}
       changeSentenceTextarea={changeSentenceTextarea}
@@ -35,12 +54,12 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
     filter: 'sentence',
     orderBy: orderBy,
     startItem: false,
-    userId
-  }
-  return ( 
-    <div className="user-sentence">
-      <p className="page-title">내가 공유한 문장</p>
-      <p className="count">{list.size ? list.size : 0}건</p> 
+    userId,
+  };
+  return (
+    <div className='user-sentence'>
+      <p className='page-title'>내가 공유한 문장</p>
+      <p className='count'>{list.size ? list.size : 0}건</p>
       <ListSort
         toggleSort={toggleSort}
         isSortOpen={isSortOpen}
@@ -48,12 +67,15 @@ const UserSentence = ({ list, showMoreSentenceBody, likeCountUp, userId, getDeta
         getUserSentenceListDB={getUserSentenceListDB}
         getListDB={getListDB}
       />
-      <ul className="sentence-list">
-        {list.size ? printList : <p className="no-result"> 등록된 문장이 없습니다. </p>}
+      <ul className='sentence-list'>
+        {list.size ? (
+          printList
+        ) : (
+          <p className='no-result'> 등록된 문장이 없습니다. </p>
+        )}
       </ul>
-
     </div>
-   );
-}
- 
+  );
+};
+
 export default UserSentence;
