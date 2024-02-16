@@ -1,11 +1,22 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { auth } from '../../config/firebase.config';
 import { useEffect } from 'react';
-import { getUser } from '../../api/user';
+import { auth } from '../../config/firebase.config';
+import { axios } from '../../api';
 
 export const QUERY_KEY = ['/api/user/me'];
 
-const queryFn = async () => await getUser();
+const queryFn = async () => {
+  const token = localStorage.getItem('token');
+  const authorization = token ? `Bearer ${token}` : null;
+
+  return (
+    await axios.get<User>('/api/user/me', {
+      headers: {
+        authorization,
+      },
+    })
+  ).data;
+};
 
 const useUserQuery = () => {
   const queryClient = useQueryClient();
