@@ -1,10 +1,17 @@
 import Header from './components/Header';
+import { Suspense } from 'react';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
+import { Outlet } from 'react-router-dom';
+
+const queryClient = new QueryClient();
 
 const App = () => {
   return (
-    <div className='font-NotoSans'>
-      <Header />
-      <div className='container'>
+    <QueryClientProvider client={queryClient}>
+      <div className='font-NotoSans'>
+        <Header />
+        <Outlet />
         {/* <Routes> */}
         {/* <Route path='/' element={<ListContainer />} />
         <Route path='/info' element={<UserContainer />} />
@@ -17,7 +24,8 @@ const App = () => {
         <Route path='/modify/:id' element={<BookContainer />} /> */}
         {/* </Routes> */}
       </div>
-    </div>
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
   );
 };
 
