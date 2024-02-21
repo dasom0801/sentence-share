@@ -1,4 +1,4 @@
-import { loginWithGoogle } from './auth';
 import axios from './api';
+import { loginWithGoogle, logoutWithGoogle } from './auth';
 
-export { loginWithGoogle, axios };
+export { axios, loginWithGoogle, logoutWithGoogle };
