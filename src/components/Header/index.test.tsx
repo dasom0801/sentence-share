@@ -15,7 +15,7 @@ const mockUseCurrentUser = (data: User | undefined) => {
   (useUserQuery as jest.Mock).mockImplementation(() => ({ data }));
 };
 
-describe('Header 컴포넌트', () => {
+describe('components > Header', () => {
   beforeEach(() => {
     (useUserQuery as jest.Mock).mockImplementation(() => ({}));
   });
@@ -48,6 +48,6 @@ describe('Header 컴포넌트', () => {
     const user = userEvent.setup();
     const profileLink = screen.getByLabelText(/user name/, { selector: 'a' });
     await user.click(profileLink);
-    expect(window.location.pathname).toBe('/profile');
+    expect(window.location.pathname).toBe('/profile/sentence');
   });
 });
