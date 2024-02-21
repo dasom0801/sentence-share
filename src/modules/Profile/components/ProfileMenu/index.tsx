@@ -7,13 +7,13 @@ type MenuItem = {
   path: string;
 };
 
-type MenuProps = {
+type ProfileMenuProps = {
   menus: MenuItem[];
 };
 
 const theme = customTheme();
 
-const Menu = ({ menus }: MenuProps) => {
+const ProfileMenu = ({ menus }: ProfileMenuProps) => {
   const navigate = useNavigate();
   const location = useLocation();
   const handleOnChange = (event: React.SyntheticEvent, value: string) => {
@@ -23,7 +23,6 @@ const Menu = ({ menus }: MenuProps) => {
   return (
     <ThemeProvider theme={theme}>
       <Tabs
-        className='border-solid border-b border-secondary-200'
         textColor='secondary'
         indicatorColor='secondary'
         value={location.pathname}
@@ -36,4 +35,4 @@ const Menu = ({ menus }: MenuProps) => {
     </ThemeProvider>
   );
 };
-export default Menu;
+export default ProfileMenu;

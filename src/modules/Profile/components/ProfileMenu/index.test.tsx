@@ -1,9 +1,9 @@
 import { render, screen } from '@testing-library/react';
-import Menu from '.';
+import ProfileMenu from '.';
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter } from 'react-router-dom';
 
-describe('Profile | Menu Component', () => {
+describe('Pages > Profile > Components > Menu', () => {
   test('메뉴를 클릭하면 path의 주소로 이동한다.', () => {
     const user = userEvent.setup();
     const menus = [
@@ -13,7 +13,7 @@ describe('Profile | Menu Component', () => {
 
     render(
       <MemoryRouter initialEntries={['/profile/menu1']}>
-        <Menu menus={menus} />
+        <ProfileMenu menus={menus} />
       </MemoryRouter>
     );
 

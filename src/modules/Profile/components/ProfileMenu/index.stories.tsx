@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Menu from './';
+import ProfileMenu from '.';
 import { BrowserRouter } from 'react-router-dom';
 const meta = {
-  title: 'Profile/Menu',
-  component: Menu,
+  title: 'Profile/components/ProfileMenu',
+  component: ProfileMenu,
   tags: ['autodocs'],
-} satisfies Meta<typeof Menu>;
+} satisfies Meta<typeof ProfileMenu>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;
