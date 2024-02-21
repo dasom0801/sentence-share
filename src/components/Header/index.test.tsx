@@ -15,6 +15,22 @@ const mockUseCurrentUser = (data: User | undefined) => {
   (useUserQuery as jest.Mock).mockImplementation(() => ({ data }));
 };
 
+const renderHeaderComponent = () => {
+  const user = userEvent.setup();
+  render(<Header />, { wrapper: BrowserRouter });
+
+  const GoogleButton = () =>
+    screen.queryByLabelText(/google/, {
+      selector: 'button',
+    });
+  const Avatar = () => screen.queryByRole('img', { name: 'user name' });
+  const ProfileLink = () =>
+    screen.getByLabelText(/user name/, { selector: 'a' });
+
+  const clickUserProfile = async () => await user.click(ProfileLink());
+  return { GoogleButton, Avatar, ProfileLink, clickUserProfile };
+};
+
 describe('components > Header', () => {
   beforeEach(() => {
     (useUserQuery as jest.Mock).mockImplementation(() => ({}));
@@ -22,32 +38,21 @@ describe('components > Header', () => {
 
   it('로그인 전에는 구글 로그인 버튼을 보여준다.', () => {
     mockUseCurrentUser(undefined);
-
-    render(<Header />, { wrapper: BrowserRouter });
-    const googleButton = screen.getByLabelText(/google/, {
-      selector: 'button',
-    });
-    expect(googleButton).toBeInTheDocument();
+    const { GoogleButton } = renderHeaderComponent();
+    expect(GoogleButton()).toBeInTheDocument();
   });
 
   it('로그인 후에는 버튼 대신에 프로필 이미지를 보여준다.', () => {
     mockUseCurrentUser(MockUser);
-    render(<Header />, { wrapper: BrowserRouter });
-    const googleButton = screen.queryByLabelText(/google/, {
-      selector: 'button',
-    });
-    expect(googleButton).not.toBeInTheDocument();
-    const avatar = screen.queryByRole('img', { name: 'user name' });
-    expect(avatar).toBeInTheDocument();
+    const { GoogleButton, Avatar } = renderHeaderComponent();
+    expect(GoogleButton()).not.toBeInTheDocument();
+    expect(Avatar()).toBeInTheDocument();
   });
 
   it('프로필 이미지를 클릭하면 프로필 페이지로 이동한다.', async () => {
     mockUseCurrentUser(MockUser);
-
-    render(<Header />, { wrapper: BrowserRouter });
-    const user = userEvent.setup();
-    const profileLink = screen.getByLabelText(/user name/, { selector: 'a' });
-    await user.click(profileLink);
+    const { clickUserProfile } = renderHeaderComponent();
+    await clickUserProfile();
     expect(window.location.pathname).toBe('/profile/sentence');
   });
 });
