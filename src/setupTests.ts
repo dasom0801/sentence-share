@@ -4,6 +4,9 @@ import { server } from './test-utils/mocks/server';
 
 Object.assign(global, { TextDecoder, TextEncoder });
 
+// @ts-ignore
+globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+
 // Establish API mocking before all tests.
 beforeAll(() => server.listen());
 // Reset any request handlers that we may add during the tests,

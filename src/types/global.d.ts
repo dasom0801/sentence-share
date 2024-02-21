@@ -1,5 +1,7 @@
 /// <reference path="./user.d.ts" />
 
-declare global {}
+declare global {
+  type FormControlData = Record<string, string>;
+}
 
 export {};
