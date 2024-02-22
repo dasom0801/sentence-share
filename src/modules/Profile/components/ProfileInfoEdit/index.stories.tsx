@@ -13,5 +13,15 @@ export const Default: Story = {
     user: {
       name: 'UserName',
     },
+    isPending: false,
+  },
+};
+
+export const Pending: Story = {
+  args: {
+    user: {
+      name: 'UserName',
+    },
+    isPending: true,
   },
 };

@@ -6,12 +6,13 @@ import { MockUser } from '../../../../test-utils/index.mock';
 const renderComponent = () => {
   const onSubmit = jest.fn();
   const user = userEvent.setup();
-  render(<ProfileInfoEdit user={MockUser} onSubmit={onSubmit} />);
+  render(
+    <ProfileInfoEdit isPending={false} user={MockUser} onSubmit={onSubmit} />
+  );
 
   const UserNameInput = () =>
     screen.getByRole('textbox', { name: '이름' }) as HTMLInputElement;
   const SubmitButton = () => screen.getByRole('button', { name: '저장' });
-
   const clearUserName = async () => await user.clear(UserNameInput());
 
   const changeUserName = async (name: string) =>

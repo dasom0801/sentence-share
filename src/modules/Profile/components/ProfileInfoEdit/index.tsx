@@ -1,12 +1,17 @@
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Input, Button } from '../../../../components';
+import { Input, Button, Spinner } from '../../../../components';
 
 type ProfileInfoEditProp = {
   user: Pick<User, 'name'> | undefined;
+  isPending: boolean;
   onSubmit: (data: FormControlData) => void;
 };
 
-const ProfileInfoEdit = ({ user, onSubmit }: ProfileInfoEditProp) => {
+const ProfileInfoEdit = ({
+  user,
+  isPending,
+  onSubmit,
+}: ProfileInfoEditProp) => {
   const {
     control,
     formState: { isValid },
@@ -39,9 +44,9 @@ const ProfileInfoEdit = ({ user, onSubmit }: ProfileInfoEditProp) => {
         variant='contained'
         color='primary'
         type='submit'
-        disabled={!isValid}
+        disabled={!isValid || isPending}
       >
-        저장
+        {isPending ? <Spinner /> : '저장'}
       </Button>
     </form>
   );

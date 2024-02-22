@@ -1,7 +1,8 @@
-import { render, screen } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import ProfileSetting from '.';
 import { BrowserRouter } from 'react-router-dom';
+import { render } from '../../../../test-utils/testRender';
 
 describe('Pages > Profile > Pages > ProfileSetting', () => {
   test('로그아웃 버튼을 클릭하면 메인으로 이동한다.', async () => {

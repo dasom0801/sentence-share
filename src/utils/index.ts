@@ -27,3 +27,9 @@ export const getToastConfig = (): Partial<ToastOptions> => {
     pauseOnFocusLoss: false,
   };
 };
+
+export const getBearerToken = () => {
+  const token = localStorage.getItem('token');
+  const authorization = token ? `Bearer ${token}` : null;
+  return authorization;
+};
