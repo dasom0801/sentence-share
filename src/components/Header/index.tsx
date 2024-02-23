@@ -13,24 +13,27 @@ const Header = () => {
   }
 
   return (
-    <MaxWidthWrapper className='flex justify-between items-center py-2'>
-      <Link to={'/'}>
-        <Logo />
-      </Link>
-      {currentUser ? (
-        <Link to={'/profile'} aria-label={currentUser.name}>
-          <Avatar alt={currentUser.name} src={currentUser.profileUrl} />
+    <div className='border-solid border-b border-secondary-100'>
+      <MaxWidthWrapper className='flex justify-between items-center py-3'>
+        <Link to={'/'}>
+          <Logo />
         </Link>
-      ) : (
-        <button onClick={loginWithGoogle} aria-label='continue with google'>
-          <img
-            src='/images/google-ctn.svg'
-            alt='continue with google'
-            aria-hidden='true'
-          />
-        </button>
-      )}
-    </MaxWidthWrapper>
+
+        {currentUser ? (
+          <Link to={'/profile/sentence'} aria-label={currentUser.name}>
+            <Avatar alt={currentUser.name} src={currentUser.profileUrl} />
+          </Link>
+        ) : (
+          <button onClick={loginWithGoogle} aria-label='continue with google'>
+            <img
+              src='/images/google-ctn.svg'
+              alt='continue with google'
+              aria-hidden='true'
+            />
+          </button>
+        )}
+      </MaxWidthWrapper>
+    </div>
   );
 };
 export default Header;
