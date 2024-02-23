@@ -32,6 +32,7 @@ const useUserQuery = () => {
   return useQuery({
     queryKey: QUERY_KEY,
     queryFn,
+    staleTime: Infinity,
   });
 };
 

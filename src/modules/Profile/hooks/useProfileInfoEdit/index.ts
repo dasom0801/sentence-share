@@ -9,7 +9,7 @@ export const MUTATION_KEY = ['[PUT]/api/user/me'];
 const mutationFn = async (userInfo: Record<string, any>) =>
   (await updateUser(userInfo)).data;
 
-const useUserInfoEdit = () => {
+const useProfileInfoEdit = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationKey: MUTATION_KEY,
@@ -21,4 +21,4 @@ const useUserInfoEdit = () => {
   });
 };
 
-export default useUserInfoEdit;
+export default useProfileInfoEdit;

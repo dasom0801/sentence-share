@@ -1,8 +1,11 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp, FirebaseOptions } from 'firebase/app';
 import { getAuth } from 'firebase/auth';
+
+import { getStorage, ref } from 'firebase/storage';
+
 // https://firebase.google.com/docs/web/setup#available-libraries
 
-const firebaseConfig = {
+const firebaseConfig: FirebaseOptions = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: 'sentence-share.firebaseapp.com',
   databaseURL: 'https://sentence-share.firebaseio.com',
@@ -14,6 +17,7 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+export const storage = getStorage(app);
 export const auth = getAuth(app);
 
 export default app;

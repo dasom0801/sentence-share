@@ -4,6 +4,14 @@ import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { QUERY_KEY } from '../../hooks/useUserQuery';
 
+const meta = {
+  title: 'common/Header',
+  component: Header,
+} satisfies Meta<typeof Header>;
+
+export default meta;
+type Story = StoryObj<typeof meta>;
+
 const client = new QueryClient({
   defaultOptions: {
     queries: {
@@ -12,14 +20,6 @@ const client = new QueryClient({
   },
 });
 
-const meta = {
-  title: 'common/Header',
-  component: Header,
-} satisfies Meta<typeof Header>;
-
-export default meta;
-
-type Story = StoryObj<typeof meta>;
 export const LoggedOut: Story = {
   decorators: [
     (Story) => {
