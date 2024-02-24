@@ -3,7 +3,7 @@ import { RouterProvider } from 'react-router-dom';
 import './index.css';
 import 'react-toastify/dist/ReactToastify.css';
 
-import router from './routes';
+import router from './routes/index.route';
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

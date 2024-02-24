@@ -2,7 +2,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Header from './components/Header';
+import Header from './components/base/Header';
 
 const queryClient = new QueryClient();
 
