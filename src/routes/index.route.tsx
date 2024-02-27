@@ -17,8 +17,8 @@ const router = createBrowserRouter([
           {
             path: '/setting',
             async lazy() {
-              const { Setting } = await import('../pages');
-              return { Component: Setting };
+              const { SettingPage } = await import('../pages');
+              return { Component: SettingPage };
             },
           },
         ],

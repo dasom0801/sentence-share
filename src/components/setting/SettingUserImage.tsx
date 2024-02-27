@@ -1,23 +1,29 @@
 import { DEFAULT_PROFILE } from '../../constants';
-import { Button, Spinner } from '..';
-import { ChangeEvent } from 'react';
-import useProfileImageEdit from '../../containers/setting/hooks/useProfileImageEdit';
-import { useUserQuery } from '../../lib/hooks';
-import { cn } from '../../utils';
+import { Button } from '..';
+import type { ChangeEvent } from 'react';
 
-const SettingUserImage = ({ className }: { className?: string }) => {
-  const { data: user } = useUserQuery();
-  const { setImageFile, resetImage, isPending } = useProfileImageEdit();
+type SettingUserImageProps = {
+  user: User | undefined;
+  loading?: boolean;
+  onImageRemove: () => void;
+  onImageUpdate: (file: File) => void;
+};
 
-  const handleFileChange = (event: ChangeEvent<HTMLInputElement>) => {
+const SettingUserImage = ({
+  user,
+  loading = false,
+  onImageRemove,
+  onImageUpdate,
+}: SettingUserImageProps) => {
+  const handleImageUpdate = (event: ChangeEvent<HTMLInputElement>) => {
     if (!!event.target.files?.length) {
       const file = event.target.files[0];
-      setImageFile(file);
+      onImageUpdate(file);
     }
   };
 
   return (
-    <form className={cn('mx-auto sm:w-1/2', className)}>
+    <form className={'mx-auto sm:w-1/2'}>
       <img
         className='mx-auto w-32 h-32 rounded-full mb-8'
         src={user?.profileUrl || DEFAULT_PROFILE}
@@ -30,9 +36,10 @@ const SettingUserImage = ({ className }: { className?: string }) => {
           variant='outlined'
           color='primary'
           type='button'
-          onClick={resetImage}
+          disabled={loading}
+          onClick={onImageRemove}
         >
-          {isPending ? <Spinner /> : '이미지 삭제'}
+          이미지 삭제
         </Button>
 
         <Button
@@ -50,9 +57,10 @@ const SettingUserImage = ({ className }: { className?: string }) => {
             id='profile-upload'
             type='file'
             accept='.png,.jpg,.jpeg'
-            onChange={handleFileChange}
+            disabled={loading}
+            onChange={handleImageUpdate}
           />
-          {isPending ? <Spinner /> : '이미지 업로드'}
+          이미지 업로드
         </Button>
       </div>
     </form>

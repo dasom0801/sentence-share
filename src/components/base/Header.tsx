@@ -18,11 +18,11 @@ const Header = () => {
         <Link to={'/'}>
           <Logo />
         </Link>
-
         {currentUser ? (
-          <Link to={'/profile/sentence'} aria-label={currentUser.name}>
-            <Avatar alt={currentUser.name} src={currentUser.profileUrl} />
-          </Link>
+          <Avatar
+            alt={currentUser.name}
+            src={currentUser.profileUrl || '/images/blank-profile.png'}
+          />
         ) : (
           <button onClick={loginWithGoogle} aria-label='continue with google'>
             <img

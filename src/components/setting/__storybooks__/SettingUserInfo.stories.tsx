@@ -13,7 +13,7 @@ export const Default: Story = {
     user: {
       name: 'UserName',
     },
-    isPending: false,
+    loading: false,
   },
 };
 
@@ -22,6 +22,6 @@ export const Pending: Story = {
     user: {
       name: 'UserName',
     },
-    isPending: true,
+    loading: true,
   },
 };

@@ -3,13 +3,13 @@ import { Input, Button, Spinner } from '..';
 
 type ProfileInfoEditProp = {
   user: Pick<User, 'name'> | undefined;
-  isPending: boolean;
+  loading?: boolean;
   onSubmit: (data: FormControlData) => void;
 };
 
 const SettingUserInfo = ({
   user,
-  isPending,
+  loading = false,
   onSubmit,
 }: ProfileInfoEditProp) => {
   const {
@@ -44,9 +44,9 @@ const SettingUserInfo = ({
         variant='contained'
         color='primary'
         type='submit'
-        disabled={!isValid || isPending}
+        disabled={!isValid || loading}
       >
-        {isPending ? <Spinner /> : '저장'}
+        {loading ? <Spinner /> : '저장'}
       </Button>
     </form>
   );

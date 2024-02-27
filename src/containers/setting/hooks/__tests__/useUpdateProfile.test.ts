@@ -1,11 +1,11 @@
 import { act, renderHook, waitFor } from '@testing-library/react';
 import { wrapper } from '../../../../test-utils/testRender';
-import useProfileInfoEdit from '../useProfileInfoEdit';
+import useUpdateProfile from '../useUpdateProfile';
 import { MockUser } from '../../../../test-utils/index.mock';
 
-describe('setting > useUpdateUser', () => {
+describe('useUpdateProfile', () => {
   test('User 정보를 업데이트한다.', async () => {
-    const { result } = renderHook(() => useProfileInfoEdit(), {
+    const { result } = renderHook(() => useUpdateProfile(), {
       wrapper: wrapper(),
     });
 

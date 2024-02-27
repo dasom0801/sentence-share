@@ -7,7 +7,7 @@ const renderComponent = () => {
   const onSubmit = jest.fn();
   const user = userEvent.setup();
   render(
-    <SettingUserInfo isPending={false} user={MockUser} onSubmit={onSubmit} />
+    <SettingUserInfo loading={false} user={MockUser} onSubmit={onSubmit} />
   );
 
   const UserNameInput = () =>
@@ -30,7 +30,7 @@ const renderComponent = () => {
   };
 };
 
-describe('setting > ProfileInfoEdit', () => {
+describe('SettingUserInfo', () => {
   test('기본 구성요소를 렌더링한다.', async () => {
     const { UserNameInput, SubmitButton } = renderComponent();
     await waitFor(() => expect(UserNameInput()).toBeInTheDocument());

@@ -48,11 +48,4 @@ describe('components > base > Header', () => {
     expect(GoogleButton()).not.toBeInTheDocument();
     expect(Avatar()).toBeInTheDocument();
   });
-
-  it('프로필 이미지를 클릭하면 프로필 페이지로 이동한다.', async () => {
-    mockUseCurrentUser(MockUser);
-    const { clickUserProfile } = renderHeaderComponent();
-    await clickUserProfile();
-    expect(window.location.pathname).toBe('/profile/sentence');
-  });
 });

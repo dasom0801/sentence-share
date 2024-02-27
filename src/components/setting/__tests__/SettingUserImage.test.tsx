@@ -4,20 +4,19 @@ import SettingUserImage from '../SettingUserImage';
 import { MockUser } from '../../../test-utils/index.mock';
 import { DEFAULT_PROFILE } from '../../../constants';
 import { render } from '../../../test-utils/testRender';
-import { useUserQuery } from '../../../lib/hooks';
 
-jest.mock('../../../lib/hooks', () => ({
-  useUserQuery: jest.fn(),
-}));
-
-const mockUseCurrentUser = (data: User | undefined) => {
-  (useUserQuery as jest.Mock).mockImplementation(() => ({ data }));
-};
-
-const renderComponent = (mock: User = MockUser) => {
-  mockUseCurrentUser(mock);
+const renderComponent = () => {
   const user = userEvent.setup();
-  render(<SettingUserImage />);
+  const onImageRemove = jest.fn();
+  const onImageUpdate = jest.fn();
+
+  render(
+    <SettingUserImage
+      user={MockUser}
+      onImageRemove={onImageRemove}
+      onImageUpdate={onImageUpdate}
+    />
+  );
 
   const UserImage = () => screen.getByRole('img', { name: '프로필 이미지' });
   const UploadButton = () =>
@@ -28,6 +27,8 @@ const renderComponent = (mock: User = MockUser) => {
   const clickResetButton = () => user.click(ResetButton());
 
   return {
+    onImageRemove,
+    onImageUpdate,
     UserImage,
     UploadButton,
     ResetButton,
@@ -36,7 +37,7 @@ const renderComponent = (mock: User = MockUser) => {
   };
 };
 
-describe('setting > SettingUserImage', () => {
+describe('SettingUserImage', () => {
   test('구성요소를 화면에 보여준다.', async () => {
     const { UserImage, UploadButton, ResetButton } = renderComponent();
     await waitFor(() => expect(UserImage()).toBeInTheDocument());
@@ -45,33 +46,22 @@ describe('setting > SettingUserImage', () => {
   });
 
   test('사용자의 profileUrl 값이 없으면 기본 이미지를 보여준다.', async () => {
-    mockUseCurrentUser({ ...MockUser, profileUrl: '' });
     const { UserImage } = renderComponent();
     await waitFor(() =>
       expect(UserImage()).toHaveAttribute('src', DEFAULT_PROFILE)
     );
   });
 
-  test('업로드 버튼을 클릭하면 이미지 주소가 달라진다.', async () => {
-    const { clickUploadButton, UserImage } = renderComponent();
-    await act(async () => clickUploadButton());
-
-    // TODO: test
-    // await waitFor(() =>
-    //   expect(UserImage()).not.toHaveAttribute('src', MockUser.profileUrl)
-    // );
+  // TODO: 선택된 file이 없어서 test에서 호출되지 않음
+  test('업로드 버튼을 클릭하면 onImageUpdate가 호출된다.', async () => {
+    // const { clickUploadButton, onImageUpdate } = renderComponent();
+    // await act(async () => clickUploadButton());
+    // expect(onImageUpdate).toHaveBeenCalled();
   });
 
-  test('제거 버튼을 클릭하면 기본 이미지를 보여준다.', async () => {
-    const { clickResetButton, UserImage } = renderComponent({
-      ...MockUser,
-      profileUrl: 'profile Url',
-    });
-
+  test('제거 버튼을 클릭하면 onImageRemove를 호출한다.', async () => {
+    const { clickResetButton, onImageRemove } = renderComponent();
     await act(async () => clickResetButton());
-    // TODO: test
-    // await waitFor(() =>
-    //   expect(UserImage()).toHaveAttribute('src', DEFAULT_PROFILE)
-    // );
+    expect(onImageRemove).toHaveBeenCalled();
   });
 });

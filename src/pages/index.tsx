@@ -1,3 +1,3 @@
-import Setting from './Setting';
+import SettingPage from './SettingPage';
 
-export { Setting };
+export { SettingPage };

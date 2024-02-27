@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import Setting from '../Setting';
+import Setting from '../SettingPage';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 const meta = {
