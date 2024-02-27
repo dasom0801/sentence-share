@@ -1,4 +1,10 @@
-import Logo from './Logo';
-import MaxWidthWrapper from './MaxWidthWrapper';
+import Header from './base/Header';
+import Logo from './base/Logo';
 
-export { Logo, MaxWidthWrapper };
+import MaxWidthWrapper from './common/MaxWidthWrapper';
+import AuthGuard from './common/AuthGuard';
+import Button from './common/Button';
+import Input from './common/Input';
+import Spinner from './common/Spinner';
+
+export { Header, Logo, MaxWidthWrapper, AuthGuard, Button, Input, Spinner };

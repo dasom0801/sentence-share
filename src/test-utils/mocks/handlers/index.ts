@@ -1,3 +1,3 @@
-import { getUser } from './getUser';
+import { getUser, updateUser } from './user';
 
-export const handlers = [getUser];
+export const handlers = [getUser, updateUser];
