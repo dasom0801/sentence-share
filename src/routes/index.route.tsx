@@ -21,6 +21,12 @@ const router = createBrowserRouter([
               return { Component: SettingPage };
             },
           },
+          {
+            path: '/my/sentence',
+          },
+          {
+            path: '/my/like',
+          },
         ],
       },
     ],

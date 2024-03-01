@@ -1,5 +1,4 @@
 import { screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
 import { render } from '../../../test-utils/testRender';
@@ -16,7 +15,6 @@ const mockUseCurrentUser = (data: User | undefined) => {
 };
 
 const renderHeaderComponent = () => {
-  const user = userEvent.setup();
   render(<Header />, { wrapper: BrowserRouter });
 
   const GoogleButton = () =>
@@ -24,14 +22,11 @@ const renderHeaderComponent = () => {
       selector: 'button',
     });
   const Avatar = () => screen.queryByRole('img', { name: 'user name' });
-  const ProfileLink = () =>
-    screen.getByLabelText(/user name/, { selector: 'a' });
 
-  const clickUserProfile = async () => await user.click(ProfileLink());
-  return { GoogleButton, Avatar, ProfileLink, clickUserProfile };
+  return { GoogleButton, Avatar };
 };
 
-describe('components > base > Header', () => {
+describe('Header Component', () => {
   beforeEach(() => {
     (useUserQuery as jest.Mock).mockImplementation(() => ({}));
   });
