@@ -1,7 +1,6 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import MaxWidthWrapper from '../common/MaxWidthWrapper';
-import { Avatar } from '@mui/material';
 import { loginWithGoogle } from '../../lib/api';
 import { useUserQuery } from '../../lib/hooks';
 import HeaderMenu from './HeaderMenu';
