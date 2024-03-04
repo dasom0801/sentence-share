@@ -1,23 +1,20 @@
-import { rest } from 'msw';
+import { http, HttpResponse } from 'msw';
 import mockData from '../db';
 
-export const getUser = rest.get('/api/user/me', (req, res, ctx) => {
+export const getUser = http.get('/api/user/me', () => {
   const user = mockData.user.getAll()[0];
-
-  return res(ctx.json(user));
+  return HttpResponse.json(user, { status: 200 });
 });
 
-export const updateUser = rest.put('/api/user/me', async (req, res, ctx) => {
-  const reqJson = await req.json();
+export const updateUser = http.put('/api/user/me', async ({ request }) => {
+  const data = JSON.parse(JSON.stringify(await request.json()));
   const user = mockData.user.update({
     where: {
       _id: {
         equals: '1',
       },
     },
-    data: {
-      ...reqJson,
-    },
+    data,
   });
-  return res(ctx.json({ ...user }));
+  return HttpResponse.json(user, { status: 200 });
 });

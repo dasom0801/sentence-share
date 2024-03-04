@@ -1,16 +1,9 @@
 import { screen } from '@testing-library/react';
 import AuthGuard from '../AuthGuard';
-import { useUserQuery } from '../../../lib/hooks';
+import * as hooks from '../../../lib/hooks';
 import { render } from '../../../test-utils/testRender';
 import MockUser from '../../../test-utils/mocks/data/user.json';
-
-jest.mock('../../../lib/hooks', () => ({
-  useUserQuery: jest.fn(),
-}));
-
-const mockUseCurrentUser = (data: User | undefined) => {
-  (useUserQuery as jest.Mock).mockImplementation(() => ({ data }));
-};
+import { UseQueryResult } from '@tanstack/react-query';
 
 const renderAuthGuard = () => {
   render(<AuthGuard />);
@@ -22,14 +15,23 @@ const renderAuthGuard = () => {
 };
 
 describe('components > common > AuthGuard', () => {
+  const useUserQuerySpy = vi.spyOn(hooks, 'useUserQuery');
+
+  afterEach(() => {
+    useUserQuerySpy.mockClear();
+  });
   test('사용자가 로그인하지 않은 상태면 로그인 버튼을 보여준다.', () => {
-    mockUseCurrentUser(undefined);
+    useUserQuerySpy.mockReturnValue({
+      data: undefined,
+    } as UseQueryResult<User>);
     const { GoogleButton } = renderAuthGuard();
     expect(GoogleButton()).toBeInTheDocument();
   });
 
   test('사용자가 로그인한 상태면 로그인 버튼을 보여주지 않는다.', () => {
-    mockUseCurrentUser(MockUser);
+    useUserQuerySpy.mockReturnValue({
+      data: MockUser as User,
+    } as UseQueryResult<User>);
     const { GoogleButton } = renderAuthGuard();
     expect(GoogleButton()).not.toBeInTheDocument();
   });

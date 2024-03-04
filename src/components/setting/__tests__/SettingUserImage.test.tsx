@@ -7,8 +7,8 @@ import { render } from '../../../test-utils/testRender';
 
 const renderComponent = () => {
   const user = userEvent.setup();
-  const onImageRemove = jest.fn();
-  const onImageUpdate = jest.fn();
+  const onImageRemove = vi.fn();
+  const onImageUpdate = vi.fn();
 
   render(
     <SettingUserImage
