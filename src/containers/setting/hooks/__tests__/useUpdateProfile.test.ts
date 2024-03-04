@@ -12,7 +12,6 @@ describe('useUpdateProfile', () => {
     await act(async () => {
       result.current.mutate({ ...MockUser, name: 'updated name' });
     });
-
     await waitFor(() => expect(result.current.isSuccess).toBe(true));
     expect(result.current.data?.name).not.toEqual(MockUser.name);
   });
