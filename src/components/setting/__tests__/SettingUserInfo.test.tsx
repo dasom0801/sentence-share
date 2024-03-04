@@ -4,7 +4,7 @@ import userEvent from '@testing-library/user-event';
 import { MockUser } from '../../../test-utils/index.mock';
 
 const renderComponent = () => {
-  const onSubmit = jest.fn();
+  const onSubmit = vi.fn();
   const user = userEvent.setup();
   render(
     <SettingUserInfo loading={false} user={MockUser} onSubmit={onSubmit} />
