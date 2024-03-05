@@ -1,9 +1,12 @@
+/** @jsxImportSource @emotion/react */
+
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import MaxWidthWrapper from '../common/MaxWidthWrapper';
 import { loginWithGoogle } from '../../lib/api';
 import { useUserQuery } from '../../lib/hooks';
 import HeaderMenu from './HeaderMenu';
+import { css } from '@emotion/react';
 
 const Header = () => {
   const { data: currentUser, isLoading } = useUserQuery();
@@ -14,7 +17,7 @@ const Header = () => {
 
   return (
     <div className='border-solid border-b border-secondary-100'>
-      <MaxWidthWrapper className='flex justify-between items-center py-3'>
+      <MaxWidthWrapper styles={wrapperStyle}>
         <Link to={'/'}>
           <Logo />
         </Link>
@@ -33,4 +36,11 @@ const Header = () => {
     </div>
   );
 };
+
+const wrapperStyle = css`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 12px;
+`;
 export default Header;

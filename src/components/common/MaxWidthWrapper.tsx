@@ -1,23 +1,35 @@
+/** @jsxImportSource @emotion/react */
+
 import { ReactNode } from 'react';
-import { cn } from '../../utils';
+import { SerializedStyles, css } from '@emotion/react';
 
 const MaxWidthWrapper = ({
-  className,
+  styles,
   children,
 }: {
-  className?: string;
+  styles?: SerializedStyles;
   children: ReactNode;
 }) => {
   return (
     <div
-      className={cn(
-        'mx-auto w-full max-w-screen-xl px-2.5 md:px-20',
-        className
-      )}
+      css={css`
+        ${maxWidth};
+        ${styles}
+      `}
     >
       {children}
     </div>
   );
 };
+
+const maxWidth = css`
+  margin: 0 auto;
+  width: 100%;
+  max-width: 1280px;
+  padding: 0 10px;
+  @media (min-width: 768px) {
+    padding: 0 80px;
+  }
+`;
 
 export default MaxWidthWrapper;
