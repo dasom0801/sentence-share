@@ -41,6 +41,7 @@ const wrapperStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
 `;
 export default Header;

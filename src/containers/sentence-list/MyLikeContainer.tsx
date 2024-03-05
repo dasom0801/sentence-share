@@ -3,7 +3,7 @@
 import { useUserQuery } from '../../lib/hooks';
 import { useUserLikeQuery } from './hooks/useUserLikeQuery';
 import { gridContainer, pageTitle } from '../../styles';
-import SentenceCard from '../../components/common/SentenceCard';
+import { SentenceCard, SentenceListSkeleton } from '../../components';
 
 const MyLikeContainer = () => {
   const { data: currentUser } = useUserQuery();
@@ -13,10 +13,6 @@ const MyLikeContainer = () => {
     isError,
   } = useUserLikeQuery({ userId: currentUser?._id });
 
-  if (isLoading) {
-    return <></>;
-  }
-
   if (isError) return <></>;
 
   return (
@@ -25,11 +21,15 @@ const MyLikeContainer = () => {
         내가 좋아한 문장 {likes?.total && `(${likes?.total})`}
       </h1>
 
-      <ul css={gridContainer}>
-        {likes?.list.map((sentence) => {
-          return <SentenceCard key={sentence._id} sentence={sentence} />;
-        })}
-      </ul>
+      {isLoading ? (
+        <SentenceListSkeleton />
+      ) : (
+        <ul css={gridContainer}>
+          {likes?.list.map((sentence) => {
+            return <SentenceCard key={sentence._id} sentence={sentence} />;
+          })}
+        </ul>
+      )}
     </>
   );
 };
