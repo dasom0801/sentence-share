@@ -30,6 +30,10 @@ const router = createBrowserRouter([
           },
           {
             path: '/my/like',
+            async lazy() {
+              const { MyLikePage } = await import('../pages');
+              return { Component: MyLikePage };
+            },
           },
         ],
       },

@@ -1,8 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import {
-  UserSentenceRequestParams,
-  getUserSentence,
-} from '../../../lib/api/user';
+import { UserSentenceRequestParams, getUserSentence } from '../../../lib/api';
 
 const UserSentenceQueryKey = ['[GET]/api/user/:userId/sentence'];
 const queryFn = async (params: UserSentenceRequestParams) =>
