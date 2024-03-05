@@ -14,7 +14,7 @@ const MaxWidthWrapper = ({
     <div
       css={css`
         ${maxWidth};
-        ${styles}
+        ${styles};
       `}
     >
       {children}
@@ -26,9 +26,12 @@ const maxWidth = css`
   margin: 0 auto;
   width: 100%;
   max-width: 1280px;
-  padding: 0 10px;
-  @media (min-width: 768px) {
-    padding: 0 80px;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  @media (min-width: 1024px) {
+    padding-left: 80px;
+    padding-right: 80px;
   }
 `;
 

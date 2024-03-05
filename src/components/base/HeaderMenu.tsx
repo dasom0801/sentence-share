@@ -63,7 +63,7 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
         }}
       >
         <MenuItem onClick={() => handleNavigate('/my/sentence')}>
-          내가 쓴 문장
+          내가 공유한 문장
         </MenuItem>
         <MenuItem onClick={() => handleNavigate('/my/like')}>
           내가 좋아한 문장

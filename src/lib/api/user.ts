@@ -1,3 +1,4 @@
+import querystring from 'query-string';
 import { axios } from '.';
 import { getBearerToken } from '../../utils';
 
@@ -17,4 +18,14 @@ export const updateUser = async (data: Record<string, any>) => {
       authorization,
     },
   });
+};
+
+export type UserSentenceRequestParams = { userId?: string } & PageParams;
+
+export const getUserSentence = async (params: UserSentenceRequestParams) => {
+  const { userId, ...queryPrams } = params;
+  const query = querystring.stringify({ queryPrams });
+  return await axios.get<PaginationResult<Sentence>>(
+    `/api/user/${userId}/sentence?=${query}`
+  );
 };

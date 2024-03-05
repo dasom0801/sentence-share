@@ -17,6 +17,7 @@ const wrapperStyle = css`
   display: flex;
   flex-direction: column;
   gap: 32px;
-  padding: 32px;
+  padding-top: 32px;
+  padding-bottom: 32px;
 `;
 export default SettingPage;

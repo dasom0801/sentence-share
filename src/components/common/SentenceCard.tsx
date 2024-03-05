@@ -2,32 +2,22 @@
 
 import { css } from '@emotion/react';
 import { Avatar } from '@mui/material';
-import { blueGrey, red } from '@mui/material/colors';
+import { blueGrey } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
-import Button from './Button';
-import { BsSuitHeart } from 'react-icons/bs';
-import { BsSuitHeartFill } from 'react-icons/bs';
+import { ReactNode } from 'react';
 
 type SentenceCardProps = {
-  book: Book;
   sentence: Sentence;
-  author: User;
-  isLiked: boolean;
-  toggleLike: () => void;
+  children?: ReactNode;
 };
 
-const SentenceCard = ({
-  book,
-  sentence,
-  author,
-  isLiked,
-  toggleLike,
-}: SentenceCardProps) => {
+const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
+  const { author, book, content, createdAt } = sentence;
   return (
-    <div
+    <li
       css={css`
         ${container};
-        background-image: url(${book.coverUrl});
+        background-image: url(${book?.coverUrl});
       `}
     >
       <div className='backdrop'>
@@ -38,27 +28,22 @@ const SentenceCard = ({
             src={author.profileUrl || '/images/blank-profile.png'}
           />
           <div className='name'>{author.name}</div>
-          <time>{sentence.createdAt.split('T')[0]}</time>
+          <time>{createdAt.split('T')[0]}</time>
         </div>
 
         <div className='sentence'>
-          <p>{sentence.content}</p>
+          <p>{content}</p>
         </div>
-        <Link className='book-info' to={`/book/${book._id}`}>
+        <Link className='book-info' to={`/book/${book?._id}`}>
           <div>
-            <div className='title'>{book.title}</div>
-            <div>{book.author.join(',')}</div>
+            <div className='title'>{book?.title}</div>
+            <div>{book?.author.join(',')}</div>
           </div>
-          <img src={book.coverUrl} alt={book.title} />
+          <img src={book?.coverUrl} alt={book?.title} />
         </Link>
-        <div className='like-button'>
-          <Button color='secondary' size='large'>
-            <span>좋아요</span>
-            {isLiked ? <BsSuitHeartFill color={red[500]} /> : <BsSuitHeart />}
-          </Button>
-        </div>
+        <div className='children-container'>{children}</div>
       </div>
-    </div>
+    </li>
   );
 };
 
@@ -135,9 +120,11 @@ const container = css`
     &:hover {
       text-decoration: underline;
       background-color: rgba(255, 255, 255, 0.55);
+      transition: all 0.05s ease-in;
+
       img {
         transform: scale(1.03);
-        transition: all 0.1s ease-in;
+        transition: all 0.05s ease-in;
       }
     }
 
@@ -167,15 +154,8 @@ const container = css`
     }
   }
 
-  .like-button {
+  .children-container {
     background: white;
-
-    button {
-      display: flex;
-      gap: 4px;
-      width: 100%;
-      font-size: 16px;
-    }
   }
 `;
 

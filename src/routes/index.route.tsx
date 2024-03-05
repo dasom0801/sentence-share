@@ -23,6 +23,10 @@ const router = createBrowserRouter([
           },
           {
             path: '/my/sentence',
+            async lazy() {
+              const { MySentencePage } = await import('../pages');
+              return { Component: MySentencePage };
+            },
           },
           {
             path: '/my/like',
