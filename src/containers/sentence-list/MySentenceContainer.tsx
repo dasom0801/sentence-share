@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
 import SentenceCard from '../../components/common/SentenceCard';
 import { useUserQuery } from '../../lib/hooks';
 import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
+import { gridContainer, pageTitle } from '../../styles';
 
 const MySentenceContainer = () => {
   const { data: currentUser } = useUserQuery();
@@ -24,7 +24,7 @@ const MySentenceContainer = () => {
   return (
     <>
       <div>
-        <h1 css={title}>
+        <h1 css={pageTitle}>
           내가 공유한 문장 {sentences?.total && `(${sentences?.total})`}
         </h1>
       </div>
@@ -37,25 +37,5 @@ const MySentenceContainer = () => {
     </>
   );
 };
-
-const title = css`
-  margin-bottom: 24px;
-  font-size: 24px;
-  font-weight: 500;
-`;
-
-const gridContainer = css`
-  display: grid;
-  grid-template-columns: repeat(1, 1fr);
-  gap: 24px;
-
-  @media (min-width: 768px) {
-    grid-template-columns: repeat(2, 1fr);
-  }
-
-  @media (min-width: 1024px) {
-    grid-template-columns: repeat(3, 1fr);
-  }
-`;
 
 export default MySentenceContainer;
