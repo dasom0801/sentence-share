@@ -1,14 +1,14 @@
 import { screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { render } from '../../../test-utils/testRender';
+import { renderWithReactQuery } from '../../../test-utils/testRender';
 import Header from '../Header';
 import * as hooks from '../../../lib/hooks';
 import MockUser from '../../../test-utils/mocks/data/user.json';
 import type { UseQueryResult } from '@tanstack/react-query';
 
 const renderHeaderComponent = () => {
-  render(<Header />, { wrapper: BrowserRouter });
+  renderWithReactQuery(<Header />, { wrapper: BrowserRouter });
 
   const GoogleButton = () =>
     screen.queryByLabelText(/google/, {

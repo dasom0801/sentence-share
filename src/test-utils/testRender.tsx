@@ -12,7 +12,7 @@ const createTestQueryClient = () =>
   });
 
 // 컴포넌트를 QueryClientProvider로 감싸서 렌더링하는 함수
-const render = (
+const renderWithReactQuery = (
   ui: React.ReactNode,
   options?: Omit<RenderOptions, 'queries'>
 ) => {
@@ -23,11 +23,11 @@ const render = (
   );
 };
 
-const wrapper = () => {
+const wrapperWithReactQuery = () => {
   const queryClient = createTestQueryClient();
   return ({ children }: { children: React.ReactNode }) => (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
   );
 };
 
-export { render, wrapper };
+export { renderWithReactQuery, wrapperWithReactQuery };
