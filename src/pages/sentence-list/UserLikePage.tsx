@@ -2,13 +2,13 @@
 
 import { css } from '@emotion/react';
 import { MaxWidthWrapper } from '../../components';
-import { MySentenceContainer } from '../../containers';
+import { UserLikeContainer } from '../../containers';
 
-const MySentencePage = () => {
+const MyLikePage = () => {
   return (
     <main>
       <MaxWidthWrapper styles={wrapperStyles}>
-        <MySentenceContainer />
+        <UserLikeContainer />
       </MaxWidthWrapper>
     </main>
   );
@@ -18,5 +18,4 @@ const wrapperStyles = css`
   padding-top: 32px;
   padding-bottom: 32px;
 `;
-
-export default MySentencePage;
+export default MyLikePage;

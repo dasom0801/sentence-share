@@ -5,4 +5,5 @@ type Sentence = {
   createdAt: string;
   author: User;
   book?: Book;
+  isLiked: boolean;
 };

@@ -10,5 +10,6 @@
     "provider": "google.com",
     "email": "user@gmail.com",
     "profileUrl": "/images/blank-profile.png"
-  }
+  },
+  "isLiked": false
 }

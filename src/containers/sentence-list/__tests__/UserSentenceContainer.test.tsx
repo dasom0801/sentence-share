@@ -1,5 +1,5 @@
 import { screen } from '@testing-library/react';
-import MySentenceContainer from '../MySentenceContainer';
+import UserSentenceContainer from '../UserSentenceContainer';
 import userEvent from '@testing-library/user-event';
 import * as hooks from '../hooks/useUserSentenceQuery';
 import { renderWithReactQuery } from '../../../test-utils/testRender';
@@ -9,13 +9,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 const renderComponent = () => {
   const user = userEvent.setup();
-  renderWithReactQuery(<MySentenceContainer />, { wrapper: BrowserRouter });
+  renderWithReactQuery(<UserSentenceContainer />, { wrapper: BrowserRouter });
   const SentenceListItem = async () => await screen.findAllByRole('listitem');
   const EditButton = async () =>
     await screen.findByRole('button', { name: '수정' });
 
   const DeleteButton = async () =>
-    await screen.findByRole('delete', { name: '삭제' });
+    await screen.findByRole('button', { name: '삭제' });
 
   const clickEditButton = () => async () => {
     const Button = await EditButton();
@@ -30,7 +30,7 @@ const renderComponent = () => {
   return { SentenceListItem, clickEditButton, clickDeleteButton };
 };
 
-describe('MySentenceContainer', () => {
+describe('<UserSentenceContainer />', () => {
   const useUserSentenceQuerySpy = vi.spyOn(hooks, 'useUserSentenceQuery');
   afterEach(() => {
     useUserSentenceQuerySpy.mockClear();

@@ -24,15 +24,15 @@ const router = createBrowserRouter([
           {
             path: '/my/sentence',
             async lazy() {
-              const { MySentencePage } = await import('../pages');
-              return { Component: MySentencePage };
+              const { UserSentencePage } = await import('../pages');
+              return { Component: UserSentencePage };
             },
           },
           {
             path: '/my/like',
             async lazy() {
-              const { MyLikePage } = await import('../pages');
-              return { Component: MyLikePage };
+              const { UserLikePage } = await import('../pages');
+              return { Component: UserLikePage };
             },
           },
         ],

@@ -1,5 +1,5 @@
 import SettingPage from './SettingPage';
-import MySentencePage from './sentence-list/MySentencePage';
-import MyLikePage from './sentence-list/MyLikePage';
+import UserSentencePage from './sentence-list/UserSentencePage';
+import UserLikePage from './sentence-list/UserLikePage';
 
-export { SettingPage, MySentencePage, MyLikePage };
+export { SettingPage, UserSentencePage, UserLikePage };

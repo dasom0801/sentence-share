@@ -1,5 +1,5 @@
 import SettingContainer from './setting/SettingContainer';
-import MySentenceContainer from './sentence-list/MySentenceContainer';
-import MyLikeContainer from './sentence-list/MyLikeContainer';
+import UserSentenceContainer from './sentence-list/UserSentenceContainer';
+import UserLikeContainer from './sentence-list/UserLikeContainer';
 
-export { SettingContainer, MySentenceContainer, MyLikeContainer };
+export { SettingContainer, UserSentenceContainer, UserLikeContainer };

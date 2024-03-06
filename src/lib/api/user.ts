@@ -1,26 +1,18 @@
 import querystring from 'query-string';
 import { axios } from '.';
-import { getBearerToken } from '../../utils';
 
 export const getUser = async () => {
-  const authorization = getBearerToken();
-  return await axios.get<User>('/api/user/me', {
-    headers: {
-      authorization,
-    },
-  });
+  return await axios.get<User>('/api/user/me');
 };
 
 export const updateUser = async (data: Record<string, any>) => {
-  const authorization = getBearerToken();
-  return await axios.put<User>('/api/user/me', data, {
-    headers: {
-      authorization,
-    },
-  });
+  return await axios.put<User>('/api/user/me');
 };
 
-export type UserSentenceRequestParams = { userId?: string } & PageParams;
+export type UserSentenceRequestParams = {
+  userId?: string;
+  category: 'sentence' | 'book' | 'user';
+} & PageParams;
 
 export const getUserSentence = async (params: UserSentenceRequestParams) => {
   const { userId, ...queryPrams } = params;
