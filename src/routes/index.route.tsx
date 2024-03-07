@@ -21,6 +21,23 @@ const router = createBrowserRouter([
               return { Component: SettingPage };
             },
           },
+          {
+            path: '/my/sentence',
+            async lazy() {
+              const { UserSentencePage } = await import('../pages');
+              return { Component: UserSentencePage };
+            },
+          },
+          {
+            path: '/my/sentence/:id',
+          },
+          {
+            path: '/my/like',
+            async lazy() {
+              const { UserLikePage } = await import('../pages');
+              return { Component: UserLikePage };
+            },
+          },
         ],
       },
     ],

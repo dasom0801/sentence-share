@@ -1,4 +1,4 @@
-import useUpdateProfile from './useUpdateProfile';
+import { useUpdateProfile } from './useUpdateProfile';
 import useRemoveProfileImage from './useRemoveProfileImage';
 import useUploadProfileImage from './useUploadProfileImage';
 

@@ -3,14 +3,14 @@ import userEvent from '@testing-library/user-event';
 import SettingUserImage from '../SettingUserImage';
 import { MockUser } from '../../../test-utils/index.mock';
 import { DEFAULT_PROFILE } from '../../../constants';
-import { render } from '../../../test-utils/testRender';
+import { renderWithReactQuery } from '../../../test-utils/testRender';
 
 const renderComponent = () => {
   const user = userEvent.setup();
   const onImageRemove = vi.fn();
   const onImageUpdate = vi.fn();
 
-  render(
+  renderWithReactQuery(
     <SettingUserImage
       user={MockUser}
       onImageRemove={onImageRemove}

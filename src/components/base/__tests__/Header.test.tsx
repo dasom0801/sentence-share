@@ -1,30 +1,25 @@
 import { screen } from '@testing-library/react';
-import { userEvent } from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 
-import { render } from '../../../test-utils/testRender';
+import { renderWithReactQuery } from '../../../test-utils/testRender';
 import Header from '../Header';
 import * as hooks from '../../../lib/hooks';
 import MockUser from '../../../test-utils/mocks/data/user.json';
 import type { UseQueryResult } from '@tanstack/react-query';
 
 const renderHeaderComponent = () => {
-  const user = userEvent.setup();
-  render(<Header />, { wrapper: BrowserRouter });
+  renderWithReactQuery(<Header />, { wrapper: BrowserRouter });
 
   const GoogleButton = () =>
     screen.queryByLabelText(/google/, {
       selector: 'button',
     });
   const Avatar = () => screen.queryByRole('img', { name: 'user name' });
-  const ProfileLink = () =>
-    screen.getByLabelText(/user name/, { selector: 'a' });
 
-  const clickUserProfile = async () => await user.click(ProfileLink());
-  return { GoogleButton, Avatar, ProfileLink, clickUserProfile };
+  return { GoogleButton, Avatar };
 };
 
-describe('components > base > Header', () => {
+describe('Header Component', () => {
   const useUserQuerySpy = vi.spyOn(hooks, 'useUserQuery');
   afterEach(() => {
     useUserQuerySpy.mockClear();
