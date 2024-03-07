@@ -16,6 +16,7 @@ declare global {
     page: number;
     limit: number;
     total: number;
+    pageTotal: number;
   };
 }
 

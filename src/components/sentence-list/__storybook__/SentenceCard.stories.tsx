@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import SentenceCard from '../SentenceCard';
-import { MockSentence, MockBook } from '../../../test-utils/index.mock';
+import { MockSentence } from '../../../test-utils/index.mock';
 import { BrowserRouter } from 'react-router-dom';
 const meta = {
   title: 'SentenceList/SentenceCard',
@@ -14,9 +14,6 @@ export const Default: Story = {
   args: {
     sentence: {
       ...MockSentence,
-      book: {
-        ...MockBook,
-      },
     },
   },
   decorators: (Story) => {

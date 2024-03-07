@@ -7,33 +7,6 @@ import * as useUserLike from '../hooks/useUserLikeQuery';
 import { UseQueryResult } from '@tanstack/react-query';
 import userEvent from '@testing-library/user-event';
 
-const renderComponent = () => {
-  const user = userEvent.setup();
-  renderWithReactQuery(<UserLikeContainer />, { wrapper: BrowserRouter });
-  const LikeListItem = async () => await screen.findAllByRole('listitem');
-  const LikeButton = async () => await screen.findAllByRole('button');
-  const clickLikeButton = async () => {
-    const button = await LikeButton();
-    await user.click(button[0]);
-  };
-  return { LikeListItem, clickLikeButton };
-};
-
-const getListData = () => {
-  const total = 10;
-  const list = Array.from(new Array(total), (_, index) => ({
-    ...MockSentence,
-    _id: `${index}`,
-  }));
-
-  return {
-    list,
-    total,
-    page: 1,
-    limit: 20,
-  };
-};
-
 const mocks = vi.hoisted(() => {
   return {
     mutate: vi.fn(),
@@ -54,7 +27,7 @@ describe('<UserLikeContainer />', () => {
   });
 
   test('사용자가 좋아한 문장 목록을 화면에 보여준다.', async () => {
-    const data = getListData();
+    const data = getMockListData();
     useUserLikeQuerySpy.mockReturnValue({
       data,
     } as UseQueryResult<PaginationResult<Sentence>>);
@@ -65,7 +38,7 @@ describe('<UserLikeContainer />', () => {
 
   test('좋아요 버튼을 누르면 좋아요가 토글된다.', async () => {
     const { clickLikeButton } = renderComponent();
-    const data = getListData();
+    const data = getMockListData();
     useUserLikeQuerySpy.mockReturnValue({
       data,
     } as UseQueryResult<PaginationResult<Sentence>>);
@@ -76,3 +49,30 @@ describe('<UserLikeContainer />', () => {
     await waitFor(() => expect(mocks.mutate).toBeCalledWith('0'));
   });
 });
+
+const renderComponent = () => {
+  const user = userEvent.setup();
+  renderWithReactQuery(<UserLikeContainer />, { wrapper: BrowserRouter });
+  const LikeListItem = async () => await screen.findAllByRole('listitem');
+  const LikeButton = async () => await screen.findAllByRole('button');
+  const clickLikeButton = async () => {
+    const button = await LikeButton();
+    await user.click(button[0]);
+  };
+  return { LikeListItem, clickLikeButton };
+};
+
+const getMockListData = () => {
+  const total = 10;
+  const list = Array.from(new Array(total), (_, index) => ({
+    ...MockSentence,
+    _id: `${index}`,
+  }));
+
+  return {
+    list,
+    total,
+    page: 1,
+    limit: 20,
+  };
+};

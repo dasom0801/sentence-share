@@ -17,7 +17,7 @@ export const useToggleSentenceLike = (
         ? '좋아한 문장에 추가했습니다.'
         : '좋아한 문장에서 제외했습니다.';
       toast.success(successMessage);
-      if (onSuccess && typeof onSuccess === 'function') {
+      if (typeof onSuccess === 'function') {
         onSuccess(sentence);
       }
     },

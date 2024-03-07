@@ -2,7 +2,7 @@ import axios from './api';
 import { loginWithGoogle, logoutWithGoogle } from './auth';
 import { getUser, updateUser, getUserLike, getUserSentence } from './user';
 import type { UserLikeRequestParams, UserSentenceRequestParams } from './user';
-import { toggleSentenceLike } from './sentence';
+import { toggleSentenceLike, deleteSentence } from './sentence';
 
 export {
   axios,
@@ -13,6 +13,7 @@ export {
   getUserLike,
   getUserSentence,
   toggleSentenceLike,
+  deleteSentence,
 };
 
 export type { UserLikeRequestParams, UserSentenceRequestParams };

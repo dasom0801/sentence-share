@@ -16,7 +16,7 @@ export type UserSentenceRequestParams = {
 
 export const getUserSentence = async (params: UserSentenceRequestParams) => {
   const { userId, ...queryPrams } = params;
-  const query = querystring.stringify({ queryPrams });
+  const query = querystring.stringify(queryPrams);
   return await axios.get<PaginationResult<Sentence>>(
     `/api/user/${userId}/sentence?=${query}`
   );
@@ -25,7 +25,7 @@ export const getUserSentence = async (params: UserSentenceRequestParams) => {
 export type UserLikeRequestParams = { userId?: string } & PageParams;
 export const getUserLike = async (params: UserLikeRequestParams) => {
   const { userId, ...queryPrams } = params;
-  const query = querystring.stringify({ queryPrams });
+  const query = querystring.stringify(queryPrams);
   return await axios.get<PaginationResult<Sentence>>(
     `/api/user/${userId}/like?=${query}`
   );

@@ -29,6 +29,9 @@ const router = createBrowserRouter([
             },
           },
           {
+            path: '/my/sentence/:id',
+          },
+          {
             path: '/my/like',
             async lazy() {
               const { UserLikePage } = await import('../pages');

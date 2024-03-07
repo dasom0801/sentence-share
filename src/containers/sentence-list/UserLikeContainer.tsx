@@ -1,18 +1,16 @@
 /** @jsxImportSource @emotion/react */
 
-import { useUserQuery } from '../../lib/hooks';
+import { usePagination, useUserQuery } from '../../lib/hooks';
 import { UserLikeQueryKey, useUserLikeQuery } from './hooks/useUserLikeQuery';
-import { gridContainer, pageTitle } from '../../styles';
-import { Button, SentenceCard, SentenceListSkeleton } from '../../components';
-import { FaHeart } from 'react-icons/fa6';
-import { FaRegHeart } from 'react-icons/fa6';
-import { red } from '@mui/material/colors';
-import { css } from '@emotion/react';
+import { pageTitle, pagination } from '../../styles';
 import { useToggleSentenceLike } from './hooks/useToggleSentenceLike';
 import { useQueryClient } from '@tanstack/react-query';
+import { SentenceLikeCardList } from '../../components';
+import { Pagination } from '@mui/material';
 
 const UserLikeContainer = () => {
   const queryClient = useQueryClient();
+  const { page, setPage } = usePagination();
   const { data: currentUser } = useUserQuery();
   const {
     data: likes,
@@ -30,11 +28,9 @@ const UserLikeContainer = () => {
       };
     });
   };
-  const { mutate } = useToggleSentenceLike(updateLikeListAfterToggle);
-
-  const toggleLike = (id: string) => {
-    mutate(id);
-  };
+  const { mutate: toggleLike } = useToggleSentenceLike(
+    updateLikeListAfterToggle
+  );
 
   if (isError) return <></>;
 
@@ -43,42 +39,20 @@ const UserLikeContainer = () => {
       <h1 css={pageTitle}>
         내가 좋아한 문장 {likes?.total && `(${likes?.total})`}
       </h1>
-
-      {isLoading ? (
-        <SentenceListSkeleton />
-      ) : (
-        <ul css={gridContainer}>
-          {likes?.list.map((sentence) => {
-            return (
-              <SentenceCard key={sentence._id} sentence={sentence}>
-                <Button
-                  css={buttonStyle}
-                  size='large'
-                  color='secondary'
-                  fullWidth={true}
-                  onClick={() => toggleLike(sentence._id)}
-                >
-                  <span>좋아요</span>
-                  {sentence.isLiked ? <FaHeart /> : <FaRegHeart />}
-                </Button>
-              </SentenceCard>
-            );
-          })}
-        </ul>
-      )}
+      <SentenceLikeCardList
+        isLoading={isLoading}
+        list={likes?.list}
+        onToggleLike={toggleLike}
+      />
+      <Pagination
+        css={pagination}
+        count={likes?.pageTotal || 1}
+        shape='rounded'
+        page={page}
+        onChange={(_, page) => setPage(page)}
+      />
     </>
   );
 };
 
-const buttonStyle = css`
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  span {
-    font-size: 16px;
-  }
-  svg {
-    color: ${red[500]};
-  }
-`;
 export default UserLikeContainer;

@@ -10,6 +10,7 @@ import Spinner from './common/Spinner';
 import SentenceCard from './sentence-list/SentenceCard';
 import SentenceCardSkeleton from './sentence-list/SentenceCardSkeleton';
 import SentenceListSkeleton from './sentence-list/SentenceListSkeleton';
+import SentenceLikeCardList from './sentence-list/SentenceLikeCardList';
 
 export {
   Header,
@@ -22,4 +23,5 @@ export {
   SentenceCard,
   SentenceCardSkeleton,
   SentenceListSkeleton,
+  SentenceLikeCardList,
 };
