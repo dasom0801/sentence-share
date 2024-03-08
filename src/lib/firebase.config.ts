@@ -6,13 +6,13 @@ import { getStorage, ref } from 'firebase/storage';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 const firebaseConfig: FirebaseOptions = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_APP_FIREBASE_API_KEY,
   authDomain: 'sentence-share.firebaseapp.com',
   databaseURL: 'https://sentence-share.firebaseio.com',
   projectId: 'sentence-share',
   storageBucket: 'sentence-share.appspot.com',
-  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  messagingSenderId: import.meta.env.VITE_APP_FIREBASE_SENDER_ID,
+  appId: import.meta.env.VITE_APP_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
