@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 
 const SentenceCardSkeleton = () => {
   return (
-    <li css={container}>
+    <li css={styles}>
       <div className='backdrop'>
         <div className='header'>
           <Skeleton variant='circular' width={30} height={30} />
@@ -22,7 +22,7 @@ const SentenceCardSkeleton = () => {
   );
 };
 
-export const container = css`
+const styles = css`
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   overflow: hidden;

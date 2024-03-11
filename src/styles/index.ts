@@ -1,5 +1,5 @@
 import { gridContainer } from './layout';
-import { pageTitle } from './typo';
+import { pageTitle, textOverflowHidden } from './typo';
 import { pagination } from './common';
 import { preflight } from './preflight';
-export { gridContainer, pageTitle, pagination, preflight };
+export { gridContainer, pageTitle, textOverflowHidden, pagination, preflight };
