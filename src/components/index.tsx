@@ -1,5 +1,6 @@
 import Header from './base/Header';
 import Logo from './base/Logo';
+import GlobalStyles from './base/GloblStyles';
 
 import MaxWidthWrapper from './common/MaxWidthWrapper';
 import AuthGuard from './common/AuthGuard';
@@ -15,6 +16,7 @@ import SentenceLikeCardList from './sentence-list/SentenceLikeCardList';
 export {
   Header,
   Logo,
+  GlobalStyles,
   MaxWidthWrapper,
   AuthGuard,
   Button,

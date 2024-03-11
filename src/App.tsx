@@ -2,18 +2,18 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
-import Header from './components/base/Header';
+import { GlobalStyles, Header } from '@/components';
 
 const queryClient = new QueryClient();
 
 const App = () => {
   return (
     <QueryClientProvider client={queryClient}>
-      <div className='font-NotoSans'>
-        <Header />
-        <Outlet />
-        {/* <Routes> */}
-        {/* <Route path='/' element={<ListContainer />} />
+      <GlobalStyles />
+      <Header />
+      <Outlet />
+      {/* <Routes> */}
+      {/* <Route path='/' element={<ListContainer />} />
         <Route path='/info' element={<UserContainer />} />
         <Route path='/sentence' element={<UserContainer />} />
         <Route path='/likes' element={<UserContainer />} />
@@ -22,8 +22,7 @@ const App = () => {
         <Route path='/search' element={<ListKeywordSearch />} />
         <Route path='/add' element={<BookContainer />} />
         <Route path='/modify/:id' element={<BookContainer />} /> */}
-        {/* </Routes> */}
-      </div>
+      {/* </Routes> */}
       <ReactQueryDevtools initialIsOpen={false} />
       <ToastContainer />
     </QueryClientProvider>
