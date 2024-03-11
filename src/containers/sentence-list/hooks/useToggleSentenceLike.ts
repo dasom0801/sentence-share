@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { toggleSentenceLike } from '../../../lib/api';
+import { toggleSentenceLike } from '@/lib';
 import { toast } from 'react-toastify';
 
 const MUTATION_KEY = ['[PUT]/api/sentence/like'];

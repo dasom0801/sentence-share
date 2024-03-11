@@ -1,6 +1,5 @@
-import { useUserQuery } from '../../lib/hooks';
-import { loginWithGoogle } from '../../lib/api';
 import { Outlet } from 'react-router-dom';
+import { useUserQuery, loginWithGoogle } from '@/lib';
 
 const AuthGuard = () => {
   const { data: currentUser, isLoading } = useUserQuery();

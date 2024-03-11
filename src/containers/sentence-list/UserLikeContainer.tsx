@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { usePagination, useUserQuery } from '../../lib/hooks';
-import { UserLikeQueryKey, useUserLikeQuery } from './hooks/useUserLikeQuery';
-import { pageTitle, pagination } from '../../styles';
-import { useToggleSentenceLike } from './hooks/useToggleSentenceLike';
-import { useQueryClient } from '@tanstack/react-query';
-import { SentenceLikeCardList } from '../../components';
 import { Pagination } from '@mui/material';
+import { useQueryClient } from '@tanstack/react-query';
+import { SentenceLikeCardList } from '@/components';
+import { usePagination, useUserQuery } from '@/lib';
+import { pageTitle, pagination } from '@/styles';
+import { useToggleSentenceLike } from './hooks/useToggleSentenceLike';
+import { UserLikeQueryKey, useUserLikeQuery } from './hooks/useUserLikeQuery';
 
 const UserLikeContainer = () => {
   const queryClient = useQueryClient();

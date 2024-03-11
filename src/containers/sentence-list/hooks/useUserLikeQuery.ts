@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query';
-import { UserLikeRequestParams, getUserLike } from '../../../lib/api';
+import { UserLikeRequestParams, getUserLike } from '@/lib';
 
 export const UserLikeQueryKey = (params: UserLikeRequestParams): any[] => [
   '[GET]/api/user/:userId/like',

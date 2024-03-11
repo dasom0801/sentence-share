@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteSentence } from '../../../lib/api';
+import { deleteSentence } from '@/lib';
 import { toast } from 'react-toastify';
 
 const DeleteSentenceMutationKey = ['[DELETE]/api/sentence'];

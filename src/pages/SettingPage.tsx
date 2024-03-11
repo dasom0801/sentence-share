@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
-import { MaxWidthWrapper } from '../components';
+import { MaxWidthWrapper } from '@/components';
 import { SettingContainer } from '../containers';
 
 const SettingPage = () => {
