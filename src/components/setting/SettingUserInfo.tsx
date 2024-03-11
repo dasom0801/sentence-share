@@ -1,5 +1,8 @@
+/** @jsxImportSource @emotion/react */
+
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { Input, Button, Spinner } from '..';
+import { css } from '@emotion/react';
 
 type ProfileInfoEditProp = {
   user: Pick<User, 'name'> | undefined;
@@ -27,10 +30,7 @@ const SettingUserInfo = ({
   ) => onSubmit(data);
 
   return (
-    <form
-      className='flex flex-col gap-2'
-      onSubmit={handleSubmit(handleFormSubmit)}
-    >
+    <form css={styles} onSubmit={handleSubmit(handleFormSubmit)}>
       <Input
         color='secondary'
         size='medium'
@@ -51,4 +51,10 @@ const SettingUserInfo = ({
     </form>
   );
 };
+
+const styles = css`
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+`;
 export default SettingUserInfo;

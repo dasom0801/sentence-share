@@ -8,6 +8,8 @@ import Button from './common/Button';
 import Input from './common/Input';
 import Spinner from './common/Spinner';
 
+import { SettingUserImage, SettingUserInfo } from './setting';
+
 import SentenceCard from './sentence-list/SentenceCard';
 import SentenceCardSkeleton from './sentence-list/SentenceCardSkeleton';
 import SentenceListSkeleton from './sentence-list/SentenceListSkeleton';
@@ -26,4 +28,6 @@ export {
   SentenceCardSkeleton,
   SentenceListSkeleton,
   SentenceLikeCardList,
+  SettingUserImage,
+  SettingUserInfo,
 };

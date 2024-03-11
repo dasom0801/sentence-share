@@ -1,6 +1,9 @@
+/** @jsxImportSource @emotion/react */
+
 import { DEFAULT_PROFILE } from '../../constants';
 import { Button } from '..';
 import type { ChangeEvent } from 'react';
+import { css } from '@emotion/react';
 
 type SettingUserImageProps = {
   user: User | undefined;
@@ -23,16 +26,11 @@ const SettingUserImage = ({
   };
 
   return (
-    <form className={'mx-auto sm:w-1/2'}>
-      <img
-        className='mx-auto w-32 h-32 rounded-full mb-8'
-        src={user?.profileUrl || DEFAULT_PROFILE}
-        alt='프로필 이미지'
-      />
+    <form css={styles}>
+      <img src={user?.profileUrl || DEFAULT_PROFILE} alt='프로필 이미지' />
 
-      <div className='flex gap-4'>
+      <div>
         <Button
-          className='flex-1'
           variant='outlined'
           color='primary'
           type='button'
@@ -43,17 +41,13 @@ const SettingUserImage = ({
         </Button>
 
         <Button
-          className='relative flex-1'
+          className='file'
           variant='contained'
           color='primary'
           type='button'
         >
-          <label
-            className='cursor-pointer absolute w-full h-full'
-            htmlFor='profile-upload'
-          />
+          <label htmlFor='profile-upload' />
           <input
-            className='hidden'
             id='profile-upload'
             type='file'
             accept='.png,.jpg,.jpeg'
@@ -66,4 +60,42 @@ const SettingUserImage = ({
     </form>
   );
 };
+
+const styles = css`
+  margin: 0 auto;
+
+  img {
+    margin: 0 auto 32px;
+    width: 128px;
+    height: 128px;
+    border-radius: 100%;
+  }
+
+  > div {
+    display: flex;
+    gap: 16px;
+
+    button {
+      flex: 1;
+    }
+
+    .file {
+      position: relative;
+    }
+
+    label {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      cursor: pointer;
+    }
+    input {
+      display: none;
+    }
+  }
+  @media (min-width: 640px) {
+    width: 50%;
+  }
+`;
+
 export default SettingUserImage;

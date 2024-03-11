@@ -3,10 +3,11 @@
 import { Link } from 'react-router-dom';
 import Logo from './Logo';
 import MaxWidthWrapper from '../common/MaxWidthWrapper';
-import { loginWithGoogle } from '../../lib/api';
-import { useUserQuery } from '../../lib/hooks';
+import { loginWithGoogle } from '@/lib/api';
+import { useUserQuery } from '@/lib/hooks';
 import HeaderMenu from './HeaderMenu';
 import { css } from '@emotion/react';
+import { colors } from '@mui/material';
 
 const Header = () => {
   const { data: currentUser, isLoading } = useUserQuery();
@@ -16,7 +17,7 @@ const Header = () => {
   }
 
   return (
-    <div className='border-solid border-b border-secondary-100'>
+    <div css={headerStyle}>
       <MaxWidthWrapper styles={wrapperStyle}>
         <Link to={'/'}>
           <Logo />
@@ -37,11 +38,17 @@ const Header = () => {
   );
 };
 
+const headerStyle = css`
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  border: solid ${colors.blueGrey[100]};
+  border-bottom-width: 1px;
+`;
+
 const wrapperStyle = css`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding-top: 8px;
-  padding-bottom: 8px;
 `;
 export default Header;
