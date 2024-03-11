@@ -1,5 +1,5 @@
 import { useCallback } from 'react';
-import { storage } from '../../../lib/firebase.config';
+import { storage } from '@/lib/firebase.config';
 import { deleteObject, ref } from 'firebase/storage';
 
 const useRemoveProfileImage = () => {

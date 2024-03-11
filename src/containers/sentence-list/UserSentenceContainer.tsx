@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-import { usePagination, useUserQuery } from '../../lib/hooks';
+import { usePagination, useUserQuery } from '@/lib';
 import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
-import { gridContainer, pageTitle, pagination } from '../../styles';
-import { Button, SentenceCard, SentenceListSkeleton } from '../../components';
+import { gridContainer, pageTitle, pagination } from '@/styles';
+import { Button, SentenceCard, SentenceListSkeleton } from '@/components';
 import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
 import { useDeleteSentence } from './hooks/useDeleteSentence';

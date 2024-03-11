@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import Header from '../Header';
 import { BrowserRouter } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { QUERY_KEY } from '../../../lib/hooks/useUserQuery';
+import { QUERY_KEY } from '@/lib/hooks/useUserQuery';
 
 const meta = {
   title: 'base/Header',

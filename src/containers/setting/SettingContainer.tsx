@@ -1,14 +1,12 @@
 import { Divider } from '@mui/material';
-import { useUserQuery } from '../../lib/hooks';
-import { Button } from '../../components';
-import { logoutWithGoogle } from '../../lib/api';
+import { useUserQuery, logoutWithGoogle } from '@/lib';
+import { Button, SettingUserImage, SettingUserInfo } from '@/components';
 import { useNavigate } from 'react-router-dom';
 import {
   useRemoveProfileImage,
   useUpdateProfile,
   useUploadProfileImage,
 } from './hooks';
-import { SettingUserImage, SettingUserInfo } from '../../components/setting';
 
 const SettingContainer = () => {
   const navigate = useNavigate();
@@ -55,7 +53,6 @@ const SettingContainer = () => {
       <Divider />
       <Button
         size='large'
-        className='w-full'
         variant='contained'
         color='secondary'
         onClick={handleLogout}
@@ -65,4 +62,5 @@ const SettingContainer = () => {
     </>
   );
 };
+
 export default SettingContainer;

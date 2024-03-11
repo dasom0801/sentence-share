@@ -1,6 +1,6 @@
 import { screen } from '@testing-library/react';
 import AuthGuard from '../AuthGuard';
-import * as hooks from '../../../lib/hooks';
+import * as hooks from '@/lib/hooks';
 import { renderWithReactQuery } from '../../../test-utils/testRender';
 import MockUser from '../../../test-utils/mocks/data/user.json';
 import { UseQueryResult } from '@tanstack/react-query';

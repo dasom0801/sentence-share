@@ -1,9 +1,9 @@
 import { renderHook, waitFor } from '@testing-library/react';
 import useUserQuery from '../useUserQuery';
 import { act } from 'react-dom/test-utils';
-import { server } from '../../../test-utils/mocks/server';
+import { server } from '@/test-utils/mocks/server';
 import { HttpResponse, http } from 'msw';
-import { wrapperWithReactQuery } from '../../../test-utils/testRender';
+import { wrapperWithReactQuery } from '@/test-utils/testRender';
 
 it('token이 있을 때 user data를 가져온다.', async () => {
   const { result } = renderHook(() => useUserQuery(), {

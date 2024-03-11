@@ -5,9 +5,9 @@ import {
   uploadBytes,
 } from 'firebase/storage';
 import { useCallback } from 'react';
-import { useUserQuery } from '../../../lib/hooks';
-import { storage } from '../../../lib/firebase.config';
-import { getToastConfig } from '../../../utils';
+import { useUserQuery } from '@/lib';
+import { storage } from '@/lib/firebase.config';
+import { getToastConfig } from '@/utils';
 import { toast } from 'react-toastify';
 
 const useUploadProfileImage = () => {

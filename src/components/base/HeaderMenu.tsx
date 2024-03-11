@@ -1,6 +1,6 @@
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
-import { logoutWithGoogle } from '../../lib/api';
+import { logoutWithGoogle } from '@/lib/api';
 import { useNavigate } from 'react-router-dom';
 
 type HeaderMenuProps = {

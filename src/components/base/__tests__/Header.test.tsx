@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 
 import { renderWithReactQuery } from '../../../test-utils/testRender';
 import Header from '../Header';
-import * as hooks from '../../../lib/hooks';
+import * as hooks from '@/lib';
 import MockUser from '../../../test-utils/mocks/data/user.json';
 import type { UseQueryResult } from '@tanstack/react-query';
 

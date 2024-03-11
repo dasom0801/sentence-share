@@ -1,6 +1,6 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { QUERY_KEY as useUserQueryKey } from '../../../lib/hooks/useUserQuery';
-import { updateUser } from '../../../lib/api/user';
+import { QUERY_KEY as useUserQueryKey } from '@/lib/hooks/useUserQuery';
+import { updateUser } from '@/lib';
 import { toast } from 'react-toastify';
 import { getToastConfig } from '../../../utils';
 
