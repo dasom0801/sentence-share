@@ -47,10 +47,12 @@ const styles = css`
     min-width: 0px;
 
     div {
+      text-align: left;
       color: ${colors.blueGrey[500]};
       font-size: 14px;
       ${textOverflowHidden};
     }
+
     .title {
       margin: 0 0 8px;
       color: ${colors.blueGrey[900]};

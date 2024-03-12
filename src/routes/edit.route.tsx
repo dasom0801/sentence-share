@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom';
 
-const editSentenceRoute: RouteObject = {
+const editRoute: RouteObject = {
   path: '/edit',
   children: [
     {
@@ -20,4 +20,4 @@ const editSentenceRoute: RouteObject = {
   ],
 };
 
-export default editSentenceRoute;
+export default editRoute;

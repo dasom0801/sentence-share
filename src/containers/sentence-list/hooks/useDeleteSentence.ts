@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query';
-import { deleteSentence } from '@/lib';
 import { toast } from 'react-toastify';
+
+import { deleteSentence } from '@/lib';
 
 const DeleteSentenceMutationKey = ['[DELETE]/api/sentence'];
 const mutationFn = async (id: string) => (await deleteSentence(id)).data;
