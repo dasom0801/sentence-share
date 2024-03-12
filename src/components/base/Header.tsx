@@ -42,8 +42,7 @@ const headerStyle = css`
   display: flex;
   align-items: center;
   min-height: 56px;
-  border: solid ${colors.blueGrey[100]};
-  border-bottom-width: 1px;
+  border-bottom: 1px solid ${colors.blueGrey[100]};
 `;
 
 const wrapperStyle = css`

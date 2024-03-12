@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getBearerToken } from '../../utils';
+import { getBearerToken } from '../utils';
 
 const BASE_URL = import.meta.env.VITE_APP_BASE_URL;
 const axiosInstance = axios.create({ baseURL: BASE_URL });

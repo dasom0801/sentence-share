@@ -7,7 +7,7 @@ it('클릭하면 props의 onClick 함수가 호출된다.', async () => {
   const spy = vi.fn();
   const user = userEvent.setup();
   render(<BookListItem book={MockBook} onClick={spy} />);
-  const listItem = screen.getByRole('listitem');
-  await user.click(listItem);
+  const button = screen.getByRole('button');
+  await user.click(button);
   expect(spy).toHaveBeenCalled();
 });

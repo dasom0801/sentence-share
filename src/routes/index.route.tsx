@@ -1,6 +1,7 @@
 import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
-import { AuthGuard } from '@/components';
+import userMenuRoute from './user-menu.route';
+import editSentenceRoute from './edit-sentence.route';
 
 const router = createBrowserRouter([
   {
@@ -8,37 +9,12 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       {
+        // 로그인해야지만 이용할 수 있는 페이지들
         async lazy() {
           const { AuthGuard } = await import('../components');
           return { Component: AuthGuard };
         },
-        element: <AuthGuard />,
-        children: [
-          {
-            path: '/setting',
-            async lazy() {
-              const { SettingPage } = await import('../pages');
-              return { Component: SettingPage };
-            },
-          },
-          {
-            path: '/my/sentence',
-            async lazy() {
-              const { UserSentencePage } = await import('../pages');
-              return { Component: UserSentencePage };
-            },
-          },
-          {
-            path: '/my/sentence/:id',
-          },
-          {
-            path: '/my/like',
-            async lazy() {
-              const { UserLikePage } = await import('../pages');
-              return { Component: UserLikePage };
-            },
-          },
-        ],
+        children: [userMenuRoute, editSentenceRoute],
       },
     ],
   },

@@ -5,7 +5,7 @@ import {
   UseControllerProps,
   useController,
 } from 'react-hook-form';
-import { customTheme } from '../../utils';
+import { customTheme } from '../../lib/utils';
 
 const theme = customTheme();
 

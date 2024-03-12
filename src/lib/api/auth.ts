@@ -2,7 +2,7 @@ import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../firebase.config';
 import axios from './api';
 import { toast } from 'react-toastify';
-import { getToastConfig } from '../../utils';
+import { getToastConfig } from '../utils';
 
 // TODO: 로그인/로그아웃 한 다음에 toast 메시지 보여주기
 export const loginWithGoogle = async () => {
