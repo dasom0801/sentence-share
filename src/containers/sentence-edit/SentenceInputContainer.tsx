@@ -118,9 +118,6 @@ const SentenceInputContainer = ({
 };
 
 const styles = css`
-  padding-top: 36px;
-  padding-bottom: 36px;
-
   .selected-book {
     button:last-of-type {
       margin: 12px 0 0 0;

@@ -9,6 +9,7 @@ import {
   createSentence,
   getSentence,
   updateSentence,
+  getSentences,
 } from './sentence';
 import type {
   BookSearchParams,
@@ -30,6 +31,7 @@ export {
   createSentence,
   getSentence,
   updateSentence,
+  getSentences,
 };
 
 export type {

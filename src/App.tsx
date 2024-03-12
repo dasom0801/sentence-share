@@ -1,8 +1,11 @@
+/** @jsxImportSource @emotion/react */
+
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Outlet } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import { GlobalStyles, Header } from '@/components';
+import { css } from '@emotion/react';
 
 const queryClient = new QueryClient();
 
@@ -11,7 +14,10 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <GlobalStyles />
       <Header />
-      <Outlet />
+      <div css={styles}>
+        <Outlet />
+      </div>
+
       {/* <Routes> */}
       {/* <Route path='/' element={<ListContainer />} />
         <Route path='/info' element={<UserContainer />} />
@@ -28,5 +34,9 @@ const App = () => {
     </QueryClientProvider>
   );
 };
+
+const styles = css`
+  padding: 36px 0;
+`;
 
 export default App;

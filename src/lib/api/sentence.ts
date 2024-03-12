@@ -1,4 +1,10 @@
+import queryString from 'query-string';
 import { axios } from '.';
+
+export const getSentences = async (params: PageParams) => {
+  const query = queryString.stringify(params);
+  return await axios.get(`/api/sentence?${query}`);
+};
 
 export const toggleSentenceLike = async (id: string) => {
   return await axios.put(`/api/sentence/${id}/like`);

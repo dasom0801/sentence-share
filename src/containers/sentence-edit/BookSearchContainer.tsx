@@ -119,8 +119,6 @@ const styles = css`
   display: flex;
   flex-direction: column;
   height: calc(100vh - 56px);
-  padding-top: 32px;
-  padding-bottom: 32px;
 
   .search-input {
     width: 100%;
