@@ -6,4 +6,5 @@ type Book = {
   author: string[];
   isbn: string;
   sentence?: Sentence[];
+  publishedAt?: Date;
 };

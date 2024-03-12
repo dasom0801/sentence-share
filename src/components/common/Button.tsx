@@ -1,6 +1,6 @@
 import { ThemeProvider } from '@mui/material/styles';
 import MuiButton, { type ButtonProps } from '@mui/material/Button';
-import { customTheme } from '../../utils';
+import { customTheme } from '../../lib/utils';
 
 const theme = customTheme();
 const Button = ({ children, ...props }: ButtonProps) => {

@@ -5,6 +5,7 @@ import { Avatar } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import { Link } from 'react-router-dom';
 import { ReactNode } from 'react';
+import { textOverflowHidden } from '@/styles';
 
 type SentenceCardProps = {
   sentence: Sentence;
@@ -46,12 +47,6 @@ const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
     </li>
   );
 };
-
-const textOverflowHidden = css`
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
 
 const container = css`
   border-radius: 8px;

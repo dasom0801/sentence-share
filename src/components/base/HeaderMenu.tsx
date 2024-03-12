@@ -1,7 +1,11 @@
+/** @jsxImportSource @emotion/react */
+
 import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { logoutWithGoogle } from '@/lib/api';
 import { useNavigate } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { Button } from '../common';
 
 type HeaderMenuProps = {
   user: User;
@@ -32,7 +36,14 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
   };
 
   return (
-    <div>
+    <div css={styles}>
+      <Button
+        size='small'
+        variant='outlined'
+        onClick={() => handleNavigate('/edit/sentence')}
+      >
+        작성하기
+      </Button>
       <IconButton
         id='menu-button'
         aria-controls={open ? 'basic-menu' : undefined}
@@ -74,4 +85,14 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
     </div>
   );
 };
+
+const styles = css`
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  button {
+    height: fit-content;
+  }
+`;
 export default HeaderMenu;

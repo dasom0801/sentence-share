@@ -5,3 +5,9 @@ export const pageTitle = css`
   font-size: 24px;
   font-weight: 500;
 `;
+
+export const textOverflowHidden = css`
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+`;

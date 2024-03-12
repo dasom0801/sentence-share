@@ -1,12 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { usePagination, useUserQuery } from '@/lib';
-import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
-import { gridContainer, pageTitle, pagination } from '@/styles';
-import { Button, SentenceCard, SentenceListSkeleton } from '@/components';
-import { css } from '@emotion/react';
 import { useNavigate } from 'react-router-dom';
-import { useDeleteSentence } from './hooks/useDeleteSentence';
+import { css } from '@emotion/react';
 import { Pagination } from '@mui/material';
+
+import { Button, SentenceCard, SentenceListSkeleton } from '@/components';
+import { usePagination, useUserQuery } from '@/lib';
+import { gridContainer, pageTitle, pagination } from '@/styles';
+import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
+import { useDeleteSentence } from './hooks/useDeleteSentence';
 
 const UserSentenceContainer = () => {
   const navigate = useNavigate();
@@ -26,7 +27,7 @@ const UserSentenceContainer = () => {
   const { mutate } = useDeleteSentence(refetch);
 
   const handleEditSentence = (id: string) => {
-    navigate(`/my/sentence/${id}`);
+    navigate(`/edit/sentence/${id}`);
   };
 
   const handleDeleteSentence = (id: string) => {

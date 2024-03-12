@@ -7,7 +7,7 @@ import {
 import { useCallback } from 'react';
 import { useUserQuery } from '@/lib';
 import { storage } from '@/lib/firebase.config';
-import { getToastConfig } from '@/utils';
+import { getToastConfig } from '@/lib/utils';
 import { toast } from 'react-toastify';
 
 const useUploadProfileImage = () => {
