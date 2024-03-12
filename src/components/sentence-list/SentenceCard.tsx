@@ -32,9 +32,9 @@ const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
           <time>{createdAt.split('T')[0]}</time>
         </div>
 
-        <div className='sentence'>
+        <Link className='sentence' to={`/sentence/${sentence?._id}`}>
           <p>{content}</p>
-        </div>
+        </Link>
         <Link className='book-info' to={`/book/${book?._id}`}>
           <div>
             <div className='title'>{book?.title}</div>
@@ -89,6 +89,10 @@ const container = css`
     align-items: center;
     height: 200px;
     padding: 0 16px;
+
+    &:hover {
+      text-decoration: underline;
+    }
 
     p {
       display: -webkit-box;
