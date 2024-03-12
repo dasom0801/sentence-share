@@ -1,35 +1,64 @@
-import { Dispatch, SetStateAction, createContext, useState } from 'react';
+import { Dispatch, SetStateAction, useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+
+import useSentenceQuery from '@/lib/hooks/useSentenceQuery';
+import { Spinner } from '@/components';
 import BookSearchContainer from './BookSearchContainer';
 import SentenceInputContainer from './SentenceInputContainer';
 
-type SentenceEditStep = 'search' | 'input';
+export enum SentenceEditStep {
+  SEARCH,
+  INPUT,
+}
 
-type ContextProps = {
+export type SentenceEditDataProps = {
+  sentenceId: string | undefined;
   active: SentenceEditStep;
   book: Book | null;
+  content: string;
   setActive: Dispatch<SetStateAction<SentenceEditStep>>;
   setBook: Dispatch<SetStateAction<Book | null>>;
+  setContent: Dispatch<SetStateAction<string>>;
 };
 
-export const SentenceEditContenxt = createContext<ContextProps>({
-  active: 'search',
-  book: null,
-  setActive: () => {},
-  setBook: () => {},
-});
-
 const SentenceEditContainer = () => {
-  const [active, setActive] = useState<SentenceEditStep>('search');
-  const [book, setBook] = useState<Book | null>(null);
-
-  return (
-    <SentenceEditContenxt.Provider value={{ active, book, setActive, setBook }}>
-      {active === 'search' ? (
-        <BookSearchContainer />
-      ) : (
-        <SentenceInputContainer />
-      )}
-    </SentenceEditContenxt.Provider>
+  const { id } = useParams();
+  const { data } = useSentenceQuery(id);
+  const [active, setActive] = useState<SentenceEditStep>(
+    id ? SentenceEditStep.INPUT : SentenceEditStep.SEARCH
   );
+  const [content, setContent] = useState<string>(data?.content);
+  const [book, setBook] = useState<Book | null>(data?.book);
+
+  useEffect(() => {
+    setContent(data?.content);
+    setBook(data?.book);
+  }, [data]);
+
+  if (data) {
+    if (active === SentenceEditStep.SEARCH) {
+      return (
+        <BookSearchContainer
+          setActive={setActive}
+          book={book}
+          setBook={setBook}
+        />
+      );
+    }
+
+    if (active === SentenceEditStep.INPUT) {
+      return (
+        <SentenceInputContainer
+          sentenceId={id}
+          setActive={setActive}
+          setContent={setContent}
+          book={book}
+          content={content}
+        />
+      );
+    }
+  } else {
+    return <Spinner />;
+  }
 };
 export default SentenceEditContainer;

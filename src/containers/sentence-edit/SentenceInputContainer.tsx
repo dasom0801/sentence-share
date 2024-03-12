@@ -1,23 +1,45 @@
 /** @jsxImportSource @emotion/react */
 
-import { useContext, useState } from 'react';
-import { SentenceEditContenxt } from './SentenceEditContainer';
-import { BookListItem, Button, MaxWidthWrapper } from '@/components';
+import { useState } from 'react';
 import { css } from '@emotion/react';
 import { TextField, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import useCreateSentence from './hooks/useCreateSentence';
 
-const SentenceInputContainer = () => {
+import { BookListItem, Button, MaxWidthWrapper } from '@/components';
+import {
+  SentenceEditDataProps,
+  SentenceEditStep,
+} from './SentenceEditContainer';
+import useCreateSentence from './hooks/useCreateSentence';
+import useUpdateSentence from './hooks/useUpdateSentence';
+
+type SentenceInputContainerProps = Pick<
+  SentenceEditDataProps,
+  'sentenceId' | 'setActive' | 'setContent' | 'book' | 'content'
+>;
+
+const SentenceInputContainer = ({
+  sentenceId,
+  book,
+  content,
+  setContent,
+  setActive,
+}: SentenceInputContainerProps) => {
   const navigate = useNavigate();
-  const { book, setActive } = useContext(SentenceEditContenxt);
-  const [content, setContent] = useState<string>('');
   const [showError, setShowError] = useState<boolean>(false);
-  const { mutate, isPending } = useCreateSentence({
-    onSuccess: (sentence) => {
-      navigate(`/sentence/${sentence._id}`);
-    },
-  });
+  const { mutate: createSentence, isPending: isCreatePending } =
+    useCreateSentence({
+      onSuccess: (sentence) => {
+        navigate(`/sentence/${sentence._id}`);
+      },
+    });
+
+  const { mutate: updateSentence, isPending: isUpdatePending } =
+    useUpdateSentence({
+      onSuccess: (sentence) => {
+        navigate(`/sentence/${sentence._id}`);
+      },
+    });
 
   const handleCancle = () => {
     navigate(-1);
@@ -25,7 +47,11 @@ const SentenceInputContainer = () => {
 
   const handleSubmit = () => {
     if (book && content) {
-      mutate({ content, book });
+      if (sentenceId) {
+        updateSentence({ content, book, id: sentenceId });
+      } else {
+        createSentence({ content, book });
+      }
     }
   };
 
@@ -37,6 +63,10 @@ const SentenceInputContainer = () => {
     }
   };
 
+  const handleChangeActive = () => {
+    setActive(SentenceEditStep.SEARCH);
+  };
+
   return (
     <MaxWidthWrapper styles={styles}>
       <div className='selected-book'>
@@ -46,7 +76,7 @@ const SentenceInputContainer = () => {
           variant='outlined'
           color='secondary'
           size='small'
-          onClick={() => setActive('search')}
+          onClick={handleChangeActive}
         >
           다시 선택하기
         </Button>
@@ -70,13 +100,17 @@ const SentenceInputContainer = () => {
         <Button
           variant='outlined'
           color='secondary'
-          disabled={isPending}
+          disabled={isCreatePending || isUpdatePending}
           onClick={handleCancle}
         >
           취소
         </Button>
-        <Button variant='contained' disabled={isPending} onClick={handleSubmit}>
-          등록
+        <Button
+          variant='contained'
+          disabled={isCreatePending || isUpdatePending}
+          onClick={handleSubmit}
+        >
+          {sentenceId ? '수정' : '등록'}
         </Button>
       </div>
     </MaxWidthWrapper>

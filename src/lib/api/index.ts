@@ -7,8 +7,14 @@ import {
   deleteSentence,
   searchBook,
   createSentence,
+  getSentence,
+  updateSentence,
 } from './sentence';
-import type { BookSearchParams, CreateSentenceParams } from './sentence';
+import type {
+  BookSearchParams,
+  CreateSentenceParams,
+  UpdateSentenceParams,
+} from './sentence';
 
 export {
   axios,
@@ -22,6 +28,8 @@ export {
   deleteSentence,
   searchBook,
   createSentence,
+  getSentence,
+  updateSentence,
 };
 
 export type {
@@ -29,4 +37,5 @@ export type {
   UserSentenceRequestParams,
   BookSearchParams,
   CreateSentenceParams,
+  UpdateSentenceParams,
 };

@@ -4,6 +4,10 @@ export const toggleSentenceLike = async (id: string) => {
   return await axios.put(`/api/sentence/${id}/like`);
 };
 
+export const getSentence = async (id: string) => {
+  return await axios.get(`/api/sentence/${id}`);
+};
+
 export const deleteSentence = async (id: string) => {
   return await axios.delete(`/api/sentence/${id}`);
 };
@@ -16,8 +20,19 @@ export const createSentence = async ({
   content,
   book,
 }: CreateSentenceParams) => {
-  console.log('body', content, book);
   return await axios.post('/api/sentence', {
+    content,
+    book,
+  });
+};
+
+export type UpdateSentenceParams = CreateSentenceParams & { id: string };
+export const updateSentence = async ({
+  id,
+  content,
+  book,
+}: UpdateSentenceParams) => {
+  return await axios.put(`/api/sentence/${id}`, {
     content,
     book,
   });

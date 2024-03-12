@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useContext, useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
+import { TextField } from '@mui/material';
 
 import {
   BookListItem,
@@ -10,23 +11,27 @@ import {
 } from '@/components';
 import useScrollEnd from '@/lib/hooks/useScrollEnd';
 import { useBookSearchQuery } from './hooks/useBookSearch';
-import { SentenceEditContenxt } from './SentenceEditContainer';
-import { TextField } from '@mui/material';
+import {
+  SentenceEditDataProps,
+  SentenceEditStep,
+} from './SentenceEditContainer';
 
-const BookSearchContainer = () => {
+type BookSearchContainerProp = Pick<
+  SentenceEditDataProps,
+  'book' | 'setBook' | 'setActive'
+>;
+
+const BookSearchContainer = ({
+  book,
+  setBook,
+  setActive,
+}: BookSearchContainerProp) => {
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState('');
   const searchRef = useRef<HTMLDivElement>(null);
   const { data, isLoading, fetchNextPage } = useBookSearchQuery(search);
   const listRef = useRef<HTMLUListElement>(null);
   useScrollEnd(listRef, fetchNextPage);
-  const { book, setBook, setActive } = useContext(SentenceEditContenxt);
-
-  const handleBookClick = (book: Book) => {
-    setBook(book);
-    setFocused(false);
-    setSearch('');
-  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -46,6 +51,16 @@ const BookSearchContainer = () => {
       document.removeEventListener('mousedown', handleClickOutside);
     };
   }, [searchRef]);
+
+  const handleBookClick = (book: Book) => {
+    setBook(book);
+    setFocused(false);
+    setSearch('');
+  };
+
+  const handleChangeActive = () => {
+    setActive(SentenceEditStep.INPUT);
+  };
 
   return (
     <MaxWidthWrapper styles={styles}>
@@ -89,7 +104,7 @@ const BookSearchContainer = () => {
             <Button
               color='secondary'
               variant='contained'
-              onClick={() => setActive('input')}
+              onClick={handleChangeActive}
             >
               책 선택 완료
             </Button>
