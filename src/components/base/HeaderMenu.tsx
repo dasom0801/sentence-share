@@ -79,7 +79,7 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
         <MenuItem onClick={() => handleNavigate('/my/like')}>
           내가 좋아한 문장
         </MenuItem>
-        <MenuItem onClick={() => handleNavigate('/setting')}>설정</MenuItem>
+        <MenuItem onClick={() => handleNavigate('/my/setting')}>설정</MenuItem>
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </div>
