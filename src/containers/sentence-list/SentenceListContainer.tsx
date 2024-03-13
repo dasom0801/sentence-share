@@ -9,7 +9,7 @@ import { useToggleSentenceLike } from './hooks/useToggleSentenceLike';
 import { SentenceLikeCardList } from '@/components';
 import { Pagination } from '@mui/material';
 import { pagination } from '@/styles';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 const SentenceListContainer = () => {
   const queryClient = useQueryClient();
@@ -31,7 +31,7 @@ const SentenceListContainer = () => {
 
   const handleToggleLike = (id: string) => {
     if (!currentUser) {
-      toast('로그인 후 이용해주세요.');
+      toast.error('로그인 후 이용해주세요.');
       return;
     }
     mutate(id);

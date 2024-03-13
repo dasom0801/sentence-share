@@ -44,6 +44,10 @@ const SentenceTextCard = ({ sentence, enableLink }: SentenceTextCardProps) => {
 };
 
 const commonStyles = css`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   padding: 16px;
   border-radius: 8px;
   box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.25),
@@ -72,7 +76,6 @@ const commonStyles = css`
 `;
 
 const linkStyles = css`
-  display: block;
   &:hover {
     p {
       text-decoration: underline;

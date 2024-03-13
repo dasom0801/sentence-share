@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-
+import toast from 'react-hot-toast';
 import { CreateSentenceParams, createSentence } from '@/lib/api';
 
 const mutationKey = ['CreateSentence'];
@@ -21,6 +20,9 @@ const useCreateSentence = ({
       if (typeof onSuccess === 'function') {
         onSuccess(result);
       }
+    },
+    onError: (error) => {
+      toast.error(error?.message);
     },
   });
 };

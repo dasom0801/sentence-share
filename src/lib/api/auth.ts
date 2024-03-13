@@ -1,8 +1,7 @@
+import toast from 'react-hot-toast';
 import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../firebase.config';
 import axios from './api';
-import { toast } from 'react-toastify';
-import { getToastConfig } from '../utils';
 
 // TODO: 로그인/로그아웃 한 다음에 toast 메시지 보여주기
 export const loginWithGoogle = async () => {
@@ -18,12 +17,12 @@ export const loginWithGoogle = async () => {
         email: result.user.email,
         profileUrl: result.user.photoURL,
       });
-      toast.success('로그인했습니다.', getToastConfig());
+      toast.success('로그인했습니다.');
     } else {
       throw new Error('로그인/회원가입에 실패했습니다.');
     }
   } catch (error: unknown) {
-    toast.error('로그인/회원가입에 실패했습니다.', getToastConfig());
+    toast.error('로그인/회원가입에 실패했습니다.');
     console.log(error);
   }
 };

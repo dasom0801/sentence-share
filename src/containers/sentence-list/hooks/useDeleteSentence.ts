@@ -1,5 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
+import toast from 'react-hot-toast';
 
 import { deleteSentence } from '@/lib';
 
@@ -15,6 +15,9 @@ export const useDeleteSentence = (onSuccess?: () => void) => {
       if (typeof onSuccess === 'function') {
         onSuccess();
       }
+    },
+    onError: () => {
+      toast.error('문장을 삭제하지 못했습니다.');
     },
   });
 };

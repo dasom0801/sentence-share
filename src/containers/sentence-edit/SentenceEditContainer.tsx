@@ -14,11 +14,11 @@ export enum SentenceEditStep {
 export type SentenceEditDataProps = {
   sentenceId: string | undefined;
   active: SentenceEditStep;
-  book: Book | null;
-  content: string;
+  book: Book | undefined;
+  content: string | undefined;
   setActive: Dispatch<SetStateAction<SentenceEditStep>>;
-  setBook: Dispatch<SetStateAction<Book | null>>;
-  setContent: Dispatch<SetStateAction<string>>;
+  setBook: Dispatch<SetStateAction<Book | undefined>>;
+  setContent: Dispatch<SetStateAction<string | undefined>>;
 };
 
 const SentenceEditContainer = () => {
@@ -27,8 +27,8 @@ const SentenceEditContainer = () => {
   const [active, setActive] = useState<SentenceEditStep>(
     id ? SentenceEditStep.INPUT : SentenceEditStep.SEARCH
   );
-  const [content, setContent] = useState<string>(data?.content);
-  const [book, setBook] = useState<Book | null>(data?.book);
+  const [content, setContent] = useState<string | undefined>(data?.content);
+  const [book, setBook] = useState<Book | undefined>(data?.book);
 
   useEffect(() => {
     setContent(data?.content);

@@ -5,7 +5,12 @@ import { css } from '@emotion/react';
 import { TextField, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { Button, MaxWidthWrapper, BookInfoSection } from '@/components';
+import {
+  Button,
+  MaxWidthWrapper,
+  BookInfoSection,
+  AlertDialog,
+} from '@/components';
 import {
   SentenceEditDataProps,
   SentenceEditStep,
@@ -27,6 +32,7 @@ const SentenceInputContainer = ({
 }: SentenceInputContainerProps) => {
   const navigate = useNavigate();
   const [showError, setShowError] = useState<boolean>(false);
+  const [showAlert, setShowAlert] = useState<boolean>(false);
   const { mutate: createSentence, isPending: isCreatePending } =
     useCreateSentence({
       onSuccess: (sentence) => {
@@ -53,6 +59,7 @@ const SentenceInputContainer = ({
         createSentence({ content, book });
       }
     }
+    setShowAlert(false);
   };
 
   const validateContent = () => {
@@ -112,12 +119,24 @@ const SentenceInputContainer = ({
           <Button
             variant='contained'
             disabled={isCreatePending || isUpdatePending}
-            onClick={handleSubmit}
+            onClick={() => setShowAlert(true)}
           >
             {sentenceId ? '수정' : '등록'}
           </Button>
         </div>
       </MaxWidthWrapper>
+
+      <AlertDialog
+        open={showAlert}
+        content={
+          sentenceId
+            ? '내용을 수정하시겠습니까?'
+            : '작성한 내용을 등록하시겠습니까?'
+        }
+        confirmLabel={sentenceId ? '수정' : '등록'}
+        handleClose={() => setShowAlert(false)}
+        handleConfirm={() => handleSubmit()}
+      />
     </>
   );
 };

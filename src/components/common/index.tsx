@@ -5,6 +5,7 @@ import Input from './Input';
 import Spinner from './Spinner';
 import BookInfoSection from './BookInfoSection';
 import UserInfo from './UserInfo';
+import AlertDialog from './AlertDialog';
 
 export {
   MaxWidthWrapper,
@@ -14,4 +15,5 @@ export {
   Spinner,
   BookInfoSection,
   UserInfo,
+  AlertDialog,
 };

@@ -1,9 +1,15 @@
 /** @jsxImportSource @emotion/react */
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { Pagination } from '@mui/material';
 
-import { Button, SentenceCard, SentenceListSkeleton } from '@/components';
+import {
+  AlertDialog,
+  Button,
+  SentenceCard,
+  SentenceListSkeleton,
+} from '@/components';
 import { usePagination, useUserQuery } from '@/lib';
 import { gridContainer, pageTitle, pagination } from '@/styles';
 import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
@@ -11,6 +17,7 @@ import { useDeleteSentence } from './hooks/useDeleteSentence';
 
 const UserSentenceContainer = () => {
   const navigate = useNavigate();
+  const [deleteTarget, setDeleteTarget] = useState<Sentence | null>(null);
   const { page, setPage } = usePagination();
   const { data: currentUser } = useUserQuery();
   const {
@@ -30,9 +37,13 @@ const UserSentenceContainer = () => {
     navigate(`/edit/sentence/${id}`);
   };
 
-  const handleDeleteSentence = (id: string) => {
-    mutate(id);
+  const handleDeleteSentence = () => {
+    if (deleteTarget) {
+      mutate(deleteTarget._id);
+      setDeleteTarget(null);
+    }
   };
+
   if (isError) return <></>;
 
   return (
@@ -62,7 +73,7 @@ const UserSentenceContainer = () => {
                       variant='contained'
                       color='secondary'
                       size='large'
-                      onClick={() => handleDeleteSentence(sentence._id)}
+                      onClick={() => setDeleteTarget(sentence)}
                     >
                       삭제
                     </Button>
@@ -81,6 +92,13 @@ const UserSentenceContainer = () => {
           </div>
         </>
       )}
+      ;
+      <AlertDialog
+        content='문장을 삭제하시겠습니까?'
+        open={!!deleteTarget}
+        handleClose={() => setDeleteTarget(null)}
+        handleConfirm={() => handleDeleteSentence()}
+      />
     </>
   );
 };
