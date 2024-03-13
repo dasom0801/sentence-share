@@ -1,7 +1,8 @@
-import { Divider } from '@mui/material';
-import { useUserQuery, logoutWithGoogle } from '@/lib';
-import { Button, SettingUserImage, SettingUserInfo } from '@/components';
+import { Button, Divider } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+
+import { useUserQuery, logoutWithGoogle } from '@/lib';
+import { SettingUserImage, SettingUserInfo } from '@/components';
 import {
   useRemoveProfileImage,
   useUpdateProfile,

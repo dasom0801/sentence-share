@@ -1,11 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { Avatar, IconButton, Menu, MenuItem } from '@mui/material';
+import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
 import { logoutWithGoogle } from '@/lib/api';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { Button } from '../common';
 
 type HeaderMenuProps = {
   user: User;

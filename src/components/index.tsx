@@ -3,8 +3,6 @@ import { Header, GlobalStyles } from './base';
 import {
   MaxWidthWrapper,
   AuthGuard,
-  Button,
-  Input,
   Spinner,
   UserInfo,
   AlertDialog,
@@ -31,8 +29,6 @@ export {
   GlobalStyles,
   MaxWidthWrapper,
   AuthGuard,
-  Button,
-  Input,
   Spinner,
   UserInfo,
   AlertDialog,

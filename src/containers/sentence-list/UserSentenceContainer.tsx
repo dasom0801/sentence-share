@@ -2,14 +2,9 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
-import { Pagination } from '@mui/material';
+import { Button, Pagination } from '@mui/material';
 
-import {
-  AlertDialog,
-  Button,
-  SentenceCard,
-  SentenceListSkeleton,
-} from '@/components';
+import { AlertDialog, SentenceCard, SentenceListSkeleton } from '@/components';
 import { usePagination, useUserQuery } from '@/lib';
 import { gridContainer, pageTitle, pagination } from '@/styles';
 import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';

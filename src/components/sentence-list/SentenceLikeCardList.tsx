@@ -1,12 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from '@mui/material';
+import { Button, css } from '@mui/material';
 import { gridContainer } from '../../styles';
 import SentenceCard from './SentenceCard';
 import SentenceCardSkeleton from './SentenceCardSkeleton';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { red } from '@mui/material/colors';
-import Button from '../common/Button';
 
 type SentenceCardListParams = {
   list: Sentence[] | undefined;
