@@ -4,6 +4,7 @@ import UserLikeContainer from './sentence-list/UserLikeContainer';
 import SentenceEditContainer from './sentence-edit/SentenceEditContainer';
 import SentenceListContainer from './sentence-list/SentenceListContainer';
 import SentenceDetailContainer from './sentence-detail/SentenceDetailContainer';
+import BookDetailContainer from './book-detail/BookDetailContainer';
 
 export {
   SettingContainer,
@@ -12,4 +13,5 @@ export {
   SentenceEditContainer,
   SentenceListContainer,
   SentenceDetailContainer,
+  BookDetailContainer,
 };

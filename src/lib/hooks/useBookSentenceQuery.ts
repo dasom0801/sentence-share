@@ -1,7 +1,7 @@
 import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
 import { GetBookSentenceParams, getBookSentence } from '../api/book';
 
-const queryKey = (
+export const queryKey = (
   params: GetBookSentenceParams
 ): [string, GetBookSentenceParams] => [`/book/:id/sentence`, params];
 

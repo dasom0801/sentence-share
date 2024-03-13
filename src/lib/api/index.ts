@@ -18,7 +18,7 @@ import type {
   UpdateSentenceParams,
 } from './sentence';
 
-import { getBookSentence } from './book';
+import { getBook, getBookSentence } from './book';
 import type { GetBookSentenceParams } from './book';
 
 export {
@@ -37,6 +37,7 @@ export {
   updateSentence,
   getSentences,
   getBookSentence,
+  getBook,
 };
 
 export type {
