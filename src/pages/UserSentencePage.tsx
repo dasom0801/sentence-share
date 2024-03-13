@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { Helmet } from 'react-helmet-async';
 import { MaxWidthWrapper } from '@/components';
 import { UserSentenceContainer } from '@/containers';
 
 const MySentencePage = () => {
   return (
     <main css={styles}>
+      <Helmet>
+        <title>내가 공유한 문장 - Sentence Share</title>
+      </Helmet>
       <MaxWidthWrapper>
         <UserSentenceContainer />
       </MaxWidthWrapper>

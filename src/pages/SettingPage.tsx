@@ -1,11 +1,15 @@
 /** @jsxImportSource @emotion/react */
 import { css } from '@emotion/react';
+import { Helmet } from 'react-helmet-async';
 import { MaxWidthWrapper } from '@/components';
 import { SettingContainer } from '../containers';
 
 const SettingPage = () => {
   return (
     <main>
+      <Helmet>
+        <title>설정 - Sentence Share</title>
+      </Helmet>
       <MaxWidthWrapper styles={wrapperStyle}>
         <SettingContainer />
       </MaxWidthWrapper>

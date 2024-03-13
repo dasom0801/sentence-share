@@ -2,6 +2,7 @@
 
 import { useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
+import { Helmet } from 'react-helmet-async';
 
 import { BookInfoSection, MaxWidthWrapper, UserInfo } from '@/components';
 import { useSentenceQuery } from '@/lib/hooks';
@@ -10,19 +11,29 @@ import SentenceRealtedContainer from './SentenceRealtedContainer';
 const SentenceDetailContainer = () => {
   const { id } = useParams();
   const { data, isLoading, isError } = useSentenceQuery(id);
+  const title = !data?.content
+    ? ''
+    : data.content.length > 15
+    ? `${data?.content.slice(0, 15)}... - `
+    : data?.content;
 
   if (data?.book) {
     return (
-      <div css={styles}>
-        <BookInfoSection book={data.book} />
+      <>
+        <Helmet>
+          <title>{title} Sentence Share</title>
+        </Helmet>
+        <div css={styles}>
+          <BookInfoSection book={data.book} />
 
-        <MaxWidthWrapper className='wrapper'>
-          <p>{data.content}</p>
-          <UserInfo className='user-info' user={data.author} />
+          <MaxWidthWrapper className='wrapper'>
+            <p>{data.content}</p>
+            <UserInfo className='user-info' user={data.author} />
 
-          <SentenceRealtedContainer book={data.book} />
-        </MaxWidthWrapper>
-      </div>
+            <SentenceRealtedContainer book={data.book} />
+          </MaxWidthWrapper>
+        </div>
+      </>
     );
   }
 };
