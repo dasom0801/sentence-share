@@ -1,8 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
 import { useForm, SubmitHandler } from 'react-hook-form';
-import { Input, Button, Spinner } from '..';
 import { css } from '@emotion/react';
+import { Button } from '@mui/material';
+
+import { Input, Spinner } from '..';
 
 type ProfileInfoEditProp = {
   user: Pick<User, 'name'> | undefined;

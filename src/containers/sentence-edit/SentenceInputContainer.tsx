@@ -2,15 +2,10 @@
 
 import { useState } from 'react';
 import { css } from '@emotion/react';
-import { TextField, colors } from '@mui/material';
+import { Button, TextField, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import {
-  Button,
-  MaxWidthWrapper,
-  BookInfoSection,
-  AlertDialog,
-} from '@/components';
+import { MaxWidthWrapper, BookInfoSection, AlertDialog } from '@/components';
 import {
   SentenceEditDataProps,
   SentenceEditStep,

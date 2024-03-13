@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { DEFAULT_PROFILE } from '../../constants';
-import { Button } from '..';
 import type { ChangeEvent } from 'react';
 import { css } from '@emotion/react';
+import { Button } from '@mui/material';
+
+import { DEFAULT_PROFILE } from '../../constants';
 
 type SettingUserImageProps = {
   user: User | undefined;

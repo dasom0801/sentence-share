@@ -3,7 +3,6 @@ import { Header, GlobalStyles } from './base';
 import {
   MaxWidthWrapper,
   AuthGuard,
-  Button,
   Input,
   Spinner,
   UserInfo,
@@ -31,7 +30,6 @@ export {
   GlobalStyles,
   MaxWidthWrapper,
   AuthGuard,
-  Button,
   Input,
   Spinner,
   UserInfo,
