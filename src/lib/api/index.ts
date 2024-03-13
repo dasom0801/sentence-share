@@ -11,11 +11,15 @@ import {
   updateSentence,
   getSentences,
 } from './sentence';
+
 import type {
   BookSearchParams,
   CreateSentenceParams,
   UpdateSentenceParams,
 } from './sentence';
+
+import { getBookSentence } from './book';
+import type { GetBookSentenceParams } from './book';
 
 export {
   axios,
@@ -32,6 +36,7 @@ export {
   getSentence,
   updateSentence,
   getSentences,
+  getBookSentence,
 };
 
 export type {
@@ -40,4 +45,5 @@ export type {
   BookSearchParams,
   CreateSentenceParams,
   UpdateSentenceParams,
+  GetBookSentenceParams,
 };

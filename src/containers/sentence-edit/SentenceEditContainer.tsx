@@ -35,7 +35,7 @@ const SentenceEditContainer = () => {
     setBook(data?.book);
   }, [data]);
 
-  if (data) {
+  if (!id || (id && data)) {
     if (active === SentenceEditStep.SEARCH) {
       return (
         <BookSearchContainer

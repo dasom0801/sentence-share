@@ -14,9 +14,7 @@ const App = () => {
     <QueryClientProvider client={queryClient}>
       <GlobalStyles />
       <Header />
-      <div css={styles}>
-        <Outlet />
-      </div>
+      <Outlet />
 
       {/* <Routes> */}
       {/* <Route path='/' element={<ListContainer />} />
@@ -34,9 +32,5 @@ const App = () => {
     </QueryClientProvider>
   );
 };
-
-const styles = css`
-  padding: 36px 0;
-`;
 
 export default App;

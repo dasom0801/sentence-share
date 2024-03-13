@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 import { TextField, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { BookListItem, Button, MaxWidthWrapper } from '@/components';
+import { Button, MaxWidthWrapper, BookInfoSection } from '@/components';
 import {
   SentenceEditDataProps,
   SentenceEditStep,
@@ -68,63 +68,67 @@ const SentenceInputContainer = ({
   };
 
   return (
-    <MaxWidthWrapper styles={styles}>
-      <div className='selected-book'>
-        {book && <BookListItem book={book} />}
-        <Button
-          className=''
-          variant='outlined'
-          color='secondary'
-          size='small'
-          onClick={handleChangeActive}
-        >
-          다시 선택하기
-        </Button>
-      </div>
-
-      <TextField
-        className='textarea'
-        multiline
-        placeholder='내용을 입력해주세요.'
-        value={content}
-        rows={4}
-        onChange={(e) => setContent(e.target.value)}
-        onBlur={validateContent}
-        color={showError ? 'error' : 'primary'}
-      />
-      {showError && (
-        <span className='error-text'>다섯 글자 이상 입력해 주세요. </span>
+    <>
+      {book && (
+        <div css={bookStyles}>
+          <BookInfoSection book={book}>
+            <Button
+              className=''
+              variant='contained'
+              color='secondary'
+              size='small'
+              onClick={handleChangeActive}
+            >
+              다시 선택하기
+            </Button>
+          </BookInfoSection>
+        </div>
       )}
 
-      <div className='actions'>
-        <Button
-          variant='outlined'
-          color='secondary'
-          disabled={isCreatePending || isUpdatePending}
-          onClick={handleCancle}
-        >
-          취소
-        </Button>
-        <Button
-          variant='contained'
-          disabled={isCreatePending || isUpdatePending}
-          onClick={handleSubmit}
-        >
-          {sentenceId ? '수정' : '등록'}
-        </Button>
-      </div>
-    </MaxWidthWrapper>
+      <MaxWidthWrapper styles={styles}>
+        <TextField
+          className='textarea'
+          multiline
+          placeholder='내용을 입력해주세요.'
+          value={content}
+          rows={4}
+          onChange={(e) => setContent(e.target.value)}
+          onBlur={validateContent}
+          color={showError ? 'error' : 'primary'}
+        />
+        {showError && (
+          <span className='error-text'>다섯 글자 이상 입력해 주세요. </span>
+        )}
+
+        <div className='actions'>
+          <Button
+            variant='outlined'
+            color='secondary'
+            disabled={isCreatePending || isUpdatePending}
+            onClick={handleCancle}
+          >
+            취소
+          </Button>
+          <Button
+            variant='contained'
+            disabled={isCreatePending || isUpdatePending}
+            onClick={handleSubmit}
+          >
+            {sentenceId ? '수정' : '등록'}
+          </Button>
+        </div>
+      </MaxWidthWrapper>
+    </>
   );
 };
 
-const styles = css`
-  .selected-book {
-    button:last-of-type {
-      margin: 12px 0 0 0;
-      width: 100%;
-    }
+const bookStyles = css`
+  button {
+    margin: 8px 0 0 0;
   }
+`;
 
+const styles = css`
   .textarea {
     width: 100%;
     margin: 24px 0 0 0;

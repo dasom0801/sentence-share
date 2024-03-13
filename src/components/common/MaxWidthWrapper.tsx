@@ -3,19 +3,24 @@
 import { ReactNode } from 'react';
 import { SerializedStyles, css } from '@emotion/react';
 
+type MaxWidthWrapperProps = {
+  children: ReactNode;
+  styles?: SerializedStyles;
+  className?: string;
+};
+
 const MaxWidthWrapper = ({
   styles,
   children,
-}: {
-  styles?: SerializedStyles;
-  children: ReactNode;
-}) => {
+  className,
+}: MaxWidthWrapperProps) => {
   return (
     <div
       css={css`
         ${maxWidth};
         ${styles};
       `}
+      className={className}
     >
       {children}
     </div>

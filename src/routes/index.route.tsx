@@ -2,7 +2,7 @@ import { createBrowserRouter } from 'react-router-dom';
 import App from '../App';
 import userMenuRoute from './user-menu.route';
 import editRoute from './edit.route';
-import MainPage from '@/pages/MainPage';
+import { MainPage, SentenceDetailPage } from '@/pages';
 
 const router = createBrowserRouter([
   {
@@ -12,6 +12,7 @@ const router = createBrowserRouter([
       { path: '/', element: <MainPage /> },
       {
         path: '/sentence/:id',
+        element: <SentenceDetailPage />,
       },
       {
         // 로그인해야지만 이용할 수 있는 페이지들

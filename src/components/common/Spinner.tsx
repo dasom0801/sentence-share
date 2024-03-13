@@ -3,7 +3,11 @@ import { css } from '@emotion/react';
 import { CgSpinner } from 'react-icons/cg';
 
 const Spinner = () => {
-  return <CgSpinner css={spinnerStyle} />;
+  return (
+    <div css={spinnerStyle}>
+      <CgSpinner className='spinner' />
+    </div>
+  );
 };
 
 const spinnerStyle = css`

@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from '@emotion/react';
-import { Avatar } from '@mui/material';
-import { blueGrey } from '@mui/material/colors';
-import { Link } from 'react-router-dom';
 import { ReactNode } from 'react';
+import { Link } from 'react-router-dom';
+import { css } from '@emotion/react';
+import { blueGrey } from '@mui/material/colors';
+
 import { textOverflowHidden } from '@/styles';
+import { UserInfo } from '../common';
 
 type SentenceCardProps = {
   sentence: Sentence;
@@ -23,18 +24,13 @@ const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
     >
       <div className='backdrop'>
         <div className='header'>
-          <Avatar
-            sx={{ height: '30px', width: '30px' }}
-            alt={author.name}
-            src={author.profileUrl || '/images/blank-profile.png'}
-          />
-          <div className='name'>{author.name}</div>
+          <UserInfo user={author} />
           <time>{createdAt.split('T')[0]}</time>
         </div>
 
-        <div className='sentence'>
+        <Link className='sentence' to={`/sentence/${sentence?._id}`}>
           <p>{content}</p>
-        </div>
+        </Link>
         <Link className='book-info' to={`/book/${book?._id}`}>
           <div>
             <div className='title'>{book?.title}</div>
@@ -67,14 +63,13 @@ const container = css`
   .header {
     display: flex;
     align-items: center;
-    gap: 12px;
+    gap: 0 4px;
     padding: 8px 16px;
-    color: ${blueGrey[600]};
     background-color: white;
 
-    .name {
+    > div {
+      min-width: 0;
       flex: 1;
-      ${textOverflowHidden};
     }
 
     time {
@@ -90,11 +85,16 @@ const container = css`
     height: 200px;
     padding: 0 16px;
 
+    &:hover {
+      text-decoration: underline;
+    }
+
     p {
       display: -webkit-box;
       -webkit-line-clamp: 3;
       -webkit-box-orient: vertical;
       overflow: hidden;
+      white-space: break-spaces;
       color: ${blueGrey[900]};
       font-size: 24px;
       font-weight: 500;

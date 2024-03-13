@@ -118,6 +118,8 @@ const BookSearchContainer = ({
 const styles = css`
   display: flex;
   flex-direction: column;
+  padding-top: 36px;
+  padding-bottom: 36px;
   height: calc(100vh - 56px);
 
   .search-input {
