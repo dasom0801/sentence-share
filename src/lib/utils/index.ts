@@ -1,7 +1,6 @@
 import { createTheme } from '@mui/material';
 import { blueGrey } from '@mui/material/colors';
 import { clsx, type ClassValue } from 'clsx';
-import type { ToastOptions } from 'react-toastify';
 import { twMerge } from 'tailwind-merge';
 
 export const cn = (...inputs: ClassValue[]) => {
@@ -17,15 +16,6 @@ export const customTheme = () => {
       },
     },
   });
-};
-
-// React toast의 기본 설정
-export const getToastConfig = (): Partial<ToastOptions> => {
-  return {
-    position: 'top-center',
-    hideProgressBar: true,
-    pauseOnFocusLoss: false,
-  };
 };
 
 export const getBearerToken = () => {
