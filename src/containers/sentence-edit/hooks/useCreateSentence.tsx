@@ -21,6 +21,9 @@ const useCreateSentence = ({
         onSuccess(result);
       }
     },
+    onError: (error) => {
+      toast.error(error?.message);
+    },
   });
 };
 export default useCreateSentence;
