@@ -1,10 +1,10 @@
 /** @jsxImportSource @emotion/react */
 
-import { useForm, SubmitHandler } from 'react-hook-form';
+import { FormEvent, useState } from 'react';
 import { css } from '@emotion/react';
-import { Button } from '@mui/material';
+import { Button, FormHelperText, TextField } from '@mui/material';
 
-import { Input, Spinner } from '..';
+import { Spinner } from '..';
 
 type ProfileInfoEditProp = {
   user: Pick<User, 'name'> | undefined;
@@ -17,38 +17,49 @@ const SettingUserInfo = ({
   loading = false,
   onSubmit,
 }: ProfileInfoEditProp) => {
-  const {
-    control,
-    formState: { isValid },
-    handleSubmit,
-  } = useForm<FormControlData>({
-    defaultValues: {
-      name: user?.name,
-    },
-  });
+  const [name, setName] = useState<string>(user?.name || '');
+  const [error, setError] = useState<string>('');
 
-  const handleFormSubmit: SubmitHandler<FormControlData> = (
-    data: FormControlData
-  ) => onSubmit(data);
+  const handleChange = (value: string) => {
+    setName(value);
+    if (error) {
+      validateForm(value);
+    }
+  };
+
+  const validateForm = (value: string) => {
+    if (!value) {
+      setError('이름을 입력해주세요.');
+      return;
+    }
+    setError('');
+  };
+
+  const handleFormSubmit = (event: FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+    onSubmit({ name });
+  };
 
   return (
-    <form css={styles} onSubmit={handleSubmit(handleFormSubmit)}>
-      <Input
-        color='secondary'
+    <form css={styles} onSubmit={(e) => handleFormSubmit(e)}>
+      <TextField
+        color={error ? 'error' : 'secondary'}
         size='medium'
         label='이름'
         name='name'
-        control={control}
-        rules={{ required: '값을 입력해주세요.' }}
+        value={name}
+        onChange={(e) => handleChange(e.target.value)}
+        onBlur={(e) => validateForm(e.target.value)}
       />
+      {error && <FormHelperText>값을 입력해주세요.</FormHelperText>}
       <Button
         size='large'
         variant='contained'
         color='primary'
         type='submit'
-        disabled={!isValid || loading}
+        disabled={loading || !!error}
       >
-        {loading ? <Spinner /> : '저장'}
+        저장
       </Button>
     </form>
   );
