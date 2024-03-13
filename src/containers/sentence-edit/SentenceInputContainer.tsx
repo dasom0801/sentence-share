@@ -128,8 +128,12 @@ const SentenceInputContainer = ({
 
       <AlertDialog
         open={showAlert}
-        content='작성한 내용을 등록하시겠습니까?'
-        confirmLabel='등록'
+        content={
+          sentenceId
+            ? '내용을 수정하시겠습니까?'
+            : '작성한 내용을 등록하시겠습니까?'
+        }
+        confirmLabel={sentenceId ? '수정' : '등록'}
         handleClose={() => setShowAlert(false)}
         handleConfirm={() => handleSubmit()}
       />
