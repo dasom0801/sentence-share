@@ -17,6 +17,13 @@ const muiTheme = createTheme({
       main: colors.blueGrey[800],
     },
   },
+  components: {
+    MuiButton: {
+      defaultProps: {
+        disableElevation: true,
+      },
+    },
+  },
 });
 
 const App = () => {
