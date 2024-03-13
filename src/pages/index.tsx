@@ -4,6 +4,7 @@ import UserSentencePage from './UserSentencePage';
 import UserLikePage from './UserLikePage';
 import SentenceEditPage from './SentenceEditPage';
 import SentenceDetailPage from './SentenceDetailPage';
+import BookDetailPage from './BookDetailPage';
 
 export {
   MainPage,
@@ -12,4 +13,5 @@ export {
   UserLikePage,
   SentenceEditPage,
   SentenceDetailPage,
+  BookDetailPage,
 };

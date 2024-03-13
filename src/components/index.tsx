@@ -6,7 +6,6 @@ import {
   Button,
   Input,
   Spinner,
-  BookInfoSection,
   UserInfo,
   AlertDialog,
 } from './common';
@@ -20,7 +19,12 @@ import {
 } from './sentence-list';
 
 import { SettingUserImage, SettingUserInfo } from './setting';
-import { BookListItem, BookListItemSkeleton } from './sententce-edit';
+import {
+  BookListItem,
+  BookListItemSkeleton,
+  BookInfoSection,
+  BookInfoSectionSkeleton,
+} from './book';
 
 export {
   Header,
@@ -30,16 +34,20 @@ export {
   Button,
   Input,
   Spinner,
-  BookInfoSection,
   UserInfo,
   AlertDialog,
+  // sentence
   SentenceCard,
   SentenceCardSkeleton,
   SentenceListSkeleton,
   SentenceLikeCardList,
   SentenceTextCardList,
+  // setting
   SettingUserImage,
   SettingUserInfo,
+  // book
   BookListItem,
   BookListItemSkeleton,
+  BookInfoSection,
+  BookInfoSectionSkeleton,
 };

@@ -1,6 +1,10 @@
 import queryString from 'query-string';
 import { axios } from '.';
 
+export const getBook = async (id: string) => {
+  return (await axios.get<Book>(`/api/book/${id}`)).data;
+};
+
 export type GetBookSentenceParams = {
   id?: string;
 } & PageParams;

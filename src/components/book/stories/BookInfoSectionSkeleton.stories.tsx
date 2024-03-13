@@ -1,11 +1,11 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BookListItemSkeleton from '../BookListItemSkeleton';
+import BookInfoSectionSkeleton from '../BookInfoSectionSkeleton';
 
 const meta = {
-  title: 'SentenceEdit/BookListItemSkeleton',
-  component: BookListItemSkeleton,
+  title: 'book/BookInfoSectionSkeleton',
+  component: BookInfoSectionSkeleton,
   tags: ['autodocs'],
-} satisfies Meta<typeof BookListItemSkeleton>;
+} satisfies Meta<typeof BookInfoSectionSkeleton>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

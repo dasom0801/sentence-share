@@ -15,9 +15,9 @@ const queryFn = async (
   return (await getSentences(params)).data;
 };
 
-const useSentenceQuery = (params: PageParams) => {
+const useSentenceQuery = ({ page, limit = 12 }: PageParams) => {
   return useQuery({
-    queryKey: queryKey(params),
+    queryKey: queryKey({ page, limit }),
     queryFn,
   });
 };

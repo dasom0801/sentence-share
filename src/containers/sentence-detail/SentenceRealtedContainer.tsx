@@ -5,7 +5,6 @@ import { css } from '@emotion/react';
 
 import { useBookSentenceQuery } from '@/lib/hooks';
 import { SentenceTextCardList } from '@/components';
-import { pageTitle } from '@/styles';
 import { colors } from '@mui/material';
 
 type SentenceDetailRelatedList = {

@@ -3,7 +3,7 @@ import BookListItem from '../BookListItem';
 import { MockBook } from '@/test-utils/index.mock';
 
 const meta = {
-  title: 'SentenceEdit/BookListItem',
+  title: 'book/BookListItem',
   component: BookListItem,
   tags: ['autodocs'],
 } satisfies Meta<typeof BookListItem>;
