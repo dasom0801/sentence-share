@@ -3,13 +3,21 @@
 import { ReactNode } from 'react';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
+import BookInfoSectionSkeleton from './BookInfoSectionSkeleton';
 
 type BookInfoSectionType = {
-  book: Book;
+  book?: Book;
+  isLoading?: boolean;
   children?: ReactNode;
 };
 
-const BookInfoSection = ({ book, children }: BookInfoSectionType) => {
+const BookInfoSection = ({
+  book,
+  isLoading,
+  children,
+}: BookInfoSectionType) => {
+  if (isLoading) return <BookInfoSectionSkeleton />;
+
   return (
     <section
       css={css`
@@ -18,9 +26,9 @@ const BookInfoSection = ({ book, children }: BookInfoSectionType) => {
       `}
     >
       <div className='backdrop'>
-        <img src={book.coverUrl} alt={book.title} />
-        <h2 className='title'>{book.title}</h2>
-        <div>{book.author.join(',')}</div>
+        <img src={book?.coverUrl} alt={book?.title} />
+        <h2 className='title'>{book?.title}</h2>
+        <div>{book?.author.join(',')}</div>
 
         {children}
       </div>
@@ -29,7 +37,7 @@ const BookInfoSection = ({ book, children }: BookInfoSectionType) => {
 };
 
 const styles = css`
-  min-height: 350px;
+  min-height: 419px;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;

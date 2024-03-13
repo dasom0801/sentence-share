@@ -3,7 +3,7 @@ import BookInfoSection from '../BookInfoSection';
 import { MockBook } from '@/test-utils/index.mock';
 
 const meta = {
-  title: 'common/BookInfoSection',
+  title: 'book/BookInfoSection',
   component: BookInfoSection,
   tags: ['autodocs'],
 } satisfies Meta<typeof BookInfoSection>;
