@@ -6,7 +6,6 @@ const queryKey = (id: string | undefined): string[] =>
 
 const queryFn = async ({ queryKey }: QueryFunctionContext) => {
   const [, id] = queryKey as string[];
-  console.log(id);
   return (await getSentence(id)).data;
 };
 

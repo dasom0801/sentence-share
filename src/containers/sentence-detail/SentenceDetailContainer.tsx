@@ -1,0 +1,57 @@
+/** @jsxImportSource @emotion/react */
+
+import { useParams } from 'react-router-dom';
+import { css } from '@emotion/react';
+
+import { BookInfoSection, MaxWidthWrapper, UserInfo } from '@/components';
+import { useSentenceQuery } from '@/lib/hooks';
+import SentenceRealtedContainer from './SentenceRealtedContainer';
+
+const SentenceDetailContainer = () => {
+  const { id } = useParams();
+  const { data, isLoading, isError } = useSentenceQuery(id);
+
+  if (data?.book) {
+    return (
+      <div css={styles}>
+        <BookInfoSection book={data.book} />
+
+        <MaxWidthWrapper className='wrapper'>
+          <p>{data.content}</p>
+          <UserInfo className='user-info' user={data.author} />
+
+          <SentenceRealtedContainer book={data.book} />
+        </MaxWidthWrapper>
+      </div>
+    );
+  }
+};
+
+const styles = css`
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 32px;
+
+    > p {
+      padding: 32px 24px;
+      font-size: 20px;
+      text-align: center;
+    }
+
+    .user-info {
+      margin: 0 12px 32px auto;
+    }
+
+    @media (min-width: 768px) {
+      > p {
+        padding: 80px 36px;
+        font-size: 24px;
+      }
+      .user-info {
+        margin: 0 12px 64px auto;
+      }
+    }
+  }
+`;
+export default SentenceDetailContainer;

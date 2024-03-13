@@ -3,7 +3,7 @@ import { axios } from '.';
 
 export const getSentences = async (params: PageParams) => {
   const query = queryString.stringify(params);
-  return await axios.get(`/api/sentence?${query}`);
+  return await axios.get<PaginationResult<Sentence>>(`/api/sentence?${query}`);
 };
 
 export const toggleSentenceLike = async (id: string) => {
@@ -11,7 +11,7 @@ export const toggleSentenceLike = async (id: string) => {
 };
 
 export const getSentence = async (id: string) => {
-  return await axios.get(`/api/sentence/${id}`);
+  return await axios.get<Sentence>(`/api/sentence/${id}`);
 };
 
 export const deleteSentence = async (id: string) => {

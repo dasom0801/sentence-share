@@ -3,6 +3,7 @@ import SentenceCardSkeleton from './SentenceCardSkeleton';
 import SentenceListSkeleton from './SentenceListSkeleton';
 import SentenceLikeCardList from './SentenceLikeCardList';
 import SentenceTextCard from './SentenceTextCard';
+import SentenceTextCardList from './SentenceTextCardList';
 
 export {
   SentenceCard,
@@ -10,4 +11,5 @@ export {
   SentenceListSkeleton,
   SentenceLikeCardList,
   SentenceTextCard,
+  SentenceTextCardList,
 };

@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 
-import { textOverflowHidden } from '@/styles';
+import { textOverflowHidden, lineClamp } from '@/styles';
 
 type SentenceTextCardProps = {
   sentence: Sentence;
@@ -15,7 +15,7 @@ const TextContent = (sentence: Sentence) => {
     <>
       <p>{sentence.content}</p>
       <div>
-        {sentence.book?.title} - {sentence.book?.author[0]}
+        {sentence.book?.title} - {sentence.book?.author?.join(',')}
       </div>
     </>
   );
@@ -46,22 +46,28 @@ const SentenceTextCard = ({ sentence, enableLink }: SentenceTextCardProps) => {
 const commonStyles = css`
   padding: 16px;
   border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.25),
+    inset 1px 1px 0px 0px rgba(0, 0, 0, 0.25);
+
   p {
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    ${lineClamp(3)};
     color: ${colors.blueGrey[800]};
-    font-size: 20px;
-    font-weight: 700;
+    font-size: 16px;
+    font-weight: 500;
+    text-align: center;
   }
 
-  div {
+  > div {
     margin: 8px 0 0 0;
     color: ${colors.blueGrey[500]};
     text-align: right;
     ${textOverflowHidden};
+  }
+
+  @media (min-width: 768px) {
+    p {
+      font-size: 18px;
+    }
   }
 `;
 
