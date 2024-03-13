@@ -1,5 +1,5 @@
-import { getSentences } from '@/lib/api';
 import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
+import { getSentences } from '@/lib/api';
 
 export const queryKey = (params: PageParams): [string, PageParams] => [
   '/api/sentence',

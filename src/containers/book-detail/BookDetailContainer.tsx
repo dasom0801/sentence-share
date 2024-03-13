@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
 import { Pagination } from '@mui/material';
 import { css } from '@emotion/react';
+import { Helmet } from 'react-helmet-async';
 
 import { pagination } from '@/styles';
 import {
@@ -39,6 +40,9 @@ const BookDetailContainer = () => {
 
   return (
     <>
+      <Helmet>
+        <title>{`${book?.title} - ` || ''}Sentence Share</title>
+      </Helmet>
       <BookInfoSection book={book} isLoading={isBookLoading} />
       <MaxWidthWrapper styles={styles}>
         <SentenceLikeCardList
