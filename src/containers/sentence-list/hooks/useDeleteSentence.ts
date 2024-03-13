@@ -16,5 +16,8 @@ export const useDeleteSentence = (onSuccess?: () => void) => {
         onSuccess();
       }
     },
+    onError: () => {
+      toast.error('문장을 삭제하지 못했습니다.');
+    },
   });
 };

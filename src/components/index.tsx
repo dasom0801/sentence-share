@@ -8,6 +8,7 @@ import {
   Spinner,
   BookInfoSection,
   UserInfo,
+  AlertDialog,
 } from './common';
 
 import {
@@ -31,6 +32,7 @@ export {
   Spinner,
   BookInfoSection,
   UserInfo,
+  AlertDialog,
   SentenceCard,
   SentenceCardSkeleton,
   SentenceListSkeleton,

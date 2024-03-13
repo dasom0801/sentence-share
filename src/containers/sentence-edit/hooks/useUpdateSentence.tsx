@@ -1,6 +1,5 @@
 import { useMutation } from '@tanstack/react-query';
-import { toast } from 'react-toastify';
-
+import toast from 'react-hot-toast';
 import { UpdateSentenceParams, updateSentence } from '@/lib/api';
 
 const mutationKey = ['UpdateSentence'];
