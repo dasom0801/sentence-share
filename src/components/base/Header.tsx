@@ -39,10 +39,17 @@ const Header = () => {
 };
 
 const headerStyle = css`
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1500;
+
   display: flex;
   align-items: center;
-  min-height: 56px;
+  width: 100%;
+  height: 56px;
   border-bottom: 1px solid ${colors.blueGrey[100]};
+  background-color: white;
 `;
 
 const wrapperStyle = css`
