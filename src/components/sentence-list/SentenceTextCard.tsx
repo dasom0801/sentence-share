@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 
-import { textOverflowHidden, lineClamp } from '@/styles';
+import { textOverflowHidden, lineClamp, mq } from '@/styles';
 
 type SentenceTextCardProps = {
   sentence: Sentence;
@@ -68,7 +68,7 @@ const commonStyles = css`
     ${textOverflowHidden};
   }
 
-  @media (min-width: 768px) {
+  ${mq.md} {
     p {
       font-size: 18px;
     }

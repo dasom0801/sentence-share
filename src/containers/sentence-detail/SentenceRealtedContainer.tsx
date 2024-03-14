@@ -6,6 +6,7 @@ import { css } from '@emotion/react';
 import { useBookSentenceQuery } from '@/lib/hooks';
 import { SentenceTextCardList } from '@/components';
 import { colors } from '@mui/material';
+import { mq } from '@/styles';
 
 type SentenceDetailRelatedList = {
   book: Book;
@@ -39,7 +40,7 @@ const title = css`
   font-size: 18px;
   font-weight: 500;
 
-  @media (min-width: 768px) {
+  ${mq.md} {
     font-size: 20px;
   }
 `;

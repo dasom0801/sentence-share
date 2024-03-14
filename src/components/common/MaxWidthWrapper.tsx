@@ -2,6 +2,7 @@
 
 import { ReactNode } from 'react';
 import { SerializedStyles, css } from '@emotion/react';
+import { mq } from '@/styles';
 
 type MaxWidthWrapperProps = {
   children: ReactNode;
@@ -34,7 +35,7 @@ const maxWidth = css`
   padding-left: 10px;
   padding-right: 10px;
 
-  @media (min-width: 1024px) {
+  ${mq.lg} {
     padding-left: 80px;
     padding-right: 80px;
   }

@@ -2,6 +2,7 @@
 
 import { css } from '@emotion/react';
 import SentenceTextCard from './SentenceTextCard';
+import { mq } from '@/styles';
 
 type SentenceTextCardListProps = {
   sentences: Sentence[];
@@ -30,7 +31,7 @@ const styles = css`
     max-width: 100%;
   }
 
-  @media (min-width: 640px) {
+  ${mq.sm} {
     gap: 0 12px;
 
     li {
@@ -38,7 +39,7 @@ const styles = css`
     }
   }
 
-  @media (min-width: 1024px) {
+  ${mq.lg} {
     li {
       width: calc(33% - 12px);
     }
