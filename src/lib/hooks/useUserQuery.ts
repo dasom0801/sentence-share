@@ -1,5 +1,5 @@
+import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { useEffect } from 'react';
 import { auth } from '../firebase.config';
 import { getUser } from '../api';
 
@@ -8,13 +8,13 @@ export const QUERY_KEY = ['[GET]/api/user/me'];
 const queryFn = async () => (await getUser()).data;
 
 const useUserQuery = () => {
+  const [storageToken, setStorageToken] = useState<string | null>();
   const queryClient = useQueryClient();
 
   useEffect(() => {
     const unsubscribe = auth.onIdTokenChanged(async (user) => {
       const userToken = await user?.getIdToken();
-      const storageToken = localStorage.getItem('token');
-
+      setStorageToken(localStorage.getItem('token'));
       if (userToken) {
         if (userToken !== storageToken) {
           localStorage.setItem('token', userToken);
@@ -22,6 +22,7 @@ const useUserQuery = () => {
         }
       } else {
         localStorage.removeItem('token');
+        setStorageToken(null);
         await queryClient.setQueryData(QUERY_KEY, null);
       }
     });
@@ -33,6 +34,7 @@ const useUserQuery = () => {
     queryKey: QUERY_KEY,
     queryFn,
     staleTime: Infinity,
+    enabled: !!storageToken,
   });
 };
 
