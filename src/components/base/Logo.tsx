@@ -3,6 +3,7 @@
 import { css } from '@emotion/react';
 import { BiBookHeart } from 'react-icons/bi';
 import { colors } from '@mui/material';
+import { mq } from '@/styles';
 
 const Logo = () => {
   return (
@@ -30,7 +31,7 @@ const logoStyle = css`
     font-weight: 600;
   }
 
-  @media (min-width: 768px) {
+  ${mq.md} {
     svg {
       font-size: 30px;
       line-height: 36px;

@@ -4,6 +4,7 @@ import type { ChangeEvent } from 'react';
 import { css } from '@emotion/react';
 import { Button } from '@mui/material';
 
+import { mq } from '@/styles';
 import { DEFAULT_PROFILE } from '../../constants';
 
 type SettingUserImageProps = {
@@ -94,7 +95,8 @@ const styles = css`
       display: none;
     }
   }
-  @media (min-width: 640px) {
+
+  ${mq.sm} {
     width: 50%;
   }
 `;

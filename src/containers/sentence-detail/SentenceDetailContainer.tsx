@@ -6,6 +6,7 @@ import { Helmet } from 'react-helmet-async';
 
 import { BookInfoSection, MaxWidthWrapper, UserInfo } from '@/components';
 import { useSentenceQuery } from '@/lib/hooks';
+import { mq } from '@/styles';
 import SentenceRealtedContainer from './SentenceRealtedContainer';
 
 const SentenceDetailContainer = () => {
@@ -66,7 +67,7 @@ const styles = css`
       margin: 0 12px 32px auto;
     }
 
-    @media (min-width: 768px) {
+    ${mq.md} {
       > p {
         padding: 80px 36px;
         font-size: 24px;
