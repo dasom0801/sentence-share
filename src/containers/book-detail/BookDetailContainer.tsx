@@ -21,7 +21,12 @@ const BookDetailContainer = () => {
   const queryClient = useQueryClient();
   const { id } = useParams();
   const { page, setPage } = usePagination();
-  const { data: book, isLoading: isBookLoading } = useBookDetailQuery(id);
+  const {
+    data: book,
+    isLoading: isBookLoading,
+    isError,
+    error,
+  } = useBookDetailQuery(id);
 
   const { data: sentences, isLoading: isSentenceLoading } =
     useBookSentenceQuery({ id, page });
@@ -36,7 +41,12 @@ const BookDetailContainer = () => {
       };
     });
   };
+
   const { mutate } = useToggleSentenceLike(updateLikeListAfterToggle);
+
+  if (isError) {
+    throw error;
+  }
 
   return (
     <>

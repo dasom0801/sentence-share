@@ -18,6 +18,7 @@ const UserLikeContainer = () => {
     data: likes,
     isLoading,
     isError,
+    error,
   } = useUserLikeQuery({ userId: currentUser?._id });
   const updateLikeListAfterToggle = (sentence: Sentence) => {
     const queryKey = UserLikeQueryKey({ userId: currentUser?._id });
@@ -34,7 +35,9 @@ const UserLikeContainer = () => {
     updateLikeListAfterToggle
   );
 
-  if (isError) return <></>;
+  if (isError) {
+    throw error;
+  }
 
   return (
     <>

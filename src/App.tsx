@@ -9,6 +9,8 @@ import { ThemeProvider, colors, createTheme } from '@mui/material';
 import { css } from '@emotion/react';
 
 import { GlobalStyles, Header } from '@/components';
+import { ErrorBoundary } from 'react-error-boundary';
+import { ErrorResult } from './components/common';
 
 const queryClient = new QueryClient();
 const muiTheme = createTheme({
@@ -32,6 +34,7 @@ const App = () => {
       <Helmet>
         <title>Sentence Share</title>
       </Helmet>
+
       <QueryClientProvider client={queryClient}>
         <ThemeProvider theme={muiTheme}>
           <GlobalStyles />
@@ -41,7 +44,9 @@ const App = () => {
               padding-top: 56px;
             `}
           >
-            <Outlet />
+            <ErrorBoundary FallbackComponent={ErrorResult}>
+              <Outlet />
+            </ErrorBoundary>
           </div>
         </ThemeProvider>
 

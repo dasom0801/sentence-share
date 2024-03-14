@@ -25,6 +25,7 @@ const UserSentenceContainer = () => {
     isLoading,
     isError,
     refetch,
+    error,
   } = useUserSentenceQuery({
     userId: currentUser?._id,
     category: 'sentence',
@@ -44,7 +45,9 @@ const UserSentenceContainer = () => {
     }
   };
 
-  if (isError) return <></>;
+  if (isError) {
+    throw error;
+  }
 
   return (
     <>

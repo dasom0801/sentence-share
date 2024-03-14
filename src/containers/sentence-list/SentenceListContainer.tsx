@@ -1,21 +1,21 @@
 /** @jsxImportSource @emotion/react */
+import { useQueryClient } from '@tanstack/react-query';
+import toast from 'react-hot-toast';
+import { Pagination } from '@mui/material';
 
+import { SentenceLikeCardList } from '@/components';
+import { pagination } from '@/styles';
 import { usePagination, useUserQuery } from '@/lib';
 import useSentenceQuery, {
   queryKey as SentencseQueryKey,
 } from './hooks/useSentenceQuery';
-import { useQueryClient } from '@tanstack/react-query';
 import { useToggleSentenceLike } from './hooks/useToggleSentenceLike';
-import { SentenceLikeCardList } from '@/components';
-import { Pagination } from '@mui/material';
-import { pagination } from '@/styles';
-import toast from 'react-hot-toast';
 
 const SentenceListContainer = () => {
   const queryClient = useQueryClient();
   const { data: currentUser } = useUserQuery();
   const { page, setPage } = usePagination();
-  const { data, isLoading, isError } = useSentenceQuery({ page });
+  const { data, isLoading, isError, error } = useSentenceQuery({ page });
   const updateLikeListAfterToggle = (sentence: Sentence) => {
     const queryKey = SentencseQueryKey({ page });
     queryClient.setQueryData(queryKey, (result: PaginationResult<Sentence>) => {
@@ -36,6 +36,10 @@ const SentenceListContainer = () => {
     }
     mutate(id);
   };
+
+  if (isError) {
+    throw error;
+  }
 
   return (
     <>

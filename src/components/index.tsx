@@ -7,6 +7,7 @@ import {
   UserInfo,
   AlertDialog,
   NoResult,
+  ErrorResult,
 } from './common';
 
 import {
