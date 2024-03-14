@@ -4,8 +4,6 @@ import { FormEvent, useState } from 'react';
 import { css } from '@emotion/react';
 import { Button, FormHelperText, TextField } from '@mui/material';
 
-import { Spinner } from '..';
-
 type ProfileInfoEditProp = {
   user: Pick<User, 'name'> | undefined;
   loading?: boolean;

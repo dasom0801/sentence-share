@@ -1,10 +1,10 @@
 import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
 import { getSentences } from '@/lib/api';
 
-export const queryKey = (params: PageParams): [string, PageParams] => [
-  '/api/sentence',
-  params,
-];
+export const queryKey = ({
+  page,
+  limit = 12,
+}: PageParams): [string, PageParams] => ['/api/sentence', { page, limit }];
 const queryFn = async (
   contenxt: QueryFunctionContext<[string, PageParams]>
 ) => {

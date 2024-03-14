@@ -31,9 +31,7 @@ export const logoutWithGoogle = async () => {
   try {
     await signOut(auth);
   } catch (error: unknown) {
-    toast.error('로그아웃에 실패했습니다.', {
-      position: 'top-center',
-    });
+    toast.error('로그아웃에 실패했습니다.');
     console.log(error);
   }
 };

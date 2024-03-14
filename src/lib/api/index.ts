@@ -1,6 +1,12 @@
 import axios from './api';
 import { loginWithGoogle, logoutWithGoogle } from './auth';
-import { getUser, updateUser, getUserLike, getUserSentence } from './user';
+import {
+  getUser,
+  updateUser,
+  getUserLike,
+  getUserSentence,
+  deleteUser,
+} from './user';
 import type { UserLikeRequestParams, UserSentenceRequestParams } from './user';
 import {
   toggleSentenceLike,
@@ -29,6 +35,7 @@ export {
   updateUser,
   getUserLike,
   getUserSentence,
+  deleteUser,
   toggleSentenceLike,
   deleteSentence,
   searchBook,
