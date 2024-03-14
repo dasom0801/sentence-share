@@ -9,6 +9,10 @@ export const updateUser = async (data: Record<string, any>) => {
   return await axios.put<User>('/api/user/me');
 };
 
+export const deleteUser = async () => {
+  return (await axios.delete('/api/user/withdrawal')).data;
+};
+
 export type UserSentenceRequestParams = {
   userId?: string;
   category: 'sentence' | 'book' | 'user';
