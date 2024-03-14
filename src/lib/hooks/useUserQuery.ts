@@ -13,9 +13,7 @@ const useUserQuery = () => {
 
   useEffect(() => {
     const unsubscribe = auth.onIdTokenChanged(async (user) => {
-      console.log('change user', user);
       const userToken = await user?.getIdToken();
-      console.log(userToken);
       setStorageToken(localStorage.getItem('token'));
       if (userToken) {
         if (userToken !== storageToken) {
