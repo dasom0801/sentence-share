@@ -10,12 +10,24 @@ import SentenceRealtedContainer from './SentenceRealtedContainer';
 
 const SentenceDetailContainer = () => {
   const { id } = useParams();
-  const { data, isLoading, isError } = useSentenceQuery(id);
+  const { data, isLoading, isError, error } = useSentenceQuery(id);
   const title = !data?.content
     ? ''
     : data.content.length > 15
     ? `${data?.content.slice(0, 15)}... - `
     : data?.content;
+
+  if (isError) {
+    throw error;
+  }
+
+  if (isLoading) {
+    return (
+      <div>
+        <BookInfoSection isLoading={true} />
+      </div>
+    );
+  }
 
   if (data?.book) {
     return (

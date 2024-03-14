@@ -6,6 +6,9 @@ import {
   Spinner,
   UserInfo,
   AlertDialog,
+  NoResult,
+  ErrorResult,
+  NotFound,
 } from './common';
 
 import {
@@ -32,6 +35,9 @@ export {
   Spinner,
   UserInfo,
   AlertDialog,
+  NoResult,
+  ErrorResult,
+  NotFound,
   // sentence
   SentenceCard,
   SentenceCardSkeleton,

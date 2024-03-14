@@ -1,5 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { BookDetailPage, MainPage, SentenceDetailPage } from '@/pages';
+import { NotFound } from '@/components';
 import App from '../App';
 import userMenuRoute from './user-menu.route';
 import editRoute from './edit.route';
@@ -26,7 +27,15 @@ const router = createBrowserRouter([
         },
         children: [userMenuRoute, editRoute],
       },
+      {
+        path: '/*',
+        element: <NotFound />,
+      },
     ],
+  },
+  {
+    path: '/*',
+    element: <NotFound />,
   },
 ]);
 
