@@ -5,6 +5,7 @@ import UserInfo from './UserInfo';
 import AlertDialog from './AlertDialog';
 import NoResult from './NoResult';
 import ErrorResult from './ErrorResult';
+import NotFound from './NotFound';
 
 export {
   MaxWidthWrapper,
@@ -14,4 +15,5 @@ export {
   AlertDialog,
   NoResult,
   ErrorResult,
+  NotFound,
 };

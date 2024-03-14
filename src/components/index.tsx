@@ -8,6 +8,7 @@ import {
   AlertDialog,
   NoResult,
   ErrorResult,
+  NotFound,
 } from './common';
 
 import {
@@ -35,6 +36,8 @@ export {
   UserInfo,
   AlertDialog,
   NoResult,
+  ErrorResult,
+  NotFound,
   // sentence
   SentenceCard,
   SentenceCardSkeleton,
