@@ -1,9 +1,11 @@
 import queryString from 'query-string';
 import { axios } from '.';
 
-export const getSentences = async (params: PageParams) => {
+export const getSentences = async (params: APIRequestParams) => {
+  params.limit = params.limit ?? 12;
   const query = queryString.stringify(params);
-  return await axios.get<PaginationResult<Sentence>>(`/api/sentence?${query}`);
+  return (await axios.get<PaginationResult<Sentence>>(`/api/sentence?${query}`))
+    .data;
 };
 
 export const toggleSentenceLike = async (id: string) => {
