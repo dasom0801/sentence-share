@@ -9,6 +9,7 @@ import {
   NoResult,
   ErrorResult,
   NotFound,
+  SortButtons,
 } from './common';
 
 import {
@@ -38,6 +39,7 @@ export {
   NoResult,
   ErrorResult,
   NotFound,
+  SortButtons,
   // sentence
   SentenceCard,
   SentenceCardSkeleton,

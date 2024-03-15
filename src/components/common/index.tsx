@@ -6,6 +6,7 @@ import AlertDialog from './AlertDialog';
 import NoResult from './NoResult';
 import ErrorResult from './ErrorResult';
 import NotFound from './NotFound';
+import SortButtons from './SortButtons';
 
 export {
   MaxWidthWrapper,
@@ -16,4 +17,5 @@ export {
   NoResult,
   ErrorResult,
   NotFound,
+  SortButtons,
 };
