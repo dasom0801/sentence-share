@@ -1,6 +1,9 @@
 import { createBrowserRouter } from 'react-router-dom';
-import { BookDetailPage, MainPage, SentenceDetailPage } from '@/pages';
 import { NotFound } from '@/components';
+import { BookDetailPage } from '@/feature/book-detail';
+import { SentenceDetailPage } from '@/feature/sentence-detail';
+import { MainPage } from '@/feature/main';
+
 import App from '../App';
 import userMenuRoute from './user-menu.route';
 import editRoute from './edit.route';

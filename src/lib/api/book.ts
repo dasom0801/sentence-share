@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { axios } from '.';
+import axios from './api';
 
 export const getBook = async (id: string) => {
   return (await axios.get<Book>(`/api/book/${id}`)).data;

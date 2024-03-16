@@ -1,5 +1,5 @@
 import querystring from 'query-string';
-import { axios } from '.';
+import axios from './api';
 
 export const getUser = async () => {
   return await axios.get<User>('/api/user/me');

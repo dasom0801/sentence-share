@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import { axios } from '.';
+import axios from './api';
 
 export const getSentences = async (params: APIRequestParams) => {
   params.limit = params.limit ?? 12;
