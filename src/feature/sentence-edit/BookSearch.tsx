@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
-import { useEffect, useRef, useState } from 'react';
+import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { css } from '@emotion/react';
-import { Button, TextField } from '@mui/material';
+import { Button, TextField, debounce } from '@mui/material';
 
 import {
   BookListItem,
@@ -23,6 +23,7 @@ type BookSearchProps = Pick<
 const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState('');
+  const [input, setInput] = useState('');
   const searchRef = useRef<HTMLDivElement>(null);
   const { data, isLoading, fetchNextPage } = useBookSearchQuery(search);
   const listRef = useRef<HTMLUListElement>(null);
@@ -47,6 +48,22 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
     };
   }, [searchRef]);
 
+  const debouncedSetSearch = useCallback(
+    debounce((value: string) => {
+      setSearch(value);
+    }, 300),
+    []
+  );
+
+  const onChangeInput = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      setInput(value);
+      debouncedSetSearch(value);
+    },
+    [debouncedSetSearch]
+  );
+
   const handleBookClick = (book: Book) => {
     setBook(book);
     setFocused(false);
@@ -64,8 +81,8 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
         size='small'
         type='search'
         placeholder='책 이름을 입력해주세요'
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
+        value={input}
+        onChange={onChangeInput}
         onFocus={() => setFocused(true)}
         ref={searchRef}
       />
