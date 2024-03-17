@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { getSearchParamsObject } from '../utils';
 
-export const usePagination = () => {
+const usePagination = () => {
   const [searchParams, setSearchParams] = useSearchParams();
   const [page, setPage] = useState<number>(
     Number(searchParams.get('page') || 1)
@@ -26,3 +26,5 @@ export const usePagination = () => {
 
   return { page, setPage };
 };
+
+export default usePagination;

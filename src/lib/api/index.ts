@@ -1,4 +1,3 @@
-import axios from './api';
 import { loginWithGoogle, logoutWithGoogle } from './auth';
 import {
   getUser,
@@ -28,7 +27,6 @@ import { getBook, getBookSentence } from './book';
 import type { GetBookSentenceParams } from './book';
 
 export {
-  axios,
   loginWithGoogle,
   logoutWithGoogle,
   getUser,
