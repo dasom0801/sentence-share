@@ -22,5 +22,5 @@ export const updateUser = http.put('*/api/user/me', async ({ request }) => {
 export const getUserSentence = http.get('*/api/user/1/sentence', () => {
   const user = mockData.user.getAll()[0];
   const sentence = user?.sentence;
-  return HttpResponse.json({ list: sentence }, { status: 400 });
+  return HttpResponse.json({ list: sentence }, { status: 200 });
 });

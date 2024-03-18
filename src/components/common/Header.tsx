@@ -19,7 +19,7 @@ const Header = () => {
   return (
     <div css={headerStyle}>
       <MaxWidthWrapper styles={wrapperStyle}>
-        <Link to={'/'}>
+        <Link to='/'>
           <Logo />
         </Link>
         {currentUser ? (

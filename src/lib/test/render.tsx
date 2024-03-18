@@ -1,7 +1,7 @@
 import React, { ReactNode } from 'react';
 import { RenderOptions, render as rtlRender } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { MemoryRouter, RouterProps } from 'react-router-dom';
+import { MemoryRouter, MemoryRouterProps } from 'react-router-dom';
 import { QueryClientProvider, QueryClient } from '@tanstack/react-query';
 
 // https://tanstack.com/query/v4/docs/framework/react/guides/testing
@@ -15,7 +15,7 @@ const testQueryClient = new QueryClient({
 });
 
 type TestRenderOptions = {
-  routerProps?: RouterProps;
+  routerProps?: MemoryRouterProps;
   renderOptions?: RenderOptions;
 };
 
