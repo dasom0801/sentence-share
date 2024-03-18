@@ -1,40 +1,25 @@
-import { useEffect, useState } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { auth } from '../firebase.config';
+import { useQuery } from '@tanstack/react-query';
+import { useUserStore } from '@/store/user';
 import { getUser } from '../api';
 
 export const QUERY_KEY = ['[GET]/api/user/me'];
 
-const queryFn = async () => (await getUser()).data;
+const queryFn = async (callback: (user: User) => void) => {
+  const user = (await getUser()).data;
+  callback(user);
+  return user;
+};
 
 const useUserQuery = () => {
-  const [storageToken, setStorageToken] = useState<string | null>();
-  const queryClient = useQueryClient();
-
-  useEffect(() => {
-    const unsubscribe = auth.onIdTokenChanged(async (user) => {
-      const userToken = await user?.getIdToken();
-      setStorageToken(localStorage.getItem('token'));
-      if (userToken) {
-        if (userToken !== storageToken) {
-          localStorage.setItem('token', userToken);
-          await queryClient.invalidateQueries({ queryKey: QUERY_KEY });
-        }
-      } else {
-        localStorage.removeItem('token');
-        setStorageToken(null);
-        await queryClient.setQueryData(QUERY_KEY, null);
-      }
-    });
-
-    return unsubscribe;
-  }, [queryClient]);
+  const { isLogin, setUser } = useUserStore((state) => state);
+  const onSuccess = (user: User) => {
+    setUser(user);
+  };
 
   return useQuery({
     queryKey: QUERY_KEY,
-    queryFn,
-    staleTime: Infinity,
-    enabled: !!storageToken,
+    queryFn: () => queryFn(onSuccess),
+    enabled: !!isLogin,
   });
 };
 

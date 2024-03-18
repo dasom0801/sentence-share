@@ -1,10 +1,11 @@
 /** @jsxImportSource @emotion/react */
 
-import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import { useState } from 'react';
-import { logoutWithGoogle } from '@/lib/api';
+import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
+
+import { useLogout } from '@/lib/hooks';
 
 type HeaderMenuProps = {
   user: User;
@@ -12,6 +13,7 @@ type HeaderMenuProps = {
 
 const HeaderMenu = ({ user }: HeaderMenuProps) => {
   const navigate = useNavigate();
+  const { mutate: logout } = useLogout();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
 
@@ -24,7 +26,7 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
   };
 
   const handleLogout = async () => {
-    await logoutWithGoogle();
+    logout();
     handleClose();
     navigate('/');
   };

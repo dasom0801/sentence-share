@@ -10,7 +10,8 @@ import {
   SentenceCard,
   SentenceListSkeleton,
 } from '@/components';
-import { usePagination, useUserQuery } from '@/lib/hooks';
+import { usePagination } from '@/lib/hooks';
+import { useUserStore } from '@/store/user';
 import { gridContainer, pageTitle, pagination } from '@/styles';
 import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
 import { useDeleteSentence } from './hooks/useDeleteSentence';
@@ -18,7 +19,8 @@ import { useDeleteSentence } from './hooks/useDeleteSentence';
 const UserSentenceContainer = () => {
   const [deleteTarget, setDeleteTarget] = useState<Sentence | null>(null);
   const { page, setPage } = usePagination();
-  const { data: currentUser } = useUserQuery();
+  const { user } = useUserStore();
+
   const {
     data: sentences,
     isLoading,
@@ -26,7 +28,7 @@ const UserSentenceContainer = () => {
     refetch,
     error,
   } = useUserSentenceQuery({
-    userId: currentUser?._id,
+    userId: user?._id,
     category: 'sentence',
     limit: 24,
     page,

@@ -6,24 +6,21 @@ import { useQueryClient } from '@tanstack/react-query';
 import { NoResult, SentenceLikeCardList } from '@/components';
 import { pageTitle, pagination } from '@/styles';
 import { UserLikeQueryKey, useUserLikeQuery } from './hooks/useUserLikeQuery';
-import {
-  usePagination,
-  useToggleSentenceLike,
-  useUserQuery,
-} from '@/lib/hooks';
+import { usePagination, useToggleSentenceLike } from '@/lib/hooks';
+import { useUserStore } from '@/store/user';
 
 const UserLikeContainer = () => {
   const queryClient = useQueryClient();
   const { page, setPage } = usePagination();
-  const { data: currentUser } = useUserQuery();
+  const { user } = useUserStore();
   const {
     data: likes,
     isLoading,
     isError,
     error,
-  } = useUserLikeQuery({ userId: currentUser?._id });
+  } = useUserLikeQuery({ userId: user?._id });
   const updateLikeListAfterToggle = (sentence: Sentence) => {
-    const queryKey = UserLikeQueryKey({ userId: currentUser?._id });
+    const queryKey = UserLikeQueryKey({ userId: user?._id });
     queryClient.setQueryData(queryKey, (result: PaginationResult<Sentence>) => {
       return {
         ...result,

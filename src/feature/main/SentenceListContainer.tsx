@@ -6,20 +6,16 @@ import { css } from '@emotion/react';
 
 import { SentenceLikeCardList, SortButtons } from '@/components';
 import { pagination } from '@/styles';
-import {
-  useSort,
-  usePagination,
-  useUserQuery,
-  useToggleSentenceLike,
-} from '@/lib/hooks';
+import { useSort, usePagination, useToggleSentenceLike } from '@/lib/hooks';
 
 import useSentencesQuery, {
   queryKey as SentencseQueryKey,
 } from './hooks/useSentencesQuery';
+import { useUserStore } from '@/store/user';
 
 const SentenceListContainer = () => {
   const queryClient = useQueryClient();
-  const { data: currentUser } = useUserQuery();
+  const { user } = useUserStore((state) => state);
   const { page, setPage } = usePagination();
   const { sort } = useSort();
   const { data, isLoading, isError, error } = useSentencesQuery({
@@ -43,7 +39,7 @@ const SentenceListContainer = () => {
   const { mutate } = useToggleSentenceLike(updateLikeListAfterToggle);
 
   const handleToggleLike = (id: string) => {
-    if (!currentUser) {
+    if (!user) {
       toast.error('로그인 후 이용해주세요.');
       return;
     }

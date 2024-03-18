@@ -9,19 +9,20 @@ export const loginWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
 
     if (result.user) {
-      await axios.post('/api/auth/google', {
-        uid: result.user.uid,
-        provider: result.providerId,
-        name: result.user.displayName,
-        email: result.user.email,
-        profileUrl: result.user.photoURL,
-      });
-      toast.success('로그인했습니다.');
+      return (
+        await axios.post<{ user: User; token: string }>('/api/auth/google', {
+          uid: result.user.uid,
+          provider: result.providerId,
+          name: result.user.displayName,
+          email: result.user.email,
+          profileUrl: result.user.photoURL,
+        })
+      ).data;
     } else {
       throw new Error('로그인/회원가입에 실패했습니다.');
     }
   } catch (error: unknown) {
-    toast.error('로그인/회원가입에 실패했습니다.');
+    throw new Error('로그인/회원가입에 실패했습니다.');
   }
 };
 

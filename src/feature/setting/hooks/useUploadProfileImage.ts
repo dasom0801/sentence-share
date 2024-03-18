@@ -7,10 +7,10 @@ import {
   uploadBytes,
 } from 'firebase/storage';
 import { storage } from '@/lib/firebase.config';
-import { useUserQuery } from '@/lib/hooks';
+import { useUserStore } from '@/store/user';
 
 const useUploadProfileImage = () => {
-  const { data: user } = useUserQuery();
+  const { user } = useUserStore();
 
   // 이미지 경로를 설정
   const getImageRef = ({
@@ -31,11 +31,15 @@ const useUploadProfileImage = () => {
   const uploadImage = useCallback(
     async (file: File) => {
       try {
-        const imageStorage = getImageRef({ file, user });
-        if (imageStorage) {
-          await uploadBytes(imageStorage, file);
-          const url: string = await getDownloadURL(imageStorage);
-          return url;
+        if (user) {
+          const imageStorage = getImageRef({ file, user });
+          if (imageStorage) {
+            await uploadBytes(imageStorage, file);
+            const url: string = await getDownloadURL(imageStorage);
+            return url;
+          } else {
+            throw new Error('이미지 업로드에 실패했습니다.');
+          }
         }
       } catch (error) {
         toast.error('이미지 업로드에 실패했습니다.');
