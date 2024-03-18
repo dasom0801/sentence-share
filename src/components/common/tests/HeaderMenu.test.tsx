@@ -1,12 +1,10 @@
-import userEvent from '@testing-library/user-event';
 import HeaderMenu from '../HeaderMenu';
-import { render, screen, waitFor } from '@testing-library/react';
-import { MockUser } from '../../../test-utils/index.mock';
-import { BrowserRouter } from 'react-router-dom';
+import { screen, waitFor } from '@testing-library/react';
+import { MockUser } from '@/mocks/data';
+import { render } from '@/lib/test/render';
 
 const renderComponent = () => {
-  const user = userEvent.setup();
-  render(<HeaderMenu user={MockUser} />, { wrapper: BrowserRouter });
+  const { user } = render(<HeaderMenu user={MockUser} />);
 
   const ProfileButton = () => screen.getByRole('button');
   const Menu = () => screen.queryByRole('menu');

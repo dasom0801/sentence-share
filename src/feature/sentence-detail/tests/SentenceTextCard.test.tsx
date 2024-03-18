@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import { BrowserRouter } from 'react-router-dom';
 
-import { MockSentence } from '@/test-utils/index.mock';
 import SentenceTextCard from '../SentenceTextCard';
+import { MockSentence } from '@/mocks/data';
 
 it('enableLink props가 true이면 sentence/:id 주소를 갖는 Link가 그려진다.', () => {
   render(<SentenceTextCard sentence={MockSentence} enableLink={true} />, {

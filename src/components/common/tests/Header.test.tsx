@@ -1,11 +1,9 @@
 import { screen } from '@testing-library/react';
-import { BrowserRouter } from 'react-router-dom';
-
-import { renderWithReactQuery } from '../../../test-utils/testRender';
+import { render } from '@/lib/test/render';
 import Header from '../Header';
 
 const renderHeaderComponent = () => {
-  renderWithReactQuery(<Header />, { wrapper: BrowserRouter });
+  render(<Header />);
 
   const GoogleButton = () =>
     screen.queryByLabelText(/google/, {
@@ -16,7 +14,10 @@ const renderHeaderComponent = () => {
   return { GoogleButton, Avatar };
 };
 
-describe('Header Component', () => {
+describe('로그인 전', () => {
+  it('구글 로그인 버튼을 보여준다.', () => {
+    renderHeaderComponent();
+  });
   // it('로그인 전에는 구글 로그인 버튼을 보여준다.', () => {
   //   useUserQuerySpy.mockReturnValue({
   //     data: undefined,
@@ -34,4 +35,10 @@ describe('Header Component', () => {
   //   expect(GoogleButton()).not.toBeInTheDocument();
   //   expect(Avatar()).toBeInTheDocument();
   // });
+});
+
+describe('로그인 후', () => {
+  it('프로필 이미지를 보여준다', () => {
+    renderHeaderComponent();
+  });
 });

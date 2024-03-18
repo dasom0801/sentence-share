@@ -1,5 +1,4 @@
 import { factory, primaryKey } from '@mswjs/data';
-import { MockSentence, MockUser } from '../index.mock';
 
 const mockData = factory({
   user: {
@@ -14,9 +13,9 @@ const mockData = factory({
   },
 });
 
-mockData.user.create({
-  ...MockUser,
-  sentence: new Array(10).fill(MockSentence),
-});
+// mockData.user.create({
+//   ...MockUser,
+//   sentence: new Array(10).fill(MockSentence),
+// });
 
 export default mockData;

@@ -1,16 +1,19 @@
 import '@testing-library/jest-dom';
-// import { TextEncoder, TextDecoder } from 'util';
-import { server } from './test-utils/mocks/server';
+import { setupServer, SetupServer } from 'msw/node';
+import { handlers } from '@/mocks/handlers';
 
-// Object.assign(global, { TextDecoder, TextEncoder });
-
-// @ts-ignore
-globalThis.IS_REACT_ACT_ENVIRONMENT = true;
+export const server: SetupServer = setupServer(...handlers);
 
 // Establish API mocking before all tests.
-beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
+beforeAll(() => server.listen());
 // Reset any request handlers that we may add during the tests,
 // so they don't affect other tests.
-afterEach(() => server.resetHandlers());
+afterEach(() => {
+  vi.clearAllMocks();
+  server.resetHandlers();
+});
 // Clean up after the tests are finished.
-afterAll(() => server.close());
+afterAll(() => {
+  server.close();
+  vi.resetAllMocks();
+});

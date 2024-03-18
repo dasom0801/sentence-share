@@ -1,4 +1,5 @@
 /// <reference types="vitest" />
+import path from 'path';
 import react from '@vitejs/plugin-react';
 import tsconfigPaths from 'vite-tsconfig-paths';
 import { defineConfig } from 'vite';
@@ -8,7 +9,6 @@ export default defineConfig({
     globals: true,
     setupFiles: './src/setupTests.ts',
     environment: 'jsdom',
-    pool: 'forks',
   },
   plugins: [react(), tsconfigPaths()],
   server: {
@@ -16,12 +16,6 @@ export default defineConfig({
     open: true,
   },
   resolve: {
-    alias: [
-      { find: '@src', replacement: '/src' },
-      {
-        find: '@components',
-        replacement: '/src/components',
-      },
-    ],
+    alias: [{ find: '@', replacement: path.resolve(__dirname, 'src') }],
   },
 });

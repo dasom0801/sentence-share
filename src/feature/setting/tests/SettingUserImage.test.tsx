@@ -1,16 +1,14 @@
 import { act, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { render } from '@/lib/test/render';
+import { MockUser } from '@/mocks/data';
 import SettingUserImage from '../SettingUserImage';
-import { MockUser } from '../../../test-utils/index.mock';
 import { DEFAULT_PROFILE } from '../../../constants';
-import { renderWithReactQuery } from '../../../test-utils/testRender';
 
 const renderComponent = () => {
-  const user = userEvent.setup();
   const onImageRemove = vi.fn();
   const onImageUpdate = vi.fn();
 
-  renderWithReactQuery(
+  const { user } = render(
     <SettingUserImage
       user={MockUser}
       onImageRemove={onImageRemove}

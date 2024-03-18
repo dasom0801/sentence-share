@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import SettingUserImage from '../SettingUserImage';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { MockUser } from '../../../test-utils/index.mock';
+import { MockUser } from '@/mocks/data';
 const meta = {
   title: 'setting/SettingUserImage',
   component: SettingUserImage,

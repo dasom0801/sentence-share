@@ -3,7 +3,6 @@ import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../firebase.config';
 import axios from './api';
 
-// TODO: 로그인/로그아웃 한 다음에 toast 메시지 보여주기
 export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
   try {
@@ -23,7 +22,6 @@ export const loginWithGoogle = async () => {
     }
   } catch (error: unknown) {
     toast.error('로그인/회원가입에 실패했습니다.');
-    console.log(error);
   }
 };
 
@@ -32,6 +30,5 @@ export const logoutWithGoogle = async () => {
     await signOut(auth);
   } catch (error: unknown) {
     toast.error('로그아웃에 실패했습니다.');
-    console.log(error);
   }
 };
