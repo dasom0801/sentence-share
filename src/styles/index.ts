@@ -42,6 +42,7 @@ export const mq: MediaQuery = Object.entries(breakpoint).reduce(
 // layout
 export const gridContainer = css`
   display: grid;
+  min-width: 0;
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;
 

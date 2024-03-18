@@ -91,18 +91,19 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
           {!data?.pages.length && isLoading ? (
             <>
               {Array.from({ length: 5 }, (_, index) => (
-                <BookListItemSkeleton key={index} />
+                <li key={index}>
+                  <BookListItemSkeleton />
+                </li>
               ))}
             </>
           ) : (
             <>
               {data?.pages.map((bookResult: PaginationResult<Book>) =>
-                bookResult.list.map((book) => (
-                  <li key={book.isbn}>
-                    <BookListItem
-                      book={book}
-                      onClick={() => handleBookClick(book)}
-                    />
+                bookResult.list.map((book, index) => (
+                  <li key={`${book.isbn}-${index}`}>
+                    <button onClick={() => handleBookClick(book)}>
+                      <BookListItem book={book} />
+                    </button>
                   </li>
                 ))
               )}
@@ -143,6 +144,9 @@ const styles = css`
     overflow-y: auto;
     li + li {
       margin: 16px 0 0 0;
+    }
+    button {
+      width: 100%;
     }
   }
 

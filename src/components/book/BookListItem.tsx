@@ -6,19 +6,18 @@ import { colors } from '@mui/material';
 
 type BookListItemProps = {
   book: Book;
-  onClick?: () => void;
 };
 
-const BookListItem = ({ book, onClick }: BookListItemProps) => {
+const BookListItem = ({ book }: BookListItemProps) => {
   return (
-    <button css={styles} onClick={onClick}>
+    <div css={styles}>
       <img src={book.coverUrl} alt={book.title} />
       <div>
         <div className='title'>{book.title}</div>
         <div>{book.author?.join(',')}</div>
         <div>{book.publisher}</div>
       </div>
-    </button>
+    </div>
   );
 };
 const styles = css`

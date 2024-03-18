@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 
@@ -7,40 +6,17 @@ import { textOverflowHidden, lineClamp, mq } from '@/styles';
 
 type SentenceTextCardProps = {
   sentence: Sentence;
-  enableLink?: boolean;
 };
 
-const TextContent = (sentence: Sentence) => {
+const SentenceTextCard = ({ sentence }: SentenceTextCardProps) => {
   return (
-    <>
+    <div css={commonStyles}>
       <p>{sentence.content}</p>
       <div>
         {sentence.book?.title} - {sentence.book?.author?.join(',')}
       </div>
-    </>
+    </div>
   );
-};
-
-const SentenceTextCard = ({ sentence, enableLink }: SentenceTextCardProps) => {
-  if (enableLink) {
-    return (
-      <Link
-        css={css`
-          ${commonStyles};
-          ${linkStyles};
-        `}
-        to={`/sentence/${sentence._id}`}
-      >
-        <TextContent {...sentence} />
-      </Link>
-    );
-  } else {
-    return (
-      <div css={commonStyles}>
-        <TextContent {...sentence} />
-      </div>
-    );
-  }
 };
 
 const commonStyles = css`
@@ -52,6 +28,11 @@ const commonStyles = css`
   border-radius: 8px;
   box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.25),
     inset 1px 1px 0px 0px rgba(0, 0, 0, 0.25);
+  &:hover {
+    p {
+      text-decoration: inherit;
+    }
+  }
 
   p {
     ${lineClamp(3)};
@@ -75,11 +56,4 @@ const commonStyles = css`
   }
 `;
 
-const linkStyles = css`
-  &:hover {
-    p {
-      text-decoration: underline;
-    }
-  }
-`;
 export default SentenceTextCard;

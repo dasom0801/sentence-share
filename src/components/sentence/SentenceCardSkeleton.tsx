@@ -5,7 +5,7 @@ import { css } from '@emotion/react';
 
 const SentenceCardSkeleton = () => {
   return (
-    <li css={styles}>
+    <div css={styles}>
       <div className='backdrop'>
         <div className='header'>
           <Skeleton variant='circular' width={30} height={30} />
@@ -18,7 +18,7 @@ const SentenceCardSkeleton = () => {
           <Skeleton variant='text' width='50%' sx={{ fontSize: '16px' }} />
         </div>
       </div>
-    </li>
+    </div>
   );
 };
 
