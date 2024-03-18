@@ -19,6 +19,7 @@ export const MUI_THEME = createTheme({
 
 export const apiRoutes = {
   user: '/api/user/me',
+  sentences: '/api/user/:userId/sentence',
 };
 
 export const pageRoutes = {

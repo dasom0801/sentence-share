@@ -46,6 +46,10 @@ export const gridContainer = css`
   grid-template-columns: repeat(1, 1fr);
   gap: 24px;
 
+  > * {
+    min-width: 0;
+  }
+
   ${mq.md} {
     grid-template-columns: repeat(2, 1fr);
   }
