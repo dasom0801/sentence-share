@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { Button, Pagination } from '@mui/material';
 
@@ -16,7 +16,6 @@ import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
 import { useDeleteSentence } from './hooks/useDeleteSentence';
 
 const UserSentenceContainer = () => {
-  const navigate = useNavigate();
   const [deleteTarget, setDeleteTarget] = useState<Sentence | null>(null);
   const { page, setPage } = usePagination();
   const { data: currentUser } = useUserQuery();
@@ -33,10 +32,6 @@ const UserSentenceContainer = () => {
     page,
   });
   const { mutate } = useDeleteSentence(refetch);
-
-  const handleEditSentence = (id: string) => {
-    navigate(`/edit/sentence/${id}`);
-  };
 
   const handleDeleteSentence = () => {
     if (deleteTarget) {
@@ -65,25 +60,28 @@ const UserSentenceContainer = () => {
               <ul css={gridContainer}>
                 {sentences?.list.map((sentence) => {
                   return (
-                    <SentenceCard key={sentence._id} sentence={sentence}>
-                      <div css={buttons}>
-                        <Button
-                          color='secondary'
-                          size='large'
-                          onClick={() => handleEditSentence(sentence._id)}
-                        >
-                          수정
-                        </Button>
-                        <Button
-                          variant='contained'
-                          color='secondary'
-                          size='large'
-                          onClick={() => setDeleteTarget(sentence)}
-                        >
-                          삭제
-                        </Button>
-                      </div>
-                    </SentenceCard>
+                    <li key={sentence._id}>
+                      <SentenceCard sentence={sentence}>
+                        <div css={buttons}>
+                          <Button
+                            component={Link}
+                            to={`/edit/sentence/${sentence._id}`}
+                            color='secondary'
+                            size='large'
+                          >
+                            수정
+                          </Button>
+                          <Button
+                            variant='contained'
+                            color='secondary'
+                            size='large'
+                            onClick={() => setDeleteTarget(sentence)}
+                          >
+                            삭제
+                          </Button>
+                        </div>
+                      </SentenceCard>
+                    </li>
                   );
                 })}
               </ul>
@@ -101,9 +99,9 @@ const UserSentenceContainer = () => {
               title='문장이 없습니다.'
               description='내가 좋아하는 책 속의 문장을 모두와 공유해보세요.'
             >
-              <Link to={'/edit/sentence'}>
-                <Button variant='contained'>작성하기</Button>
-              </Link>
+              <Button component={Link} to='/edit/sentence' variant='contained'>
+                작성하기
+              </Button>
             </NoResult>
           )}
         </>
@@ -120,7 +118,7 @@ const UserSentenceContainer = () => {
 
 const buttons = css`
   display: flex;
-  button {
+  > * {
     flex: 1;
     border-radius: 0;
   }
