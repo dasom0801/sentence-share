@@ -5,7 +5,7 @@ import { Skeleton } from '@mui/material';
 
 const BookListItemSkeleton = () => {
   return (
-    <li css={styles}>
+    <div css={styles}>
       <Skeleton variant='rounded' width={82} height={120} />
       <div>
         <Skeleton
@@ -16,7 +16,7 @@ const BookListItemSkeleton = () => {
         <Skeleton variant='text' width='50%' sx={{ fontSize: '14px' }} />
         <Skeleton variant='text' width='60%' sx={{ fontSize: '14px' }} />
       </div>
-    </li>
+    </div>
   );
 };
 

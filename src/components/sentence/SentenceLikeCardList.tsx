@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { Button, css } from '@mui/material';
-import { gridContainer } from '../../styles';
+import { red } from '@mui/material/colors';
+import { FaHeart, FaRegHeart } from 'react-icons/fa6';
+
+import { gridContainer } from '@/styles';
 import SentenceCard from './SentenceCard';
 import SentenceCardSkeleton from './SentenceCardSkeleton';
-import { FaHeart, FaRegHeart } from 'react-icons/fa6';
-import { red } from '@mui/material/colors';
 
 type SentenceCardListParams = {
   list: Sentence[] | undefined;
@@ -24,18 +25,25 @@ const SentenceLikeCardList = ({
     (_, index) => <SentenceCardSkeleton key={index} />
   );
   const sentenceList = list?.map((sentence) => (
-    <SentenceCard key={sentence._id} sentence={sentence}>
-      <Button
-        css={buttonStyle}
-        size='large'
-        color='secondary'
-        fullWidth={true}
-        onClick={() => onToggleLike(sentence._id)}
-      >
-        <span>좋아요</span>
-        {sentence.isLiked ? <FaHeart /> : <FaRegHeart />}
-      </Button>
-    </SentenceCard>
+    <li
+      key={sentence._id}
+      css={css`
+        min-width: 0;
+      `}
+    >
+      <SentenceCard sentence={sentence}>
+        <Button
+          css={buttonStyle}
+          size='large'
+          color='secondary'
+          fullWidth={true}
+          onClick={() => onToggleLike(sentence._id)}
+        >
+          <span>좋아요</span>
+          {sentence.isLiked ? <FaHeart /> : <FaRegHeart />}
+        </Button>
+      </SentenceCard>
+    </li>
   ));
 
   return (
@@ -49,6 +57,7 @@ const buttonStyle = css`
   display: flex;
   align-items: center;
   gap: 6px;
+
   span {
     font-size: 16px;
   }

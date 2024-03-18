@@ -1,8 +1,8 @@
 /** @jsxImportSource @emotion/react */
-
+import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
-import SentenceTextCard from './SentenceTextCard';
 import { mq } from '@/styles';
+import SentenceTextCard from './SentenceTextCard';
 
 type SentenceTextCardListProps = {
   sentences: Sentence[];
@@ -14,7 +14,9 @@ const SentenceTextCardList = ({ sentences }: SentenceTextCardListProps) => {
       {sentences.map((sentence: Sentence) => {
         return (
           <li key={sentence._id}>
-            <SentenceTextCard sentence={sentence} enableLink={true} />
+            <Link to={`/sentence/${sentence._id}`}>
+              <SentenceTextCard sentence={sentence} />
+            </Link>
           </li>
         );
       })}
@@ -29,6 +31,16 @@ const styles = css`
   li {
     flex-shrink: 0;
     max-width: 100%;
+
+    a {
+      cursor: pointer;
+    }
+
+    a:hover {
+      p {
+        text-decoration: underline;
+      }
+    }
   }
 
   ${mq.sm} {

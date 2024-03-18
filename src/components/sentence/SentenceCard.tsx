@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { blueGrey } from '@mui/material/colors';
 
-import { textOverflowHidden } from '@/styles';
+import { lineClamp, textOverflowHidden } from '@/styles';
 import UserInfo from '../common/UserInfo';
 
 type SentenceCardProps = {
@@ -16,7 +16,7 @@ type SentenceCardProps = {
 const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
   const { author, book, content, createdAt } = sentence;
   return (
-    <li
+    <div
       css={css`
         ${container};
         background-image: url(${book?.coverUrl});
@@ -40,14 +40,14 @@ const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
         </Link>
         <div className='children-container'>{children}</div>
       </div>
-    </li>
+    </div>
   );
 };
 
 const container = css`
+  overflow: hidden;
   border-radius: 8px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  overflow: hidden;
   background-size: cover;
   background-position: center center;
   background-repeat: no-repeat;
@@ -90,11 +90,7 @@ const container = css`
     }
 
     p {
-      display: -webkit-box;
-      -webkit-line-clamp: 3;
-      -webkit-box-orient: vertical;
-      overflow: hidden;
-      white-space: break-spaces;
+      ${lineClamp(3)}
       color: ${blueGrey[900]};
       font-size: 24px;
       font-weight: 500;
