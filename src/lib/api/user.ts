@@ -21,7 +21,6 @@ export type UserSentenceRequestParams = {
 export const getUserSentence = async (params: UserSentenceRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
-  console.log('userid', `/api/user/${userId}/sentence?=${query}`);
   return await axios.get<PaginationResult<Sentence>>(
     `/api/user/${userId}/sentence?=${query}`
   );

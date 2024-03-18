@@ -19,6 +19,7 @@ import NotFound from './common/NotFound';
 import SortButtons from './common/SortButtons';
 import Spinner from './common/Spinner';
 import UserInfo from './common/UserInfo';
+import LoginButton from './common/LoginButton';
 
 export {
   Header,
@@ -32,6 +33,7 @@ export {
   ErrorResult,
   NotFound,
   SortButtons,
+  LoginButton,
   // sentence
   SentenceCard,
   SentenceCardSkeleton,

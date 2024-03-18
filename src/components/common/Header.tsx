@@ -3,18 +3,16 @@ import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-import { loginWithGoogle } from '@/lib/api';
+import { useUserStore } from '@/store/user';
 import { useUserQuery } from '@/lib/hooks';
 import HeaderMenu from './HeaderMenu';
 import Logo from './Logo';
 import MaxWidthWrapper from './MaxWidthWrapper';
+import LoginButton from './LoginButton';
 
 const Header = () => {
-  const { data: currentUser, isLoading } = useUserQuery();
-
-  if (isLoading) {
-    return <></>;
-  }
+  const { user } = useUserStore((state) => state);
+  useUserQuery();
 
   return (
     <div css={headerStyle}>
@@ -22,17 +20,7 @@ const Header = () => {
         <Link to='/'>
           <Logo />
         </Link>
-        {currentUser ? (
-          <HeaderMenu user={currentUser} />
-        ) : (
-          <button onClick={loginWithGoogle} aria-label='continue with google'>
-            <img
-              src='/images/google-ctn.svg'
-              alt='continue with google'
-              aria-hidden='true'
-            />
-          </button>
-        )}
+        {user ? <HeaderMenu user={user} /> : <LoginButton />}
       </MaxWidthWrapper>
     </div>
   );

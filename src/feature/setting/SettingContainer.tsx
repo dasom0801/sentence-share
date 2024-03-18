@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { AlertDialog } from '@/components';
 import { logoutWithGoogle } from '@/lib/api';
-import { useUserQuery } from '@/lib/hooks';
+import { useUserStore } from '@/store/user';
 
 import {
   useRemoveProfileImage,
@@ -18,7 +18,7 @@ import SettingUserInfo from './SettingUserInfo';
 const SettingContainer = () => {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const { data: user } = useUserQuery();
+  const { user } = useUserStore((state) => state);
   const uploadProfileImage = useUploadProfileImage();
   const removeProfileImage = useRemoveProfileImage();
   const { mutate, isPending: loadingInfoUpdate } = useUpdateProfile();
@@ -46,7 +46,7 @@ const SettingContainer = () => {
     }
   };
 
-  return (
+  return user ? (
     <>
       <SettingUserImage
         user={user}
@@ -86,6 +86,8 @@ const SettingContainer = () => {
         handleConfirm={deleteUser}
       />
     </>
+  ) : (
+    <></>
   );
 };
 
