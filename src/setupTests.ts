@@ -17,3 +17,5 @@ afterAll(() => {
   server.close();
   vi.resetAllMocks();
 });
+
+vi.mock('zustand');
