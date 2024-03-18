@@ -7,7 +7,9 @@ const SentenceListSkeleton = ({ length = 12 }: { length?: number }) => {
   return (
     <ul css={gridContainer}>
       {Array.from({ length }).map((_, index) => (
-        <SentenceCardSkeleton key={index} />
+        <li key={index}>
+          <SentenceCardSkeleton />
+        </li>
       ))}
     </ul>
   );
