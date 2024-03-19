@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
 
 import { useLogout } from '@/lib/hooks';
@@ -10,6 +10,12 @@ import { useLogout } from '@/lib/hooks';
 type HeaderMenuProps = {
   user: User;
 };
+
+export const navigateMenus: { label: string; path: string }[] = [
+  { label: '내가 공유한 문장', path: '/my/sentence' },
+  { label: '내가 좋아한 문장', path: '/my/like' },
+  { label: '설정', path: '/my/setting' },
+];
 
 const HeaderMenu = ({ user }: HeaderMenuProps) => {
   const navigate = useNavigate();
@@ -39,9 +45,10 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
   return (
     <div css={styles}>
       <Button
+        component={Link}
         size='small'
         variant='outlined'
-        onClick={() => handleNavigate('/edit/sentence')}
+        to='/edit/sentence'
       >
         작성하기
       </Button>
@@ -74,13 +81,12 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
           'aria-labelledby': 'menu-button',
         }}
       >
-        <MenuItem onClick={() => handleNavigate('/my/sentence')}>
-          내가 공유한 문장
-        </MenuItem>
-        <MenuItem onClick={() => handleNavigate('/my/like')}>
-          내가 좋아한 문장
-        </MenuItem>
-        <MenuItem onClick={() => handleNavigate('/my/setting')}>설정</MenuItem>
+        {navigateMenus.map((menu) => (
+          <MenuItem key={menu.path} onClick={() => handleNavigate(menu.path)}>
+            {menu.label}
+          </MenuItem>
+        ))}
+
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </div>

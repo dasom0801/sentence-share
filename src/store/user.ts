@@ -1,6 +1,6 @@
 import { create } from 'zustand';
 
-type UserState = {
+export type UserState = {
   isLogin: boolean;
   user: User | null;
   setIsLogin: (isLogin: boolean) => void;
