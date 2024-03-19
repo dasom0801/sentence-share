@@ -3,7 +3,6 @@ import { screen } from '@testing-library/react';
 import { HttpResponse, http } from 'msw';
 
 import { server } from '@/setupTests';
-import { apiRoutes } from '@/constants';
 import { render } from '@/lib/test/render';
 import UserSentenceContainer from '../UserSentenceContainer';
 
@@ -19,7 +18,7 @@ vi.mock('react-router-dom', async () => {
 describe('작성한 문장이 없는 경우', () => {
   beforeEach(() => {
     server.use(
-      http.get(`*${apiRoutes.sentences}`, () => {
+      http.get(`*/api/user/:userId/sentence`, () => {
         return HttpResponse.json(
           {
             list: [],

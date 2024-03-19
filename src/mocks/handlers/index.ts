@@ -1,19 +1,24 @@
-import { apiRoutes } from '@/constants';
 import { DefaultBodyType, HttpResponse, StrictRequest, http } from 'msw';
-import { MockSentences } from '../data';
+import { MockSentences, MockSentence } from '../data';
 
 export const handlers = [
-  http.get(`*${apiRoutes.user}`, () => {
+  http.get(`*/api/user/me`, () => {
     // 로그인 하지 않은 상태
     return HttpResponse.json(null, { status: 200 });
   }),
 
-  http.get(`*${apiRoutes.sentences}`, ({ request }) => {
+  http.get(`*/api/user/:userId/sentence`, ({ request }) => {
     return HttpResponse.json(getPaginationData(request), { status: 200 });
   }),
 
   http.get(`*/api/book/1/sentences`, ({ request }) => {
     return HttpResponse.json(getPaginationData(request), { status: 200 });
+  }),
+
+  http.get(`*/api/sentence/1`, () => {
+    return HttpResponse.json({
+      ...MockSentence,
+    });
   }),
 ];
 

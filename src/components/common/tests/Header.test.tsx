@@ -4,7 +4,6 @@ import { HttpResponse, http } from 'msw';
 
 import { server } from '@/setupTests';
 import { MockUser } from '@/mocks/data';
-import { apiRoutes } from '@/constants';
 import { render } from '@/lib/test/render';
 import { useUserStore } from '@/store/user';
 import Header from '../Header';
@@ -37,7 +36,7 @@ describe('로그인하지 않은 경우', () => {
 describe('로그인한 경우', () => {
   beforeEach(async () => {
     server.use(
-      http.get(`*${apiRoutes.user}`, () => {
+      http.get(`*/api/user/me`, () => {
         return HttpResponse.json(MockUser, { status: 200 });
       })
     );
