@@ -1,8 +1,8 @@
-import { render } from '@/lib/test/render';
-import SentenceLikeCardList from '../SentenceLikeCardList';
-import { MockSentences } from '@/mocks/data';
-import { screen, within } from '@testing-library/react';
 import { Route, Routes } from 'react-router-dom';
+import { screen, within } from '@testing-library/react';
+import { render } from '@/lib/test/render';
+import { MockSentences } from '@/mocks/data';
+import SentenceLikeCardList from '../SentenceLikeCardList';
 
 const toggleLikeFn = vi.fn();
 const PAGE_LIMIT = 5;
