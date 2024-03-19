@@ -6,7 +6,7 @@ import { Avatar, colors } from '@mui/material';
 import { textOverflowHidden } from '@/styles';
 
 type UserInfoProps = {
-  user: User;
+  user: Partial<User>;
   className?: string;
 };
 
