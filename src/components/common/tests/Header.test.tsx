@@ -34,7 +34,7 @@ describe('로그인하지 않은 경우', () => {
 });
 
 describe('로그인한 경우', () => {
-  beforeEach(async () => {
+  beforeEach(() => {
     server.use(
       http.get(`*/api/user/me`, () => {
         return HttpResponse.json(MockUser, { status: 200 });

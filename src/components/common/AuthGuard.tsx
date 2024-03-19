@@ -7,7 +7,7 @@ import { useUserStore } from '@/store/user';
 import LoginButton from './LoginButton';
 
 const AuthGuard = () => {
-  const { isLogin } = useUserStore((state) => state);
+  const { isLogin } = useUserStore();
 
   if (isLogin) {
     return <Outlet />;

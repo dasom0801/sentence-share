@@ -1,29 +1,23 @@
 import { screen } from '@testing-library/react';
-import AuthGuard from '../AuthGuard';
-import * as hooks from '@/lib/hooks';
-import { UseQueryResult } from '@tanstack/react-query';
 import { render } from '@/lib/test/render';
+import { useUserStore } from '@/store/user';
+import AuthGuard from '../AuthGuard';
 
-const renderAuthGuard = () => {
+beforeEach(() => {
+  const state = useUserStore.getState();
+  useUserStore.setState({ ...state, isLogin: false, user: null });
+});
+
+test('사용자가 로그인하지 않은 상태면 로그인 버튼을 보여준다.', () => {
+  const { loginButton } = renderComponent();
+  expect(loginButton()).toBeInTheDocument();
+});
+
+const renderComponent = () => {
   render(<AuthGuard />);
-  const GoogleButton = () =>
+  const loginButton = () =>
     screen.queryByLabelText(/google/, {
       selector: 'button',
     });
-  return { GoogleButton };
+  return { loginButton };
 };
-
-describe('components > common > AuthGuard', () => {
-  const useUserQuerySpy = vi.spyOn(hooks, 'useUserQuery');
-
-  afterEach(() => {
-    useUserQuerySpy.mockClear();
-  });
-  test('사용자가 로그인하지 않은 상태면 로그인 버튼을 보여준다.', () => {
-    useUserQuerySpy.mockReturnValue({
-      data: undefined,
-    } as UseQueryResult<User>);
-    const { GoogleButton } = renderAuthGuard();
-    expect(GoogleButton()).toBeInTheDocument();
-  });
-});
