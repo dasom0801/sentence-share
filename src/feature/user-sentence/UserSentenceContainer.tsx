@@ -1,24 +1,18 @@
 /** @jsxImportSource @emotion/react */
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
-import { css } from '@emotion/react';
-import { Button, Pagination } from '@mui/material';
+import { Button } from '@mui/material';
 
-import {
-  AlertDialog,
-  NoResult,
-  SentenceCard,
-  SentenceListSkeleton,
-} from '@/components';
+import { NoResult, SentenceListSkeleton } from '@/components';
 import { usePagination } from '@/lib/hooks';
 import { useUserStore } from '@/store/user';
-import { gridContainer, pageTitle, pagination } from '@/styles';
+import { pageTitle } from '@/styles';
 import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
 import { useDeleteSentence } from './hooks/useDeleteSentence';
+import UserSentenceList from './UserSentenceList';
 
-const UserSentenceContainer = () => {
-  const [deleteTarget, setDeleteTarget] = useState<Sentence | null>(null);
-  const { page, setPage } = usePagination();
+const SENTENCE_PAGE_LIMIT = 24;
+const UserSentenceContainer = ({ limit = SENTENCE_PAGE_LIMIT }) => {
+  const { page } = usePagination();
   const { user } = useUserStore();
 
   const {
@@ -30,17 +24,10 @@ const UserSentenceContainer = () => {
   } = useUserSentenceQuery({
     userId: user?._id,
     category: 'sentence',
-    limit: 24,
+    limit,
     page,
   });
   const { mutate } = useDeleteSentence(refetch);
-
-  const handleDeleteSentence = () => {
-    if (deleteTarget) {
-      mutate(deleteTarget._id);
-      setDeleteTarget(null);
-    }
-  };
 
   if (isError) {
     throw error;
@@ -58,44 +45,10 @@ const UserSentenceContainer = () => {
       ) : (
         <>
           {!!sentences?.total ? (
-            <>
-              <ul css={gridContainer}>
-                {sentences?.list.map((sentence) => {
-                  return (
-                    <li key={sentence._id}>
-                      <SentenceCard sentence={sentence}>
-                        <div css={buttons}>
-                          <Button
-                            component={Link}
-                            to={`/edit/sentence/${sentence._id}`}
-                            color='secondary'
-                            size='large'
-                          >
-                            수정
-                          </Button>
-                          <Button
-                            variant='contained'
-                            color='secondary'
-                            size='large'
-                            onClick={() => setDeleteTarget(sentence)}
-                          >
-                            삭제
-                          </Button>
-                        </div>
-                      </SentenceCard>
-                    </li>
-                  );
-                })}
-              </ul>
-              <div css={pagination}>
-                <Pagination
-                  count={sentences?.pageTotal || 1}
-                  shape='rounded'
-                  page={page}
-                  onChange={(_, page) => setPage(page)}
-                />
-              </div>
-            </>
+            <UserSentenceList
+              sentences={sentences}
+              handleDelete={(sentence) => mutate(sentence._id)}
+            />
           ) : (
             <NoResult
               title='문장이 없습니다.'
@@ -108,22 +61,8 @@ const UserSentenceContainer = () => {
           )}
         </>
       )}
-      <AlertDialog
-        content='문장을 삭제하시겠습니까?'
-        open={!!deleteTarget}
-        handleClose={() => setDeleteTarget(null)}
-        handleConfirm={() => handleDeleteSentence()}
-      />
     </>
   );
 };
-
-const buttons = css`
-  display: flex;
-  > * {
-    flex: 1;
-    border-radius: 0;
-  }
-`;
 
 export default UserSentenceContainer;

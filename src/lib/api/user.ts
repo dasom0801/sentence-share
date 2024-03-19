@@ -22,7 +22,7 @@ export const getUserSentence = async (params: UserSentenceRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
   return await axios.get<PaginationResult<Sentence>>(
-    `/api/user/${userId}/sentence?=${query}`
+    `/api/user/${userId}/sentence?${query}`
   );
 };
 
@@ -31,6 +31,6 @@ export const getUserLike = async (params: UserLikeRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
   return await axios.get<PaginationResult<Sentence>>(
-    `/api/user/${userId}/like?=${query}`
+    `/api/user/${userId}/like?${query}`
   );
 };
