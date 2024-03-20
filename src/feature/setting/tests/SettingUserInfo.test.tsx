@@ -1,12 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
+import { screen, waitFor } from '@testing-library/react';
+import { MockUser } from '@/mocks/data';
+import { render } from '@/lib/test/render';
 import SettingUserInfo from '../SettingUserInfo';
-import { MockUser } from '../../../test-utils/index.mock';
 
 const renderComponent = () => {
   const onSubmit = vi.fn();
-  const user = userEvent.setup();
-  render(
+  const { user } = render(
     <SettingUserInfo loading={false} user={MockUser} onSubmit={onSubmit} />
   );
 

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import UserInfo from '../UserInfo';
-import { MockUser } from '@/test-utils/index.mock';
+import { MockUser } from '@/mocks/data';
 
 const meta = {
   title: 'common/UserInfo',

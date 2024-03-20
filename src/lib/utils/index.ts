@@ -1,7 +1,7 @@
 import { SortBy, SortOrder } from '@/types/enum';
 
 export const getBearerToken = () => {
-  const token = localStorage.getItem('token');
+  const token = localStorage.getItem('access_token');
   const authorization = token ? `Bearer ${token}` : null;
   return authorization;
 };

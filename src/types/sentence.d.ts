@@ -3,7 +3,7 @@ type Sentence = {
   content: string;
   likes: number;
   createdAt: string;
-  author: User;
+  author: Partial<User>;
   book?: Book;
   isLiked: boolean;
 };

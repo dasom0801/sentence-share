@@ -1,26 +1,34 @@
+/** @jsxImportSource @emotion/react */
 import { Outlet } from 'react-router-dom';
-import { loginWithGoogle } from '@/lib/api';
-import { useUserQuery } from '@/lib/hooks';
+import { css } from '@emotion/react';
+import { pageTitle } from '@/styles';
+import { useUserStore } from '@/store/user';
+
+import LoginButton from './LoginButton';
 
 const AuthGuard = () => {
-  const { data: currentUser, isLoading } = useUserQuery();
+  const { isLogin } = useUserStore();
 
-  if (isLoading) {
-    return <></>;
-  }
-
-  if (currentUser) {
+  if (isLogin) {
     return <Outlet />;
   } else {
     return (
-      <button onClick={loginWithGoogle} aria-label='continue with google'>
-        <img
-          src='/images/google-ctn.svg'
-          alt='continue with google'
-          aria-hidden='true'
-        />
-      </button>
+      <div css={styles}>
+        <h1>로그인 후 이용해주세요.</h1>
+        <LoginButton />;
+      </div>
     );
   }
 };
+
+const styles = css`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 300px;
+
+  h1 {
+    ${pageTitle};
+  }
+`;
 export default AuthGuard;

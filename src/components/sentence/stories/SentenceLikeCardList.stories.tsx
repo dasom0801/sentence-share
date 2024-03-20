@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { BrowserRouter } from 'react-router-dom';
 import SentenceLikeCardList from '../SentenceLikeCardList';
-import { MockSentence } from '../../../test-utils/index.mock';
+import { MockSentence } from '@/mocks/data';
 const meta = {
   title: 'sentence/SentenceLikeCardList',
   component: SentenceLikeCardList,

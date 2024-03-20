@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import SentencTextCard from '../SentenceTextCard';
-import { MockSentence } from '@/test-utils/index.mock';
+import { MockSentence } from '@/mocks/data';
 import { BrowserRouter } from 'react-router-dom';
 
 const meta = {

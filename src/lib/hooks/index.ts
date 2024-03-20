@@ -5,6 +5,8 @@ import useSentenceQuery from './useSentenceQuery';
 import useSort from './useSort';
 import useToggleSentenceLike from './useToggleSentenceLike';
 import useUserQuery from './useUserQuery';
+import useLogin from './useLogin';
+import useLogout from './useLogout';
 
 export {
   useUserQuery,
@@ -14,4 +16,6 @@ export {
   useSort,
   useScrollEnd,
   useToggleSentenceLike,
+  useLogin,
+  useLogout,
 };

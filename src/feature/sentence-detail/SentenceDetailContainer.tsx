@@ -7,7 +7,7 @@ import { Helmet } from 'react-helmet-async';
 import { BookInfoSection, MaxWidthWrapper, UserInfo } from '@/components';
 import { useSentenceQuery } from '@/lib/hooks';
 import { mq } from '@/styles';
-import SentenceRealtedContainer from './SentenceRealtedContainer';
+import SentenceRelatedContainer from './SentenceRelatedContainer';
 
 const SentenceDetailContainer = () => {
   const { id } = useParams();
@@ -43,7 +43,7 @@ const SentenceDetailContainer = () => {
             <p>{data.content}</p>
             <UserInfo className='user-info' user={data.author} />
 
-            <SentenceRealtedContainer book={data.book} />
+            <SentenceRelatedContainer book={data.book} />
           </MaxWidthWrapper>
         </div>
       </>
