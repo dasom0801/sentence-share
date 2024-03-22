@@ -36,6 +36,10 @@ jobs:
 
       - name: Run Test
         run: npm run test:no-watch
+        env:
+          VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
+          VITE_APP_FIREBASE_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}
+          VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
 
       - name: Build # React Build
         run: npm run build
