@@ -15,7 +15,7 @@
 
 ### 링크
 
-http://www.sentence-share.site.s3-website.ap-northeast-2.amazonaws.com
+https://www.sentence-share.site
 
 **Server Repositories**
 
