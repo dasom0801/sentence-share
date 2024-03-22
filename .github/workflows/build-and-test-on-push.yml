@@ -1,0 +1,35 @@
+name: Build abd Test on Push
+
+on:
+  push:
+    branches-ignore:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout srouce code
+        uses: actions/checkout@v4
+
+      - name: Cache node modules
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Run Test
+        run: npm run test:no-watch
+        env:
+          VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
+          VITE_APP_FIREBASE_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}
+          VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+
+      - name: Build
+        run: npm run build
