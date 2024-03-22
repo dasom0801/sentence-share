@@ -84,7 +84,7 @@ describe('로그인한 경우', () => {
       await clickProfileToOpenMenu();
       const logout = within(menu()).getByText('로그아웃');
       await user.click(logout);
-      const profileImage = screen.queryByRole('img', { name: MockUser.name });
+      const profileImage = screen.getByRole('img', { name: MockUser.name });
       const editButton = screen.queryByRole('link', { name: '작성하기' });
       expect(profileImage).not.toBeInTheDocument();
       expect(editButton).not.toBeInTheDocument();
