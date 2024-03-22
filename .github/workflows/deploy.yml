@@ -13,17 +13,18 @@ jobs:
         uses: actions/checkout@main
 
       # 환경변수 등록
-      - name: Generate Environment Variables File for Production
+      - name: Generate Environment Variables File
         run: |
-          echo "VITE_APP_BASE_URL=$VITE_APP_BASE_URL" >> .env.production
-          echo "VITE_APP_FIREBASE_API_KEY=$VITE_APP_FIREBASE_API_KEY" >> .env.production
-          echo "VITE_APP_FIREBASE_SENDER_ID=$VITE_APP_FIREBASE_SENDER_ID" >> .env.production
-          echo "VITE_APP_FIREBASE_APP_ID=$VITE_APP_FIREBASE_APP_ID" >> .env.production
-        env:
-          VITE_APP_BASE_URL: ${{ secrets.VITE_APP_BASE_URL }}
-          VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
-          VITE_APP_FIREBASE_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}
-          VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+          echo "VITE_APP_BASE_URL=${{ secrets.VITE_APP_BASE_URL }}" \
+          "VITE_APP_FIREBASE_API_KEY=${{ secrets.VITE_APP_FIREBASE_API_KEY }}" \
+          "VITE_APP_FIREBASE_SENDER_ID=${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}" \
+          "VITE_APP_FIREBASE_APP_ID=${{ secrets.VITE_APP_FIREBASE_APP_ID }}" \
+          >> .env.production
+
+          echo "VITE_APP_FIREBASE_API_KEY=${{ secrets.VITE_APP_FIREBASE_API_KEY }}" \
+          "VITE_APP_FIREBASE_SENDER_ID=${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}" \
+          "VITE_APP_FIREBASE_APP_ID=${{ secrets.VITE_APP_FIREBASE_APP_ID }}" \
+          >> .env.test
 
       - name: Cache node modules # node modules 캐싱
         uses: actions/cache@v1
