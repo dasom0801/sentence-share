@@ -8,6 +8,7 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production
     steps:
       - name: Checkout source code
         uses: actions/checkout@main
@@ -20,11 +21,6 @@ jobs:
           "VITE_APP_FIREBASE_SENDER_ID=${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}" \
           "VITE_APP_FIREBASE_APP_ID=${{ secrets.VITE_APP_FIREBASE_APP_ID }}" \
           >> .env.production
-
-          echo "VITE_APP_FIREBASE_API_KEY=${{ secrets.VITE_APP_FIREBASE_API_KEY }}" \
-          "VITE_APP_FIREBASE_SENDER_ID=${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}" \
-          "VITE_APP_FIREBASE_APP_ID=${{ secrets.VITE_APP_FIREBASE_APP_ID }}" \
-          >> .env.test
 
       - name: Cache node modules # node modules 캐싱
         uses: actions/cache@v1
