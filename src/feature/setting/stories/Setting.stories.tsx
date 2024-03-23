@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { BrowserRouter } from 'react-router-dom';
 
 import Setting from '../SettingPage';
+import { HelmetProvider } from 'react-helmet-async';
 
 const meta = {
   title: 'Setting/Setting',
@@ -23,7 +24,9 @@ export const Default: Story = {
   decorators: (Story) => (
     <QueryClientProvider client={client}>
       <BrowserRouter>
-        <Story />
+        <HelmetProvider>
+          <Story />
+        </HelmetProvider>
       </BrowserRouter>
     </QueryClientProvider>
   ),
