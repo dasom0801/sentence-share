@@ -1,6 +1,9 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
+import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { HelmetProvider } from 'react-helmet-async';
 import { GlobalStyles } from '../src/components';
 import { MUI_THEME } from '../src/constants';
 
@@ -17,14 +20,30 @@ const preview: Preview = {
     },
   },
   decorators: [
-    (Story) => (
-      <>
-        <ThemeProvider theme={muiTheme}>
-          <GlobalStyles />
-          <Story />
-        </ThemeProvider>
-      </>
-    ),
+    (Story) => {
+      const client = new QueryClient({
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      });
+
+      return (
+        <>
+          <QueryClientProvider client={client}>
+            <BrowserRouter>
+              <HelmetProvider>
+                <ThemeProvider theme={muiTheme}>
+                  <GlobalStyles />
+                  <Story />
+                </ThemeProvider>
+              </HelmetProvider>
+            </BrowserRouter>
+          </QueryClientProvider>
+        </>
+      );
+    },
   ],
 };
 

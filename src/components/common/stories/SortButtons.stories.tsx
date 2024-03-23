@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import SortButtons from '../SortButtons';
-import { BrowserRouter } from 'react-router-dom';
 
 const meta = {
   title: 'common/SortButtons',
@@ -10,13 +9,4 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-  args: {},
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
-};
+export const Default: Story = {};
