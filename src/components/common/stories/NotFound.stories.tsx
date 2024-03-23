@@ -1,6 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import NotFound from '../NotFound';
-import { BrowserRouter } from 'react-router-dom';
 
 const meta = {
   title: 'common/NotFound',
@@ -10,13 +9,4 @@ const meta = {
 
 export default meta;
 type Story = StoryObj<typeof meta>;
-export const Default: Story = {
-  args: {},
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
-};
+export const Default: Story = {};

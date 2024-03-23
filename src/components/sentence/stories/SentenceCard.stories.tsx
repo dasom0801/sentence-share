@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import SentenceCard from '../SentenceCard';
 import { MockSentence } from '@/mocks/data';
-import { BrowserRouter } from 'react-router-dom';
+import SentenceCard from '../SentenceCard';
+
 const meta = {
   title: 'sentence/SentenceCard',
   component: SentenceCard,
@@ -18,11 +18,9 @@ export const Default: Story = {
   },
   decorators: (Story) => {
     return (
-      <BrowserRouter>
-        <div style={{ width: '50%', listStyle: 'none' }}>
-          <Story />
-        </div>
-      </BrowserRouter>
+      <div style={{ width: '50%', listStyle: 'none' }}>
+        <Story />
+      </div>
     );
   },
 };

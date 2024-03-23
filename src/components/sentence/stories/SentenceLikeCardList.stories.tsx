@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { BrowserRouter } from 'react-router-dom';
-import SentenceLikeCardList from '../SentenceLikeCardList';
 import { MockSentence } from '@/mocks/data';
+import SentenceLikeCardList from '../SentenceLikeCardList';
+
 const meta = {
   title: 'sentence/SentenceLikeCardList',
   component: SentenceLikeCardList,
@@ -18,13 +18,6 @@ export const Default: Story = {
     })),
     onToggleLike: (id) => console.log(id),
   },
-  decorators: (Story) => {
-    return (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    );
-  },
 };
 
 export const Loading: Story = {
@@ -35,12 +28,5 @@ export const Loading: Story = {
     })),
     isLoading: true,
     onToggleLike: (id) => console.log(id),
-  },
-  decorators: (Story) => {
-    return (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    );
   },
 };

@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import SentenceTextCardList from '../SentenceTextCardList';
 import { MockSentence } from '@/mocks/data';
-import { BrowserRouter } from 'react-router-dom';
+import SentenceTextCardList from '../SentenceTextCardList';
 
 const meta = {
   title: 'SentenceDetail/SentenceTextCardList',
@@ -18,11 +17,4 @@ export const Default: Story = {
       _id: `${index}`,
     })),
   },
-  decorators: [
-    (Story) => (
-      <BrowserRouter>
-        <Story />
-      </BrowserRouter>
-    ),
-  ],
 };
