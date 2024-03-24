@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { createSelectors } from './util';
 
 export type UserState = {
   isLogin: boolean;
@@ -7,9 +8,11 @@ export type UserState = {
   setUser: (user: User | null) => void;
 };
 
-export const useUserStore = create<UserState>((set) => ({
+const useUserStoreBase = create<UserState>((set) => ({
   isLogin: !!localStorage.getItem('access_token'),
   user: null,
   setIsLogin: (isLogin: boolean) => set((state) => ({ ...state, isLogin })),
   setUser: (user) => set((state) => ({ ...state, user })),
 }));
+
+export const useUserStore = createSelectors(useUserStoreBase);

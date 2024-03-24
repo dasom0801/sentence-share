@@ -7,7 +7,8 @@ import { logoutWithGoogle } from '../api';
 const mutationFn = async () => await logoutWithGoogle();
 
 const useLogout = () => {
-  const { setUser, setIsLogin } = useUserStore();
+  const setUser = useUserStore.use.setUser();
+  const setIsLogin = useUserStore.use.setIsLogin();
   return useMutation({
     mutationKey: ['logout'],
     mutationFn,

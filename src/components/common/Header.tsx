@@ -11,7 +11,7 @@ import MaxWidthWrapper from './MaxWidthWrapper';
 import LoginButton from './LoginButton';
 
 const Header = () => {
-  const { user } = useUserStore((state) => state);
+  const user = useUserStore.use.user();
   useUserQuery();
 
   return (

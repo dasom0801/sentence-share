@@ -7,7 +7,8 @@ import { loginWithGoogle } from '../api';
 const mutationFn = async () => await loginWithGoogle();
 
 const useLogin = () => {
-  const { setUser, setIsLogin } = useUserStore((state) => state);
+  const setUser = useUserStore.use.setUser();
+  const setIsLogin = useUserStore.use.setIsLogin();
   return useMutation({
     mutationKey: ['/api/auth/google'],
     mutationFn,

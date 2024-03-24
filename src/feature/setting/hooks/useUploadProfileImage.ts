@@ -10,7 +10,7 @@ import { storage } from '@/lib/firebase.config';
 import { useUserStore } from '@/store/user';
 
 const useUploadProfileImage = () => {
-  const { user } = useUserStore();
+  const user = useUserStore.use.user();
 
   // 이미지 경로를 설정
   const getImageRef = ({

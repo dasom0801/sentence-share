@@ -12,7 +12,7 @@ import { useUserStore } from '@/store/user';
 const UserLikeContainer = () => {
   const queryClient = useQueryClient();
   const { page, setPage } = usePagination();
-  const { user } = useUserStore();
+  const user = useUserStore.use.user();
   const {
     data: likes,
     isLoading,

@@ -13,7 +13,7 @@ import UserSentenceList from './UserSentenceList';
 const SENTENCE_PAGE_LIMIT = 24;
 const UserSentenceContainer = ({ limit = SENTENCE_PAGE_LIMIT }) => {
   const { page } = usePagination();
-  const { user } = useUserStore();
+  const user = useUserStore.use.user();
 
   const {
     data: sentences,
