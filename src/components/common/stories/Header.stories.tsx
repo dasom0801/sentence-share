@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
+import { useUserStore } from '@/store/user';
+import { MockUser } from '@/mocks/data';
 import Header from '../Header';
 
 const meta = {
@@ -10,31 +11,22 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const LoggedOut: Story = {};
+export const LoggedOut: Story = {
+  decorators: [
+    (Story) => {
+      const state = useUserStore.getState();
+      useUserStore.setState({ ...state, isLogin: false, user: null });
+      return <Story />;
+    },
+  ],
+};
 
-// export const LoggedIn: Story = {
-//   parameters: {
-//     localStorage: {
-//       access_token: 'logged in',
-//     },
-//   },
-//   decorators: [
-//     (Story) => {
-//       const client = new QueryClient({
-//         defaultOptions: {
-//           queries: {
-//             retry: false,
-//           },
-//         },
-//       });
-
-//       return (
-//         <QueryClientProvider client={client}>
-//           <BrowserRouter>
-//             <Story />
-//           </BrowserRouter>
-//         </QueryClientProvider>
-//       );
-//     },
-//   ],
-// };
+export const LoggedIn: Story = {
+  decorators: [
+    (Story) => {
+      const state = useUserStore.getState();
+      useUserStore.setState({ ...state, isLogin: true, user: MockUser });
+      return <Story />;
+    },
+  ],
+};
