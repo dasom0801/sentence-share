@@ -18,7 +18,7 @@ import SettingUserInfo from './SettingUserInfo';
 const SettingContainer = () => {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState<boolean>(false);
-  const { user } = useUserStore((state) => state);
+  const user = useUserStore.use.user();
   const uploadProfileImage = useUploadProfileImage();
   const removeProfileImage = useRemoveProfileImage();
   const { mutate, isPending: loadingInfoUpdate } = useUpdateProfile();

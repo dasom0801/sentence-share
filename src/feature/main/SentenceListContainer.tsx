@@ -8,14 +8,14 @@ import { SentenceLikeCardList, SortButtons } from '@/components';
 import { pagination } from '@/styles';
 import { useSort, usePagination, useToggleSentenceLike } from '@/lib/hooks';
 
-import useSentencesQuery, {
-  queryKey as SentencseQueryKey,
-} from './hooks/useSentencesQuery';
 import { useUserStore } from '@/store/user';
+import useSentencesQuery, {
+  queryKey as SentencesQueryKey,
+} from './hooks/useSentencesQuery';
 
 const SentenceListContainer = () => {
   const queryClient = useQueryClient();
-  const { user } = useUserStore((state) => state);
+  const user = useUserStore.use.user();
   const { page, setPage } = usePagination();
   const { sort } = useSort();
   const { data, isLoading, isError, error } = useSentencesQuery({
@@ -23,7 +23,7 @@ const SentenceListContainer = () => {
     ...sort,
   });
   const updateLikeListAfterToggle = (sentence: Sentence) => {
-    const queryKey = SentencseQueryKey({
+    const queryKey = SentencesQueryKey({
       page,
       ...sort,
     });

@@ -11,7 +11,8 @@ const queryFn = async (callback: (user: User) => void) => {
 };
 
 const useUserQuery = () => {
-  const { isLogin, setUser } = useUserStore((state) => state);
+  const isLogin = useUserStore.use.isLogin();
+  const setUser = useUserStore.use.setUser();
   const onSuccess = (user: User) => {
     setUser(user);
   };

@@ -10,7 +10,7 @@ const mutationFn = async (userInfo: Record<string, any>) =>
   (await updateUser(userInfo)).data;
 
 export const useUpdateProfile = () => {
-  const { setUser } = useUserStore();
+  const setUser = useUserStore.use.setUser();
   return useMutation({
     mutationKey: MUTATION_KEY,
     mutationFn: (userInfo: Record<string, any>) => mutationFn(userInfo),
