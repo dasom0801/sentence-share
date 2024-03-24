@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-
+import { useUserStore } from '@/store/user';
+import { MockUser } from '@/mocks/data';
 import Setting from '../SettingPage';
 
 const meta = {
@@ -11,4 +12,12 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 
-export const Default: Story = {};
+export const Default: Story = {
+  decorators: [
+    (Story) => {
+      const state = useUserStore.getState();
+      useUserStore.setState({ ...state, isLogin: true, user: MockUser });
+      return <Story />;
+    },
+  ],
+};
