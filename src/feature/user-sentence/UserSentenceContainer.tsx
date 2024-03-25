@@ -6,8 +6,8 @@ import { NoResult, SentenceListSkeleton } from '@/components';
 import { usePagination } from '@/lib/hooks';
 import { useUserStore } from '@/store/user';
 import { pageTitle } from '@/styles';
-import { useUserSentenceQuery } from './hooks/useUserSentenceQuery';
 import { useDeleteSentence } from './hooks/useDeleteSentence';
+import { useUserSentences } from './hooks/useUserSentences';
 import UserSentenceList from './UserSentenceList';
 
 const SENTENCE_PAGE_LIMIT = 24;
@@ -21,9 +21,8 @@ const UserSentenceContainer = ({ limit = SENTENCE_PAGE_LIMIT }) => {
     isError,
     refetch,
     error,
-  } = useUserSentenceQuery({
+  } = useUserSentences({
     userId: user?._id,
-    category: 'sentence',
     limit,
     page,
   });
@@ -51,10 +50,10 @@ const UserSentenceContainer = ({ limit = SENTENCE_PAGE_LIMIT }) => {
             />
           ) : (
             <NoResult
-              title='문장이 없습니다.'
-              description='내가 좋아하는 책 속의 문장을 모두와 공유해보세요.'
+              title="문장이 없습니다."
+              description="내가 좋아하는 책 속의 문장을 모두와 공유해보세요."
             >
-              <Button component={Link} to='/edit/sentence' variant='contained'>
+              <Button component={Link} to="/edit/sentence" variant="contained">
                 작성하기
               </Button>
             </NoResult>

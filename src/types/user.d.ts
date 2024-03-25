@@ -5,6 +5,6 @@ type User = {
   provider: string;
   email: string;
   profileUrl: string;
-  likes?: Sentence[]; // TODO: Sentence[]
-  sentence?: Sentence[]; // TODO: Sentence[]
+  likes?: Sentence[];
+  sentence?: Sentence[];
 };

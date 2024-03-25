@@ -7,11 +7,10 @@ import { SortBy, SortOrder } from './enum';
 declare global {
   type FormControlData = Record<string, string>;
 
-  // server에서 기본값 설정했기 때문에 optional
-  type PageParams = {
+  interface PageParams {
     page?: string | number;
     limit?: string | number;
-  };
+  }
 
   type SortParams = {
     sortBy?: string;

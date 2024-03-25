@@ -9,7 +9,7 @@ export const getSentences = async (params: APIRequestParams) => {
 };
 
 export const toggleSentenceLike = async (id: string) => {
-  return await axios.put(`/api/sentence/${id}/like`);
+  return (await axios.put(`/api/sentence/${id}/like`)).data;
 };
 
 export const getSentence = async (id: string) => {
@@ -53,6 +53,6 @@ export type BookSearchParams = {
 
 export const searchBook = async ({ query, page = 1 }: BookSearchParams) => {
   return await axios.get(
-    `/api/sentence/search/book?query=${query}&page=${page}`
+    `/api/sentence/search/book?query=${query}&page=${page}`,
   );
 };

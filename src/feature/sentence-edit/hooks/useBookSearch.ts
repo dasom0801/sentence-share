@@ -16,7 +16,7 @@ const useBookSearchQuery = (query: string) => {
     queryFn: ({ pageParam }) => queryFn({ query, page: pageParam }),
     initialPageParam: 1,
     getNextPageParam: (result, allPages) =>
-      allPages.length < result.toal ? result.page + 1 : null,
+      allPages.length < result.total ? result.page + 1 : null,
     enabled: !!query.length,
   });
 };

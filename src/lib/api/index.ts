@@ -3,10 +3,9 @@ import {
   getUser,
   updateUser,
   getUserLike,
-  getUserSentence,
+  getUserSentences,
   deleteUser,
 } from './user';
-import type { UserLikeRequestParams, UserSentenceRequestParams } from './user';
 import {
   toggleSentenceLike,
   deleteSentence,
@@ -32,7 +31,7 @@ export {
   getUser,
   updateUser,
   getUserLike,
-  getUserSentence,
+  getUserSentences as getUserSentence,
   deleteUser,
   toggleSentenceLike,
   deleteSentence,
@@ -46,8 +45,6 @@ export {
 };
 
 export type {
-  UserLikeRequestParams,
-  UserSentenceRequestParams,
   BookSearchParams,
   CreateSentenceParams,
   UpdateSentenceParams,
