@@ -1,7 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
 import { useParams } from 'react-router-dom';
-import { useQueryClient } from '@tanstack/react-query';
 import { Pagination } from '@mui/material';
 import { css } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
@@ -17,11 +16,10 @@ import {
   usePagination,
   useToggleSentenceLike,
 } from '@/lib/hooks';
-import { queryKey as bookSentenceQueryKey } from '@/lib/hooks/useBookSentenceQuery';
+import { bookQueries } from '@/queries';
 import useBookDetailQuery from './hooks/useBookDetailQuery';
 
 const BookDetailContainer = () => {
-  const queryClient = useQueryClient();
   const { id } = useParams();
   const { page, setPage } = usePagination();
   const {
@@ -32,20 +30,11 @@ const BookDetailContainer = () => {
   } = useBookDetailQuery(id);
 
   const { data: sentences, isLoading: isSentenceLoading } =
-    useBookSentenceQuery({ id, page });
-  const updateLikeListAfterToggle = (sentence: Sentence) => {
-    const queryKey = bookSentenceQueryKey({ id, page });
-    queryClient.setQueryData(queryKey, (result: PaginationResult<Sentence>) => {
-      return {
-        ...result,
-        list: result.list?.map((liked) =>
-          liked._id === sentence._id ? sentence : liked
-        ),
-      };
-    });
-  };
+    useBookSentenceQuery({ bookId: id, page });
 
-  const { mutate } = useToggleSentenceLike(updateLikeListAfterToggle);
+  const { mutate } = useToggleSentenceLike({
+    updateQueryKey: bookQueries.sentenceList({ bookId: id, page }).queryKey,
+  });
 
   if (isError) {
     throw error;
@@ -66,7 +55,7 @@ const BookDetailContainer = () => {
         <Pagination
           css={pagination}
           count={sentences?.pageTotal || 1}
-          shape='rounded'
+          shape="rounded"
           page={page}
           onChange={(_, page) => setPage(page)}
         />

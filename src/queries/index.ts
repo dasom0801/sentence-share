@@ -1,7 +1,12 @@
 import { queryOptions } from '@tanstack/react-query';
 
-import { getUserLike, getUserSentence } from '@/lib/api';
-import { UserListRequestParams } from '@/lib/api/types';
+import {
+  getBook,
+  getBookSentence,
+  getUserLike,
+  getUserSentence,
+} from '@/lib/api';
+import { BookSentenceListParams, UserListRequestParams } from '@/lib/api/types';
 
 export const userQueries = {
   all: () => ['user'],
@@ -24,4 +29,21 @@ export const userQueries = {
 
 export const bookQueries = {
   all: () => ['books'],
+  details: () => [...bookQueries.all(), 'detail'],
+  detail: (params: Pick<BookSentenceListParams, 'bookId'>) =>
+    queryOptions({
+      queryKey: [...bookQueries.details(), params],
+      queryFn: () => getBook(params.bookId),
+      enabled: !!params.bookId,
+    }),
+  sentenceLists: (params: Pick<BookSentenceListParams, 'bookId'>) => [
+    ...bookQueries.detail(params).queryKey,
+    'sentence',
+  ],
+  sentenceList: (params: BookSentenceListParams) =>
+    queryOptions({
+      queryKey: [...bookQueries.sentenceLists(params), params],
+      queryFn: () => getBookSentence(params),
+      enabled: !!params.bookId,
+    }),
 };

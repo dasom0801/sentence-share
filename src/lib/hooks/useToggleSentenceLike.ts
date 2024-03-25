@@ -1,6 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { toggleSentenceLike } from '../api';
+import { AxiosError } from 'axios';
 
 const mutationFn = async (id: string) => await toggleSentenceLike(id);
 /**
@@ -24,7 +25,7 @@ const useToggleSentenceLike = (params: {
       toast.success(successMessage);
 
       if (updateQueryKey) {
-        queryClient.refetchQueries({
+        queryClient.invalidateQueries({
           queryKey: updateQueryKey,
         });
       }
@@ -33,7 +34,12 @@ const useToggleSentenceLike = (params: {
         onSuccess(sentence);
       }
     },
-    onError: () => {
+    onError: (error) => {
+      if (error instanceof AxiosError) {
+        if (error.response?.statusText === 'Unauthorized') {
+          return toast.error('로그인 후 이용해주세요.');
+        }
+      }
       toast.error('문제가 발생했습니다. 다시 시도해주세요.');
     },
   });

@@ -1,18 +1,17 @@
 import queryString from 'query-string';
 import axios from './api';
+import { BookSentenceListParams } from './types';
 
-export const getBook = async (id: string) => {
-  return (await axios.get<Book>(`/api/book/${id}`)).data;
+export const getBook = async (bookId?: string) => {
+  return (await axios.get<Book>(`/api/book/${bookId}`)).data;
 };
 
-export type GetBookSentenceParams = {
-  id?: string;
-} & PageParams;
-
-export const getBookSentence = async (params: GetBookSentenceParams) => {
-  const { id, ...rest } = params;
+export const getBookSentence = async (params: BookSentenceListParams) => {
+  const { bookId, ...rest } = params;
   const query = queryString.stringify(rest);
-  return await axios.get<PaginationResult<Sentence>>(
-    `/api/book/${id}/sentences?${query}`
-  );
+  return (
+    await axios.get<PaginationResult<Sentence>>(
+      `/api/book/${bookId}/sentences?${query}`,
+    )
+  ).data;
 };
