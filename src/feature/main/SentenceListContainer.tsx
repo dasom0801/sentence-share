@@ -7,23 +7,17 @@ import { SentenceLikeCardList, SortButtons } from '@/components';
 import { pagination } from '@/styles';
 import { useSort, usePagination, useToggleSentenceLike } from '@/lib/hooks';
 import { useUserStore } from '@/store/user';
-import useSentencesQuery, {
-  queryKey as SentencesQueryKey,
-} from './hooks/useSentencesQuery';
+import { sentenceQueries } from '@/queries';
+import useSentencesQuery from './hooks/useSentencesQuery';
 
 const SentenceListContainer = () => {
   const user = useUserStore.use.user();
   const { page, setPage } = usePagination();
   const { sort } = useSort();
-  const { data, isLoading, isError, error } = useSentencesQuery({
-    page,
-    ...sort,
-  });
+  const params = { page, ...sort };
+  const { data, isLoading, isError, error } = useSentencesQuery(params);
   const { mutate } = useToggleSentenceLike({
-    updateQueryKey: SentencesQueryKey({
-      page,
-      ...sort,
-    }),
+    updateQueryKey: sentenceQueries.list(params).queryKey,
   });
 
   const handleToggleLike = (id: string) => {

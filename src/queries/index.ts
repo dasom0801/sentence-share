@@ -1,16 +1,33 @@
-import { queryOptions } from '@tanstack/react-query';
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 
 import {
   getBook,
   getBookSentence,
+  getSentence,
+  getSentences,
+  getUser,
   getUserLike,
   getUserSentence,
+  searchBook,
 } from '@/lib/api';
-import { BookSentenceListParams, UserListRequestParams } from '@/lib/api/types';
+import {
+  BookSentenceListParams,
+  SentenceDetailParams,
+  UserListRequestParams,
+} from '@/lib/api/types';
 
 export const userQueries = {
   all: () => ['user'],
-  me: () => [...userQueries.all(), 'me'],
+  me: ({ onSuccess }: { onSuccess: (user: User) => void }) =>
+    queryOptions({
+      queryKey: [...userQueries.all(), 'me'],
+      queryFn: async () => {
+        const user = await getUser();
+        onSuccess(user);
+        return user;
+      },
+      enabled: !!localStorage.getItem('access_token'),
+    }),
   sentenceLists: () => [...userQueries.all(), 'sentence'],
   sentenceList: (params: UserListRequestParams) =>
     queryOptions({
@@ -45,5 +62,31 @@ export const bookQueries = {
       queryKey: [...bookQueries.sentenceLists(params), params],
       queryFn: () => getBookSentence(params),
       enabled: !!params.bookId,
+    }),
+};
+
+export const sentenceQueries = {
+  all: () => ['sentences'],
+  lists: () => [...sentenceQueries.all(), 'list'],
+  list: (params: APIRequestParams) =>
+    queryOptions({
+      queryKey: [...sentenceQueries.lists(), params],
+      queryFn: () => getSentences(params),
+    }),
+  details: () => [...sentenceQueries.all(), 'detail'],
+  detail: (params: SentenceDetailParams) =>
+    queryOptions({
+      queryKey: [...sentenceQueries.details(), params],
+      queryFn: () => getSentence(params),
+      enabled: !!params.sentenceId,
+    }),
+  bookSearch: (query: string) =>
+    infiniteQueryOptions({
+      queryKey: [...sentenceQueries.all(), 'book', 'search'],
+      queryFn: ({ pageParam }) => searchBook({ query, page: pageParam }),
+      initialPageParam: 1,
+      getNextPageParam: (result, allPages) =>
+        allPages.length < result.total ? result.page + 1 : null,
+      enabled: !!query.length,
     }),
 };

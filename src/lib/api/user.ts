@@ -3,7 +3,7 @@ import axios from './api';
 import { UserListRequestParams } from './types';
 
 export const getUser = async () => {
-  return await axios.get<User>('/api/user/me');
+  return (await axios.get<User>('/api/user/me')).data;
 };
 
 export const updateUser = async (data: Record<string, any>) => {

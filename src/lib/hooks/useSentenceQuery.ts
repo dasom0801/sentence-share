@@ -1,20 +1,8 @@
-import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
-import { getSentence } from '../api';
+import { useQuery } from '@tanstack/react-query';
+import { sentenceQueries } from '@/queries';
 
-const queryKey = (id: string | undefined): string[] =>
-  id ? ['/api/sentence', id] : [];
-
-const queryFn = async ({ queryKey }: QueryFunctionContext) => {
-  const [, id] = queryKey as string[];
-  return (await getSentence(id)).data;
-};
-
-const useSentenceQuery = (id: string | undefined) => {
-  return useQuery({
-    queryKey: queryKey(id),
-    queryFn,
-    enabled: !!id,
-  });
+const useSentenceQuery = (sentenceId?: string) => {
+  return useQuery(sentenceQueries.detail({ sentenceId }));
 };
 
 export default useSentenceQuery;

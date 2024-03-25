@@ -1,5 +1,6 @@
 import queryString from 'query-string';
 import axios from './api';
+import { BookSearchParams, SentenceDetailParams } from './types';
 
 export const getSentences = async (params: APIRequestParams) => {
   params.limit = params.limit ?? 12;
@@ -12,8 +13,9 @@ export const toggleSentenceLike = async (id: string) => {
   return (await axios.put(`/api/sentence/${id}/like`)).data;
 };
 
-export const getSentence = async (id: string) => {
-  return await axios.get<Sentence>(`/api/sentence/${id}`);
+export const getSentence = async (params: SentenceDetailParams) => {
+  const { sentenceId } = params;
+  return (await axios.get<Sentence>(`/api/sentence/${sentenceId}`)).data;
 };
 
 export const deleteSentence = async (id: string) => {
@@ -46,13 +48,8 @@ export const updateSentence = async ({
   });
 };
 
-export type BookSearchParams = {
-  query: string;
-  page: number;
-};
-
 export const searchBook = async ({ query, page = 1 }: BookSearchParams) => {
-  return await axios.get(
-    `/api/sentence/search/book?query=${query}&page=${page}`,
-  );
+  return (
+    await axios.get(`/api/sentence/search/book?query=${query}&page=${page}`)
+  ).data;
 };

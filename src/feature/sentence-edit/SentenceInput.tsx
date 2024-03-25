@@ -28,20 +28,12 @@ const SentenceInput = ({
   const [showError, setShowError] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const { mutate: createSentence, isPending: isCreatePending } =
-    useCreateSentence({
-      onSuccess: (sentence) => {
-        navigate(`/sentence/${sentence._id}`);
-      },
-    });
+    useCreateSentence();
 
   const { mutate: updateSentence, isPending: isUpdatePending } =
-    useUpdateSentence({
-      onSuccess: (sentence) => {
-        navigate(`/sentence/${sentence._id}`);
-      },
-    });
+    useUpdateSentence();
 
-  const handleCancle = () => {
+  const handleCancel = () => {
     navigate(-1);
   };
 
@@ -74,10 +66,10 @@ const SentenceInput = ({
         <div css={bookStyles}>
           <BookInfoSection book={book}>
             <Button
-              className=''
-              variant='contained'
-              color='secondary'
-              size='small'
+              className=""
+              variant="contained"
+              color="secondary"
+              size="small"
               onClick={handleChangeActive}
             >
               다시 선택하기
@@ -88,9 +80,9 @@ const SentenceInput = ({
 
       <MaxWidthWrapper styles={styles}>
         <TextField
-          className='textarea'
+          className="textarea"
           multiline
-          placeholder='내용을 입력해주세요.'
+          placeholder="내용을 입력해주세요."
           value={content}
           rows={4}
           onChange={(e) => setContent(e.target.value)}
@@ -98,20 +90,20 @@ const SentenceInput = ({
           color={showError ? 'error' : 'primary'}
         />
         {showError && (
-          <span className='error-text'>다섯 글자 이상 입력해 주세요. </span>
+          <span className="error-text">다섯 글자 이상 입력해 주세요. </span>
         )}
 
-        <div className='actions'>
+        <div className="actions">
           <Button
-            variant='outlined'
-            color='secondary'
+            variant="outlined"
+            color="secondary"
             disabled={isCreatePending || isUpdatePending}
-            onClick={handleCancle}
+            onClick={handleCancel}
           >
             취소
           </Button>
           <Button
-            variant='contained'
+            variant="contained"
             disabled={isCreatePending || isUpdatePending}
             onClick={() => setShowAlert(true)}
           >

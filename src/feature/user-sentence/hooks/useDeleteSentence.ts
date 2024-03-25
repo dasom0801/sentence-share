@@ -16,7 +16,7 @@ export const useDeleteSentence = (onSuccess?: () => void) => {
       toast.success('문장을 삭제했습니다.');
       if (typeof onSuccess === 'function') {
         onSuccess();
-        queryClient.refetchQueries({
+        queryClient.invalidateQueries({
           queryKey: userQueries.sentenceLists(),
         });
       }
