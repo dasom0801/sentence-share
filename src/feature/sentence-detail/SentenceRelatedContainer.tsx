@@ -15,7 +15,12 @@ export const RELATED_LIST_LIMIT = 6;
 
 const SentenceRelatedContainer = ({ book }: SentenceDetailRelatedList) => {
   const { id } = useParams();
-  const { data } = useBookSentenceQuery({ id: book._id, limit: 7 });
+  const { data } = useBookSentenceQuery({
+    bookId: book._id,
+    limit: RELATED_LIST_LIMIT + 1,
+  });
+
+  // 현재 화면의 문장은 제거한 목록을 만들어준다.
   const excludeCurrentSentenceList: Sentence[] | undefined = data?.list
     .filter(({ _id }) => id !== _id)
     .slice(0, RELATED_LIST_LIMIT);

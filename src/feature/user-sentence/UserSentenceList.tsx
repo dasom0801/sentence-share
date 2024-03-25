@@ -1,11 +1,11 @@
 /** @jsxImportSource @emotion/react */
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { Button, Pagination, css } from '@mui/material';
 
 import { AlertDialog, SentenceCard } from '@/components';
 import { usePagination } from '@/lib/hooks';
 import { gridContainer, pagination } from '@/styles';
-import { Button, Pagination, css } from '@mui/material';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
 
 type UserSentenceListProps = {
   sentences: PaginationResult<Sentence>;
@@ -36,16 +36,16 @@ const UserSentenceList = ({
                   <Button
                     component={Link}
                     to={`/edit/sentence/${sentence._id}`}
-                    color='secondary'
-                    size='large'
+                    color="secondary"
+                    size="large"
                     sx={{ borderRadius: 0 }}
                   >
                     수정
                   </Button>
                   <Button
-                    variant='contained'
-                    color='secondary'
-                    size='large'
+                    variant="contained"
+                    color="secondary"
+                    size="large"
                     sx={{ borderRadius: 0 }}
                     onClick={() => setDeleteTarget(sentence)}
                   >
@@ -60,13 +60,13 @@ const UserSentenceList = ({
       <div css={pagination}>
         <Pagination
           count={sentences?.pageTotal || 1}
-          shape='rounded'
+          shape="rounded"
           page={page}
           onChange={(_, page) => setPage(page)}
         />
       </div>
       <AlertDialog
-        content='문장을 삭제하시겠습니까?'
+        content="문장을 삭제하시겠습니까?"
         open={!!deleteTarget}
         handleClose={() => setDeleteTarget(null)}
         handleConfirm={() => handleDeleteSentence()}

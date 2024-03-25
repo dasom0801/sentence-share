@@ -1,23 +1,8 @@
-import { QueryFunctionContext, useQuery } from '@tanstack/react-query';
-import { getSentences } from '@/lib/api';
-
-export const queryKey = (
-  params: APIRequestParams
-): [string, APIRequestParams] => ['/api/sentence', params];
-const queryFn = async (
-  contenxt: QueryFunctionContext<[string, APIRequestParams]>
-) => {
-  const {
-    queryKey: [_, params],
-  } = contenxt;
-  return await getSentences(params);
-};
+import { useQuery } from '@tanstack/react-query';
+import { sentenceQueries } from '@/queries';
 
 const useSentencesQuery = (params: APIRequestParams) => {
-  return useQuery({
-    queryKey: queryKey(params),
-    queryFn,
-  });
+  return useQuery(sentenceQueries.list(params));
 };
 
 export default useSentencesQuery;

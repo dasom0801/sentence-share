@@ -1,5 +1,4 @@
 /** @jsxImportSource @emotion/react */
-import { useQueryClient } from '@tanstack/react-query';
 import toast from 'react-hot-toast';
 import { Pagination } from '@mui/material';
 import { css } from '@emotion/react';
@@ -7,36 +6,19 @@ import { css } from '@emotion/react';
 import { SentenceLikeCardList, SortButtons } from '@/components';
 import { pagination } from '@/styles';
 import { useSort, usePagination, useToggleSentenceLike } from '@/lib/hooks';
-
 import { useUserStore } from '@/store/user';
-import useSentencesQuery, {
-  queryKey as SentencesQueryKey,
-} from './hooks/useSentencesQuery';
+import { sentenceQueries } from '@/queries';
+import useSentencesQuery from './hooks/useSentencesQuery';
 
 const SentenceListContainer = () => {
-  const queryClient = useQueryClient();
   const user = useUserStore.use.user();
   const { page, setPage } = usePagination();
   const { sort } = useSort();
-  const { data, isLoading, isError, error } = useSentencesQuery({
-    page,
-    ...sort,
+  const params = { page, ...sort };
+  const { data, isLoading, isError, error } = useSentencesQuery(params);
+  const { mutate } = useToggleSentenceLike({
+    updateQueryKey: sentenceQueries.list(params).queryKey,
   });
-  const updateLikeListAfterToggle = (sentence: Sentence) => {
-    const queryKey = SentencesQueryKey({
-      page,
-      ...sort,
-    });
-    queryClient.setQueryData(queryKey, (result: PaginationResult<Sentence>) => {
-      return {
-        ...result,
-        list: result.list?.map((liked) =>
-          liked._id === sentence._id ? sentence : liked
-        ),
-      };
-    });
-  };
-  const { mutate } = useToggleSentenceLike(updateLikeListAfterToggle);
 
   const handleToggleLike = (id: string) => {
     if (!user) {
@@ -64,7 +46,7 @@ const SentenceListContainer = () => {
       <Pagination
         css={pagination}
         count={data?.pageTotal || 1}
-        shape='rounded'
+        shape="rounded"
         page={page}
         onChange={(_, page) => setPage(page)}
       />

@@ -1,27 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
 import { useUserStore } from '@/store/user';
-import { getUser } from '../api';
-
-export const QUERY_KEY = ['[GET]/api/user/me'];
-
-const queryFn = async (callback: (user: User) => void) => {
-  const user = (await getUser()).data;
-  callback(user);
-  return user;
-};
+import { userQueries } from '@/queries';
 
 const useUserQuery = () => {
-  const isLogin = useUserStore.use.isLogin();
   const setUser = useUserStore.use.setUser();
   const onSuccess = (user: User) => {
     setUser(user);
   };
 
-  return useQuery({
-    queryKey: QUERY_KEY,
-    queryFn: () => queryFn(onSuccess),
-    enabled: !!isLogin,
-  });
+  return useQuery(userQueries.me({ onSuccess }));
 };
 
 export default useUserQuery;
