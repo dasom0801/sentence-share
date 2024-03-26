@@ -50,6 +50,7 @@ const BookDetailContainer = () => {
         <SentenceLikeCardList
           list={sentences?.list}
           isLoading={isSentenceLoading}
+          showBook={false}
           onToggleLike={mutate}
         />
         <Pagination
