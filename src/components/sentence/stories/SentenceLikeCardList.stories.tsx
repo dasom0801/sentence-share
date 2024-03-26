@@ -30,3 +30,15 @@ export const Loading: Story = {
     onToggleLike: (id) => console.log(id),
   },
 };
+
+export const HideBook: Story = {
+  args: {
+    list: Array.from({ length: 12 }).map((_, index) => ({
+      ...MockSentence,
+      _id: `${index}`,
+    })),
+    isLoading: false,
+    showBook: false,
+    onToggleLike: (id) => console.log(id),
+  },
+};

@@ -24,3 +24,19 @@ export const Default: Story = {
     );
   },
 };
+
+export const HideBook: Story = {
+  args: {
+    sentence: {
+      ...MockSentence,
+    },
+    showBook: false,
+  },
+  decorators: (Story) => {
+    return (
+      <div style={{ width: '50%', listStyle: 'none' }}>
+        <Story />
+      </div>
+    );
+  },
+};

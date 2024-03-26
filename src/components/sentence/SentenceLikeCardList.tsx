@@ -11,6 +11,7 @@ import SentenceCardSkeleton from './SentenceCardSkeleton';
 type SentenceCardListParams = {
   list: Sentence[] | undefined;
   isLoading?: boolean;
+  showBook?: boolean;
   skeletonLength?: number;
   onToggleLike: (id: string) => void;
 };
@@ -18,11 +19,12 @@ type SentenceCardListParams = {
 const SentenceLikeCardList = ({
   list,
   isLoading,
+  showBook = true,
   skeletonLength = 12,
   onToggleLike,
 }: SentenceCardListParams) => {
   const skeletonList = Array.from({ length: skeletonLength }).map(
-    (_, index) => <SentenceCardSkeleton key={index} />
+    (_, index) => <SentenceCardSkeleton key={index} />,
   );
   const sentenceList = list?.map((sentence) => (
     <li
@@ -31,11 +33,11 @@ const SentenceLikeCardList = ({
         min-width: 0;
       `}
     >
-      <SentenceCard sentence={sentence}>
+      <SentenceCard sentence={sentence} showBook={showBook}>
         <Button
           css={buttonStyle}
-          size='large'
-          color='secondary'
+          size="large"
+          color="secondary"
           fullWidth={true}
           onClick={() => onToggleLike(sentence._id)}
         >

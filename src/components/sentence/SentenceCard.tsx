@@ -10,10 +10,15 @@ import UserInfo from '../common/UserInfo';
 
 type SentenceCardProps = {
   sentence: Sentence;
+  showBook?: boolean;
   children?: ReactNode;
 };
 
-const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
+const SentenceCard = ({
+  sentence,
+  showBook = true,
+  children,
+}: SentenceCardProps) => {
   const { author, book, content, createdAt } = sentence;
   return (
     <div
@@ -22,23 +27,26 @@ const SentenceCard = ({ sentence, children }: SentenceCardProps) => {
         background-image: url(${book?.coverUrl});
       `}
     >
-      <div className='backdrop'>
-        <div className='header'>
+      <div className="backdrop">
+        <div className="header">
           <UserInfo user={author} />
           <time>{createdAt.split('T')[0]}</time>
         </div>
 
-        <Link className='sentence' to={`/sentence/${sentence?._id}`}>
+        <Link className="sentence" to={`/sentence/${sentence?._id}`}>
           <p>{content}</p>
         </Link>
-        <Link className='book-info' to={`/book/${book?._id}`}>
-          <div>
-            <div className='title'>{book?.title}</div>
-            <div>{book?.author.join(',')}</div>
-          </div>
-          <img src={book?.coverUrl} alt={book?.title} />
-        </Link>
-        <div className='children-container'>{children}</div>
+        {showBook && (
+          <Link className="book-info" to={`/book/${book?._id}`}>
+            <div>
+              <div className="title">{book?.title}</div>
+              <div>{book?.author.join(',')}</div>
+            </div>
+            <img src={book?.coverUrl} alt={book?.title} />
+          </Link>
+        )}
+
+        <div className="children-container">{children}</div>
       </div>
     </div>
   );
