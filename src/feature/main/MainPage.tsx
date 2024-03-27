@@ -4,7 +4,7 @@ import { css } from '@emotion/react';
 import { MaxWidthWrapper } from '@/components';
 import SentenceListContainer from './SentenceListContainer';
 
-const MainPage = () => {
+const MainPage: React.FC = () => {
   return (
     <main css={styles}>
       <MaxWidthWrapper>

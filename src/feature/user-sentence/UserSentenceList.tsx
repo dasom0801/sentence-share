@@ -12,10 +12,10 @@ type UserSentenceListProps = {
   handleDelete: (sentence: Sentence) => void;
 };
 
-const UserSentenceList = ({
+const UserSentenceList: React.FC<UserSentenceListProps> = ({
   sentences,
   handleDelete,
-}: UserSentenceListProps) => {
+}) => {
   const { page, setPage } = usePagination();
   const [deleteTarget, setDeleteTarget] = useState<Sentence | null>(null);
   const handleDeleteSentence = () => {

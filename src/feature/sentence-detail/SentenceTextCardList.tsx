@@ -8,7 +8,9 @@ type SentenceTextCardListProps = {
   sentences: Sentence[];
 };
 
-const SentenceTextCardList = ({ sentences }: SentenceTextCardListProps) => {
+const SentenceTextCardList: React.FC<SentenceTextCardListProps> = ({
+  sentences,
+}) => {
   return (
     <ul css={styles}>
       {sentences.map((sentence: Sentence) => {

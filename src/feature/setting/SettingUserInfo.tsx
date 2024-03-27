@@ -10,11 +10,11 @@ type ProfileInfoEditProp = {
   onSubmit: (data: FormControlData) => void;
 };
 
-const SettingUserInfo = ({
+const SettingUserInfo: React.FC<ProfileInfoEditProp> = ({
   user,
   loading = false,
   onSubmit,
-}: ProfileInfoEditProp) => {
+}) => {
   const [name, setName] = useState<string>(user?.name || '');
   const [error, setError] = useState<string>('');
 
@@ -42,19 +42,19 @@ const SettingUserInfo = ({
     <form css={styles} onSubmit={(e) => handleFormSubmit(e)}>
       <TextField
         color={error ? 'error' : 'secondary'}
-        size='medium'
-        label='이름'
-        name='name'
+        size="medium"
+        label="이름"
+        name="name"
         value={name}
         onChange={(e) => handleChange(e.target.value)}
         onBlur={(e) => validateForm(e.target.value)}
       />
       {error && <FormHelperText>값을 입력해주세요.</FormHelperText>}
       <Button
-        size='large'
-        variant='contained'
-        color='primary'
-        type='submit'
+        size="large"
+        variant="contained"
+        color="primary"
+        type="submit"
         disabled={loading || !!error}
       >
         저장

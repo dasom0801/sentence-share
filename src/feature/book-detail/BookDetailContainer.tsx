@@ -19,7 +19,7 @@ import {
 import { bookQueries } from '@/queries';
 import useBookDetailQuery from './hooks/useBookDetailQuery';
 
-const BookDetailContainer = () => {
+const BookDetailContainer: React.FC = () => {
   const { id } = useParams();
   const { page, setPage } = usePagination();
   const {

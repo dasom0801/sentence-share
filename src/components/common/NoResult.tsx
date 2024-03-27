@@ -1,27 +1,26 @@
 /** @jsxImportSource @emotion/react */
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 import { TbZoomQuestion } from 'react-icons/tb';
 
-type NoResultProps = {
+type NoResultProps = PropsWithChildren<{
   title?: string;
   description?: string;
-  children?: ReactNode;
-};
+}>;
 
-const NoResult = ({
+const NoResult: React.FC<NoResultProps> = ({
   title = '결과가 없습니다.',
   description,
   children,
-}: NoResultProps) => {
+}) => {
   return (
     <div css={styles}>
       <TbZoomQuestion />
-      <div className='title'>{title}</div>
-      {description && <div className='description'>{description}</div>}
+      <div className="title">{title}</div>
+      {description && <div className="description">{description}</div>}
 
-      {children && <div className='actions'>{children}</div>}
+      {children && <div className="actions">{children}</div>}
     </div>
   );
 };

@@ -5,7 +5,7 @@ import { Helmet } from 'react-helmet-async';
 import { MaxWidthWrapper } from '@/components';
 import UserSentenceContainer from './UserSentenceContainer';
 
-const MySentencePage = () => {
+const MySentencePage: React.FC = () => {
   return (
     <main css={styles}>
       <Helmet>

@@ -15,7 +15,7 @@ import {
 import SettingUserImage from './SettingUserImage';
 import SettingUserInfo from './SettingUserInfo';
 
-const SettingContainer = () => {
+const SettingContainer: React.FC = () => {
   const navigate = useNavigate();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const user = useUserStore.use.user();
@@ -61,18 +61,18 @@ const SettingContainer = () => {
       />
       <Divider />
       <Button
-        size='large'
-        variant='contained'
-        color='secondary'
+        size="large"
+        variant="contained"
+        color="secondary"
         onClick={handleLogout}
       >
         로그아웃
       </Button>
 
       <Button
-        size='large'
-        variant='contained'
-        color='error'
+        size="large"
+        variant="contained"
+        color="error"
         disabled={pendingDeleteUser}
         onClick={() => setShowAlert(true)}
       >
@@ -80,8 +80,8 @@ const SettingContainer = () => {
       </Button>
       <AlertDialog
         open={showAlert}
-        content='탈퇴하시겠습니까?'
-        confirmLabel='탈퇴'
+        content="탈퇴하시겠습니까?"
+        confirmLabel="탈퇴"
         handleClose={() => setShowAlert(false)}
         handleConfirm={deleteUser}
       />

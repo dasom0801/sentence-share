@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { MaxWidthWrapper } from '@/components';
 import UserLikeContainer from './UserLikeContainer';
 
-const MyLikePage = () => {
+const MyLikePage: React.FC = () => {
   return (
     <main css={styles}>
       <Helmet>

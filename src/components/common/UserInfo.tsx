@@ -10,7 +10,7 @@ type UserInfoProps = {
   className?: string;
 };
 
-const UserInfo = ({ user, className }: UserInfoProps) => {
+const UserInfo: React.FC<UserInfoProps> = ({ user, className }) => {
   return (
     <div className={className} css={styles}>
       <Avatar
@@ -18,7 +18,7 @@ const UserInfo = ({ user, className }: UserInfoProps) => {
         alt={user.name}
         src={user.profileUrl || '/images/blank-profile.png'}
       />
-      <div className='name'>{user.name}</div>
+      <div className="name">{user.name}</div>
     </div>
   );
 };

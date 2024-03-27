@@ -3,19 +3,19 @@
 import { Skeleton } from '@mui/material';
 import { css } from '@emotion/react';
 
-const SentenceCardSkeleton = () => {
+const SentenceCardSkeleton: React.FC = () => {
   return (
     <div css={styles}>
-      <div className='backdrop'>
-        <div className='header'>
-          <Skeleton variant='circular' width={30} height={30} />
-          <Skeleton variant='text' width='40%' sx={{ fontSize: '16px' }} />
+      <div className="backdrop">
+        <div className="header">
+          <Skeleton variant="circular" width={30} height={30} />
+          <Skeleton variant="text" width="40%" sx={{ fontSize: '16px' }} />
         </div>
 
-        <Skeleton sx={{ height: 200 }} variant='rectangular' />
-        <div className='book-info'>
-          <Skeleton variant='text' width='90%' sx={{ fontSize: '18px' }} />
-          <Skeleton variant='text' width='50%' sx={{ fontSize: '16px' }} />
+        <Skeleton sx={{ height: 200 }} variant="rectangular" />
+        <div className="book-info">
+          <Skeleton variant="text" width="90%" sx={{ fontSize: '18px' }} />
+          <Skeleton variant="text" width="50%" sx={{ fontSize: '16px' }} />
         </div>
       </div>
     </div>

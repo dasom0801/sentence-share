@@ -10,14 +10,14 @@ import Logo from './Logo';
 import MaxWidthWrapper from './MaxWidthWrapper';
 import LoginButton from './LoginButton';
 
-const Header = () => {
+const Header: React.FC = () => {
   const user = useUserStore.use.user();
   useUserQuery();
 
   return (
     <div css={headerStyle}>
       <MaxWidthWrapper styles={wrapperStyle}>
-        <Link to='/'>
+        <Link to="/">
           <Logo />
         </Link>
         {user ? <HeaderMenu user={user} /> : <LoginButton />}

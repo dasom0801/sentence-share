@@ -5,7 +5,7 @@ import { BiBookHeart } from 'react-icons/bi';
 import { colors } from '@mui/material';
 import { mq } from '@/styles';
 
-const Logo = () => {
+const Logo: React.FC = () => {
   return (
     <div css={logoStyle}>
       <BiBookHeart />

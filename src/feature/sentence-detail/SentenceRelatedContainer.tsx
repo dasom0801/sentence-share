@@ -7,13 +7,15 @@ import { useBookSentenceQuery } from '@/lib/hooks';
 import { mq } from '@/styles';
 import SentenceTextCardList from './SentenceTextCardList';
 
-type SentenceDetailRelatedList = {
+type SentenceRelatedContainerProps = {
   book: Book;
 };
 
 export const RELATED_LIST_LIMIT = 6;
 
-const SentenceRelatedContainer = ({ book }: SentenceDetailRelatedList) => {
+const SentenceRelatedContainer: React.FC<SentenceRelatedContainerProps> = ({
+  book,
+}) => {
   const { id } = useParams();
   const { data } = useBookSentenceQuery({
     bookId: book._id,

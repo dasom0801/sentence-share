@@ -20,7 +20,11 @@ type BookSearchProps = Pick<
   'book' | 'setBook' | 'setActive'
 >;
 
-const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
+const BookSearch: React.FC<BookSearchProps> = ({
+  book,
+  setBook,
+  setActive,
+}) => {
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState('');
   const [input, setInput] = useState('');
@@ -52,7 +56,7 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
     debounce((value: string) => {
       setSearch(value);
     }, 300),
-    []
+    [],
   );
 
   const onChangeInput = useCallback(
@@ -61,7 +65,7 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
       setInput(value);
       debouncedSetSearch(value);
     },
-    [debouncedSetSearch]
+    [debouncedSetSearch],
   );
 
   const handleBookClick = (book: Book) => {
@@ -77,10 +81,10 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
   return (
     <MaxWidthWrapper styles={styles}>
       <TextField
-        className='search-input'
-        size='small'
-        type='search'
-        placeholder='책 이름을 입력해주세요'
+        className="search-input"
+        size="small"
+        type="search"
+        placeholder="책 이름을 입력해주세요"
         value={input}
         onChange={onChangeInput}
         onFocus={() => setFocused(true)}
@@ -105,7 +109,7 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
                       <BookListItem book={book} />
                     </button>
                   </li>
-                ))
+                )),
               )}
             </>
           )}
@@ -115,8 +119,8 @@ const BookSearch = ({ book, setBook, setActive }: BookSearchProps) => {
           <>
             <BookListItem book={book} />
             <Button
-              color='secondary'
-              variant='contained'
+              color="secondary"
+              variant="contained"
               onClick={handleChangeActive}
             >
               책 선택 완료

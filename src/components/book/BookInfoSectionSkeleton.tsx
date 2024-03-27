@@ -3,17 +3,17 @@
 import { css } from '@emotion/react';
 import { Skeleton, colors } from '@mui/material';
 
-const BookInfoSectionSkeleton = () => {
+const BookInfoSectionSkeleton: React.FC = () => {
   return (
     <div css={styles}>
-      <Skeleton className='image' variant='rounded' width={180} height={260} />
+      <Skeleton className="image" variant="rounded" width={180} height={260} />
       <Skeleton
-        className='title'
-        variant='text'
-        width='50%'
+        className="title"
+        variant="text"
+        width="50%"
         sx={{ fontSize: '20px' }}
       />
-      <Skeleton variant='text' width='25%' sx={{ fontSize: '16px' }} />
+      <Skeleton variant="text" width="25%" sx={{ fontSize: '16px' }} />
     </div>
   );
 };

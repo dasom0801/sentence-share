@@ -14,12 +14,12 @@ type SettingUserImageProps = {
   onImageUpdate: (file: File) => void;
 };
 
-const SettingUserImage = ({
+const SettingUserImage: React.FC<SettingUserImageProps> = ({
   user,
   loading = false,
   onImageRemove,
   onImageUpdate,
-}: SettingUserImageProps) => {
+}) => {
   const handleImageUpdate = (event: ChangeEvent<HTMLInputElement>) => {
     if (!!event.target.files?.length) {
       const file = event.target.files[0];
@@ -29,13 +29,13 @@ const SettingUserImage = ({
 
   return (
     <form css={styles}>
-      <img src={user?.profileUrl || DEFAULT_PROFILE} alt='프로필 이미지' />
+      <img src={user?.profileUrl || DEFAULT_PROFILE} alt="프로필 이미지" />
 
       <div>
         <Button
-          variant='outlined'
-          color='primary'
-          type='button'
+          variant="outlined"
+          color="primary"
+          type="button"
           disabled={loading}
           onClick={onImageRemove}
         >
@@ -43,16 +43,16 @@ const SettingUserImage = ({
         </Button>
 
         <Button
-          className='file'
-          variant='contained'
-          color='primary'
-          type='button'
+          className="file"
+          variant="contained"
+          color="primary"
+          type="button"
         >
-          <label htmlFor='profile-upload' />
+          <label htmlFor="profile-upload" />
           <input
-            id='profile-upload'
-            type='file'
-            accept='.png,.jpg,.jpeg'
+            id="profile-upload"
+            type="file"
+            accept=".png,.jpg,.jpeg"
             disabled={loading}
             onChange={handleImageUpdate}
           />

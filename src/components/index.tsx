@@ -11,7 +11,7 @@ import BookInfoSectionSkeleton from './book/BookInfoSectionSkeleton';
 import AlertDialog from './common/AlertDialog';
 import AuthGuard from './common/AuthGuard';
 import ErrorResult from './common/ErrorResult';
-import GlobalStyles from './common/GloblStyles';
+import GlobalStyles from './common/GlobalStyles';
 import Header from './common/Header';
 import MaxWidthWrapper from './common/MaxWidthWrapper';
 import NoResult from './common/NoResult';

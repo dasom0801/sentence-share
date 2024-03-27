@@ -6,7 +6,7 @@ import { useUserStore } from '@/store/user';
 
 import LoginButton from './LoginButton';
 
-const AuthGuard = () => {
+const AuthGuard: React.FC = () => {
   const isLogin = useUserStore.use.isLogin();
 
   if (isLogin) {

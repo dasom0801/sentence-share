@@ -1,14 +1,14 @@
 import { useLogin } from '@/lib/hooks';
 
-const LoginButton = () => {
+const LoginButton: React.FC = () => {
   const { mutate } = useLogin();
 
   return (
-    <button onClick={() => mutate()} aria-label='continue with google'>
+    <button onClick={() => mutate()} aria-label="continue with google">
       <img
-        src='/images/google-ctn.svg'
-        alt='continue with google'
-        aria-hidden='true'
+        src="/images/google-ctn.svg"
+        alt="continue with google"
+        aria-hidden="true"
       />
     </button>
   );

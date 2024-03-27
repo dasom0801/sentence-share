@@ -11,36 +11,36 @@ type AlertDialogProps = {
   open: boolean;
   title?: string;
   content: string;
-  cancleLabel?: string;
+  cancelLabel?: string;
   confirmLabel?: string;
   handleClose: () => void;
   handleConfirm: () => void;
 };
 
-const AlertDialog = ({
+const AlertDialog: React.FC<AlertDialogProps> = ({
   open,
   title,
   content,
-  cancleLabel = '취소',
+  cancelLabel = '취소',
   confirmLabel = '확인',
   handleClose,
   handleConfirm,
-}: AlertDialogProps) => {
+}) => {
   return (
     <Dialog
       open={open}
       onClose={handleClose}
-      aria-labelledby='alert-dialog-title'
-      aria-describedby='alert-dialog-description'
+      aria-labelledby="alert-dialog-title"
+      aria-describedby="alert-dialog-description"
     >
-      {title && <DialogTitle id='alert-dialog-title'>{title}</DialogTitle>}
+      {title && <DialogTitle id="alert-dialog-title">{title}</DialogTitle>}
       <DialogContent>
-        <DialogContentText id='alert-dialog-description'>
+        <DialogContentText id="alert-dialog-description">
           {content}
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button onClick={handleClose}>{cancleLabel}</Button>
+        <Button onClick={handleClose}>{cancelLabel}</Button>
         <Button onClick={handleConfirm} autoFocus>
           {confirmLabel}
         </Button>
