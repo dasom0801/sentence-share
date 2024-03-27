@@ -1,21 +1,20 @@
 /** @jsxImportSource @emotion/react */
 
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 import BookInfoSectionSkeleton from './BookInfoSectionSkeleton';
 
-type BookInfoSectionType = {
+type BookInfoSectionType = PropsWithChildren<{
   book?: Book;
   isLoading?: boolean;
-  children?: ReactNode;
-};
+}>;
 
-const BookInfoSection = ({
+const BookInfoSection: React.FC<BookInfoSectionType> = ({
   book,
   isLoading,
   children,
-}: BookInfoSectionType) => {
+}) => {
   if (isLoading) return <BookInfoSectionSkeleton />;
 
   return (
@@ -25,9 +24,9 @@ const BookInfoSection = ({
         background-image: url(${book?.coverUrl});
       `}
     >
-      <div className='backdrop'>
+      <div className="backdrop">
         <img src={book?.coverUrl} alt={book?.title} />
-        <h2 className='title'>{book?.title}</h2>
+        <h2 className="title">{book?.title}</h2>
         <div>{book?.author.join(',')}</div>
 
         {children}

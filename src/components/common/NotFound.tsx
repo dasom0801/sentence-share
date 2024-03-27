@@ -5,15 +5,15 @@ import { colors, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { TbError404 } from 'react-icons/tb';
 
-const NotFound = () => {
+const NotFound: React.FC = () => {
   const navigate = useNavigate();
   return (
     <div css={styles}>
       <TbError404 />
-      <div className='title'>페이지를 찾을 수 없습니다.</div>
+      <div className="title">페이지를 찾을 수 없습니다.</div>
       <Button
-        variant='contained'
-        color='secondary'
+        variant="contained"
+        color="secondary"
         onClick={() => navigate(-1)}
       >
         뒤로 가기

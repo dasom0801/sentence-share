@@ -2,10 +2,10 @@
 import { css } from '@emotion/react';
 import { CgSpinner } from 'react-icons/cg';
 
-const Spinner = () => {
+const Spinner: React.FC = () => {
   return (
     <div css={spinnerStyle}>
-      <CgSpinner className='spinner' />
+      <CgSpinner className="spinner" />
     </div>
   );
 };

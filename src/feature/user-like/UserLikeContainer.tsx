@@ -10,7 +10,7 @@ import { useUserStore } from '@/store/user';
 import { useUserLikes } from './hooks/useUserLikes';
 import useUpdateUserLikes from './hooks/useUpdateUserLikes';
 
-const UserLikeContainer = () => {
+const UserLikeContainer: React.FC = () => {
   const { page, setPage } = usePagination();
   const user = useUserStore.use.user();
   const {

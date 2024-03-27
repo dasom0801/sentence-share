@@ -9,14 +9,14 @@ import { useSentenceQuery } from '@/lib/hooks';
 import { mq } from '@/styles';
 import SentenceRelatedContainer from './SentenceRelatedContainer';
 
-const SentenceDetailContainer = () => {
+const SentenceDetailContainer: React.FC = () => {
   const { id } = useParams();
   const { data, isLoading, isError, error } = useSentenceQuery(id);
   const title = !data?.content
     ? ''
     : data.content.length > 15
-    ? `${data?.content.slice(0, 15)}... - `
-    : data?.content;
+      ? `${data?.content.slice(0, 15)}... - `
+      : data?.content;
 
   if (isError) {
     throw error;
@@ -39,9 +39,9 @@ const SentenceDetailContainer = () => {
         <div css={styles}>
           <BookInfoSection book={data.book} />
 
-          <MaxWidthWrapper className='wrapper'>
+          <MaxWidthWrapper className="wrapper">
             <p>{data.content}</p>
-            <UserInfo className='user-info' user={data.author} />
+            <UserInfo className="user-info" user={data.author} />
 
             <SentenceRelatedContainer book={data.book} />
           </MaxWidthWrapper>

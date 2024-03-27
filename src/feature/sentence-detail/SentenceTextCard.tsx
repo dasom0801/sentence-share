@@ -8,7 +8,7 @@ type SentenceTextCardProps = {
   sentence: Sentence;
 };
 
-const SentenceTextCard = ({ sentence }: SentenceTextCardProps) => {
+const SentenceTextCard: React.FC<SentenceTextCardProps> = ({ sentence }) => {
   return (
     <div css={commonStyles}>
       <p>{sentence.content}</p>
@@ -26,7 +26,8 @@ const commonStyles = css`
   height: 100%;
   padding: 16px;
   border-radius: 8px;
-  box-shadow: inset -1px -1px 0px 0px rgba(0, 0, 0, 0.25),
+  box-shadow:
+    inset -1px -1px 0px 0px rgba(0, 0, 0, 0.25),
     inset 1px 1px 0px 0px rgba(0, 0, 0, 0.25);
   &:hover {
     p {

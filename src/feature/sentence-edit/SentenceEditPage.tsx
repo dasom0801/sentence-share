@@ -2,7 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import SentenceEditContainer from './SentenceEditContainer';
 
-const SentenceEditPage = () => {
+const SentenceEditPage: React.FC = () => {
   const { id } = useParams();
   return (
     <>

@@ -17,13 +17,13 @@ type SentenceInputProps = Pick<
   'sentenceId' | 'setActive' | 'setContent' | 'book' | 'content'
 >;
 
-const SentenceInput = ({
+const SentenceInput: React.FC<SentenceInputProps> = ({
   sentenceId,
   book,
   content,
   setContent,
   setActive,
-}: SentenceInputProps) => {
+}) => {
   const navigate = useNavigate();
   const [showError, setShowError] = useState<boolean>(false);
   const [showAlert, setShowAlert] = useState<boolean>(false);

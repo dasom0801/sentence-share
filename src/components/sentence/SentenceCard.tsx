@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { blueGrey } from '@mui/material/colors';
@@ -8,17 +8,16 @@ import { blueGrey } from '@mui/material/colors';
 import { lineClamp, textOverflowHidden } from '@/styles';
 import UserInfo from '../common/UserInfo';
 
-type SentenceCardProps = {
+type SentenceCardProps = PropsWithChildren<{
   sentence: Sentence;
   showBook?: boolean;
-  children?: ReactNode;
-};
+}>;
 
-const SentenceCard = ({
+const SentenceCard: React.FC<SentenceCardProps> = ({
   sentence,
   showBook = true,
   children,
-}: SentenceCardProps) => {
+}) => {
   const { author, book, content, createdAt } = sentence;
   return (
     <div

@@ -3,7 +3,9 @@
 import { gridContainer } from '../../styles';
 import SentenceCardSkeleton from './SentenceCardSkeleton';
 
-const SentenceListSkeleton = ({ length = 12 }: { length?: number }) => {
+const SentenceListSkeleton: React.FC<{ length?: number }> = ({
+  length = 12,
+}) => {
   return (
     <ul css={gridContainer}>
       {Array.from({ length }).map((_, index) => (

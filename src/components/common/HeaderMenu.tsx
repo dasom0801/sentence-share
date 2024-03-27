@@ -17,7 +17,7 @@ export const navigateMenus: { label: string; path: string }[] = [
   { label: '설정', path: '/my/setting' },
 ];
 
-const HeaderMenu = ({ user }: HeaderMenuProps) => {
+const HeaderMenu: React.FC<HeaderMenuProps> = ({ user }) => {
   const navigate = useNavigate();
   const { mutate: logout } = useLogout();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
@@ -46,16 +46,16 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
     <div css={styles}>
       <Button
         component={Link}
-        size='small'
-        variant='outlined'
-        to='/edit/sentence'
+        size="small"
+        variant="outlined"
+        to="/edit/sentence"
       >
         작성하기
       </Button>
       <IconButton
-        id='menu-button'
+        id="menu-button"
         aria-controls={open ? 'basic-menu' : undefined}
-        aria-haspopup='true'
+        aria-haspopup="true"
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
@@ -65,7 +65,7 @@ const HeaderMenu = ({ user }: HeaderMenuProps) => {
         />
       </IconButton>
       <Menu
-        id='user-menu'
+        id="user-menu"
         anchorEl={anchorEl}
         open={open}
         onClose={handleClose}

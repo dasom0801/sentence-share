@@ -3,18 +3,18 @@
 import { css } from '@emotion/react';
 import { Skeleton } from '@mui/material';
 
-const BookListItemSkeleton = () => {
+const BookListItemSkeleton: React.FC = () => {
   return (
     <div css={styles}>
-      <Skeleton variant='rounded' width={82} height={120} />
+      <Skeleton variant="rounded" width={82} height={120} />
       <div>
         <Skeleton
-          variant='text'
-          width='100%'
+          variant="text"
+          width="100%"
           sx={{ fontSize: '18px', marginBottom: '8px' }}
         />
-        <Skeleton variant='text' width='50%' sx={{ fontSize: '14px' }} />
-        <Skeleton variant='text' width='60%' sx={{ fontSize: '14px' }} />
+        <Skeleton variant="text" width="50%" sx={{ fontSize: '14px' }} />
+        <Skeleton variant="text" width="60%" sx={{ fontSize: '14px' }} />
       </div>
     </div>
   );

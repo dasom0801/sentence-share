@@ -8,6 +8,7 @@ import { SortBy, SortOrder } from '@/types/enum';
 type SortButtonsType = {
   sorts?: { label: string; value: string }[];
 };
+
 const defaultSorts: { label: string; value: string }[] = [
   {
     label: '최신순',
@@ -18,10 +19,10 @@ const defaultSorts: { label: string; value: string }[] = [
     value: `${SortBy.Likes}=${SortOrder.DESC}`,
   },
 ];
-const SortButtons = ({ sorts = defaultSorts }: SortButtonsType) => {
+const SortButtons: React.FC<SortButtonsType> = ({ sorts = defaultSorts }) => {
   const { sort, setSort } = useSort();
 
-  const handleOnchage = (e: MouseEvent<HTMLElement>, value: string) => {
+  const handleOnchange = (e: MouseEvent<HTMLElement>, value: string) => {
     if (!value) {
       return;
     }
@@ -35,11 +36,11 @@ const SortButtons = ({ sorts = defaultSorts }: SortButtonsType) => {
     <ToggleButtonGroup
       value={`${sort?.sortBy}=${sort?.sortOrder}`}
       exclusive
-      onChange={handleOnchage}
-      aria-label='목록 정렬'
+      onChange={handleOnchange}
+      aria-label="목록 정렬"
     >
       {sorts.map(({ label, value }) => (
-        <ToggleButton key={value} value={value} size='small'>
+        <ToggleButton key={value} value={value} size="small">
           {label}
         </ToggleButton>
       ))}

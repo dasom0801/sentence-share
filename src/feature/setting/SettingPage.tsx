@@ -4,7 +4,7 @@ import { Helmet } from 'react-helmet-async';
 import { MaxWidthWrapper } from '@/components';
 import SettingContainer from './SettingContainer';
 
-const SettingPage = () => {
+const SettingPage: React.FC = () => {
   return (
     <main>
       <Helmet>

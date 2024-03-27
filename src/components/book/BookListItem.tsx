@@ -8,12 +8,12 @@ type BookListItemProps = {
   book: Book;
 };
 
-const BookListItem = ({ book }: BookListItemProps) => {
+const BookListItem: React.FC<BookListItemProps> = ({ book }) => {
   return (
     <div css={styles}>
       <img src={book.coverUrl} alt={book.title} />
       <div>
-        <div className='title'>{book.title}</div>
+        <div className="title">{book.title}</div>
         <div>{book.author?.join(',')}</div>
         <div>{book.publisher}</div>
       </div>

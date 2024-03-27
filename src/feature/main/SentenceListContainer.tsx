@@ -10,7 +10,7 @@ import { useUserStore } from '@/store/user';
 import { sentenceQueries } from '@/queries';
 import useSentencesQuery from './hooks/useSentencesQuery';
 
-const SentenceListContainer = () => {
+const SentenceListContainer: React.FC = () => {
   const user = useUserStore.use.user();
   const { page, setPage } = usePagination();
   const { sort } = useSort();

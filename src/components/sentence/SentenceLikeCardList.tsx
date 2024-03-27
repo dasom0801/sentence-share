@@ -16,13 +16,13 @@ type SentenceCardListParams = {
   onToggleLike: (id: string) => void;
 };
 
-const SentenceLikeCardList = ({
+const SentenceLikeCardList: React.FC<SentenceCardListParams> = ({
   list,
   isLoading,
   showBook = true,
   skeletonLength = 12,
   onToggleLike,
-}: SentenceCardListParams) => {
+}) => {
   const skeletonList = Array.from({ length: skeletonLength }).map(
     (_, index) => <SentenceCardSkeleton key={index} />,
   );

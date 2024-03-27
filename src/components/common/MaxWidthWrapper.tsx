@@ -1,20 +1,19 @@
 /** @jsxImportSource @emotion/react */
 
-import { ReactNode } from 'react';
+import { PropsWithChildren } from 'react';
 import { SerializedStyles, css } from '@emotion/react';
 import { mq } from '@/styles';
 
-type MaxWidthWrapperProps = {
-  children: ReactNode;
+type MaxWidthWrapperProps = PropsWithChildren<{
   styles?: SerializedStyles;
   className?: string;
-};
+}>;
 
-const MaxWidthWrapper = ({
+const MaxWidthWrapper: React.FC<MaxWidthWrapperProps> = ({
   styles,
   children,
   className,
-}: MaxWidthWrapperProps) => {
+}) => {
   return (
     <div
       css={css`

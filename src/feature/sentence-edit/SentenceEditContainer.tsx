@@ -21,11 +21,11 @@ export type SentenceEditDataProps = {
   setContent: Dispatch<SetStateAction<string | undefined>>;
 };
 
-const SentenceEditContainer = () => {
+const SentenceEditContainer: React.FC = () => {
   const { id } = useParams();
   const { data } = useSentenceQuery(id);
   const [active, setActive] = useState<SentenceEditStep>(
-    id ? SentenceEditStep.INPUT : SentenceEditStep.SEARCH
+    id ? SentenceEditStep.INPUT : SentenceEditStep.SEARCH,
   );
   const [content, setContent] = useState<string | undefined>(data?.content);
   const [book, setBook] = useState<Book | undefined>(data?.book);
