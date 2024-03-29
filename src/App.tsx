@@ -13,7 +13,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { MUI_THEME } from './constants';
 
 const queryClient = new QueryClient();
-const muiTheme = MUI_THEME;
 
 const App = () => {
   return (
@@ -23,7 +22,7 @@ const App = () => {
       </Helmet>
 
       <QueryClientProvider client={queryClient}>
-        <ThemeProvider theme={muiTheme}>
+        <ThemeProvider theme={MUI_THEME}>
           <GlobalStyles />
           <Header />
           <div
