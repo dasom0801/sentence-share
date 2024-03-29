@@ -7,8 +7,6 @@ import { HelmetProvider } from 'react-helmet-async';
 import { GlobalStyles } from '../src/components';
 import { MUI_THEME } from '../src/constants';
 
-const muiTheme = MUI_THEME;
-
 const preview: Preview = {
   parameters: {
     actions: { argTypesRegex: '^on[A-Z].*' },
@@ -34,7 +32,7 @@ const preview: Preview = {
           <QueryClientProvider client={client}>
             <BrowserRouter>
               <HelmetProvider>
-                <ThemeProvider theme={muiTheme}>
+                <ThemeProvider theme={MUI_THEME}>
                   <GlobalStyles />
                   <Story />
                 </ThemeProvider>
