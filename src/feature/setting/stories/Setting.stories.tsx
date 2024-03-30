@@ -6,7 +6,6 @@ import Setting from '../SettingPage';
 const meta = {
   title: 'Setting/Setting',
   component: Setting,
-  tags: ['autodocs'],
 } satisfies Meta<typeof Setting>;
 
 export default meta;

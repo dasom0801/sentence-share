@@ -3,7 +3,6 @@ import SettingUserInfo from '../SettingUserInfo';
 const meta = {
   title: 'setting/SettingUserInfo',
   component: SettingUserInfo,
-  tags: ['autodocs'],
 } satisfies Meta<typeof SettingUserInfo>;
 
 export default meta;

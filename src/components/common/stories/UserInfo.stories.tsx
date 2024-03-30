@@ -5,7 +5,6 @@ import { MockUser } from '@/mocks/data';
 const meta = {
   title: 'common/UserInfo',
   component: UserInfo,
-  tags: ['autodocs'],
 } satisfies Meta<typeof UserInfo>;
 
 export default meta;

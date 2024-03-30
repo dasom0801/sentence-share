@@ -4,7 +4,6 @@ import NoResult from '../NoResult';
 const meta = {
   title: 'common/NoResult',
   component: NoResult,
-  tags: ['autodocs'],
 } satisfies Meta<typeof NoResult>;
 
 export default meta;

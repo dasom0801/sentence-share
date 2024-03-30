@@ -5,7 +5,6 @@ import SentenceCard from '../SentenceCard';
 const meta = {
   title: 'sentence/SentenceCard',
   component: SentenceCard,
-  tags: ['autodocs'],
 } satisfies Meta<typeof SentenceCard>;
 
 export default meta;

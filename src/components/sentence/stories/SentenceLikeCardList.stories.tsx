@@ -5,7 +5,6 @@ import SentenceLikeCardList from '../SentenceLikeCardList';
 const meta = {
   title: 'sentence/SentenceLikeCardList',
   component: SentenceLikeCardList,
-  tags: ['autodocs'],
 } satisfies Meta<typeof SentenceLikeCardList>;
 
 export default meta;

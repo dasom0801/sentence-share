@@ -4,7 +4,6 @@ import NotFound from '../NotFound';
 const meta = {
   title: 'common/NotFound',
   component: NotFound,
-  tags: ['autodocs'],
 } satisfies Meta<typeof NotFound>;
 
 export default meta;
