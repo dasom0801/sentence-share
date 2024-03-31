@@ -4,7 +4,6 @@ import AlertDialog from '../AlertDialog';
 const meta = {
   title: 'common/AlertDialog',
   component: AlertDialog,
-  tags: ['autodocs'],
 } satisfies Meta<typeof AlertDialog>;
 
 export default meta;

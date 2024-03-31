@@ -5,7 +5,6 @@ import { MockBook } from '@/mocks/data';
 const meta = {
   title: 'book/BookInfoSection',
   component: BookInfoSection,
-  tags: ['autodocs'],
 } satisfies Meta<typeof BookInfoSection>;
 
 export default meta;

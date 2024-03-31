@@ -3,7 +3,6 @@ import SentenceCardSkeleton from '../SentenceCardSkeleton';
 const meta = {
   title: 'sentence/SentenceCardSkeleton',
   component: SentenceCardSkeleton,
-  tags: ['autodocs'],
 } satisfies Meta<typeof SentenceCardSkeleton>;
 
 export default meta;

@@ -3,7 +3,6 @@ import Logo from '../Logo';
 const meta = {
   title: 'common/Logo',
   component: Logo,
-  tags: ['autodocs'],
 } satisfies Meta<typeof Logo>;
 
 export default meta;

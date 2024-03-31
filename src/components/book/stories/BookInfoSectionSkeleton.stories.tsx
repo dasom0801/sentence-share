@@ -4,7 +4,6 @@ import BookInfoSectionSkeleton from '../BookInfoSectionSkeleton';
 const meta = {
   title: 'book/BookInfoSectionSkeleton',
   component: BookInfoSectionSkeleton,
-  tags: ['autodocs'],
 } satisfies Meta<typeof BookInfoSectionSkeleton>;
 
 export default meta;

@@ -5,7 +5,6 @@ import HeaderMenu from '../HeaderMenu';
 const meta = {
   title: 'common/HeaderMenu',
   component: HeaderMenu,
-  tags: ['autodocs'],
 } satisfies Meta<typeof HeaderMenu>;
 
 export default meta;

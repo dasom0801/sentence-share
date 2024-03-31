@@ -4,7 +4,6 @@ import ErrorResult from '../ErrorResult';
 const meta = {
   title: 'common/ErrorResult',
   component: ErrorResult,
-  tags: ['autodocs'],
 } satisfies Meta<typeof ErrorResult>;
 
 export default meta;

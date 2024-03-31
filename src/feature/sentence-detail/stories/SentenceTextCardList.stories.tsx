@@ -3,9 +3,8 @@ import { MockSentence } from '@/mocks/data';
 import SentenceTextCardList from '../SentenceTextCardList';
 
 const meta = {
-  title: 'SentenceDetail/SentenceTextCardList',
+  title: 'Sentence/SentenceTextCardList',
   component: SentenceTextCardList,
-  tags: ['autodocs'],
 } satisfies Meta<typeof SentenceTextCardList>;
 
 export default meta;
