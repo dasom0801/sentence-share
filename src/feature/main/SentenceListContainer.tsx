@@ -13,8 +13,8 @@ import useSentencesQuery from './hooks/useSentencesQuery';
 const SentenceListContainer: React.FC = () => {
   const user = useUserStore.use.user();
   const { page, setPage } = usePagination();
-  const { sort } = useSort();
-  const params = { page, ...sort };
+  const { sortParams } = useSort();
+  const params = { page, ...sortParams };
   const { data, isLoading, isError, error } = useSentencesQuery(params);
   const { mutate } = useToggleSentenceLike({
     updateQueryKey: sentenceQueries.list(params).queryKey,
