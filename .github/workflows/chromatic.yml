@@ -14,11 +14,23 @@ jobs:
       status: ${{ job.status }}
     # Job steps
     steps:
-      - uses: actions/checkout@v1
-      - run: yarn
+      - uses: actions/checkout@v4
+
+      - name: Cache node modules # node modules 캐싱
+        uses: actions/cache@v1
+        with:
+          path: node_modules
+          key: ${{ runner.OS }}-build-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.OS }}-build-
+            ${{ runner.OS }}-
+
+      - name: Install Dependencies
+        run: npm install
+
       - name: Publish to chromatic
         id: chromatic
-        uses: chromaui/action@v1
+        uses: chromaui/action@latest
         # Options required for Chromatic's GitHub Action
         with:
           #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
