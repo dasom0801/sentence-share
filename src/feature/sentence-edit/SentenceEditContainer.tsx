@@ -30,10 +30,19 @@ const SentenceEditContainer: React.FC = () => {
   const [content, setContent] = useState<string | undefined>(data?.content);
   const [book, setBook] = useState<Book | undefined>(data?.book);
 
-  useEffect(() => {
-    setContent(data?.content);
-    setBook(data?.book);
-  }, [data]);
+  useEffect(
+    function updateContent() {
+      setContent(data?.content);
+    },
+    [data?.content],
+  );
+
+  useEffect(
+    function updateBook() {
+      setBook(data?.book);
+    },
+    [data?.book],
+  );
 
   if (!id || (id && data)) {
     if (active === SentenceEditStep.SEARCH) {
