@@ -22,9 +22,14 @@ export const userQueries = {
     queryOptions({
       queryKey: [...userQueries.all(), 'me'],
       queryFn: async () => {
-        const user = await getUser();
-        onSuccess(user);
-        return user;
+        try {
+          const user = await getUser();
+          onSuccess(user);
+          return user;
+        } catch (error) {
+          localStorage.removeItem('access_token');
+          return null;
+        }
       },
       enabled: !!localStorage.getItem('access_token'),
     }),
