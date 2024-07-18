@@ -15,6 +15,7 @@ import {
   SentenceDetailParams,
   UserListRequestParams,
 } from '@/lib/api/types';
+import { AxiosError } from 'axios';
 
 export const userQueries = {
   all: () => ['user'],
@@ -27,7 +28,11 @@ export const userQueries = {
           onSuccess(user);
           return user;
         } catch (error) {
-          localStorage.removeItem('access_token');
+          if (error instanceof AxiosError) {
+            if (error.response?.status === 401) {
+              localStorage.removeItem('access_token');
+            }
+          }
           return null;
         }
       },
