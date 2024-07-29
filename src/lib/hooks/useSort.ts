@@ -7,7 +7,7 @@ import {
   getSortOrderValue,
 } from '../utils';
 
-const useSort = () => {
+const useSort = (initialValue?: string) => {
   const [searchParams, setSearchParams] = useSearchParams();
 
   // 선택한 sort를 주소에 반영
@@ -26,8 +26,8 @@ const useSort = () => {
   const currentSort = useMemo(() => {
     const sortBy = searchParams.get('sortBy');
     const sortOrder = searchParams.get('sortOrder');
-    return `${sortBy}=${sortOrder}`;
-  }, [searchParams]);
+    return sortBy && sortOrder ? `${sortBy}=${sortOrder}` : initialValue;
+  }, [searchParams, initialValue]);
 
   // API 요청을 위한 sort 값을 객체로 반환
   const sortParams = useMemo(() => {
