@@ -19,7 +19,9 @@ const defaultSorts: { label: string; value: string }[] = [
   },
 ];
 const SortButtons: React.FC<SortButtonsType> = ({ sorts = defaultSorts }) => {
-  const { currentSort, setSort } = useSort();
+  const { currentSort, setSort } = useSort(
+    `${SortBy.CreatedAt}=${SortOrder.DESC}`,
+  );
 
   const handleOnchange = (e: MouseEvent<HTMLElement>, value: string) => {
     if (!value) {
