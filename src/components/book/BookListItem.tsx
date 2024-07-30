@@ -1,18 +1,31 @@
 /** @jsxImportSource @emotion/react */
 
+import { useState } from 'react';
 import { textOverflowHidden } from '@/styles';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
+import BookDefaultCover from './BookDefaultCover';
 
 type BookListItemProps = {
   book: Book;
 };
 
 const BookListItem: React.FC<BookListItemProps> = ({ book }) => {
+  const [showDefaultCover, setShowDefaultCover] = useState(false);
+
   return (
     <div css={styles}>
-      <img src={book.coverUrl} alt={book.title} />
-      <div>
+      {showDefaultCover ? (
+        <BookDefaultCover />
+      ) : (
+        <img
+          src={book.coverUrl}
+          alt={book.title}
+          onError={() => setShowDefaultCover(true)}
+        />
+      )}
+
+      <div className="book-info">
         <div className="title">{book.title}</div>
         <div>{book.author?.join(',')}</div>
         <div>{book.publisher}</div>
@@ -42,7 +55,7 @@ const styles = css`
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   }
 
-  > div {
+  .book-info {
     min-width: 0px;
 
     div {
