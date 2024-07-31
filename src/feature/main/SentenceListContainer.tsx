@@ -9,8 +9,9 @@ import { useSort, usePagination, useToggleSentenceLike } from '@/lib/hooks';
 import { useUserStore } from '@/store/user';
 import { sentenceQueries } from '@/queries';
 import useSentencesQuery from './hooks/useSentencesQuery';
+import { memo, useCallback } from 'react';
 
-const SentenceListContainer: React.FC = () => {
+const SentenceListContainer: React.FC = memo(function SentenceListContainer() {
   const user = useUserStore.use.user();
   const { page, setPage } = usePagination();
   const { sortParams } = useSort();
@@ -20,13 +21,16 @@ const SentenceListContainer: React.FC = () => {
     updateQueryKey: sentenceQueries.list(params).queryKey,
   });
 
-  const handleToggleLike = (id: string) => {
-    if (!user) {
-      toast.error('로그인 후 이용해주세요.');
-      return;
-    }
-    mutate(id);
-  };
+  const handleToggleLike = useCallback(
+    (id: string) => {
+      if (!user) {
+        toast.error('로그인 후 이용해주세요.');
+        return;
+      }
+      mutate(id);
+    },
+    [user, mutate],
+  );
 
   if (isError) {
     throw error;
@@ -52,7 +56,8 @@ const SentenceListContainer: React.FC = () => {
       />
     </>
   );
-};
+});
+
 const buttonContainer = css`
   display: flex;
   justify-content: flex-end;

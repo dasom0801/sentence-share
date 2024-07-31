@@ -8,6 +8,7 @@ import { Helmet } from 'react-helmet-async';
 import { pagination } from '@/styles';
 import {
   BookInfoSection,
+  BookInfoSectionSkeleton,
   MaxWidthWrapper,
   SentenceLikeCardList,
 } from '@/components';
@@ -18,8 +19,9 @@ import {
 } from '@/lib/hooks';
 import { bookQueries } from '@/queries';
 import useBookDetailQuery from './hooks/useBookDetailQuery';
+import { memo, useCallback } from 'react';
 
-const BookDetailContainer: React.FC = () => {
+const BookDetailContainer: React.FC = memo(function BookDetailContainer() {
   const { id } = useParams();
   const { page, setPage } = usePagination();
   const {
@@ -36,8 +38,17 @@ const BookDetailContainer: React.FC = () => {
     updateQueryKey: bookQueries.sentenceList({ bookId: id, page }).queryKey,
   });
 
+  const handlePage = useCallback(
+    (_: React.ChangeEvent<unknown>, page: number) => setPage(page),
+    [setPage],
+  );
+
   if (isError) {
     throw error;
+  }
+
+  if (isBookLoading) {
+    return <BookInfoSectionSkeleton />;
   }
 
   return (
@@ -58,12 +69,12 @@ const BookDetailContainer: React.FC = () => {
           count={sentences?.pageTotal || 1}
           shape="rounded"
           page={page}
-          onChange={(_, page) => setPage(page)}
+          onChange={handlePage}
         />
       </MaxWidthWrapper>
     </>
   );
-};
+});
 
 const styles = css`
   padding-top: 36px;

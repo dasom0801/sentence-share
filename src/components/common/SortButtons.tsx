@@ -1,4 +1,4 @@
-import { MouseEvent } from 'react';
+import { memo, MouseEvent, useCallback } from 'react';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
 import { useSort } from '@/lib/hooks';
@@ -18,23 +18,28 @@ const defaultSorts: { label: string; value: string }[] = [
     value: `${SortBy.Likes}=${SortOrder.DESC}`,
   },
 ];
-const SortButtons: React.FC<SortButtonsType> = ({ sorts = defaultSorts }) => {
+const SortButtons: React.FC<SortButtonsType> = memo(function SortButtons({
+  sorts = defaultSorts,
+}) {
   const { currentSort, setSort } = useSort(
     `${SortBy.CreatedAt}=${SortOrder.DESC}`,
   );
 
-  const handleOnchange = (e: MouseEvent<HTMLElement>, value: string) => {
-    if (!value) {
-      return;
-    }
-    setSort(value);
-  };
+  const handleChange = useCallback(
+    (e: MouseEvent<HTMLElement>, value: string) => {
+      if (!value) {
+        return;
+      }
+      setSort(value);
+    },
+    [setSort],
+  );
 
   return (
     <ToggleButtonGroup
       value={currentSort}
       exclusive
-      onChange={handleOnchange}
+      onChange={handleChange}
       aria-label="목록 정렬"
     >
       {sorts.map(({ label, value }) => (
@@ -44,5 +49,5 @@ const SortButtons: React.FC<SortButtonsType> = ({ sorts = defaultSorts }) => {
       ))}
     </ToggleButtonGroup>
   );
-};
+});
 export default SortButtons;

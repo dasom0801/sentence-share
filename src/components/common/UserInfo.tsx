@@ -4,13 +4,17 @@ import { css } from '@emotion/react';
 import { Avatar, colors } from '@mui/material';
 
 import { textOverflowHidden } from '@/styles';
+import { memo } from 'react';
 
 type UserInfoProps = {
   user: Partial<User>;
   className?: string;
 };
 
-const UserInfo: React.FC<UserInfoProps> = ({ user, className }) => {
+const UserInfo: React.FC<UserInfoProps> = memo(function UserInfo({
+  user,
+  className,
+}) {
   return (
     <div className={className} css={styles}>
       <Avatar
@@ -21,7 +25,7 @@ const UserInfo: React.FC<UserInfoProps> = ({ user, className }) => {
       <div className="name">{user.name}</div>
     </div>
   );
-};
+});
 
 const styles = css`
   display: flex;

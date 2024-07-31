@@ -1,6 +1,7 @@
 import { useLogin } from '@/lib/hooks';
+import { memo } from 'react';
 
-const LoginButton: React.FC = () => {
+const LoginButton: React.FC = memo(function LoginButton() {
   const { mutate } = useLogin();
 
   return (
@@ -12,5 +13,5 @@ const LoginButton: React.FC = () => {
       />
     </button>
   );
-};
+});
 export default LoginButton;

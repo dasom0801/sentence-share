@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { PropsWithChildren } from 'react';
+import { memo, PropsWithChildren } from 'react';
 import { SerializedStyles, css } from '@emotion/react';
 import { mq } from '@/styles';
 
@@ -9,23 +9,21 @@ type MaxWidthWrapperProps = PropsWithChildren<{
   className?: string;
 }>;
 
-const MaxWidthWrapper: React.FC<MaxWidthWrapperProps> = ({
-  styles,
-  children,
-  className,
-}) => {
-  return (
-    <div
-      css={css`
-        ${maxWidth};
-        ${styles};
-      `}
-      className={className}
-    >
-      {children}
-    </div>
-  );
-};
+const MaxWidthWrapper: React.FC<MaxWidthWrapperProps> = memo(
+  function MaxWidthWrapper({ styles, children, className }) {
+    return (
+      <div
+        css={css`
+          ${maxWidth};
+          ${styles};
+        `}
+        className={className}
+      >
+        {children}
+      </div>
+    );
+  },
+);
 
 const maxWidth = css`
   margin: 0 auto;

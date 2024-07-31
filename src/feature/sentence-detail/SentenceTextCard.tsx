@@ -3,21 +3,24 @@ import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 
 import { textOverflowHidden, lineClamp, mq } from '@/styles';
+import { memo } from 'react';
 
 type SentenceTextCardProps = {
   sentence: Sentence;
 };
 
-const SentenceTextCard: React.FC<SentenceTextCardProps> = ({ sentence }) => {
-  return (
-    <div css={commonStyles}>
-      <p>{sentence.content}</p>
-      <div>
-        {sentence.book?.title} - {sentence.book?.author?.join(',')}
+const SentenceTextCard: React.FC<SentenceTextCardProps> = memo(
+  function SentenceTextCard({ sentence }) {
+    return (
+      <div css={commonStyles}>
+        <p>{sentence.content}</p>
+        <div>
+          {sentence.book?.title} - {sentence.book?.author?.join(',')}
+        </div>
       </div>
-    </div>
-  );
-};
+    );
+  },
+);
 
 const commonStyles = css`
   display: flex;
