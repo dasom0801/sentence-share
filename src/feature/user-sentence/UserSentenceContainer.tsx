@@ -41,7 +41,7 @@ const UserSentenceContainer: React.FC<{ limit?: number }> = ({
           내가 공유한 문장 {!!sentences?.total && `(${sentences?.total})`}
         </h1>
       </div>
-      {isLoading || !sentences ? (
+      {isLoading ? (
         <SentenceListSkeleton />
       ) : (
         <>
