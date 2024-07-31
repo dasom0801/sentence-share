@@ -1,27 +1,25 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { css } from '@emotion/react';
-
-import { useLogout } from '@/lib/hooks';
-
-type HeaderMenuProps = {
-  user: User;
-};
-
+import { useUserStore } from '@/store/user';
+import { useLogout, useUserQuery } from '@/lib/hooks';
+import LoginButton from './LoginButton';
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },
   { label: '내가 좋아한 문장', path: '/my/like' },
   { label: '설정', path: '/my/setting' },
 ];
 
-const HeaderMenu: React.FC<HeaderMenuProps> = ({ user }) => {
+const HeaderMenu: React.FC = memo(function HeaderMenu() {
   const navigate = useNavigate();
   const { mutate: logout } = useLogout();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
+  const user = useUserStore.use.user();
+  useUserQuery();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
@@ -42,7 +40,7 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ user }) => {
     navigate(path);
   };
 
-  return (
+  return user ? (
     <div css={styles}>
       <Button
         component={Link}
@@ -90,8 +88,10 @@ const HeaderMenu: React.FC<HeaderMenuProps> = ({ user }) => {
         <MenuItem onClick={handleLogout}>로그아웃</MenuItem>
       </Menu>
     </div>
+  ) : (
+    <LoginButton />
   );
-};
+});
 
 const styles = css`
   display: flex;

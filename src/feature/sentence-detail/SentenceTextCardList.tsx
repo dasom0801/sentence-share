@@ -3,28 +3,29 @@ import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { mq } from '@/styles';
 import SentenceTextCard from './SentenceTextCard';
+import { memo } from 'react';
 
 type SentenceTextCardListProps = {
   sentences: Sentence[];
 };
 
-const SentenceTextCardList: React.FC<SentenceTextCardListProps> = ({
-  sentences,
-}) => {
-  return (
-    <ul css={styles}>
-      {sentences.map((sentence: Sentence) => {
-        return (
-          <li key={sentence._id}>
-            <Link to={`/sentence/${sentence._id}`}>
-              <SentenceTextCard sentence={sentence} />
-            </Link>
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
+const SentenceTextCardList: React.FC<SentenceTextCardListProps> = memo(
+  function SentenceTextCardList({ sentences }) {
+    return (
+      <ul css={styles}>
+        {sentences.map((sentence: Sentence) => {
+          return (
+            <li key={sentence._id}>
+              <Link to={`/sentence/${sentence._id}`}>
+                <SentenceTextCard sentence={sentence} />
+              </Link>
+            </li>
+          );
+        })}
+      </ul>
+    );
+  },
+);
 
 const styles = css`
   display: flex;

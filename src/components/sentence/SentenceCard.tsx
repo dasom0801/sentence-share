@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { PropsWithChildren } from 'react';
+import { memo, PropsWithChildren } from 'react';
 import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { blueGrey } from '@mui/material/colors';
@@ -13,11 +13,11 @@ type SentenceCardProps = PropsWithChildren<{
   showBook?: boolean;
 }>;
 
-const SentenceCard: React.FC<SentenceCardProps> = ({
+const SentenceCard: React.FC<SentenceCardProps> = memo(function SentenceCard({
   sentence,
   showBook = true,
   children,
-}) => {
+}) {
   const { author, book, content, createdAt } = sentence;
   return (
     <div
@@ -49,7 +49,7 @@ const SentenceCard: React.FC<SentenceCardProps> = ({
       </div>
     </div>
   );
-};
+});
 
 const container = css`
   overflow: hidden;

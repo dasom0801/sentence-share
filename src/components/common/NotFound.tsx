@@ -4,8 +4,9 @@ import { css } from '@emotion/react';
 import { colors, Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { TbError404 } from 'react-icons/tb';
+import { memo } from 'react';
 
-const NotFound: React.FC = () => {
+const NotFound: React.FC = memo(function NotFound() {
   const navigate = useNavigate();
   return (
     <div css={styles}>
@@ -20,7 +21,7 @@ const NotFound: React.FC = () => {
       </Button>
     </div>
   );
-};
+});
 
 const styles = css`
   display: flex;

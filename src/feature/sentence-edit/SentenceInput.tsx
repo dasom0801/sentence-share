@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { css } from '@emotion/react';
 import { Button, TextField, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
@@ -17,115 +17,122 @@ type SentenceInputProps = Pick<
   'sentenceId' | 'setActive' | 'setContent' | 'book' | 'content'
 >;
 
-const SentenceInput: React.FC<SentenceInputProps> = ({
-  sentenceId,
-  book,
-  content,
-  setContent,
-  setActive,
-}) => {
-  const navigate = useNavigate();
-  const [showError, setShowError] = useState<boolean>(false);
-  const [showAlert, setShowAlert] = useState<boolean>(false);
-  const { mutate: createSentence, isPending: isCreatePending } =
-    useCreateSentence();
+const SentenceInput: React.FC<SentenceInputProps> = memo(
+  function SentenceInput({ sentenceId, book, content, setContent, setActive }) {
+    const navigate = useNavigate();
+    const [showError, setShowError] = useState<boolean>(false);
+    const [showAlert, setShowAlert] = useState<boolean>(false);
+    const { mutate: createSentence, isPending: isCreatePending } =
+      useCreateSentence();
 
-  const { mutate: updateSentence, isPending: isUpdatePending } =
-    useUpdateSentence();
+    const { mutate: updateSentence, isPending: isUpdatePending } =
+      useUpdateSentence();
 
-  const handleCancel = () => {
-    navigate(-1);
-  };
+    const handleCancel = useCallback(() => {
+      navigate(-1);
+    }, [navigate]);
 
-  const handleSubmit = () => {
-    if (book && content) {
-      if (sentenceId) {
-        updateSentence({ content, book, id: sentenceId });
-      } else {
-        createSentence({ content, book });
+    const handleSubmit = useCallback(() => {
+      if (book && content) {
+        if (sentenceId) {
+          updateSentence({ content, book, id: sentenceId });
+        } else {
+          createSentence({ content, book });
+        }
       }
-    }
-    setShowAlert(false);
-  };
+      setShowAlert(false);
+    }, [
+      book,
+      content,
+      updateSentence,
+      createSentence,
+      setShowAlert,
+      sentenceId,
+    ]);
 
-  const validateContent = () => {
-    if (!content || content.length <= 5) {
-      setShowError(true);
-    } else {
-      setShowError(false);
-    }
-  };
+    const validateContent = useCallback(() => {
+      if (!content || content.length <= 5) {
+        setShowError(true);
+      } else {
+        setShowError(false);
+      }
+    }, [setShowError, content]);
 
-  const handleChangeActive = () => {
-    setActive(SentenceEditStep.SEARCH);
-  };
+    const handleChangeActive = useCallback(() => {
+      setActive(SentenceEditStep.SEARCH);
+    }, [setActive]);
 
-  return (
-    <>
-      {book && (
-        <div css={bookStyles}>
-          <BookInfoSection book={book}>
-            <Button
-              className=""
-              variant="contained"
-              color="secondary"
-              size="small"
-              onClick={handleChangeActive}
-            >
-              다시 선택하기
-            </Button>
-          </BookInfoSection>
-        </div>
-      )}
+    const handleShowAlert = useCallback(() => {
+      setShowAlert(true);
+    }, [setShowAlert]);
 
-      <MaxWidthWrapper styles={styles}>
-        <TextField
-          className="textarea"
-          multiline
-          placeholder="내용을 입력해주세요."
-          value={content}
-          rows={4}
-          onChange={(e) => setContent(e.target.value)}
-          onBlur={validateContent}
-          color={showError ? 'error' : 'primary'}
-        />
-        {showError && (
-          <span className="error-text">다섯 글자 이상 입력해 주세요. </span>
+    return (
+      <>
+        {book && (
+          <div css={bookStyles}>
+            <BookInfoSection book={book}>
+              <Button
+                className=""
+                variant="contained"
+                color="secondary"
+                size="small"
+                onClick={handleChangeActive}
+              >
+                다시 선택하기
+              </Button>
+            </BookInfoSection>
+          </div>
         )}
 
-        <div className="actions">
-          <Button
-            variant="outlined"
-            color="secondary"
-            disabled={isCreatePending || isUpdatePending}
-            onClick={handleCancel}
-          >
-            취소
-          </Button>
-          <Button
-            variant="contained"
-            disabled={isCreatePending || isUpdatePending}
-            onClick={() => setShowAlert(true)}
-          >
-            {sentenceId ? '수정' : '등록'}
-          </Button>
-        </div>
-      </MaxWidthWrapper>
+        <MaxWidthWrapper styles={styles}>
+          <TextField
+            className="textarea"
+            multiline
+            placeholder="내용을 입력해주세요."
+            value={content}
+            rows={4}
+            onChange={(e) => setContent(e.target.value)}
+            onBlur={validateContent}
+            color={showError ? 'error' : 'primary'}
+          />
+          {showError && (
+            <span className="error-text">다섯 글자 이상 입력해 주세요. </span>
+          )}
 
-      <AlertDialog
-        open={showAlert}
-        content={
-          sentenceId
-            ? '내용을 수정하시겠습니까?'
-            : '작성한 내용을 등록하시겠습니까?'
-        }
-        confirmLabel={sentenceId ? '수정' : '등록'}
-        handleClose={() => setShowAlert(false)}
-        handleConfirm={() => handleSubmit()}
-      />
-    </>
-  );
-};
+          <div className="actions">
+            <Button
+              variant="outlined"
+              color="secondary"
+              disabled={isCreatePending || isUpdatePending}
+              onClick={handleCancel}
+            >
+              취소
+            </Button>
+            <Button
+              variant="contained"
+              disabled={isCreatePending || isUpdatePending}
+              onClick={handleShowAlert}
+            >
+              {sentenceId ? '수정' : '등록'}
+            </Button>
+          </div>
+        </MaxWidthWrapper>
+
+        <AlertDialog
+          open={showAlert}
+          content={
+            sentenceId
+              ? '내용을 수정하시겠습니까?'
+              : '작성한 내용을 등록하시겠습니까?'
+          }
+          confirmLabel={sentenceId ? '수정' : '등록'}
+          handleClose={() => setShowAlert(false)}
+          handleConfirm={handleSubmit}
+        />
+      </>
+    );
+  },
+);
 
 const bookStyles = css`
   button {

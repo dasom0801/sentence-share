@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { textOverflowHidden } from '@/styles';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
@@ -10,7 +10,7 @@ type BookListItemProps = {
   book: Book;
 };
 
-const BookListItem: React.FC<BookListItemProps> = ({ book }) => {
+const BookListItem: React.FC<BookListItemProps> = memo(function ({ book }) {
   const [showDefaultCover, setShowDefaultCover] = useState(false);
 
   return (
@@ -32,7 +32,8 @@ const BookListItem: React.FC<BookListItemProps> = ({ book }) => {
       </div>
     </div>
   );
-};
+});
+
 const styles = css`
   display: flex;
   align-items: center;

@@ -52,14 +52,11 @@ const BookSearch: React.FC<BookSearchProps> = ({
     };
   }, [searchRef]);
 
-  const debouncedSetSearch = useCallback(
-    debounce((value: string) => {
-      setSearch(value);
-    }, 300),
-    [],
-  );
+  const debouncedSetSearch = debounce((value: string) => {
+    setSearch(value);
+  }, 300);
 
-  const onChangeInput = useCallback(
+  const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       const { value } = e.target;
       setInput(value);
@@ -67,6 +64,10 @@ const BookSearch: React.FC<BookSearchProps> = ({
     },
     [debouncedSetSearch],
   );
+
+  const handleFocus = useCallback(() => {
+    setFocused(true);
+  }, [setFocused]);
 
   const handleBookClick = (book: Book) => {
     setBook(book);
@@ -86,8 +87,8 @@ const BookSearch: React.FC<BookSearchProps> = ({
         type="search"
         placeholder="책 이름을 입력해주세요"
         value={input}
-        onChange={onChangeInput}
-        onFocus={() => setFocused(true)}
+        onChange={handleChange}
+        onFocus={handleFocus}
         ref={searchRef}
       />
       {focused && search ? (

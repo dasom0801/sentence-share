@@ -4,15 +4,16 @@ import { css } from '@emotion/react';
 import { BiBookHeart } from 'react-icons/bi';
 import { colors } from '@mui/material';
 import { mq } from '@/styles';
+import { memo } from 'react';
 
-const Logo: React.FC = () => {
+const Logo: React.FC = memo(function Logo() {
   return (
     <div css={logoStyle}>
       <BiBookHeart />
       <span>SentenceShare</span>
     </div>
   );
-};
+});
 
 const logoStyle = css`
   display: flex;

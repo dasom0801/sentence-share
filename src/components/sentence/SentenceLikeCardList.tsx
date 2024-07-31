@@ -7,6 +7,7 @@ import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { gridContainer } from '@/styles';
 import SentenceCard from './SentenceCard';
 import SentenceCardSkeleton from './SentenceCardSkeleton';
+import { memo, useMemo } from 'react';
 
 type SentenceCardListParams = {
   list: Sentence[] | undefined;
@@ -16,44 +17,54 @@ type SentenceCardListParams = {
   onToggleLike: (id: string) => void;
 };
 
-const SentenceLikeCardList: React.FC<SentenceCardListParams> = ({
-  list,
-  isLoading,
-  showBook = true,
-  skeletonLength = 12,
-  onToggleLike,
-}) => {
-  const skeletonList = Array.from({ length: skeletonLength }).map(
-    (_, index) => <SentenceCardSkeleton key={index} />,
-  );
-  const sentenceList = list?.map((sentence) => (
-    <li
-      key={sentence._id}
-      css={css`
-        min-width: 0;
-      `}
-    >
-      <SentenceCard sentence={sentence} showBook={showBook}>
-        <Button
-          css={buttonStyle}
-          size="large"
-          color="secondary"
-          fullWidth={true}
-          onClick={() => onToggleLike(sentence._id)}
-        >
-          <span>좋아요</span>
-          {sentence.isLiked ? <FaHeart /> : <FaRegHeart />}
-        </Button>
-      </SentenceCard>
-    </li>
-  ));
+const SentenceLikeCardList: React.FC<SentenceCardListParams> = memo(
+  function SentenceLikeCardList({
+    list,
+    isLoading,
+    showBook = true,
+    skeletonLength = 12,
+    onToggleLike,
+  }) {
+    const skeletonList = useMemo(
+      () =>
+        Array.from({ length: skeletonLength }).map((_, index) => (
+          <SentenceCardSkeleton key={index} />
+        )),
+      [skeletonLength],
+    );
+    const sentenceList = useMemo(
+      () =>
+        list?.map((sentence) => (
+          <li
+            key={sentence._id}
+            css={css`
+              min-width: 0;
+            `}
+          >
+            <SentenceCard sentence={sentence} showBook={showBook}>
+              <Button
+                css={buttonStyle}
+                size="large"
+                color="secondary"
+                fullWidth={true}
+                onClick={() => onToggleLike(sentence._id)}
+              >
+                <span>좋아요</span>
+                {sentence.isLiked ? <FaHeart /> : <FaRegHeart />}
+              </Button>
+            </SentenceCard>
+          </li>
+        )),
+      [list, onToggleLike, showBook],
+    );
 
-  return (
-    <ul css={gridContainer}>
-      {isLoading || !list ? skeletonList : sentenceList}
-    </ul>
-  );
-};
+    return (
+      <ul css={gridContainer}>
+        {isLoading || !list ? skeletonList : sentenceList}
+      </ul>
+    );
+  },
+);
 
 const buttonStyle = css`
   display: flex;

@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { PropsWithChildren } from 'react';
+import { memo, PropsWithChildren } from 'react';
 import { css } from '@emotion/react';
 import { colors } from '@mui/material';
 import BookInfoSectionSkeleton from './BookInfoSectionSkeleton';
@@ -10,30 +10,28 @@ type BookInfoSectionType = PropsWithChildren<{
   isLoading?: boolean;
 }>;
 
-const BookInfoSection: React.FC<BookInfoSectionType> = ({
-  book,
-  isLoading,
-  children,
-}) => {
-  if (isLoading) return <BookInfoSectionSkeleton />;
+const BookInfoSection: React.FC<BookInfoSectionType> = memo(
+  function BookInfoSection({ book, isLoading, children }) {
+    if (isLoading) return <BookInfoSectionSkeleton />;
 
-  return (
-    <section
-      css={css`
-        ${styles};
-        background-image: url(${book?.coverUrl});
-      `}
-    >
-      <div className="backdrop">
-        <img src={book?.coverUrl} alt={book?.title} />
-        <h2 className="title">{book?.title}</h2>
-        <div>{book?.author.join(',')}</div>
+    return (
+      <section
+        css={css`
+          ${styles};
+          background-image: url(${book?.coverUrl});
+        `}
+      >
+        <div className="backdrop">
+          <img src={book?.coverUrl} alt={book?.title} />
+          <h2 className="title">{book?.title}</h2>
+          <div>{book?.author.join(',')}</div>
 
-        {children}
-      </div>
-    </section>
-  );
-};
+          {children}
+        </div>
+      </section>
+    );
+  },
+);
 
 const styles = css`
   min-height: 419px;

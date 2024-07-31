@@ -4,52 +4,64 @@ import { useParams } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { Helmet } from 'react-helmet-async';
 
-import { BookInfoSection, MaxWidthWrapper, UserInfo } from '@/components';
+import {
+  BookInfoSection,
+  BookInfoSectionSkeleton,
+  MaxWidthWrapper,
+  UserInfo,
+} from '@/components';
 import { useSentenceQuery } from '@/lib/hooks';
 import { mq } from '@/styles';
 import SentenceRelatedContainer from './SentenceRelatedContainer';
+import { memo, useMemo } from 'react';
 
-const SentenceDetailContainer: React.FC = () => {
-  const { id } = useParams();
-  const { data, isLoading, isError, error } = useSentenceQuery(id);
-  const title = !data?.content
-    ? ''
-    : data.content.length > 15
-      ? `${data?.content.slice(0, 15)}... - `
-      : data?.content;
-
-  if (isError) {
-    throw error;
-  }
-
-  if (isLoading) {
-    return (
-      <div>
-        <BookInfoSection isLoading={true} />
-      </div>
+const SentenceDetailContainer: React.FC = memo(
+  function SentenceDetailContainer() {
+    const { id } = useParams();
+    const { data, isLoading, isError, error } = useSentenceQuery(id);
+    const title = useMemo(
+      () =>
+        !data?.content
+          ? ''
+          : data.content.length > 15
+            ? `${data?.content.slice(0, 15)}... - `
+            : data?.content,
+      [data],
     );
-  }
 
-  if (data?.book) {
-    return (
-      <>
-        <Helmet>
-          <title>{title} Sentence Share</title>
-        </Helmet>
-        <div css={styles}>
-          <BookInfoSection book={data.book} />
+    if (isError) {
+      throw error;
+    }
 
-          <MaxWidthWrapper className="wrapper">
-            <p>{data.content}</p>
-            <UserInfo className="user-info" user={data.author} />
-
-            <SentenceRelatedContainer book={data.book} />
-          </MaxWidthWrapper>
+    if (isLoading) {
+      return (
+        <div>
+          <BookInfoSectionSkeleton />
         </div>
-      </>
-    );
-  }
-};
+      );
+    }
+
+    if (data?.book) {
+      return (
+        <>
+          <Helmet>
+            <title>{title} Sentence Share</title>
+          </Helmet>
+          <div css={styles}>
+            <BookInfoSection book={data.book} />
+
+            <MaxWidthWrapper className="wrapper">
+              <p>{data.content}</p>
+              <UserInfo className="user-info" user={data.author} />
+
+              <SentenceRelatedContainer book={data.book} />
+            </MaxWidthWrapper>
+          </div>
+        </>
+      );
+    }
+  },
+);
 
 const styles = css`
   .wrapper {
