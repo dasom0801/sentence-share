@@ -41,7 +41,7 @@ const SentenceCard: React.FC<SentenceCardProps> = memo(function SentenceCard({
               <div className="title">{book?.title}</div>
               <div>{book?.author.join(',')}</div>
             </div>
-            <img src={book?.coverUrl} alt={book?.title} />
+            <img src={book?.coverUrl} alt={book?.title} loading="lazy" />
           </Link>
         )}
 
