@@ -22,6 +22,7 @@ const BookListItem: React.FC<BookListItemProps> = memo(function ({ book }) {
           src={book.coverUrl}
           alt={book.title}
           onError={() => setShowDefaultCover(true)}
+          loading="lazy"
         />
       )}
 
