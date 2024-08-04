@@ -30,12 +30,17 @@ https://github.com/dasom0801/sentence-share-server
 - 문장 작성 및 수정
 
   <img src="./images/BookSearch.png" width="70%" alt="책 검색">
+
   <img src="./images/SentenceInput.png" width="70%" alt="문장 작성">
 
 - 내가 등록한 문장, 좋아한 문장 목록
+
   <img src="./images/UserSentence.png" width="70%" alt="내가 등록한 문장">
+
   <img src="./images/UserLike.png" width="70%" alt="내가 좋아한 문장">
+
 - 책에 등록된 문장 목록
+
   <img src="./images/BookSentence.png" width="70%" alt="내가 좋아한 문장">
 
 ### v1.0에서 달라진 점
