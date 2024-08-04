@@ -20,12 +20,18 @@ https://github.com/dasom0801/sentence-share-server
 
 - 구글 계정으로 회원가입
 - 최신순/인기순 정렬
+
   <img src="./images/MainList.png" width="70%" alt="최신순/인기순 정렬">
+
 - 닉네임과 프로필 이미지 변경
+
   <img src="./images/Setting.png" width="70%" alt="닉네임과 프로필 이미지 변경">
+
 - 문장 작성 및 수정
+
   <img src="./images/BookSearch.png" width="70%" alt="책 검색">
   <img src="./images/SentenceInput.png" width="70%" alt="문장 작성">
+
 - 내가 등록한 문장, 좋아한 문장 목록
   <img src="./images/UserSentence.png" width="70%" alt="내가 등록한 문장">
   <img src="./images/UserLike.png" width="70%" alt="내가 좋아한 문장">
