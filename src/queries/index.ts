@@ -92,7 +92,7 @@ export const sentenceQueries = {
     }),
   bookSearch: (query: string) =>
     infiniteQueryOptions({
-      queryKey: [...sentenceQueries.all(), 'book', 'search'],
+      queryKey: [...sentenceQueries.all(), 'book', 'search', query],
       queryFn: ({ pageParam }) => searchBook({ query, page: pageParam }),
       initialPageParam: 1,
       getNextPageParam: (result, allPages) =>
