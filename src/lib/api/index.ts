@@ -15,15 +15,9 @@ import {
   updateSentence,
   getSentences,
 } from './sentence';
-
-import type {
-  BookSearchParams,
-  CreateSentenceParams,
-  UpdateSentenceParams,
-} from './sentence';
+import type { CreateSentenceParams, UpdateSentenceParams } from './sentence';
 
 import { getBook, getBookSentence } from './book';
-import type { GetBookSentenceParams } from './book';
 
 export {
   loginWithGoogle,
@@ -44,9 +38,4 @@ export {
   getBook,
 };
 
-export type {
-  BookSearchParams,
-  CreateSentenceParams,
-  UpdateSentenceParams,
-  GetBookSentenceParams,
-};
+export type { CreateSentenceParams, UpdateSentenceParams };
