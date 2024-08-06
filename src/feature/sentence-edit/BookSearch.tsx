@@ -141,11 +141,11 @@ const styles = css`
   height: calc(100vh - 56px);
 
   .search-input {
+    margin: 0 0 8px;
     width: 100%;
   }
 
   ul {
-    margin: 8px 0 0 0;
     overflow-y: auto;
     li + li {
       margin: 16px 0 0 0;
