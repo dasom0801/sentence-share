@@ -15,7 +15,7 @@ const AuthGuard: React.FC = () => {
     return (
       <div css={styles}>
         <h1>로그인 후 이용해주세요.</h1>
-        <LoginButton />;
+        <LoginButton />
       </div>
     );
   }
@@ -23,6 +23,7 @@ const AuthGuard: React.FC = () => {
 
 const styles = css`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   min-height: 300px;
