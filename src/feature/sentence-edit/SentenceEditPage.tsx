@@ -9,7 +9,7 @@ const SentenceEditPage: React.FC = () => {
       <Helmet>
         <title> {id ? '수정하기' : '작성하기'} - Sentence Share</title>
       </Helmet>
-      <SentenceEditContainer />;
+      <SentenceEditContainer />
     </>
   );
 };
