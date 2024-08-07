@@ -2,7 +2,13 @@
 
 import { memo, useState } from 'react';
 import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
-import { Link, useNavigate } from 'react-router-dom';
+import {
+  Link,
+  useNavigate,
+  useSearchParams,
+  useLocation,
+  createSearchParams,
+} from 'react-router-dom';
 import { css } from '@emotion/react';
 import { useUserStore } from '@/store/user';
 import { useLogout, useUserQuery } from '@/lib/hooks';
@@ -19,6 +25,9 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useUserStore.use.user();
+  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
   useUserQuery();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
@@ -32,7 +41,23 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
   const handleLogout = async () => {
     logout();
     handleClose();
-    navigate('/');
+    goToMain();
+  };
+
+  const goToMain = () => {
+    const authRoutes = ['edit', 'my'];
+    if (location.pathname === '/') {
+      navigate({
+        pathname: '/',
+        search: `${createSearchParams(searchParams)}`,
+      });
+      return;
+    }
+
+    if (authRoutes.includes(location.pathname.split('/')[1])) {
+      navigate('/');
+      return;
+    }
   };
 
   const handleNavigate = async (path: string) => {
