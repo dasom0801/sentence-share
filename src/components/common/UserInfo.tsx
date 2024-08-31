@@ -5,6 +5,7 @@ import { Avatar, colors } from '@mui/material';
 
 import { textOverflowHidden } from '@/styles';
 import { memo } from 'react';
+import blankProfile from '../../../public/images/blank-profile.png';
 
 type UserInfoProps = {
   user: Partial<User>;
@@ -20,7 +21,7 @@ const UserInfo: React.FC<UserInfoProps> = memo(function UserInfo({
       <Avatar
         sx={{ height: '30px', width: '30px' }}
         alt={user.name}
-        src={user.profileUrl || '/images/blank-profile.png'}
+        src={user.profileUrl || blankProfile.src}
       />
       <div className="name">{user.name}</div>
     </div>

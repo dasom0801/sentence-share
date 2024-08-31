@@ -13,6 +13,8 @@ import { css } from '@emotion/react';
 import { useUserStore } from '@/store/user';
 import { useLogout, useUserQuery } from '@/lib/hooks';
 import LoginButton from './LoginButton';
+import blankProfile from '../../../public/images/blank-profile.png';
+
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },
   { label: '내가 좋아한 문장', path: '/my/like' },
@@ -82,10 +84,7 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <Avatar
-          alt={user.name}
-          src={user.profileUrl || '/images/blank-profile.png'}
-        />
+        <Avatar alt={user.name} src={user.profileUrl || blankProfile.src} />
       </IconButton>
       <Menu
         id="user-menu"
