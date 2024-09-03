@@ -1,0 +1,16 @@
+:root {
+  --blueGrey50:#eceff1;
+  --blueGrey100: #cfd8dc;
+  --blueGrey200: #b0bec5;
+  --blueGrey300: #90a4ae;
+  --blueGrey400: #78909c;
+  --blueGrey500: #607d8b;
+  --blueGrey600: #546e7a;
+  --blueGrey700: #455a64;
+  --blueGrey800: #37474f;
+  --blueGrey900: #263238;
+  --blueGreyA100: #cfd8dc;
+  --blueGreyA200: #b0bec5;
+  --blueGreyA400: #78909c;
+  --blueGreyA700: #455a64;
+}
