@@ -36,7 +36,9 @@ export const userQueries = {
           return null;
         }
       },
-      enabled: !!localStorage.getItem('access_token'),
+      enabled:
+        !(typeof window === 'undefined') &&
+        !!localStorage.getItem('access_token'),
     }),
   sentenceLists: () => [...userQueries.all(), 'sentence'],
   sentenceList: (params: UserListRequestParams) =>
