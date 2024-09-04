@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 
 import { memo } from 'react';
-import { preflight } from '@/styles';
+import { preflight } from '@/styles/preflight';
 import { Global, css } from '@emotion/react';
 
 const GlobalStyles: React.FC = memo(function GlobalStyles() {
