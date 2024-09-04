@@ -1,0 +1,15 @@
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  img {
+    border-radius: 50%;
+  }
+
+  .name {
+    @include textOverflowHidden;
+    flex: 1;
+    color: var(--blueGrey600);
+  }
+}
