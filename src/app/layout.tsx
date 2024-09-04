@@ -15,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="ko-KR">
       <body>
-        <div id="root">{children}</div>
+        <div id="root">
+          <ClientProviders>{children}</ClientProviders>
+        </div>
       </body>
     </html>
   );
