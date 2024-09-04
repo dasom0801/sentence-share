@@ -22,7 +22,7 @@ const BookInfoSection: React.FC<BookInfoSectionType> = memo(
         `}
       >
         <div className="backdrop">
-          <img src={book?.coverUrl} alt={book?.title} fetchpriority="high" />
+          <img src={book?.coverUrl} alt={book?.title} fetchPriority="high" />
           <h2 className="title">{book?.title}</h2>
           <div>{book?.author.join(',')}</div>
 
