@@ -5,23 +5,20 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const fetchAPI = async <T>(
   url: string,
-  init?: RequestInit,
+  init: RequestInit = {},
 ): Promise<T> => {
   const token = await getBearerToken();
   let headers = {};
   if (token) {
     headers = { Authorization: token };
   }
-  if (init) {
-    init = { ...init, ...headers };
-  }
+  init = { ...init, headers };
   try {
     const response = await fetch(`${BASE_URL}${url}`, init);
-    if (response.ok) {
-      return await response.json();
-    } else {
-      throw new Error('요청에 실패했습니다');
+    if (!response.ok) {
+      throw new Error(await response.text());
     }
+    return await response.json();
   } catch (error) {
     throw error;
   }
