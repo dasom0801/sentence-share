@@ -1,19 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
+'use client';
 import { memo, useState } from 'react';
 import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
-import {
-  Link,
-  useNavigate,
-  useSearchParams,
-  useLocation,
-  createSearchParams,
-} from 'react-router-dom';
 import { css } from '@emotion/react';
 import { useUserStore } from '@/store/user';
 import { useLogout, useUserQuery } from '@/lib/hooks';
 import LoginButton from './LoginButton';
 import blankProfile from '../../../public/images/blank-profile.png';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },
@@ -22,13 +17,13 @@ export const navigateMenus: { label: string; path: string }[] = [
 ];
 
 const HeaderMenu: React.FC = memo(function HeaderMenu() {
-  const navigate = useNavigate();
+  const router = useRouter();
   const { mutate: logout } = useLogout();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useUserStore.use.user();
-  const location = useLocation();
-  const [searchParams] = useSearchParams();
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
 
   useUserQuery();
 
@@ -48,32 +43,29 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
 
   const goToMain = () => {
     const authRoutes = ['edit', 'my'];
-    if (location.pathname === '/') {
-      navigate({
-        pathname: '/',
-        search: `${createSearchParams(searchParams)}`,
-      });
+    if (pathname === '/') {
+      const params = new URLSearchParams(searchParams.toString());
+      router.push(`/?${params.toString()}`);
       return;
     }
 
-    if (authRoutes.includes(location.pathname.split('/')[1])) {
-      navigate('/');
+    if (authRoutes.includes(pathname.split('/')[1])) {
+      router.push('/');
       return;
     }
   };
 
   const handleNavigate = async (path: string) => {
     handleClose();
-    navigate(path);
+    router.push(path);
   };
 
   return user ? (
     <div css={styles}>
       <Button
-        component={Link}
         size="small"
         variant="outlined"
-        to="/edit/sentence"
+        onClick={() => handleNavigate('/edit/sentence')}
       >
         작성하기
       </Button>
