@@ -1,9 +1,9 @@
 import queryString from 'query-string';
-import axios from './api';
+import axios, { fetchAPI } from './api';
 import { BookSentenceListParams } from './types';
 
 export const getBook = async (bookId?: string) => {
-  return (await axios.get<Book>(`/api/book/${bookId}`)).data;
+  return fetchAPI<Book>(`/api/book/${bookId}`);
 };
 
 export const getBookSentence = async (params: BookSentenceListParams) => {

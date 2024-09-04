@@ -25,9 +25,11 @@ export const fetchAPI = async <T>(
 };
 
 const axiosInstance = axios.create({ baseURL: BASE_URL });
-axiosInstance.interceptors.request.use((config) => {
-  const authorization = getBearerToken();
-  config.headers.Authorization = authorization;
+axiosInstance.interceptors.request.use(async (config) => {
+  const authorization = await getBearerToken();
+  if (authorization) {
+    config.headers.Authorization = authorization;
+  }
   return config;
 });
 

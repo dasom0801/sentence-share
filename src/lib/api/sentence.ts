@@ -1,5 +1,5 @@
 import queryString from 'query-string';
-import axios from './api';
+import axios, { fetchAPI } from './api';
 import { BookSearchParams, SentenceDetailParams } from './types';
 
 export const getSentences = async (params: APIRequestParams) => {
@@ -10,7 +10,7 @@ export const getSentences = async (params: APIRequestParams) => {
 };
 
 export const toggleSentenceLike = async (id: string) => {
-  return (await axios.put(`/api/sentence/${id}/like`)).data;
+  return fetchAPI<Sentence>(`/api/sentence/${id}/like`, { method: 'PUT' });
 };
 
 export const getSentence = async (params: SentenceDetailParams) => {

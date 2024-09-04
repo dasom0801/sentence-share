@@ -14,7 +14,7 @@ export const deleteUser = async () => {
   return (await axios.delete('/api/user/withdrawal')).data;
 };
 
-export const getUserSentences = async (params: UserListRequestParams) => {
+export const getUserSentence = async (params: UserListRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
   return (
