@@ -1,12 +1,18 @@
 import { SortBy, SortOrder } from '@/types/enum';
+import { getServerToken } from '@/lib/utils/server-utils';
+import { getClientToken } from '@/lib/utils/client-utils';
 
-export const getBearerToken = () => {
-  const token = localStorage.getItem('access_token');
-  const authorization = token ? `Bearer ${token}` : null;
-  return authorization;
+export const getBearerToken = async () => {
+  let token;
+  if (typeof window === 'undefined') {
+    token = await getServerToken();
+  } else {
+    token = getClientToken();
+  }
+  return token ? `Bearer ${token}` : null;
 };
 
-// searchPrams를 object로 변환
+// searchParams를 object로 변환
 export const getSearchParamsObject = (
   searchParams: URLSearchParams,
 ): { [key: string]: string } => {
