@@ -4,6 +4,6 @@ type Sentence = {
   likes: number;
   createdAt: string;
   author: Partial<User>;
-  book?: Book;
+  book: Book;
   isLiked: boolean;
 };

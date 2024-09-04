@@ -13,9 +13,8 @@ export const toggleSentenceLike = async (id: string) => {
   return fetchAPI<Sentence>(`/api/sentence/${id}/like`, { method: 'PUT' });
 };
 
-export const getSentence = async (params: SentenceDetailParams) => {
-  const { sentenceId } = params;
-  return (await axios.get<Sentence>(`/api/sentence/${sentenceId}`)).data;
+export const getSentence = async ({ sentenceId }: SentenceDetailParams) => {
+  return fetchAPI<Sentence>(`/api/sentence/${sentenceId}`);
 };
 
 export const deleteSentence = async (id: string) => {

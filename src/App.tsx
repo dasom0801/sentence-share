@@ -49,15 +49,9 @@ const App = () => {
           <GlobalStyles />
           <BrowserRouter>
             <Header />
-            <div
-              css={css`
-                padding-top: 56px;
-              `}
-            >
-              <ErrorBoundary FallbackComponent={ErrorResult}>
-                <Router />
-              </ErrorBoundary>
-            </div>
+            <ErrorBoundary FallbackComponent={ErrorResult}>
+              <Router />
+            </ErrorBoundary>
           </BrowserRouter>
         </ThemeProvider>
 
