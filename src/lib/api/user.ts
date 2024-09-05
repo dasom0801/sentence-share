@@ -25,9 +25,7 @@ export const getUserSentence = async (params: UserListRequestParams) => {
 export const getUserLike = async (params: UserListRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
-  return (
-    await axios.get<PaginationResult<Sentence>>(
-      `/api/user/${userId}/like?${query}`,
-    )
-  ).data;
+  return fetchAPI<PaginationResult<Sentence>>(
+    `/api/user/${userId}/like?${query}`,
+  );
 };
