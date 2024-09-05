@@ -23,3 +23,17 @@
     @error "브레이크 포인트 확인 필요: #{$bp}. 'sm', 'md', 'lg', 'xl' 만 허용함.";
   }
 }
+
+@mixin lineClamp($line) {
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: break-spaces;
+}
+
+@mixin textOverflowHidden() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

@@ -1,0 +1,10 @@
+.title {
+  margin: 0 0 16px 0;
+  color: var(--blueGrey900);
+  font-size: 18px;
+  font-weight: 500;
+
+  @include mq(md) {
+    font-size: 20px;
+  }
+}

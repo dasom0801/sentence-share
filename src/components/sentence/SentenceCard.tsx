@@ -1,12 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { memo, PropsWithChildren } from 'react';
-import { Link } from 'react-router-dom';
 import { css } from '@emotion/react';
 import { blueGrey } from '@mui/material/colors';
 
 import { lineClamp, textOverflowHidden } from '@/styles';
 import UserInfo from '../common/UserInfo';
+import Link from 'next/link';
 
 type SentenceCardProps = PropsWithChildren<{
   sentence: Sentence;
@@ -32,11 +32,11 @@ const SentenceCard: React.FC<SentenceCardProps> = memo(function SentenceCard({
           <time>{createdAt.split('T')[0]}</time>
         </div>
 
-        <Link className="sentence" to={`/sentence/${sentence?._id}`}>
+        <Link className="sentence" href={`/sentence/${sentence?._id}`}>
           <p>{content}</p>
         </Link>
         {showBook && (
-          <Link className="book-info" to={`/book/${book?._id}`}>
+          <Link className="book-info" href={`/book/${book?._id}`}>
             <div>
               <div className="title">{book?.title}</div>
               <div>{book?.author.join(',')}</div>

@@ -2,13 +2,14 @@
 
 'use client';
 import { memo, useState } from 'react';
-import { Avatar, Button, IconButton, Menu, MenuItem } from '@mui/material';
+import { Button, IconButton, Menu, MenuItem } from '@mui/material';
 import { css } from '@emotion/react';
 import { useUserStore } from '@/store/user';
 import { useLogout, useUserQuery } from '@/lib/hooks';
 import LoginButton from './LoginButton';
 import blankProfile from '../../../public/images/blank-profile.png';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import Image from 'next/image';
 
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },
@@ -76,7 +77,13 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
         aria-expanded={open ? 'true' : undefined}
         onClick={handleClick}
       >
-        <Avatar alt={user.name} src={user.profileUrl || blankProfile.src} />
+        <Image
+          style={{ borderRadius: '50%' }}
+          width={40}
+          height={40}
+          alt={user.name}
+          src={user.profileUrl || blankProfile}
+        />
       </IconButton>
       <Menu
         id="user-menu"

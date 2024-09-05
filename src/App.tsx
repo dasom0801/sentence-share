@@ -6,13 +6,11 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { ThemeProvider } from '@mui/material';
-import { css } from '@emotion/react';
 
 import { AuthGuard, ErrorResult, GlobalStyles, Header } from '@/components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MUI_THEME } from './constants';
 import { MainPage } from '@/feature/main';
-import { SentenceDetailPage } from '@/feature/sentence-detail';
 import { BookDetailPage } from '@/feature/book-detail';
 import { SettingPage } from '@/feature/setting';
 import { UserSentencePage } from '@/feature/user-sentence';
@@ -24,7 +22,6 @@ const Router = () => (
   <Routes>
     <Route path="/">
       <Route path="/" element={<MainPage />} />
-      <Route path="/sentence/:id" element={<SentenceDetailPage />} />
       <Route path="/book/:id" element={<BookDetailPage />} />
       <Route element={<AuthGuard />}>
         <Route path="/my/setting" element={<SettingPage />} />
@@ -49,15 +46,9 @@ const App = () => {
           <GlobalStyles />
           <BrowserRouter>
             <Header />
-            <div
-              css={css`
-                padding-top: 56px;
-              `}
-            >
-              <ErrorBoundary FallbackComponent={ErrorResult}>
-                <Router />
-              </ErrorBoundary>
-            </div>
+            <ErrorBoundary FallbackComponent={ErrorResult}>
+              <Router />
+            </ErrorBoundary>
           </BrowserRouter>
         </ThemeProvider>
 

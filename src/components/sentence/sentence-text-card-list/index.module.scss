@@ -1,0 +1,33 @@
+.list {
+  display: flex;
+  overflow-x: auto;
+
+  li {
+    flex-shrink: 0;
+    max-width: 100%;
+
+    a {
+      cursor: pointer;
+    }
+
+    a:hover {
+      p {
+        text-decoration: underline;
+      }
+    }
+  }
+
+  @include mq(sm) {
+    gap: 0 12px;
+
+    li {
+      width: calc(50% - 12px);
+    }
+  }
+
+  @include mq(lg) {
+    li {
+      width: calc(33% - 12px);
+    }
+  }
+}

@@ -1,11 +1,12 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from '@emotion/react';
-import { Avatar, colors } from '@mui/material';
+import { colors } from '@mui/material';
 
 import { textOverflowHidden } from '@/styles';
 import { memo } from 'react';
 import blankProfile from '../../../public/images/blank-profile.png';
+import Image from 'next/image';
 
 type UserInfoProps = {
   user: Partial<User>;
@@ -18,10 +19,12 @@ const UserInfo: React.FC<UserInfoProps> = memo(function UserInfo({
 }) {
   return (
     <div className={className} css={styles}>
-      <Avatar
-        sx={{ height: '30px', width: '30px' }}
-        alt={user.name}
-        src={user.profileUrl || blankProfile.src}
+      <Image
+        src={user.profileUrl || blankProfile}
+        alt={user.name || ''}
+        height={30}
+        width={30}
+        style={{ borderRadius: '50%' }}
       />
       <div className="name">{user.name}</div>
     </div>
