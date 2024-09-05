@@ -1,7 +1,6 @@
 import { createBrowserRouter } from 'react-router-dom';
 import { NotFound } from '@/components';
 import { BookDetailPage } from '@/feature/book-detail';
-import { SentenceDetailPage } from '@/feature/sentence-detail';
 import { MainPage } from '@/feature/main';
 
 import App from '../App';
@@ -14,10 +13,6 @@ const router = createBrowserRouter([
     element: <App />,
     children: [
       { path: '/', element: <MainPage /> },
-      {
-        path: '/sentence/:id',
-        element: <SentenceDetailPage />,
-      },
       {
         path: '/book/:id',
         element: <BookDetailPage />,
