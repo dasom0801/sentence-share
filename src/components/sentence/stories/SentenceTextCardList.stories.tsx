@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MockSentence } from '@/mocks/data';
-import SentenceTextCardList from '../SentenceTextCardList';
+import SentenceTextCardList from '../sentence-text-card-list';
 
 const meta = {
   title: 'Sentence/SentenceTextCardList',

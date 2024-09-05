@@ -1,5 +1,5 @@
 import Link from 'next/link';
-import SentenceTextCard from '@components/sentence/sentenct-text-card';
+import SentenceTextCard from 'src/components/sentence/sentence-text-card';
 import classes from './index.module.scss';
 
 type SentenceTextCardListProps = {

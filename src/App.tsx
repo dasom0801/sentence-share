@@ -11,9 +11,7 @@ import { AuthGuard, ErrorResult, GlobalStyles, Header } from '@/components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MUI_THEME } from './constants';
 import { MainPage } from '@/feature/main';
-import { BookDetailPage } from '@/feature/book-detail';
 import { SettingPage } from '@/feature/setting';
-import { UserSentencePage } from '@/feature/user-sentence';
 import { UserLikePage } from '@/feature/user-like';
 import { SentenceEditPage } from '@/feature/sentence-edit';
 
@@ -22,10 +20,8 @@ const Router = () => (
   <Routes>
     <Route path="/">
       <Route path="/" element={<MainPage />} />
-      <Route path="/book/:id" element={<BookDetailPage />} />
       <Route element={<AuthGuard />}>
         <Route path="/my/setting" element={<SettingPage />} />
-        <Route path="/my/sentence" element={<UserSentencePage />} />
         <Route path="/my/like" element={<UserLikePage />} />
         <Route path="/edit/sentence" element={<SentenceEditPage />} />
         <Route path="/edit/sentence/:id" element={<SentenceEditPage />} />
