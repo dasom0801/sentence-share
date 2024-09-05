@@ -1,17 +1,23 @@
 import querystring from 'query-string';
-import axios, { fetchAPI } from './api';
+import { fetchAPI } from './api';
 import { UserListRequestParams } from './types';
+import { signOut } from '@firebase/auth';
+import { auth } from '@/lib/firebase.config';
 
 export const getUser = async () => {
   return fetchAPI<User>('/api/user/me');
 };
 
 export const updateUser = async (data: Record<string, any>) => {
-  return await axios.put<User>('/api/user/me', data);
+  return fetchAPI<User>('/api/user/me', {
+    method: 'PUT',
+    body: JSON.stringify(data),
+  });
 };
 
 export const deleteUser = async () => {
-  return (await axios.delete('/api/user/withdrawal')).data;
+  await fetchAPI('/api/user/withdrawal', { method: 'DELETE' });
+  await signOut(auth);
 };
 
 export const getUserSentence = async (params: UserListRequestParams) => {

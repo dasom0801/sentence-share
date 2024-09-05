@@ -8,18 +8,25 @@ export const fetchAPI = async <T>(
   init: RequestInit = {},
 ): Promise<T> => {
   const token = await getBearerToken();
-  let headers = {};
+  let headers: HeadersInit = {
+    'Content-Type': 'application/json',
+  };
   if (token) {
-    headers = { Authorization: token };
+    headers = {
+      ...headers,
+      Authorization: token,
+    };
   }
   init = { ...init, headers };
   try {
     const response = await fetch(`${BASE_URL}${url}`, init);
+
     if (!response.ok) {
       throw new Error(await response.text());
     }
     return await response.json();
   } catch (error) {
+    console.log('error', error);
     throw error;
   }
 };
