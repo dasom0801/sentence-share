@@ -1,20 +1,14 @@
 import { act, screen, waitFor } from '@testing-library/react';
 import { render } from '@/lib/test/render';
 import { MockUser } from '@/mocks/data';
-import SettingUserImage from '../SettingUserImage';
-import { DEFAULT_PROFILE } from '../../../constants';
+import SettingUserImage from '../setting-user-image';
+import { DEFAULT_PROFILE } from '../../../../../constants';
 
 const renderComponent = () => {
   const onImageRemove = vi.fn();
   const onImageUpdate = vi.fn();
 
-  const { user } = render(
-    <SettingUserImage
-      user={MockUser}
-      onImageRemove={onImageRemove}
-      onImageUpdate={onImageUpdate}
-    />
-  );
+  const { user } = render(<SettingUserImage user={MockUser} />);
 
   const UserImage = () => screen.getByRole('img', { name: '프로필 이미지' });
   const UploadButton = () =>
@@ -46,7 +40,7 @@ describe('SettingUserImage', () => {
   test('사용자의 profileUrl 값이 없으면 기본 이미지를 보여준다.', async () => {
     const { UserImage } = renderComponent();
     await waitFor(() =>
-      expect(UserImage()).toHaveAttribute('src', DEFAULT_PROFILE)
+      expect(UserImage()).toHaveAttribute('src', DEFAULT_PROFILE),
     );
   });
 

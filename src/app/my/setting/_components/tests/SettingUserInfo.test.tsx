@@ -1,13 +1,11 @@
 import { screen, waitFor } from '@testing-library/react';
 import { MockUser } from '@/mocks/data';
 import { render } from '@/lib/test/render';
-import SettingUserInfo from '../SettingUserInfo';
+import SettingUserInfo from '../setting-user-info';
 
 const renderComponent = () => {
   const onSubmit = vi.fn();
-  const { user } = render(
-    <SettingUserInfo loading={false} user={MockUser} onSubmit={onSubmit} />
-  );
+  const { user } = render(<SettingUserInfo user={MockUser} />);
 
   const UserNameInput = () =>
     screen.getByRole('textbox', { name: '이름' }) as HTMLInputElement;

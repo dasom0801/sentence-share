@@ -5,11 +5,9 @@ import { Button } from '@mui/material';
 import classes from './index.module.scss';
 import { ChangeEvent, useState } from 'react';
 import Image from 'next/image';
-import {
-  useRemoveProfileImage,
-  useUploadProfileImage,
-} from '@/feature/setting/hooks';
 import { updateUser } from '@/lib/actions';
+import useUploadProfileImage from '@/app/my/setting/_hooks/useUploadProfileImage';
+import useRemoveProfileImage from '@/app/my/setting/_hooks/useRemoveProfileImage';
 
 type SettingUserImageProps = {
   user: User;
