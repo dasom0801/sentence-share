@@ -21,7 +21,7 @@ export type SentenceEditDataProps = {
   setContent: Dispatch<SetStateAction<string | undefined>>;
 };
 
-const SentenceEditContainer: React.FC = () => {
+const SentenceEditContainer = () => {
   const { id } = useParams();
   const { data } = useSentenceQuery(id);
   const [active, setActive] = useState<SentenceEditStep>(
@@ -45,20 +45,23 @@ const SentenceEditContainer: React.FC = () => {
   );
 
   if (!id || (id && data)) {
-    if (active === SentenceEditStep.SEARCH) {
-      return <BookSearch setActive={setActive} book={book} setBook={setBook} />;
-    }
-
-    if (active === SentenceEditStep.INPUT) {
-      return (
-        <SentenceInput
-          sentenceId={id}
-          setActive={setActive}
-          setContent={setContent}
-          book={book}
-          content={content}
-        />
-      );
+    switch (active) {
+      case SentenceEditStep.INPUT:
+        return (
+          <BookSearch setActive={setActive} book={book} setBook={setBook} />
+        );
+      case SentenceEditStep.SEARCH:
+        return (
+          <SentenceInput
+            sentenceId={id}
+            setActive={setActive}
+            setContent={setContent}
+            book={book}
+            content={content}
+          />
+        );
+      default:
+        return <></>;
     }
   } else {
     return <Spinner />;
