@@ -1,9 +1,9 @@
 import querystring from 'query-string';
-import axios from './api';
+import axios, { fetchAPI } from './api';
 import { UserListRequestParams } from './types';
 
 export const getUser = async () => {
-  return (await axios.get<User>('/api/user/me')).data;
+  return fetchAPI<User>('/api/user/me');
 };
 
 export const updateUser = async (data: Record<string, any>) => {
@@ -17,11 +17,9 @@ export const deleteUser = async () => {
 export const getUserSentence = async (params: UserListRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
-  return (
-    await axios.get<PaginationResult<Sentence>>(
-      `/api/user/${userId}/sentence?${query}`,
-    )
-  ).data;
+  return fetchAPI<PaginationResult<Sentence>>(
+    `/api/user/${userId}/sentence?${query}`,
+  );
 };
 
 export const getUserLike = async (params: UserListRequestParams) => {
