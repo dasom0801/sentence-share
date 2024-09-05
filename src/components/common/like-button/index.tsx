@@ -34,10 +34,8 @@ export default function LikeButton({
     try {
       const sentence = await toggleSentenceLike(id);
       setIsLiked(sentence.isLiked);
-      toast('추가 완료');
     } catch (e) {
       console.log(e);
-
       toast('문제가 발생했습니다. 잠시 후 다시 시도 해주세요.');
     }
   };

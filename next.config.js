@@ -16,6 +16,12 @@ const nextConfig = {
         port: '',
         pathname: '/thumb/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'firebasestorage.googleapis.com',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   sassOptions: {

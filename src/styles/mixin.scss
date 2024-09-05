@@ -37,3 +37,9 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+
+@mixin pageTitle(){
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 500;
+}

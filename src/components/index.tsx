@@ -1,12 +1,8 @@
-import SentenceCard from './sentence/SentenceCard';
 import SentenceCardSkeleton from './sentence/SentenceCardSkeleton';
-import SentenceListSkeleton from './sentence/SentenceListSkeleton';
 import SentenceLikeCardList from './sentence/SentenceLikeCardList';
 
 import BookListItem from './book/BookListItem';
 import BookListItemSkeleton from './book/BookListItemSkeleton';
-import BookInfoSection from './book/BookInfoSection';
-import BookInfoSectionSkeleton from './book/BookInfoSectionSkeleton';
 
 import AlertDialog from './common/AlertDialog';
 import AuthGuard from './common/AuthGuard';
@@ -35,13 +31,9 @@ export {
   SortButtons,
   LoginButton,
   // sentence
-  SentenceCard,
   SentenceCardSkeleton,
-  SentenceListSkeleton,
   SentenceLikeCardList,
   // book
   BookListItem,
   BookListItemSkeleton,
-  BookInfoSection,
-  BookInfoSectionSkeleton,
 };

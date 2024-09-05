@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BookInfoSectionSkeleton from '../BookInfoSectionSkeleton';
+import BookInfoSectionSkeleton from '../book-info-section-skeleton';
 
 const meta = {
   title: 'book/BookInfoSectionSkeleton',

@@ -5,12 +5,13 @@ import { css } from '@emotion/react';
 import { Button, TextField, colors } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 
-import { MaxWidthWrapper, BookInfoSection, AlertDialog } from '@/components';
+import { MaxWidthWrapper, AlertDialog } from '@/components';
 import {
   SentenceEditDataProps,
   SentenceEditStep,
 } from './SentenceEditContainer';
 import { useCreateSentence, useUpdateSentence } from './hooks';
+import BookInfoSection from '@components/book/book-info-section';
 
 type SentenceInputProps = Pick<
   SentenceEditDataProps,

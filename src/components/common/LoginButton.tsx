@@ -1,3 +1,5 @@
+'use client';
+
 import { useLogin } from '@/lib/hooks';
 import { memo } from 'react';
 

@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BookInfoSection from '../BookInfoSection';
+import BookInfoSection from '../book-info-section';
 import { MockBook } from '@/mocks/data';
 
 const meta = {
