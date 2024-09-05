@@ -12,7 +12,6 @@ import { ErrorBoundary } from 'react-error-boundary';
 import { MUI_THEME } from './constants';
 import { MainPage } from '@/feature/main';
 import { SettingPage } from '@/feature/setting';
-import { UserLikePage } from '@/feature/user-like';
 import { SentenceEditPage } from '@/feature/sentence-edit';
 
 const queryClient = new QueryClient();
@@ -22,7 +21,6 @@ const Router = () => (
       <Route path="/" element={<MainPage />} />
       <Route element={<AuthGuard />}>
         <Route path="/my/setting" element={<SettingPage />} />
-        <Route path="/my/like" element={<UserLikePage />} />
         <Route path="/edit/sentence" element={<SentenceEditPage />} />
         <Route path="/edit/sentence/:id" element={<SentenceEditPage />} />
       </Route>
