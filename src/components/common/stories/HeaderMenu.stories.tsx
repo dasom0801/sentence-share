@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MockUser } from '@/mocks/data';
-import HeaderMenu from '../HeaderMenu';
+import HeaderMenu from '../header-menu';
 
 const meta = {
   title: 'common/HeaderMenu',

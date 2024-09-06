@@ -2,10 +2,10 @@
 
 import { Button } from '@mui/material';
 import { useState } from 'react';
-import { AlertDialog } from '@/components';
 import classes from './index.module.scss';
 import { useRouter } from 'next/navigation';
 import { deleteUserSentence } from '@/lib/actions';
+import AlertDialog from '@components/common/alert-dialog';
 
 type MySentenceCardButtonsProps = {
   sentenceId: string;

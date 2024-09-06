@@ -4,7 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
-import { GlobalStyles } from '../src/components';
+import '../src/styles/global.scss';
 import { MUI_THEME } from '../src/constants';
 
 const preview: Preview = {
@@ -33,7 +33,6 @@ const preview: Preview = {
             <BrowserRouter>
               <HelmetProvider>
                 <ThemeProvider theme={MUI_THEME}>
-                  <GlobalStyles />
                   <Story />
                 </ThemeProvider>
               </HelmetProvider>

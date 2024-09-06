@@ -3,13 +3,13 @@
 'use client';
 import { memo, useState } from 'react';
 import { Button, IconButton, Menu, MenuItem } from '@mui/material';
-import { css } from '@emotion/react';
 import { useUserStore } from '@/store/user';
 import { useLogout, useUserQuery } from '@/lib/hooks';
-import LoginButton from './LoginButton';
-import blankProfile from '../../../public/images/blank-profile.png';
+import blankProfile from '../../../../public/images/blank-profile.png';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import Image from 'next/image';
+import LoginButton from '@components/common/login-button';
+import classes from './index.module.scss';
 
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },
@@ -62,7 +62,7 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
   };
 
   return user ? (
-    <div css={styles}>
+    <div className={classes.headerMenu}>
       <Button
         size="small"
         variant="outlined"
@@ -116,13 +116,4 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
   );
 });
 
-const styles = css`
-  display: flex;
-  align-items: center;
-  gap: 4px;
-
-  button {
-    height: fit-content;
-  }
-`;
 export default HeaderMenu;

@@ -1,11 +1,11 @@
 'use client';
 
 import { Button } from '@mui/material';
-import { AlertDialog } from '@/components';
 import { deleteUser, logoutWithGoogle } from '@/lib/api';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import AlertDialog from '@components/common/alert-dialog';
 
 export default function UserActionButtons(props: any) {
   const router = useRouter();

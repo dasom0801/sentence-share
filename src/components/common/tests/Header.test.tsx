@@ -6,7 +6,7 @@ import { server } from '@/setupTests';
 import { MockUser } from '@/mocks/data';
 import { render } from '@/lib/test/render';
 import { useUserStore } from '@/store/user';
-import { navigateMenus } from '../HeaderMenu';
+import { navigateMenus } from '../header-menu';
 import Header from '@components/common/header/index';
 
 const navigateFn = vi.fn();
