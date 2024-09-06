@@ -16,21 +16,37 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - run: yarn
-      - name: Publish to chromatic
-        id: chromatic
-        uses: chromaui/action@v1
-        # Options required for Chromatic's GitHub Action
-        with:
-          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
-          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
-          token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Generate Environment Variables File
+        run: |
+          echo "NEXT_PUBLIC_FIREBASE_API_KEY=$NEXT_PUBLIC_FIREBASE_API_KEY" >> env_variables.txt
+          echo "NEXT_PUBLIC_FIREBASE_SENDER_ID=$NEXT_PUBLIC_FIREBASE_SENDER_ID" >> env_variables.txt
+          echo "NEXT_PUBLIC_FIREBASE_APP_ID=$NEXT_PUBLIC_FIREBASE_APP_ID" >> env_variables.txt
         env:
           NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
           NEXT_PUBLIC_FIREBASE_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_SENDER_ID }}
           NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
-      - name: comment PR
-        uses: thollander/actions-comment-pull-request@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Upload the file as an artifact
+      - name: Upload environment variables file
+        uses: actions/upload-artifact@v2
         with:
-          message: 'storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
+          name: env-variables
+          path: env_variables.txt
+
+#      - name: Publish to chromatic
+#        id: chromatic
+#        uses: chromaui/action@v1
+#        # Options required for Chromatic's GitHub Action
+#        with:
+#          #👇 Chromatic projectToken, see https://storybook.js.org/tutorials/intro-to-storybook/react/ko/deploy/ to obtain it
+#          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+#          token: ${{ secrets.GITHUB_TOKEN }}
+#        env:
+#          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+#          NEXT_PUBLIC_FIREBASE_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_SENDER_ID }}
+#          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+#      - name: comment PR
+#        uses: thollander/actions-comment-pull-request@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+#        with:
+#          message: 'storybook: ${{ steps.chromatic.outputs.storybookUrl }}'
