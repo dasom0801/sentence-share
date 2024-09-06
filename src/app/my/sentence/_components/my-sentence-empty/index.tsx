@@ -1,8 +1,8 @@
 'use client';
 
-import { NoResult } from '@/components';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
+import NoResult from '@components/common/no-result';
 
 export default function MySentenceEmpty() {
   const router = useRouter();

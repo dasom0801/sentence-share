@@ -2,8 +2,8 @@
 
 import { useCallback } from 'react';
 import { Pagination as MuiPagination } from '@/lib/utils/mui';
-import usePagination from '@/lib/hooks/usePagination/index';
 import classes from './index.module.scss';
+import { usePagination } from '@/lib/hooks';
 
 type PaginationProps = {
   count?: number;

@@ -1,10 +1,10 @@
 'use client';
 
 import { Button } from '@mui/material';
-import { AlertDialog } from '@/components';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import classes from './index.module.scss';
+import AlertDialog from '@components/common/alert-dialog';
 
 type SentenceEditActionsProps = {
   mode: 'post' | 'modify';

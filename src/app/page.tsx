@@ -1,10 +1,10 @@
 import classes from './page.module.scss';
 import { getSentences } from '@/lib/api';
-import SortButtons from '@components/common/SortButtons';
 import SentenceLikeCardList from '@components/sentence/sentence-like-card-list';
 import Pagination from '@components/common/pagination';
 import MaxWidthWrapper from '@components/common/max-width-wrapper';
 import { getSortByValue, getSortOrderValue } from '@/lib/utils';
+import SortButtons from '@components/common/sort-buttons';
 
 type MainPageProps = {
   searchParams: { [key: string]: string };

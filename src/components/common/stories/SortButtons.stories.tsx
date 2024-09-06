@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import SortButtons from '../SortButtons';
+import SortButtons from '../sort-buttons';
 
 const meta = {
   title: 'common/SortButtons',
