@@ -29,9 +29,9 @@ export const createSentence = async ({
   content,
   book,
 }: CreateSentenceParams) => {
-  return await axios.post('/api/sentence', {
-    content,
-    book,
+  return fetchAPI('/api/sentence', {
+    method: 'POST',
+    body: JSON.stringify({ book, content }),
   });
 };
 
@@ -41,9 +41,9 @@ export const updateSentence = async ({
   content,
   book,
 }: UpdateSentenceParams) => {
-  return await axios.put(`/api/sentence/${id}`, {
-    content,
-    book,
+  return fetchAPI(`/api/sentence/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ content, book }),
   });
 };
 

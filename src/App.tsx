@@ -11,17 +11,12 @@ import { AuthGuard, ErrorResult, GlobalStyles, Header } from '@/components';
 import { ErrorBoundary } from 'react-error-boundary';
 import { MUI_THEME } from './constants';
 import { MainPage } from '@/feature/main';
-import { SentenceEditPage } from '@/feature/sentence-edit';
 
 const queryClient = new QueryClient();
 const Router = () => (
   <Routes>
     <Route path="/">
       <Route path="/" element={<MainPage />} />
-      <Route element={<AuthGuard />}>
-        <Route path="/edit/sentence" element={<SentenceEditPage />} />
-        <Route path="/edit/sentence/:id" element={<SentenceEditPage />} />
-      </Route>
     </Route>
   </Routes>
 );
