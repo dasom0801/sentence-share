@@ -1,3 +1,5 @@
+'use client';
+
 import { TbError404 } from 'react-icons/tb';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
