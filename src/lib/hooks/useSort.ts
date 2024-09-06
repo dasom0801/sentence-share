@@ -19,7 +19,7 @@ const useSort = (initialValue?: string) => {
       params.set('sortOrder', sortOrder);
       router.push(pathname + '?' + params.toString());
     },
-    [searchParams, pathname],
+    [searchParams, pathname, router],
   );
 
   // 현재 선택된 sort를 문자열로 반환
