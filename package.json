@@ -70,7 +70,7 @@
     "@storybook/test": "^8.2.9",
     "@types/react-query": "^1.2.9",
     "@vitejs/plugin-react": "^4.2.1",
-    "chromatic": "^11.2.0",
+    "chromatic": "^11.7.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-storybook": "^0.8.0",
     "msw": "^2.2.2",
