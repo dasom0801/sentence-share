@@ -1,30 +1,16 @@
-/** @jsxImportSource @emotion/react */
+import { debounce, TextField } from '@mui/material';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { css } from '@emotion/react';
-import { Button, TextField, debounce } from '@mui/material';
-
-import {
-  BookListItem,
-  BookListItemSkeleton,
-  MaxWidthWrapper,
-} from '@/components';
 import { useScrollEnd } from '@/lib/hooks';
-import {
-  SentenceEditDataProps,
-  SentenceEditStep,
-} from './SentenceEditContainer';
-import { useBookSearchQuery } from './hooks';
+import BookListItemSkeleton from '@components/book/book-list-item-skeleton';
+import BookListItem from '@components/book/book-list-item';
+import classes from './index.module.scss';
+import useBookSearchQuery from '../../_hooks/useBookSearch';
 
-type BookSearchProps = Pick<
-  SentenceEditDataProps,
-  'book' | 'setBook' | 'setActive'
->;
+type BookSearchProps = {
+  handleBookSelect: (book: Book) => void;
+};
 
-const BookSearch: React.FC<BookSearchProps> = ({
-  book,
-  setBook,
-  setActive,
-}) => {
+export default function BookSearch({ handleBookSelect }: BookSearchProps) {
   const [focused, setFocused] = useState(false);
   const [search, setSearch] = useState('');
   const [input, setInput] = useState('');
@@ -54,7 +40,7 @@ const BookSearch: React.FC<BookSearchProps> = ({
 
   const debouncedSetSearch = debounce((value: string) => {
     setSearch(value);
-  }, 300);
+  }, 500);
 
   const handleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -70,19 +56,15 @@ const BookSearch: React.FC<BookSearchProps> = ({
   }, [setFocused]);
 
   const handleBookClick = (book: Book) => {
-    setBook(book);
+    handleBookSelect(book);
     setFocused(false);
     setSearch('');
   };
 
-  const handleChangeActive = () => {
-    setActive(SentenceEditStep.INPUT);
-  };
-
   return (
-    <MaxWidthWrapper styles={styles}>
+    <div className={classes.wrapper}>
       <TextField
-        className="search-input"
+        className={classes.textarea}
         size="small"
         type="search"
         placeholder="책 이름을 입력해주세요"
@@ -92,7 +74,7 @@ const BookSearch: React.FC<BookSearchProps> = ({
         ref={searchRef}
       />
       {focused && search ? (
-        <ul ref={listRef}>
+        <ul className={classes.list} ref={listRef}>
           {!data?.pages.length && isLoading ? (
             <>
               {Array.from({ length: 5 }, (_, index) => (
@@ -105,58 +87,18 @@ const BookSearch: React.FC<BookSearchProps> = ({
             <>
               {data?.pages.map((bookResult: PaginationResult<Book>) =>
                 bookResult.list.map((book, index) => (
-                  <li key={`${book.isbn}-${index}`}>
-                    <button onClick={() => handleBookClick(book)}>
-                      <BookListItem book={book} />
-                    </button>
+                  <li
+                    key={`${book.isbn}-${index}`}
+                    onClick={() => handleBookClick(book)}
+                  >
+                    <BookListItem book={book} />
                   </li>
                 )),
               )}
             </>
           )}
         </ul>
-      ) : (
-        book && (
-          <>
-            <BookListItem book={book} />
-            <Button
-              color="secondary"
-              variant="contained"
-              onClick={handleChangeActive}
-            >
-              책 선택 완료
-            </Button>
-          </>
-        )
-      )}
-    </MaxWidthWrapper>
+      ) : null}
+    </div>
   );
-};
-
-const styles = css`
-  display: flex;
-  flex-direction: column;
-  padding-top: 36px;
-  padding-bottom: 36px;
-  height: calc(100vh - 56px);
-
-  .search-input {
-    margin: 0 0 8px;
-    width: 100%;
-  }
-
-  ul {
-    overflow-y: auto;
-    li + li {
-      margin: 16px 0 0 0;
-    }
-    button {
-      width: 100%;
-    }
-  }
-
-  > button {
-    margin: 24px 0 0 0;
-  }
-`;
-export default BookSearch;
+}

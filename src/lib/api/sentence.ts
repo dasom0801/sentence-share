@@ -17,10 +17,6 @@ export const getSentence = async ({ sentenceId }: SentenceDetailParams) => {
   return fetchAPI<Sentence>(`/api/sentence/${sentenceId}`);
 };
 
-export const deleteSentence = async (id: string) => {
-  return await axios.delete(`/api/sentence/${id}`);
-};
-
 export type CreateSentenceParams = {
   book: Book;
   content: string;
@@ -29,9 +25,9 @@ export const createSentence = async ({
   content,
   book,
 }: CreateSentenceParams) => {
-  return await axios.post('/api/sentence', {
-    content,
-    book,
+  return fetchAPI('/api/sentence', {
+    method: 'POST',
+    body: JSON.stringify({ book, content }),
   });
 };
 
@@ -41,9 +37,9 @@ export const updateSentence = async ({
   content,
   book,
 }: UpdateSentenceParams) => {
-  return await axios.put(`/api/sentence/${id}`, {
-    content,
-    book,
+  return fetchAPI(`/api/sentence/${id}`, {
+    method: 'PUT',
+    body: JSON.stringify({ content, book }),
   });
 };
 

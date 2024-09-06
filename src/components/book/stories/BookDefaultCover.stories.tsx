@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import BookDefaultCover from '../BookDefaultCover';
+import BookDefaultCover from '@components/book/book-default-cover';
 
 const meta = {
   title: 'Book/BookDefaultCover',

@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 
 import HeaderMenu from './HeaderMenu';
 import Logo from './Logo';
-import MaxWidthWrapper from './MaxWidthWrapper';
 import { memo } from 'react';
+import MaxWidthWrapper from '@components/common/max-width-wrapper';
 
 const Header: React.FC = memo(function Header() {
   return (

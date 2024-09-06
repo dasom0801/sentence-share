@@ -1,11 +1,9 @@
-/** @jsxImportSource @emotion/react */
-
-import { css } from '@emotion/react';
 import { Skeleton } from '@mui/material';
+import classes from './index.module.scss';
 
-const BookListItemSkeleton: React.FC = () => {
+export default function BookListItemSkeleton() {
   return (
-    <div css={styles}>
+    <div className={classes.skeleton}>
       <Skeleton variant="rounded" width={82} height={120} />
       <div>
         <Skeleton
@@ -18,19 +16,4 @@ const BookListItemSkeleton: React.FC = () => {
       </div>
     </div>
   );
-};
-
-const styles = css`
-  display: flex;
-  align-items: center;
-  gap: 16px;
-  padding: 16px;
-  border-radius: 8px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-  overflow: hidden;
-
-  > div {
-    flex: 1;
-  }
-`;
-export default BookListItemSkeleton;
+}
