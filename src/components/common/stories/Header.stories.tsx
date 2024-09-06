@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { useUserStore } from '@/store/user';
 import { MockUser } from '@/mocks/data';
-import Header from '../Header';
+import Header from '@components/common/header/index';
 
 const meta = {
   title: 'common/Header',
