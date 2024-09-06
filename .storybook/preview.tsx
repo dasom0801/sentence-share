@@ -1,9 +1,7 @@
 import React from 'react';
 import type { Preview } from '@storybook/react';
-import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { HelmetProvider } from 'react-helmet-async';
 import '../src/styles/global.scss';
 
 import { MUI_THEME } from '../src/constants';
@@ -15,6 +13,9 @@ const preview: Preview = {
         color: /(background|color)$/i,
         date: /Date$/i,
       },
+    },
+    nextjs: {
+      appDirectory: true,
     },
   },
 
@@ -31,13 +32,9 @@ const preview: Preview = {
       return (
         <>
           <QueryClientProvider client={client}>
-            <BrowserRouter>
-              <HelmetProvider>
-                <ThemeProvider theme={MUI_THEME}>
-                  <Story />
-                </ThemeProvider>
-              </HelmetProvider>
-            </BrowserRouter>
+            <ThemeProvider theme={MUI_THEME}>
+              <Story />
+            </ThemeProvider>
           </QueryClientProvider>
         </>
       );
