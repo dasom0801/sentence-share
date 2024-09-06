@@ -4,6 +4,7 @@ import SentenceCard from '@components/sentence/sentence-card';
 import MySentenceCardButtons from '../my-sentence-card-buttons';
 import MySentenceEmpty from '../my-sentence-empty';
 import classes from './index.module.scss';
+import { Suspense } from 'react';
 
 type MySentenceListProps = {
   userId: string;
@@ -36,7 +37,9 @@ export default async function MySentenceList({
               </li>
             ))}
           </ul>
-          <Pagination count={sentences.pageTotal} />
+          <Suspense fallback={null}>
+            <Pagination count={sentences.pageTotal} />
+          </Suspense>
         </>
       ) : (
         <MySentenceEmpty />

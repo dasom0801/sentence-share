@@ -22,10 +22,8 @@ export default async function MyLikePage({
   return (
     <main className={classes.main}>
       <MaxWidthWrapper>
-        <Suspense fallback={<SentenceListSkeleton />}>
-          {/* @ts-expect-error Async Server Component */}
-          <MyLikeList userId={currentUser._id} page={page} />
-        </Suspense>
+        {/* @ts-expect-error Async Server Component */}
+        <MyLikeList userId={currentUser._id} page={page} />
       </MaxWidthWrapper>
     </main>
   );

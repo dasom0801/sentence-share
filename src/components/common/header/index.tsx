@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Logo from '../logo/index';
 import MaxWidthWrapper from '@components/common/max-width-wrapper';
 import HeaderMenu from '@components/common/HeaderMenu';
+import { Suspense } from 'react';
 
 export default function Header() {
   return (
@@ -12,7 +13,9 @@ export default function Header() {
           <Logo />
         </Link>
 
-        <HeaderMenu />
+        <Suspense fallback={null}>
+          <HeaderMenu />
+        </Suspense>
       </MaxWidthWrapper>
     </div>
   );
