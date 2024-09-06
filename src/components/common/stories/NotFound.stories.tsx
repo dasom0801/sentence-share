@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import NotFound from '../NotFound';
+import NotFound from '../../../app/not-found';
 
 const meta = {
   title: 'common/NotFound',
