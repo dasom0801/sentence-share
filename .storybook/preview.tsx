@@ -5,13 +5,11 @@ import { ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { HelmetProvider } from 'react-helmet-async';
 import '../src/styles/global.scss';
-import '../src/styles/mixin.scss';
 
 import { MUI_THEME } from '../src/constants';
 
 const preview: Preview = {
   parameters: {
-    actions: { argTypesRegex: '^on[A-Z].*' },
     controls: {
       matchers: {
         color: /(background|color)$/i,
@@ -19,6 +17,7 @@ const preview: Preview = {
       },
     },
   },
+
   decorators: [
     (Story) => {
       const client = new QueryClient({
@@ -44,6 +43,8 @@ const preview: Preview = {
       );
     },
   ],
+
+  tags: ['autodocs'],
 };
 
 export default preview;

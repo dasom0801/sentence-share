@@ -7,13 +7,9 @@ const config: StorybookConfig = {
     '@storybook/addon-essentials',
     '@storybook/addon-onboarding',
     '@storybook/addon-interactions',
+    '@chromatic-com/storybook',
   ],
-  framework: {
-    name: '@storybook/react-vite',
-    options: {},
-  },
-  docs: {
-    autodocs: true,
-  },
+  framework: '@storybook/nextjs', // 👈 Add this
+  docs: {},
 };
 export default config;

@@ -1,9 +1,7 @@
 import { Metadata } from 'next';
-import { Suspense } from 'react';
 import { getUser } from '@/lib/api';
 import MyLikeList from './_components/my-like-list';
 import classes from './page.module.scss';
-import SentenceListSkeleton from '@components/sentence/sentence-list-skeleton';
 import MaxWidthWrapper from '@components/common/max-width-wrapper';
 
 export const metadata: Metadata = {
