@@ -2,9 +2,8 @@ import { Route, Routes } from 'react-router-dom';
 import { screen, within } from '@testing-library/react';
 import { render } from '@/lib/test/render';
 import { MockSentences } from '@/mocks/data';
-import SentenceLikeCardList from '../SentenceLikeCardList';
+import SentenceLikeCardList from '../sentence-like-card-list';
 
-const toggleLikeFn = vi.fn();
 const PAGE_LIMIT = 5;
 const list = MockSentences.slice(0, PAGE_LIMIT) as Sentence[];
 
@@ -17,18 +16,12 @@ it('문장 목록이 표시된다.', () => {
     expect(sentenceCard.getByText(sentence.content)).toBeInTheDocument();
     expect(sentenceCard.getByText(sentence.book.title)).toBeInTheDocument();
     expect(
-      sentenceCard.getByText(sentence.book.author.join(','))
+      sentenceCard.getByText(sentence.book.author.join(',')),
     ).toBeInTheDocument();
     expect(
-      sentenceCard.getByRole('img', { name: sentence.book.title })
+      sentenceCard.getByRole('img', { name: sentence.book.title }),
     ).toBeInTheDocument();
   });
-});
-
-it('좋아요 버튼을 클릭하면 sentence id와 함께 onToggleLike 함수가 호출된다.', async () => {
-  const { clickLike } = renderComponent();
-  await clickLike();
-  expect(toggleLikeFn).toHaveBeenNthCalledWith(1, MockSentences[0]._id);
 });
 
 it('리스트 아이템의 문장 내용을 클릭하면 문장 상세 페이지로 이동한다.', async () => {
@@ -49,10 +42,7 @@ it('리스트 아이템의 책 제목을 클릭하면 책 상세 페이지로 �
 
 const wrapWithRoutes = (
   <Routes>
-    <Route
-      path='/'
-      element={<SentenceLikeCardList list={list} onToggleLike={toggleLikeFn} />}
-    />
+    <Route path="/" element={<SentenceLikeCardList list={list} />} />
     <Route
       path={`/sentence/${list[0]._id}`}
       element={<h1>Sentence Detail</h1>}

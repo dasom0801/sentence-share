@@ -3,7 +3,7 @@ import { getBook, getBookSentence } from '@/lib/api';
 import BookInfoSection from '@components/book/book-info-section';
 import MaxWidthWrapper from '@components/common/max-width-wrapper';
 import classes from './page.module.scss';
-import SentenceLikeCardList from '@components/sentence/sentence-card-list';
+import SentenceLikeCardList from 'src/components/sentence/sentence-like-card-list';
 import Pagination from '@components/common/pagination';
 
 type BookDetailPageProps = {

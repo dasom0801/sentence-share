@@ -1,3 +1,5 @@
+'use client';
+
 import { memo, MouseEvent, useCallback } from 'react';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 
@@ -6,6 +8,7 @@ import { SortBy, SortOrder } from '@/types/enum';
 
 type SortButtonsType = {
   sorts?: { label: string; value: string }[];
+  disabled?: boolean;
 };
 
 const defaultSorts: { label: string; value: string }[] = [
@@ -20,6 +23,7 @@ const defaultSorts: { label: string; value: string }[] = [
 ];
 const SortButtons: React.FC<SortButtonsType> = memo(function SortButtons({
   sorts = defaultSorts,
+  disabled,
 }) {
   const { currentSort, setSort } = useSort(
     `${SortBy.CreatedAt}=${SortOrder.DESC}`,
@@ -41,6 +45,7 @@ const SortButtons: React.FC<SortButtonsType> = memo(function SortButtons({
       exclusive
       onChange={handleChange}
       aria-label="목록 정렬"
+      disabled={disabled}
     >
       {sorts.map(({ label, value }) => (
         <ToggleButton key={value} value={value} size="small">

@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import { MockSentence } from '@/mocks/data';
-import SentenceLikeCardList from '../SentenceLikeCardList';
+import SentenceLikeCardList from '@components/sentence/sentence-like-card-list';
 
 const meta = {
   title: 'sentence/SentenceLikeCardList',
@@ -15,18 +15,6 @@ export const Default: Story = {
       ...MockSentence,
       _id: `${index}`,
     })),
-    onToggleLike: (id) => console.log(id),
-  },
-};
-
-export const Loading: Story = {
-  args: {
-    list: Array.from({ length: 12 }).map((_, index) => ({
-      ...MockSentence,
-      _id: `${index}`,
-    })),
-    isLoading: true,
-    onToggleLike: (id) => console.log(id),
   },
 };
 
@@ -36,8 +24,6 @@ export const HideBook: Story = {
       ...MockSentence,
       _id: `${index}`,
     })),
-    isLoading: false,
     showBook: false,
-    onToggleLike: (id) => console.log(id),
   },
 };

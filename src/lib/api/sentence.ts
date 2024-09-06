@@ -5,8 +5,7 @@ import { BookSearchParams, SentenceDetailParams } from './types';
 export const getSentences = async (params: APIRequestParams) => {
   params.limit = params.limit ?? 12;
   const query = queryString.stringify(params);
-  return (await axios.get<PaginationResult<Sentence>>(`/api/sentence?${query}`))
-    .data;
+  return fetchAPI<PaginationResult<Sentence>>(`/api/sentence?${query}`);
 };
 
 export const toggleSentenceLike = async (id: string) => {

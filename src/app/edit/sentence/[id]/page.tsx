@@ -9,6 +9,5 @@ export default async function SentenceEditPage({
   params: { id },
 }: SentenceEditPageProps) {
   const sentence = await getSentence({ sentenceId: id });
-  console.log(sentence);
   return <SentenceEditContainer sentence={sentence} />;
 }
