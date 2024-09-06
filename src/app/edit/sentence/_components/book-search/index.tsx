@@ -1,10 +1,10 @@
 import { debounce, TextField } from '@mui/material';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useBookSearchQuery } from '@/feature/sentence-edit/hooks';
 import { useScrollEnd } from '@/lib/hooks';
 import BookListItemSkeleton from '@components/book/book-list-item-skeleton';
 import BookListItem from '@components/book/book-list-item';
 import classes from './index.module.scss';
+import useBookSearchQuery from '../../_hooks/useBookSearch';
 
 type BookSearchProps = {
   handleBookSelect: (book: Book) => void;

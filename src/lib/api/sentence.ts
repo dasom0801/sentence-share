@@ -17,10 +17,6 @@ export const getSentence = async ({ sentenceId }: SentenceDetailParams) => {
   return fetchAPI<Sentence>(`/api/sentence/${sentenceId}`);
 };
 
-export const deleteSentence = async (id: string) => {
-  return await axios.delete(`/api/sentence/${id}`);
-};
-
 export type CreateSentenceParams = {
   book: Book;
   content: string;
