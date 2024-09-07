@@ -1,29 +1,29 @@
 #name: Deploy main
 #
-#on:
-#  push:
-#    branches:
-#      - main
-#
-#jobs:
-#  deploy:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Checkout source code
-#        uses: actions/checkout@main
+on:
+  push:
+    branches:
+      - main
 
-      # 환경변수 등록
-#      - name: Generate Environment Variables File for Production
-#        run: |
-#          echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> .env.production
-#          echo "NEXT_PUBLIC_FIREBASE_API_KEY=$NEXT_PUBLIC_FIREBASE_API_KEY" >> .env.production
-#          echo "NEXT_PUBLIC_FIREBASE_SENDER_ID=$NEXT_PUBLIC_FIREBASE_SENDER_ID" >> .env.production
-#          echo "NEXT_PUBLIC_FIREBASE_APP_ID=$NEXT_PUBLIC_FIREBASE_APP_ID" >> .env.production
-#        env:
-#          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
-#          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
-#          NEXT_PUBLIC_FIREBASE_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_SENDER_ID }}
-#          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@main
+
+#       환경변수 등록
+      - name: Generate Environment Variables File for Production
+        run: |
+          echo "NEXT_PUBLIC_BASE_URL=$NEXT_PUBLIC_BASE_URL" >> .env.production
+          echo "NEXT_PUBLIC_FIREBASE_API_KEY=$NEXT_PUBLIC_FIREBASE_API_KEY" >> .env.production
+          echo "NEXT_PUBLIC_FIREBASE_SENDER_ID=$NEXT_PUBLIC_FIREBASE_SENDER_ID" >> .env.production
+          echo "NEXT_PUBLIC_FIREBASE_APP_ID=$NEXT_PUBLIC_FIREBASE_APP_ID" >> .env.production
+        env:
+          NEXT_PUBLIC_BASE_URL: ${{ secrets.NEXT_PUBLIC_BASE_URL }}
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_FIREBASE_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_SENDER_ID }}
+          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
 #
 #      - name: Cache node modules # node modules 캐싱
 #        uses: actions/cache@v1
@@ -36,7 +36,7 @@
 #
 #      - name: Install Dependencies
 #        run: npm install
-
+#
 #      - name: Run Test
 #        run: npm run test:no-watch
 #        env:
