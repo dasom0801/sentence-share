@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache';
 import { fetchAPI } from '@/lib/api/api';
+import { cookies } from 'next/headers';
 
 export async function deleteUserSentence(id: string): Promise<void> {
   await fetchAPI(`/api/sentence/${id}`, { method: 'DELETE' });
@@ -40,4 +41,9 @@ export async function updateSentence({
     body: JSON.stringify({ content, book }),
   });
   revalidatePath('/my/sentence');
+}
+
+export async function removeToken() {
+  const cookie = cookies();
+  cookie.delete('access_token');
 }

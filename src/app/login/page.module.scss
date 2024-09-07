@@ -1,0 +1,13 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 30vh;
+
+  padding-top: 36px;
+}
+
+.title {
+  @include pageTitle;
+}

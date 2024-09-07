@@ -1,7 +1,8 @@
 import toast from 'react-hot-toast';
-import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
+import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
 import { auth } from '../firebase.config';
 import axios from './api';
+import { removeToken } from '@/lib/actions';
 
 export const loginWithGoogle = async () => {
   const provider = new GoogleAuthProvider();
@@ -34,6 +35,7 @@ export const loginWithGoogle = async () => {
 export const logoutWithGoogle = async () => {
   try {
     await signOut(auth);
+    await removeToken();
   } catch (error: unknown) {
     toast.error('로그아웃에 실패했습니다.');
   }
