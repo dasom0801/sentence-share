@@ -18,12 +18,13 @@ export default async function MySentencePage({
   searchParams: { page },
 }: MySentencePageProps) {
   const currentUser = await getUser();
+
   return (
     <main className={classes.container}>
       <MaxWidthWrapper>
         <Suspense fallback={<SentenceListSkeleton />}>
           {/* @ts-expect-error Async Server Component */}
-          <MySentenceList userId={currentUser._id} page={page} />
+          <MySentenceList userId={currentUser?._id} page={page} />
         </Suspense>
       </MaxWidthWrapper>
     </main>

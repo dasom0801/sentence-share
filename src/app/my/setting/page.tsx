@@ -12,7 +12,6 @@ export const metadata: Metadata = {
 };
 
 export default async function SettingPage() {
-  // TODO: zustand 사용하기
   const currentUser = await getUser();
 
   return (
