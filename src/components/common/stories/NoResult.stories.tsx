@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import NoResult from '../NoResult';
+import NoResult from '../no-result';
 
 const meta = {
   title: 'common/NoResult',

@@ -1,0 +1,16 @@
+.skeleton {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  height: 419px;
+  background-color: var(--blueGrey50);
+
+  .image {
+    margin: 0 0 16px;
+  }
+
+  .title {
+    margin: 0 0 8px;
+  }
+}

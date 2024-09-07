@@ -1,25 +1,25 @@
 import { useCallback, useMemo } from 'react';
-import { useSearchParams } from 'react-router-dom';
 
-import {
-  getSearchParamsObject,
-  getSortByValue,
-  getSortOrderValue,
-} from '../utils';
+import { getSortByValue, getSortOrderValue } from '../utils';
+import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 const useSort = (initialValue?: string) => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const pathname = usePathname();
 
   // 선택한 sort를 주소에 반영
   const setSort = useCallback(
     (value: string) => {
-      const searchPramsObject = getSearchParamsObject(searchParams);
+      const params = new URLSearchParams(searchParams);
       const [sortByValue, sortOrderValue] = value.split('=');
       const sortBy = getSortByValue(sortByValue) as string;
       const sortOrder = getSortOrderValue(sortOrderValue).toString();
-      setSearchParams({ ...searchPramsObject, sortBy, sortOrder });
+      params.set('sortBy', sortBy);
+      params.set('sortOrder', sortOrder);
+      router.push(pathname + '?' + params.toString());
     },
-    [searchParams, setSearchParams],
+    [searchParams, pathname, router],
   );
 
   // 현재 선택된 sort를 문자열로 반환

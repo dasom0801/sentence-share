@@ -6,8 +6,8 @@ import { server } from '@/setupTests';
 import { MockUser } from '@/mocks/data';
 import { render } from '@/lib/test/render';
 import { useUserStore } from '@/store/user';
-import Header from '../Header';
-import { navigateMenus } from '../HeaderMenu';
+import { navigateMenus } from '../header-menu';
+import Header from '@components/common/header/index';
 
 const navigateFn = vi.fn();
 
@@ -38,7 +38,7 @@ describe('로그인한 경우', () => {
     server.use(
       http.get(`*/api/user/me`, () => {
         return HttpResponse.json(MockUser, { status: 200 });
-      })
+      }),
     );
     const state = useUserStore.getState();
     useUserStore.setState({ ...state, isLogin: true, user: MockUser });
@@ -97,7 +97,7 @@ describe('로그인한 경우', () => {
 const wrapWithRoutes = (
   <Routes>
     <Route
-      path='/'
+      path="/"
       element={
         <div>
           <Header />
@@ -106,7 +106,7 @@ const wrapWithRoutes = (
       }
     />
     <Route
-      path='/my/sentence'
+      path="/my/sentence"
       element={
         <div>
           <Header />
@@ -115,7 +115,7 @@ const wrapWithRoutes = (
       }
     />
     <Route
-      path='/my/like'
+      path="/my/like"
       element={
         <div>
           <Header />
@@ -124,7 +124,7 @@ const wrapWithRoutes = (
       }
     />
     <Route
-      path='/my/setting'
+      path="/my/setting"
       element={
         <div>
           <Header />
@@ -133,7 +133,7 @@ const wrapWithRoutes = (
       }
     />
     <Route
-      path='/edit/sentence'
+      path="/edit/sentence"
       element={
         <div>
           <Header />

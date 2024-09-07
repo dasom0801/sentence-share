@@ -31,10 +31,4 @@ declare global {
   type APIRequestParams = Partial<PageParams & SortType>;
 }
 
-declare module 'react' {
-  interface ImgHTMLAttributes<T> extends HTMLAttributes<T> {
-    fetchpriority?: 'high' | 'low' | 'auto';
-  }
-}
-
 export {};

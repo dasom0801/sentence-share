@@ -1,9 +1,5 @@
 import { css } from '@emotion/react';
 
-import { preflight } from './preflight';
-
-export { preflight };
-
 // typo
 export const pageTitle = css`
   margin-bottom: 24px;
@@ -36,7 +32,7 @@ const breakpoint: Record<Breakpoint, number> = {
 };
 export const mq: MediaQuery = Object.entries(breakpoint).reduce(
   (acc, [key, value]) => ({ ...acc, [key]: `@media(min-width: ${value}px)` }),
-  {} as MediaQuery
+  {} as MediaQuery,
 );
 
 // layout

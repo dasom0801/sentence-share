@@ -1,0 +1,45 @@
+@mixin textOverflowHidden() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 미디어 쿼리를 적용
+@mixin mq($bp) {
+  $breakpoints: (
+          sm: 640px,
+          md: 768px,
+          lg: 1024px,
+          xl: 1280px
+  );
+
+  // 전달된 breakpoint 값에 따른 미디어 쿼리 생성
+  @if map-has-key($breakpoints, $bp) {
+    $min-width: map-get($breakpoints, $bp);
+    @media (min-width: #{$min-width}) {
+      @content;
+    }
+  } @else {
+    @error "브레이크 포인트 확인 필요: #{$bp}. 'sm', 'md', 'lg', 'xl' 만 허용함.";
+  }
+}
+
+@mixin lineClamp($line) {
+  display: -webkit-box;
+  -webkit-line-clamp: $line;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  white-space: break-spaces;
+}
+
+@mixin textOverflowHidden() {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@mixin pageTitle(){
+  margin-bottom: 24px;
+  font-size: 24px;
+  font-weight: 500;
+}

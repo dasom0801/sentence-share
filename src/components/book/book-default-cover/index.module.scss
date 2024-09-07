@@ -1,0 +1,17 @@
+.cover {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-shrink: 0;
+  width: 83px;
+  height: 120px;
+  background-color: var(--blueGrey50);
+  border-radius: 4px;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+
+  svg {
+    width: 60px;
+    height: 60px;
+    color: var(--blueGrey900);
+  }
+}

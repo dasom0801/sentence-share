@@ -1,0 +1,13 @@
+.button {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  span {
+    color: var(--blueGrey800);
+    font-size: 16px;
+  }
+  svg {
+    color: var(--red500);
+  }
+}

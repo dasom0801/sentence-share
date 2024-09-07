@@ -1,0 +1,27 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 32px;
+
+  > p {
+    padding: 32px 24px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  @include mq(md) {
+    > p {
+      padding: 80px 36px;
+      font-size: 24px;
+    }
+  }
+}
+
+.userInfo {
+  margin: 0 12px 32px auto;
+
+  @include mq(md) {
+    margin: 0 12px 64px auto;
+  }
+
+}

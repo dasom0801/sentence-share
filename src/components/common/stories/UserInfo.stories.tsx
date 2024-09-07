@@ -1,5 +1,5 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import UserInfo from '../UserInfo';
+import UserInfo from '../user-info';
 import { MockUser } from '@/mocks/data';
 
 const meta = {

@@ -1,0 +1,28 @@
+.listItem {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: inset rgba(0, 0, 0, 0.24) 0 0 0 1px;
+  overflow: hidden;
+}
+
+.bookInfo {
+  min-width: 0;
+
+  div {
+    @include textOverflowHidden;
+    text-align: left;
+    color: var(--blueGrey500);
+    font-size: 14px;
+  }
+}
+
+.title {
+  margin: 0 0 8px;
+  color: var(--bluegrey900);
+  font-weight: 500;
+  font-size: 18px;
+}

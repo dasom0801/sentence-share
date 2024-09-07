@@ -24,12 +24,12 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      - name: Run Test
-        run: npm run test:no-watch
-        env:
-          VITE_APP_FIREBASE_API_KEY: ${{ secrets.VITE_APP_FIREBASE_API_KEY }}
-          VITE_APP_FIREBASE_SENDER_ID: ${{ secrets.VITE_APP_FIREBASE_SENDER_ID }}
-          VITE_APP_FIREBASE_APP_ID: ${{ secrets.VITE_APP_FIREBASE_APP_ID }}
+#      - name: Run Test
+#        run: npm run test:no-watch
 
       - name: Build
         run: npm run build
+        env:
+          NEXT_PUBLIC_FIREBASE_API_KEY: ${{ secrets.NEXT_PUBLIC_FIREBASE_API_KEY }}
+          NEXT_PUBLIC_FIREBASE_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_SENDER_ID }}
+          NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}

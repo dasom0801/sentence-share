@@ -1,0 +1,9 @@
+.headerMenu {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  button {
+    height: fit-content;
+  }
+}

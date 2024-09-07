@@ -1,0 +1,26 @@
+@import './color';
+@import "./preflight";
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+* {
+  font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI", "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", sans-serif;
+}
+
+.grid-container {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: repeat(1, 1fr);
+  gap: 24px;
+
+  > * {
+    min-width: 0;
+  }
+
+  @media(min-width: 768px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media(min-width: 1024px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
