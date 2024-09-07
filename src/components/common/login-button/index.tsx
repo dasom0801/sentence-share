@@ -2,9 +2,14 @@
 
 import { useLogin } from '@/lib/hooks';
 import { memo } from 'react';
+type LoginButtonProps = {
+  afterLogin?: string;
+};
 
-const LoginButton: React.FC = memo(function LoginButton() {
-  const { mutate } = useLogin();
+const LoginButton: React.FC<LoginButtonProps> = memo(function LoginButton({
+  afterLogin,
+}: LoginButtonProps) {
+  const { mutate } = useLogin(afterLogin);
 
   return (
     <button onClick={() => mutate()} aria-label="continue with google">
