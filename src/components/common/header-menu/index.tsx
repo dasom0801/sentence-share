@@ -1,12 +1,11 @@
-/** @jsxImportSource @emotion/react */
-
 'use client';
+
 import { memo, useState } from 'react';
 import { Button, IconButton, Menu, MenuItem } from '@mui/material';
 import { useUserStore } from '@/store/user';
 import { useLogout, useUserQuery } from '@/lib/hooks';
 import blankProfile from '../../../../public/images/blank-profile.png';
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Image from 'next/image';
 import LoginButton from '@components/common/login-button';
 import classes from './index.module.scss';
@@ -23,8 +22,6 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const user = useUserStore.use.user();
-  const pathname = usePathname();
-  const searchParams = useSearchParams();
 
   useUserQuery();
 
@@ -36,24 +33,10 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
     setAnchorEl(null);
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async (e: React.MouseEvent<HTMLElement>) => {
+    e.preventDefault();
     logout();
     handleClose();
-    goToMain();
-  };
-
-  const goToMain = () => {
-    const authRoutes = ['edit', 'my'];
-    if (pathname === '/') {
-      const params = new URLSearchParams(searchParams.toString());
-      router.push(`/?${params.toString()}`);
-      return;
-    }
-
-    if (authRoutes.includes(pathname.split('/')[1])) {
-      router.push('/');
-      return;
-    }
   };
 
   const handleNavigate = async (path: string) => {
