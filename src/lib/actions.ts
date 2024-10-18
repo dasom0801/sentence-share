@@ -5,7 +5,7 @@ import { fetchAPI } from '@/lib/api/api';
 import { cookies } from 'next/headers';
 
 export async function deleteUserSentence(id: string): Promise<void> {
-  await fetchAPI(`/api/sentence/${id}`, { method: 'DELETE' });
+  await fetchAPI(`/sentence/${id}`, { method: 'DELETE' });
   revalidatePath('/my/sentence');
 }
 
@@ -24,7 +24,7 @@ type CreateSentenceParams = {
 };
 
 export async function createSentence({ content, book }: CreateSentenceParams) {
-  await fetchAPI('/api/sentence', {
+  await fetchAPI('/sentence', {
     method: 'POST',
     body: JSON.stringify({ book, content }),
   });
@@ -36,7 +36,7 @@ export async function updateSentence({
   content,
   book,
 }: CreateSentenceParams & { id: string }) {
-  await fetchAPI(`/api/sentence/${id}`, {
+  await fetchAPI(`/sentence/${id}`, {
     method: 'PUT',
     body: JSON.stringify({ content, book }),
   });

@@ -12,7 +12,7 @@ export const loginWithGoogle = async () => {
     if (result.user) {
       return (
         await axios.post<{ user: User; token: string }>(
-          '/api/auth/google',
+          '/auth/google',
           {
             uid: result.user.uid,
             provider: result.providerId,

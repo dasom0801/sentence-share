@@ -5,15 +5,15 @@ import { BookSearchParams, SentenceDetailParams } from './types';
 export const getSentences = async (params: APIRequestParams) => {
   params.limit = params.limit ?? 12;
   const query = queryString.stringify(params);
-  return fetchAPI<PaginationResult<Sentence>>(`/api/sentence?${query}`);
+  return fetchAPI<PaginationResult<Sentence>>(`/sentence?${query}`);
 };
 
 export const toggleSentenceLike = async (id: string) => {
-  return fetchAPI<Sentence>(`/api/sentence/${id}/like`, { method: 'PUT' });
+  return fetchAPI<Sentence>(`/sentence/${id}/like`, { method: 'PUT' });
 };
 
 export const getSentence = async ({ sentenceId }: SentenceDetailParams) => {
-  return fetchAPI<Sentence>(`/api/sentence/${sentenceId}`);
+  return fetchAPI<Sentence>(`/sentence/${sentenceId}`);
 };
 
 export type CreateSentenceParams = {
@@ -24,7 +24,7 @@ export const createSentence = async ({
   content,
   book,
 }: CreateSentenceParams) => {
-  return fetchAPI('/api/sentence', {
+  return fetchAPI('/sentence', {
     method: 'POST',
     body: JSON.stringify({ book, content }),
   });
@@ -36,14 +36,13 @@ export const updateSentence = async ({
   content,
   book,
 }: UpdateSentenceParams) => {
-  return fetchAPI(`/api/sentence/${id}`, {
+  return fetchAPI(`/sentence/${id}`, {
     method: 'PUT',
     body: JSON.stringify({ content, book }),
   });
 };
 
 export const searchBook = async ({ query, page = 1 }: BookSearchParams) => {
-  return (
-    await axios.get(`/api/sentence/search/book?query=${query}&page=${page}`)
-  ).data;
+  return (await axios.get(`/sentence/search/book?query=${query}&page=${page}`))
+    .data;
 };
