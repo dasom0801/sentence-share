@@ -1,8 +1,8 @@
-import { NextRequest, NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
+import { NextRequest, NextResponse } from 'next/server';
 
 export const config = {
-  matcher: ['/my/:path*', '/edit/:path*'],
+  matcher: ['/my/:path*', '/edit/:path*'], // 로그인이 필요한 경로
 };
 
 export function middleware(request: NextRequest) {
