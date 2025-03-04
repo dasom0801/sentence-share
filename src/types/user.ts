@@ -1,4 +1,7 @@
-type User = {
+import { ApiResponse } from './api';
+import { Sentence } from './sentence';
+
+export type User = {
   _id: string;
   uid: string;
   name: string;
@@ -8,3 +11,5 @@ type User = {
   likes?: Sentence[];
   sentence?: Sentence[];
 };
+
+export type UserResponse = ApiResponse<User>;
