@@ -1,5 +1,6 @@
 // 참고: https://github.com/vercel/next.js/blob/canary/examples/with-mongodb-mongoose/README.md
 import mongoose from 'mongoose';
+import { registerModels } from './models';
 
 declare global {
   var mongoose: any; // This must be a `var` and not a `let / const`
@@ -37,6 +38,8 @@ async function connectDB() {
     cached.promise = null;
     throw e;
   }
+
+  registerModels();
 
   return cached.conn;
 }
