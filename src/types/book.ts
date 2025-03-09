@@ -1,4 +1,3 @@
-import { ApiResponse, PaginationResult } from './api';
 import { Sentence } from './sentence';
 
 export type Book = {
@@ -11,6 +10,3 @@ export type Book = {
   sentence?: Sentence[];
   publishedAt?: Date;
 };
-
-export type BookResponse = ApiResponse<Sentence>;
-export type BooksResponse = ApiResponse<PaginationResult<Sentence>>;

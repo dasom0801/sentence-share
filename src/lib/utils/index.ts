@@ -1,6 +1,8 @@
-import { SortBy, SortOrder } from '@/types/enum';
-import { getServerToken } from '@/lib/utils/server-utils';
 import { getClientToken } from '@/lib/utils/client-utils';
+import { getServerToken } from '@/lib/utils/server-utils';
+import { SortBy, SortOrder } from '@/types/enum';
+
+export { HttpError } from './error';
 
 export const getBearerToken = async () => {
   let token;

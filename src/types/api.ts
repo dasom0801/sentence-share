@@ -1,7 +1,15 @@
 export type ApiResponse<T> = {
   success: boolean;
-  data: T;
+  data?: T;
   message?: string;
+  error?: unknown;
+};
+
+export type PaginationRequest = {
+  page: number;
+  limit: number;
+  sortBy: 'createdAt' | 'likes';
+  sortOrder: 'asc' | 'desc';
 };
 
 export type PaginationResult<T> = {
