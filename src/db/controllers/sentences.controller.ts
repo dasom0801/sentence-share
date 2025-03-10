@@ -4,7 +4,6 @@ import type {
   PaginationResult,
   Sentence,
 } from '@/types';
-import connectDB from '../connectDB';
 import models from '../models';
 import {
   calculateSkip,
@@ -15,6 +14,7 @@ import {
 } from '../utils';
 
 import { HttpError } from '@/lib/utils';
+import connectDB from '../connectDB';
 
 /**
  * 페이지네이션으로 문장 목록 가져오기
@@ -67,6 +67,7 @@ export const getSentences = async ({
  */
 export const getSentence = async (id: string): Promise<Sentence | null> => {
   try {
+    await connectDB();
     const sentencePromise = models.Sentence.findById(id)
       .populate('author', '_id name profileUrl')
       .populate('book')
@@ -79,7 +80,11 @@ export const getSentence = async (id: string): Promise<Sentence | null> => {
     ]);
 
     if (!sentence) {
-      return null;
+      throw new HttpError(
+        'NOT_FOUND_SENTENCE',
+        404,
+        '문장을 찾을 수 없습니다. ',
+      );
     }
 
     return { ...sentence, isLiked };
@@ -94,6 +99,7 @@ export const getSentence = async (id: string): Promise<Sentence | null> => {
  */
 export const createSentence = async (book: Book, content: string) => {
   try {
+    await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
       throw new HttpError('USER_NOT_EXISTS', 401);
@@ -140,6 +146,7 @@ export const updateSentence = async ({
   book,
 }: UpdateSentenceParams) => {
   try {
+    await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
       throw new HttpError('USER_NOT_EXISTS', 401);
@@ -180,6 +187,7 @@ export const updateSentence = async ({
  */
 export const deleteSentence = async (id: string) => {
   try {
+    await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
       throw new HttpError('USER_NOT_EXISTS', 401);
