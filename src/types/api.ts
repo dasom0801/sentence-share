@@ -8,8 +8,8 @@ export type ApiResponse<T> = {
 export type PaginationRequest = {
   page: number;
   limit: number;
-  sortBy: 'createdAt' | 'likes';
-  sortOrder: 'asc' | 'desc';
+  sortBy?: 'createdAt' | 'likes';
+  sortOrder?: 'asc' | 'desc';
 };
 
 export type PaginationResult<T> = {

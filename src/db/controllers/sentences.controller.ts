@@ -22,8 +22,8 @@ import connectDB from '../connectDB';
 export const getSentences = async ({
   page,
   limit,
-  sortBy,
-  sortOrder,
+  sortBy = 'createdAt',
+  sortOrder = 'desc',
 }: PaginationRequest): Promise<PaginationResult<Sentence>> => {
   try {
     await connectDB();
