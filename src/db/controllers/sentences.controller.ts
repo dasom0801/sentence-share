@@ -29,21 +29,24 @@ export const getSentences = async ({
     await connectDB();
     const skip = calculateSkip(page, limit);
     const sort = { [sortBy]: convertSortOrderForDB(sortOrder) };
-
-    const sentences = await models.Sentence.find({})
-      .populate('author', '_id name profileUrl')
-      .populate('book')
-      .limit(limit)
-      .skip(skip)
-      .sort(sort)
-      .lean<Omit<Sentence, 'likes'>[]>();
+    const user = await getAuthenticatedUser();
+    const filter = {};
+    const [sentences, total] = await Promise.all([
+      models.Sentence.find(filter)
+        .populate('author', '_id name profileUrl')
+        .populate('book')
+        .limit(limit)
+        .skip(skip)
+        .sort(sort)
+        .lean<Omit<Sentence, 'likes'>[]>(),
+      models.Sentence.countDocuments(filter),
+    ]);
 
     const sentenceIds = sentences.map(({ _id }) => _id);
     const likes = await models.Like.find({
       target: { $in: sentenceIds },
+      user: user?._id,
     }).lean();
-    const total = await models.Sentence.countDocuments();
-    const user = await getAuthenticatedUser();
 
     return getPaginationResult<Sentence>({
       page,
@@ -53,7 +56,7 @@ export const getSentences = async ({
         ...sentence,
         isLiked: !user
           ? false
-          : likes.some((like: any) => like.user.equals(user?._id)),
+          : likes.some((like: any) => like.target.equals(sentence?._id)),
       })),
     });
   } catch (error) {
@@ -102,7 +105,7 @@ export const createSentence = async (book: Book, content: string) => {
     await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
-      throw new HttpError('USER_NOT_EXISTS', 401);
+      throw new HttpError('Unauthorized', 401);
     }
     if (!content || !book) {
       throw new HttpError('BAD_REQUEST', 400);
