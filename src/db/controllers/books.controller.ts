@@ -3,10 +3,20 @@
  */
 
 import { HttpError } from '@/lib/utils';
-import type { Book, PaginationResult } from '@/types';
+import type {
+  Book,
+  PaginationRequest,
+  PaginationResult,
+  Sentence,
+} from '@/types';
 import connectDB from '../connectDB';
 import models from '../models';
-import { getPaginationResult } from '../utils';
+import {
+  calculateSkip,
+  convertSortOrderForDB,
+  getAuthenticatedUser,
+  getPaginationResult,
+} from '../utils';
 
 /**
  * id를 통해 책 정보 가져오기
@@ -21,6 +31,71 @@ export const getBook = async (bookId: string) => {
     return book;
   } catch (error) {
     console.error(`Book 가져오기 오류: ${bookId}`, error);
+    throw new HttpError();
+  }
+};
+
+/**
+ * 책에 등록된 문장 목록 가져오기
+ */
+export const getBookSentences = async ({
+  bookId,
+  mine,
+  page = 1,
+  limit = 20,
+  sortBy = 'createdAt',
+  sortOrder = 'desc',
+}: {
+  bookId: string;
+  mine: boolean;
+} & PaginationRequest) => {
+  try {
+    await connectDB();
+    const skip = calculateSkip(page, limit);
+    const sort = { [sortBy]: convertSortOrderForDB(sortOrder) };
+    const book = await models.Book.findById(bookId);
+
+    if (!book) {
+      return new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
+    }
+
+    const user = await getAuthenticatedUser();
+
+    // 로그인한 사용자가 작성한 문장만 가져오는 경우
+    if (mine && !user) {
+      return new HttpError('Unauthorized', 401, '로그인 후 이용해주세요.');
+    }
+    const filter = {
+      book: bookId,
+      user: mine ? user?._id : null,
+    };
+    const [sentences, total] = await Promise.all([
+      models.Sentence.find(filter)
+        .populate('author', '_id name profileUrl')
+        .sort(sort)
+        .limit(limit)
+        .skip(skip)
+        .lean<Sentence[]>(),
+      models.Sentence.countDocuments(filter),
+    ]);
+    const sentenceIds = sentences.map(({ _id }) => _id);
+    const likes = await models.Like.find({
+      target: { $in: sentenceIds },
+      user: user?._id,
+    }).lean();
+
+    return getPaginationResult({
+      page,
+      limit,
+      total,
+      list: sentences.map((sentence) => ({
+        ...sentence,
+        isLiked: !user
+          ? false
+          : likes.some((like: any) => like.target.equals(sentence?._id)),
+      })),
+    });
+  } catch (error) {
     throw new HttpError();
   }
 };

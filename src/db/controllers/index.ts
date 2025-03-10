@@ -1,5 +1,9 @@
 export {} from './auth.controller';
-export {} from './books.controller';
+export {
+  getBook,
+  getBookSentences,
+  searchBookWithKakaoOpenAPI,
+} from './books.controller';
 export {
   createSentence,
   deleteSentence,
