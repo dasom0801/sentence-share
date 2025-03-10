@@ -1,4 +1,4 @@
-import { searchBookWithKakaoOpenAPI } from '@/db/controllers/books.controller';
+import { searchBookWithKakaoOpenAPI } from '@/db/controllers';
 import { handleError, parseQuery } from '@/db/utils';
 import { HttpError } from '@/lib/utils';
 import { NextRequest, NextResponse } from 'next/server';
@@ -27,7 +27,6 @@ export async function GET(req: NextRequest) {
       { status: 200 },
     );
   } catch (error) {
-    console.log('catch', error);
     return handleError(error);
   }
 }
