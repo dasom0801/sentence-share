@@ -3,9 +3,31 @@
  */
 
 import { HttpError } from '@/lib/utils';
-import { Book, PaginationResult } from '@/types';
+import type { Book, PaginationResult } from '@/types';
+import connectDB from '../connectDB';
+import models from '../models';
 import { getPaginationResult } from '../utils';
 
+/**
+ * id를 통해 책 정보 가져오기
+ */
+export const getBook = async (bookId: string) => {
+  try {
+    await connectDB();
+    const book = await models.Book.findById(bookId).lean<Book>();
+    if (!book) {
+      throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
+    }
+    return book;
+  } catch (error) {
+    console.error(`Book 가져오기 오류: ${bookId}`, error);
+    throw new HttpError();
+  }
+};
+
+/**
+ * Kakao OpenAPI로 책 정보 검색
+ */
 export const searchBookWithKakaoOpenAPI = async ({
   query,
   page = 1,
@@ -16,6 +38,7 @@ export const searchBookWithKakaoOpenAPI = async ({
   limit: number;
 }): Promise<PaginationResult<Book>> => {
   try {
+    await connectDB();
     const convertToBookType = (book: any) => {
       const { authors, isbn, publisher, title, thumbnail, datetime } = book;
       return {
