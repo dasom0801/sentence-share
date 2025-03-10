@@ -1,6 +1,5 @@
 import { deleteSentence, getSentence, updateSentence } from '@/db/controllers';
 import { handleError } from '@/db/utils';
-import { HttpError } from '@/lib/utils';
 import type { ApiResponse, Sentence } from '@/types';
 import { NextRequest, NextResponse } from 'next/server';
 
@@ -13,14 +12,6 @@ export async function GET(
   const { id } = params;
   try {
     const data = await getSentence(id);
-
-    if (!data) {
-      throw new HttpError(
-        'NOT_FOUND_SENTENCE',
-        404,
-        '문장을 찾을 수 없습니다. ',
-      );
-    }
     return NextResponse.json(
       {
         success: true,
