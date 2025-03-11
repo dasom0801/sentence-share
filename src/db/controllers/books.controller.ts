@@ -56,14 +56,14 @@ export const getBookSentences = async ({
     const book = await models.Book.findById(bookId);
 
     if (!book) {
-      return new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
+      throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
     }
 
     const user = await getAuthenticatedUser();
 
     // 로그인한 사용자가 작성한 문장만 가져오는 경우
     if (mine && !user) {
-      return new HttpError('Unauthorized', 401, '로그인 후 이용해주세요.');
+      throw new HttpError('Unauthorized', 401, '로그인 후 이용해주세요.');
     }
     const filter = {
       book: bookId,
