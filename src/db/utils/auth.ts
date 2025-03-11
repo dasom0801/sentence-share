@@ -8,17 +8,9 @@ import models from '../models';
  *
  */
 export const getAuthenticatedUser = async (): Promise<User | null> => {
-  const token = cookies().get('access_token')?.value;
-  if (!token) {
-    return null;
-  }
-
   try {
-    const decoded = verifyToken(token);
-    if (!decoded?.userId) {
-      return null;
-    }
-    return await models.User.findById(decoded.userId).lean<User>();
+    const userId = getLoginUserId();
+    return userId ? await models.User.findById(userId).lean<User>() : null;
   } catch (error) {
     console.error('JWT 검증 실패:', error);
     return null;
@@ -37,4 +29,22 @@ export const verifyToken = (token: string): JwtPayload | null => {
   }
 
   return jwt.verify(token, privateKey) as JwtPayload;
+};
+
+/**
+ * token을 통해 로그인한 사용자 ID 찾기
+ */
+
+export const getLoginUserId = (): string | null => {
+  const token = cookies().get('access_token')?.value;
+  if (!token) {
+    return null;
+  }
+  try {
+    const decoded = verifyToken(token);
+    return decoded?.userId;
+  } catch (error) {
+    console.error('JWT 검증 실패:', error);
+    return null;
+  }
 };

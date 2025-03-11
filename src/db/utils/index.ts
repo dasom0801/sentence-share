@@ -5,7 +5,7 @@ export {
   parseQuery,
 } from './pagination';
 
-export { getAuthenticatedUser, verifyToken } from './auth';
+export { getAuthenticatedUser, getLoginUserId, verifyToken } from './auth';
 
 export { handleError } from './error';
 

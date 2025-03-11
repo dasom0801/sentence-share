@@ -12,4 +12,4 @@ export {
   getSentences,
   updateSentence,
 } from './sentences.controller';
-export {} from './users.controller';
+export { deleteUser, editUserInfo, getUserInfo } from './users.controller';
