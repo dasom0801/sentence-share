@@ -4,6 +4,7 @@ export {
   getBookSentences,
   searchBookWithKakaoOpenAPI,
 } from './books.controller';
+export { addLike, deleteLike } from './likes.controller';
 export {
   createSentence,
   deleteSentence,
