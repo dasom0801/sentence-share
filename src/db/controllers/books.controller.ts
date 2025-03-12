@@ -3,19 +3,13 @@
  */
 
 import { HttpError } from '@/lib/utils';
-import type {
-  Book,
-  PaginationRequest,
-  PaginationResult,
-  Sentence,
-} from '@/types';
+import type { Book, PaginationRequest, PaginationResult } from '@/types';
 import connectDB from '../connectDB';
 import models from '../models';
 import {
-  calculateSkip,
-  convertSortOrderForDB,
   getAuthenticatedUser,
   getPaginationResult,
+  getPaginationSentences,
 } from '../utils';
 
 /**
@@ -41,18 +35,13 @@ export const getBook = async (bookId: string) => {
 export const getBookSentences = async ({
   bookId,
   mine,
-  page = 1,
-  limit = 20,
-  sortBy = 'createdAt',
-  sortOrder = 'desc',
+  ...paginationRequest
 }: {
   bookId: string;
   mine: boolean;
 } & PaginationRequest) => {
   try {
     await connectDB();
-    const skip = calculateSkip(page, limit);
-    const sort = { [sortBy]: convertSortOrderForDB(sortOrder) };
     const book = await models.Book.findById(bookId);
 
     if (!book) {
@@ -69,32 +58,7 @@ export const getBookSentences = async ({
       book: bookId,
       user: mine ? user?._id : null,
     };
-    const [sentences, total] = await Promise.all([
-      models.Sentence.find(filter)
-        .populate('author', '_id name profileUrl')
-        .sort(sort)
-        .limit(limit)
-        .skip(skip)
-        .lean<Sentence[]>(),
-      models.Sentence.countDocuments(filter),
-    ]);
-    const sentenceIds = sentences.map(({ _id }) => _id);
-    const likes = await models.Like.find({
-      target: { $in: sentenceIds },
-      user: user?._id,
-    }).lean();
-
-    return getPaginationResult({
-      page,
-      limit,
-      total,
-      list: sentences.map((sentence) => ({
-        ...sentence,
-        isLiked: !user
-          ? false
-          : likes.some((like: any) => like.target.equals(sentence?._id)),
-      })),
-    });
+    return await getPaginationSentences(filter, paginationRequest);
   } catch (error) {
     throw new HttpError();
   }

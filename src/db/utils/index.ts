@@ -9,4 +9,4 @@ export { getAuthenticatedUser, getLoginUserId, verifyToken } from './auth';
 
 export { handleError } from './error';
 
-export { isUserLikedSentence } from './sentence';
+export { getPaginationSentences, isUserLikedSentence } from './sentence';

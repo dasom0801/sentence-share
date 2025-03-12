@@ -6,10 +6,8 @@ import type {
 } from '@/types';
 import models from '../models';
 import {
-  calculateSkip,
-  convertSortOrderForDB,
   getAuthenticatedUser,
-  getPaginationResult,
+  getPaginationSentences,
   isUserLikedSentence,
 } from '../utils';
 
@@ -19,46 +17,12 @@ import connectDB from '../connectDB';
 /**
  * 페이지네이션으로 문장 목록 가져오기
  */
-export const getSentences = async ({
-  page,
-  limit,
-  sortBy = 'createdAt',
-  sortOrder = 'desc',
-}: PaginationRequest): Promise<PaginationResult<Sentence>> => {
+export const getSentences = async (
+  paginationRequest: PaginationRequest,
+): Promise<PaginationResult<Sentence>> => {
   try {
     await connectDB();
-    const skip = calculateSkip(page, limit);
-    const sort = { [sortBy]: convertSortOrderForDB(sortOrder) };
-    const user = await getAuthenticatedUser();
-    const filter = {};
-    const [sentences, total] = await Promise.all([
-      models.Sentence.find(filter)
-        .populate('author', '_id name profileUrl')
-        .populate('book')
-        .limit(limit)
-        .skip(skip)
-        .sort(sort)
-        .lean<Omit<Sentence, 'likes'>[]>(),
-      models.Sentence.countDocuments(filter),
-    ]);
-
-    const sentenceIds = sentences.map(({ _id }) => _id);
-    const likes = await models.Like.find({
-      target: { $in: sentenceIds },
-      user: user?._id,
-    }).lean();
-
-    return getPaginationResult<Sentence>({
-      page,
-      limit,
-      total,
-      list: sentences.map((sentence) => ({
-        ...sentence,
-        isLiked: !user
-          ? false
-          : likes.some((like: any) => like.target.equals(sentence?._id)),
-      })),
-    });
+    return await getPaginationSentences({}, paginationRequest);
   } catch (error) {
     console.error(error);
     throw new HttpError();
