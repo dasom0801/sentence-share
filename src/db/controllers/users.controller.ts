@@ -1,9 +1,13 @@
 import { HttpError } from '@/lib/utils';
-import { User } from '@/types';
+import { PaginationRequest, User } from '@/types';
 import connectDB from '../connectDB';
 import firebaseAdmin from '../firebase.config';
 import models from '../models';
-import { getAuthenticatedUser, getLoginUserId } from '../utils';
+import {
+  getAuthenticatedUser,
+  getLoginUserId,
+  getPaginationSentences,
+} from '../utils';
 
 /**
  * 로그인한 사용자 정보를 반환
@@ -22,6 +26,9 @@ export const getUserInfo = async (): Promise<User> => {
   }
 };
 
+/**
+ * 로그인한 사용자의 정보를 수정
+ */
 export const editUserInfo = async ({
   name,
   profileUrl,
@@ -52,6 +59,9 @@ export const editUserInfo = async ({
   }
 };
 
+/**
+ * 회원 탈퇴
+ */
 export const deleteUser = async () => {
   try {
     await connectDB();
@@ -81,6 +91,43 @@ export const deleteUser = async () => {
     return true;
   } catch (error) {
     console.error(`사용자 탈퇴 실패`, error);
+    throw new HttpError();
+  }
+};
+
+/**
+ * 내가 작성한 문장 목록 가져오기
+ */
+export const getMySentences = async (params: PaginationRequest) => {
+  try {
+    const userId: string | null = getLoginUserId();
+    if (!userId) {
+      throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
+    }
+    return await getUserSentences({ userId, ...params });
+  } catch (error) {
+    console.error('내가 작성한 문장 목록 가져오기 실패', error);
+    throw new HttpError();
+  }
+};
+
+/**
+ * 특정 사용자가 작성한 문장 목록 가져오기
+ */
+export const getUserSentences = async ({
+  userId,
+  ...paginationRequest
+}: { userId: string } & PaginationRequest) => {
+  try {
+    await connectDB();
+    const user = await models.User.findById(userId);
+    if (!user) {
+      throw new HttpError('NOT_FOUND_USER', 404, '사용자를 찾을 수 없습니다.');
+    }
+    const filter = { author: userId };
+    return await getPaginationSentences(filter, paginationRequest);
+  } catch (error) {
+    console.error(`사용자가 작성한 문장 가져오기 실패-${userId}`, error);
     throw new HttpError();
   }
 };
