@@ -1,11 +1,14 @@
 import { HttpError } from '@/lib/utils';
-import { PaginationRequest, User } from '@/types';
+import { PaginationRequest, Sentence, User } from '@/types';
 import connectDB from '../connectDB';
 import firebaseAdmin from '../firebase.config';
 import models from '../models';
 import {
+  calculateSkip,
+  convertSortOrderForDB,
   getAuthenticatedUser,
   getLoginUserId,
+  getPaginationResult,
   getPaginationSentences,
 } from '../utils';
 
@@ -112,6 +115,22 @@ export const getMySentences = async (params: PaginationRequest) => {
 };
 
 /**
+ * 내가 좋아요한 문장 가져오기
+ */
+export const getLikedSentences = async (params: PaginationRequest) => {
+  try {
+    const userId: string | null = getLoginUserId();
+    if (!userId) {
+      throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
+    }
+    return await getUserLikedSentences({ userId, ...params });
+  } catch (error) {
+    console.error('내가 좋아요한 문장 목록 가져오기 실패', error);
+    throw new HttpError();
+  }
+};
+
+/**
  * 특정 사용자가 작성한 문장 목록 가져오기
  */
 export const getUserSentences = async ({
@@ -126,6 +145,71 @@ export const getUserSentences = async ({
     }
     const filter = { author: userId };
     return await getPaginationSentences(filter, paginationRequest);
+  } catch (error) {
+    console.error(`사용자가 작성한 문장 가져오기 실패-${userId}`, error);
+    throw new HttpError();
+  }
+};
+
+/**
+ * 특정 사용자가 좋아요한 문장 목록 가져오기
+ */
+export const getUserLikedSentences = async ({
+  userId,
+  page,
+  limit,
+  sortBy = 'createdAt',
+  sortOrder = 'desc',
+}: { userId: string } & PaginationRequest) => {
+  try {
+    await connectDB();
+    const targetUser = await models.User.findById(userId);
+    if (!targetUser) {
+      throw new HttpError('NOT_FOUND_USER', 404, '사용자를 찾을 수 없습니다.');
+    }
+    const skip = calculateSkip(page, limit);
+    const sort = { [sortBy]: convertSortOrderForDB(sortOrder) };
+    const filter = {
+      user: userId,
+      category: 'sentence',
+    };
+
+    const [likedSentences, total] = await Promise.all([
+      models.Like.find(filter)
+        .limit(limit)
+        .skip(skip)
+        .sort(sort)
+        .populate({
+          path: 'target',
+          model: 'Sentence',
+          populate: [
+            { path: 'author', select: '_id name profileUrl' },
+            { path: 'book' },
+          ],
+        }),
+      models.Like.countDocuments(filter),
+    ]);
+    const user = await getAuthenticatedUser();
+
+    const sentenceIds = likedSentences.map(({ _id }) => _id);
+    const likes = await models.Like.find({
+      target: { $in: sentenceIds },
+      user: user?._id,
+    }).lean();
+
+    return getPaginationResult<Sentence>({
+      page,
+      limit,
+      total,
+      list: likedSentences
+        .map((like) => like.target)
+        .map((sentence) => ({
+          ...sentence,
+          isLiked: !user
+            ? false
+            : likes.some((like: any) => like.target.equals(sentence?._id)),
+        })),
+    });
   } catch (error) {
     console.error(`사용자가 작성한 문장 가져오기 실패-${userId}`, error);
     throw new HttpError();
