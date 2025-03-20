@@ -8,8 +8,8 @@ import connectDB from '../connectDB';
 import models from '../models';
 import {
   getAuthenticatedUser,
+  getPaginatedSentences,
   getPaginationResult,
-  getPaginationSentences,
 } from '../utils';
 
 /**
@@ -58,7 +58,11 @@ export const getBookSentences = async ({
       book: bookId,
       user: mine ? user?._id : null,
     };
-    return await getPaginationSentences(filter, paginationRequest);
+    return await getPaginatedSentences(
+      models.Sentence,
+      filter,
+      paginationRequest,
+    );
   } catch (error) {
     throw new HttpError();
   }

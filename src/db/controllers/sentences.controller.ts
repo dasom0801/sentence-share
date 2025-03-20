@@ -7,7 +7,7 @@ import type {
 import models from '../models';
 import {
   getAuthenticatedUser,
-  getPaginationSentences,
+  getPaginatedSentences,
   isUserLikedSentence,
 } from '../utils';
 
@@ -22,7 +22,7 @@ export const getSentences = async (
 ): Promise<PaginationResult<Sentence>> => {
   try {
     await connectDB();
-    return await getPaginationSentences({}, paginationRequest);
+    return await getPaginatedSentences(models.Sentence, {}, paginationRequest);
   } catch (error) {
     console.error(error);
     throw new HttpError();
