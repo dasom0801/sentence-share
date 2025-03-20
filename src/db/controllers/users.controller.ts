@@ -77,8 +77,8 @@ export const deleteUser = async () => {
     ]);
 
     try {
-      firebaseAdmin.auth().revokeRefreshTokens(user.uid); // 토큰 취소
-      firebaseAdmin.auth().deleteUser(user.uid); // firebase auth에서 사용자 삭제
+      firebaseAdmin?.auth().revokeRefreshTokens(user.uid); // 토큰 취소
+      firebaseAdmin?.auth().deleteUser(user.uid); // firebase auth에서 사용자 삭제
     } catch (error) {
       console.error(`firebase 회원 탈퇴 요청 실패`, error);
       throw new HttpError(
