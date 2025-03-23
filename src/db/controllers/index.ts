@@ -1,4 +1,4 @@
-export {} from './auth.controller';
+export { authWithGoogle } from './auth.controller';
 export {
   getBook,
   getBookSentences,

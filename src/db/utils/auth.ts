@@ -48,3 +48,19 @@ export const getLoginUserId = (): string | null => {
     return null;
   }
 };
+
+/**
+ * user token 생성
+ */
+export const generateUserToken = (userId: string): string => {
+  const privateKey = process.env.ACCESS_TOKEN_PRIVATE_KEY;
+  if (!privateKey) {
+    throw new Error(
+      'ACCESS_TOKEN_PRIVATE_KEY 환경 변수가 설정되지 않았습니다.',
+    );
+  }
+
+  return jwt.sign({ userId }, privateKey, {
+    expiresIn: '30m',
+  });
+};
