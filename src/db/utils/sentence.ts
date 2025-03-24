@@ -35,7 +35,7 @@ export const getPaginatedSentences = async (
   model: mongoose.Model<any>,
   filter: Record<string, any> = {},
   pagination: PaginationRequest,
-  populateTargetField?: string,
+  populateTargetField: string = '_id',
 ): Promise<PaginationResult<Sentence>> => {
   const { page, limit, sortBy = 'createdAt', sortOrder = 'desc' } = pagination;
   const skip = calculateSkip(page, limit);
@@ -49,7 +49,7 @@ export const getPaginatedSentences = async (
       .skip(skip)
       .sort(sort)
       .populate({
-        path: populateTargetField ?? '_id', // populateTargetField가 없으면 _id를 기준으로 populate
+        path: populateTargetField,
         model: 'Sentence',
         populate: [
           { path: 'author', select: '_id name profileUrl' },
@@ -60,9 +60,7 @@ export const getPaginatedSentences = async (
     model.countDocuments(filter),
   ]);
 
-  const sentences = populateTargetField
-    ? items.map((item) => item[populateTargetField])
-    : items;
+  const sentences = items.map((item) => item[populateTargetField]);
   const sentenceIds = sentences.map(({ _id }) => _id);
 
   const likes = user
