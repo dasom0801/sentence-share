@@ -4,9 +4,9 @@ import { User } from './user';
 export type Sentence = {
   _id: string;
   content: string;
-  createdAt: Date;
+  createdAt: string;
   author: Partial<User>;
   book: Book;
-  isLiked?: boolean;
+  isLiked: boolean;
   likes?: number;
 };
