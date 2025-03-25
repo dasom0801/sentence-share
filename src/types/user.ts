@@ -1,4 +1,3 @@
-import { ApiResponse } from './api';
 import { Sentence } from './sentence';
 
 export type User = {
@@ -11,5 +10,3 @@ export type User = {
   likes?: Sentence[];
   sentence?: Sentence[];
 };
-
-export type UserResponse = ApiResponse<User>;
