@@ -1,3 +1,4 @@
+import { ApiResponse } from '@/types';
 import axios from 'axios';
 import { getBearerToken } from '../utils';
 
@@ -6,7 +7,7 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 export const fetchAPI = async <T>(
   url: string,
   init: RequestInit = {},
-): Promise<T> => {
+): Promise<ApiResponse<T>> => {
   const token = await getBearerToken();
   let headers: HeadersInit = {
     'Content-Type': 'application/json',
