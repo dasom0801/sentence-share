@@ -1,15 +1,22 @@
+import type { Book, PaginationResult, Sentence } from '@/types';
 import queryString from 'query-string';
 import { fetchAPI } from './api';
-import { BookSentenceListParams } from './types';
+import type { BookSearchParams, BookSentenceListParams } from './types';
 
 export const getBook = async (bookId?: string) => {
-  return fetchAPI<Book>(`/book/${bookId}`);
+  return fetchAPI<Book>(`/books/${bookId}`);
 };
 
 export const getBookSentence = async (params: BookSentenceListParams) => {
   const { bookId, ...rest } = params;
   const query = queryString.stringify(rest);
   return fetchAPI<PaginationResult<Sentence>>(
-    `/book/${bookId}/sentences?${query}`,
+    `/books/${bookId}/sentences?${query}`,
+  );
+};
+
+export const searchBook = async ({ query, page = 1 }: BookSearchParams) => {
+  return await fetchAPI(
+    `/books/external/kakao/search?query=${query}&page=${page}`,
   );
 };
