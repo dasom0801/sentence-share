@@ -9,6 +9,7 @@ export const fetchAPI = async <T>(
   init: RequestInit = {},
 ): Promise<ApiResponse<T>> => {
   const token = await getBearerToken();
+
   let headers: HeadersInit = {
     'Content-Type': 'application/json',
   };
@@ -18,7 +19,8 @@ export const fetchAPI = async <T>(
       Authorization: token,
     };
   }
-  init = { ...init, headers };
+  init = { ...init, headers, credentials: 'include' };
+
   try {
     const response = await fetch(`${BASE_URL}${url}`, init);
 
