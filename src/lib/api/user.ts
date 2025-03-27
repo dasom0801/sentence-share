@@ -17,7 +17,7 @@ export const updateUser = async (data: Record<string, any>) => {
 };
 
 export const deleteUser = async () => {
-  await fetchAPI('/user/withdrawal', { method: 'DELETE' });
+  await fetchAPI('/users/withdrawal', { method: 'DELETE' });
   await signOut(auth);
 };
 
@@ -25,12 +25,14 @@ export const getUserSentence = async (params: UserListRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
   return fetchAPI<PaginationResult<Sentence>>(
-    `/users/${userId}/sentence?${query}`,
+    `/users/${userId}/sentences?${query}`,
   );
 };
 
 export const getUserLike = async (params: UserListRequestParams) => {
   const { userId, ...queryPrams } = params;
   const query = querystring.stringify(queryPrams);
-  return fetchAPI<PaginationResult<Sentence>>(`/users/${userId}/like?${query}`);
+  return fetchAPI<PaginationResult<Sentence>>(
+    `/users/${userId}/likes?${query}`,
+  );
 };
