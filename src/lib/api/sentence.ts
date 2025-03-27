@@ -6,7 +6,9 @@ import { SentenceDetailParams } from './types';
 export const getSentences = async (params: APIRequestParams) => {
   params.limit = params.limit ?? 12;
   const query = queryString.stringify(params);
-  return fetchAPI<PaginationResult<Sentence>>(`/sentences?${query}`);
+  return fetchAPI<PaginationResult<Sentence>>(`/sentences?${query}`, {
+    cache: 'no-store',
+  });
 };
 
 export const toggleSentenceLike = async (id: string) => {

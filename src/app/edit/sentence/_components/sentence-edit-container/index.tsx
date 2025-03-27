@@ -1,15 +1,17 @@
 'use client';
 
-import { useState } from 'react';
-import { useRouter } from 'next/navigation';
-import toast from 'react-hot-toast';
-import { createSentence, updateSentence } from '@/lib/actions';
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
+import { updateSentence } from '@/lib/actions';
+import { fetchAPI } from '@/lib/api/api';
+import type { Book, Sentence } from '@/types';
 import BookListItem from '@components/book/book-list-item';
-import classes from './index.module.scss';
+import MaxWidthWrapper from '@components/common/max-width-wrapper';
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import toast from 'react-hot-toast';
 import BookSearch from '../book-search';
-import SentenceInput from '../sentence-input';
 import SentenceEditActions from '../sentence-edit-actions';
+import SentenceInput from '../sentence-input';
+import classes from './index.module.scss';
 
 type SentenceEditContainerProps = {
   sentence?: Sentence;
@@ -30,11 +32,14 @@ export default function SentenceEditContainer({
     if (sentence) {
       await updateSentence({ content, book, id: sentence._id });
     } else {
-      await createSentence({ content, book });
+      await fetchAPI('/sentences', {
+        method: 'POST',
+        body: JSON.stringify({ book, content }),
+      });
     }
     setPending(false);
     toast.success(`성공적으로 ${sentence ? '수정' : '작성'}했습니다.`);
-    router.back();
+    router.push('/');
   };
 
   return (
