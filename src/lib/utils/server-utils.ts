@@ -2,7 +2,9 @@
 
 import { cookies } from 'next/headers';
 
-export const getServerToken = async () => {
-  const cookie = cookies();
-  return cookie.get('access_token')?.value || null;
+// 서버에서 쿠키 문자열 추출
+export const getServerCookieHeader = () => {
+  const cookieStore = cookies();
+  const accessToken = cookieStore.get('access_token')?.value;
+  return accessToken ? `access_token=${accessToken}` : '';
 };
