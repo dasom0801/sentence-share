@@ -25,7 +25,7 @@ export const parseQuery = ({
   page: page ? Number(page) : 1,
   limit: limit ? Number(limit) : 20,
   sortBy: isValidSortBy(sortBy) ? sortBy : 'createdAt',
-  sortOrder: isValidSortOrder(sortOrder) ? sortOrder : 'asc',
+  sortOrder: isValidSortOrder(sortOrder) ? sortOrder : 'desc',
 });
 
 // DB 요청을 위해 sortOrder를 숫자로 변환
