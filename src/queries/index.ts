@@ -8,13 +8,14 @@ import {
   getUser,
   getUserLike,
   getUserSentence,
-  searchBook,
+  searchBookWithKakaoAPI,
 } from '@/lib/api';
 import {
   BookSentenceListParams,
   SentenceDetailParams,
   UserListRequestParams,
 } from '@/lib/api/types';
+import { User } from '@/types';
 import { AxiosError } from 'axios';
 
 export const userQueries = {
@@ -24,7 +25,7 @@ export const userQueries = {
       queryKey: [...userQueries.all(), 'me'],
       queryFn: async () => {
         try {
-          const user = await getUser();
+          const { data: user } = await getUser();
           onSuccess(user);
           return user;
         } catch (error) {
@@ -95,10 +96,19 @@ export const sentenceQueries = {
   bookSearch: (query: string) =>
     infiniteQueryOptions({
       queryKey: [...sentenceQueries.all(), 'book', 'search', query],
-      queryFn: ({ pageParam }) => searchBook({ query, page: pageParam }),
+      queryFn: ({ pageParam }) =>
+        searchBookWithKakaoAPI({ query, page: pageParam }),
       initialPageParam: 1,
-      getNextPageParam: (result, allPages) =>
+      getNextPageParam: ({ data: result }, allPages) =>
         allPages.length < result.total ? result.page + 1 : null,
       enabled: !!query.length,
+      select: (data) => {
+        const books = data.pages.flatMap((page) => page.data.list);
+
+        return {
+          ...data,
+          books,
+        };
+      },
     }),
 };
