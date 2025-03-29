@@ -128,7 +128,7 @@ export const updateSentence = async ({
       throw new HttpError('SENTENCE_NOT_FOUND', 404);
     }
 
-    if (sentence.author._id !== user._id) {
+    if (sentence.author.toString() !== user._id.toString()) {
       throw new HttpError('FORBIDDEN', 403);
     }
 

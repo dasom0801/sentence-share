@@ -28,18 +28,21 @@ export default function SentenceEditContainer({
   const handleSubmit = async () => {
     if (!book || !content) return;
     setPending(true);
+    let redirectPath = '/';
 
     if (sentence) {
       await updateSentence({ content, book, id: sentence._id });
+      redirectPath = '/my/sentence';
     } else {
       await fetchAPI('/sentences', {
         method: 'POST',
         body: JSON.stringify({ book, content }),
       });
+      redirectPath = '/';
     }
     setPending(false);
     toast.success(`성공적으로 ${sentence ? '수정' : '작성'}했습니다.`);
-    router.push('/');
+    router.push(redirectPath);
   };
 
   return (

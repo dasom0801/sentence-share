@@ -8,6 +8,6 @@ type SentenceEditPageProps = {
 export default async function SentenceEditPage({
   params: { id },
 }: SentenceEditPageProps) {
-  const sentence = await getSentence({ sentenceId: id });
+  const { data: sentence } = await getSentence({ sentenceId: id });
   return <SentenceEditContainer sentence={sentence} />;
 }
