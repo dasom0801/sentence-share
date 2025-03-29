@@ -169,7 +169,7 @@ export const deleteSentence = async (id: string) => {
       );
     }
 
-    if (sentence.author._id !== user._id) {
+    if (sentence.author.toString() !== user._id.toString()) {
       throw new HttpError('FORBIDDEN', 403);
     }
 
@@ -180,6 +180,9 @@ export const deleteSentence = async (id: string) => {
     return true;
   } catch (error) {
     console.error('Sentence 삭제 실패', error);
+    if (error instanceof HttpError) {
+      throw error;
+    }
     throw new HttpError(
       'INTERNAL_SERVER_ERROR',
       500,
