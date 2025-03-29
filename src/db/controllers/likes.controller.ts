@@ -22,12 +22,13 @@ export const addLike = async ({
     if (!user) {
       throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
     }
+
     const model = {
       sentence: models.Sentence,
       book: models.Book,
     }[category];
 
-    const foundTarget = await model.findById({ id: target });
+    const foundTarget = await model.findById(target);
 
     if (!foundTarget) {
       throw new HttpError(
@@ -40,7 +41,7 @@ export const addLike = async ({
     await models.Like.create({ user: user._id, category, target });
     return true;
   } catch (error) {
-    console.error(`Like 추가 에러 ${category}-${target}`);
+    console.error(`Like 추가 에러 ${category}-${target}`, error);
     throw new HttpError();
   }
 };
@@ -48,7 +49,13 @@ export const addLike = async ({
 /**
  * Like 삭제
  */
-export const deleteLike = async ({ id }: { id: string }) => {
+export const deleteLike = async ({
+  target,
+  category,
+}: {
+  target: string;
+  category: 'sentence' | 'book';
+}) => {
   try {
     await connectDB();
     const user = await getAuthenticatedUser();
@@ -56,15 +63,22 @@ export const deleteLike = async ({ id }: { id: string }) => {
       throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
     }
 
-    const foundLike = await models.Like.findById(id);
+    const foundLike = await models.Like.findOne({
+      target,
+      category,
+    });
     if (!foundLike) {
-      throw new HttpError('NOT_FOUND', 404, `${id}를 찾을 수 없습니다.`);
+      throw new HttpError(
+        'NOT_FOUND',
+        404,
+        `${category}-${target}를 찾을 수 없습니다.`,
+      );
     }
 
-    await models.Like.deleteOne({ _id: id });
+    await models.Like.deleteOne({ _id: foundLike._id });
     return true;
   } catch (error) {
-    console.error(`Like 취소 에러 ${id}`);
+    console.error(`Like 취소 에러 ${category}-${target}`, error);
     throw new HttpError();
   }
 };

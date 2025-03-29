@@ -4,11 +4,11 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function DELETE(
   req: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: { target: string; category: 'sentence' | 'book' } },
 ) {
   try {
-    const { id } = params;
-    await deleteLike({ id });
+    const { category, target } = params;
+    await deleteLike({ category, target });
     return NextResponse.json(
       {
         success: true,
