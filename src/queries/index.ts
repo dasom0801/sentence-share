@@ -99,15 +99,20 @@ export const sentenceQueries = {
       queryFn: ({ pageParam }) =>
         searchBookWithKakaoAPI({ query, page: pageParam }),
       initialPageParam: 1,
-      getNextPageParam: ({ data: result }, allPages) =>
-        allPages.length < result.total ? result.page + 1 : null,
+      getNextPageParam: ({ data }) => {
+        const { page, totalPages } = data;
+        return page < totalPages ? page + 1 : undefined;
+      },
       enabled: !!query.length,
       select: (data) => {
-        const books = data.pages.flatMap((page) => page.data.list);
+        const pages = data.pages.map((page) => page.data);
+        const books = pages.flatMap((page) => page.list);
+        const lastPage = pages[pages.length - 1];
 
         return {
-          ...data,
           books,
+          hasNext: books.length < lastPage.total,
+          currentPage: lastPage.page,
         };
       },
     }),

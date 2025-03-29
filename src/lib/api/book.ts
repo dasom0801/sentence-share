@@ -19,7 +19,7 @@ export const searchBookWithKakaoAPI = async ({
   query,
   page = 1,
 }: BookSearchParams) => {
-  return await fetchAPI(
+  return await fetchAPI<PaginationResult<Book>>(
     `/books/external/kakao/search?query=${query}&page=${page}`,
   );
 };
