@@ -15,7 +15,10 @@ export const getBookSentence = async (params: BookSentenceListParams) => {
   );
 };
 
-export const searchBook = async ({ query, page = 1 }: BookSearchParams) => {
+export const searchBookWithKakaoAPI = async ({
+  query,
+  page = 1,
+}: BookSearchParams) => {
   return await fetchAPI(
     `/books/external/kakao/search?query=${query}&page=${page}`,
   );
