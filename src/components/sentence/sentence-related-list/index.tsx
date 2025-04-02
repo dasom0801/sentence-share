@@ -1,6 +1,7 @@
 import { getBookSentence } from '@/lib/api';
-import classes from './index.module.scss';
+import type { Book, Sentence } from '@/types';
 import SentenceTextCardList from '@components/sentence/sentence-text-card-list';
+import classes from './index.module.scss';
 
 type SentenceRelatedListProps = {
   sentenceId: string;
@@ -12,7 +13,7 @@ export default async function SentenceRelatedList({
   sentenceId,
   book,
 }: SentenceRelatedListProps) {
-  const sentences = await getBookSentence({
+  const { data: sentences } = await getBookSentence({
     bookId: book._id,
     limit: RELATED_LIST_LIMIT + 1,
   });

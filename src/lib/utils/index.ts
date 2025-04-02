@@ -1,16 +1,6 @@
 import { SortBy, SortOrder } from '@/types/enum';
-import { getServerToken } from '@/lib/utils/server-utils';
-import { getClientToken } from '@/lib/utils/client-utils';
 
-export const getBearerToken = async () => {
-  let token;
-  if (typeof window === 'undefined') {
-    token = await getServerToken();
-  } else {
-    token = getClientToken();
-  }
-  return token ? `Bearer ${token}` : null;
-};
+export { HttpError } from './error';
 
 // searchParams를 object로 변환
 export const getSearchParamsObject = (

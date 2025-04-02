@@ -1,13 +1,14 @@
-import { useCallback } from 'react';
-import toast from 'react-hot-toast';
+import { storage } from '@/lib/firebase.config';
+import { useUserStore } from '@/store/user';
+import type { User } from '@/types';
 import {
   StorageReference,
   getDownloadURL,
   ref,
   uploadBytes,
 } from 'firebase/storage';
-import { storage } from '@/lib/firebase.config';
-import { useUserStore } from '@/store/user';
+import { useCallback } from 'react';
+import toast from 'react-hot-toast';
 
 const useUploadProfileImage = () => {
   const user = useUserStore.use.user();
@@ -45,7 +46,7 @@ const useUploadProfileImage = () => {
         toast.error('이미지 업로드에 실패했습니다.');
       }
     },
-    [user]
+    [user],
   );
 
   return uploadImage;

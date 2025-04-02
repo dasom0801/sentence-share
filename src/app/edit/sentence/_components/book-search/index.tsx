@@ -1,10 +1,11 @@
+import { useScrollEnd } from '@/lib/hooks';
+import type { Book } from '@/types';
+import BookListItem from '@components/book/book-list-item';
+import BookListItemSkeleton from '@components/book/book-list-item-skeleton';
 import { debounce, TextField } from '@mui/material';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
-import { useScrollEnd } from '@/lib/hooks';
-import BookListItemSkeleton from '@components/book/book-list-item-skeleton';
-import BookListItem from '@components/book/book-list-item';
-import classes from './index.module.scss';
 import useBookSearchQuery from '../../_hooks/useBookSearch';
+import classes from './index.module.scss';
 
 type BookSearchProps = {
   handleBookSelect: (book: Book) => void;
@@ -75,7 +76,7 @@ export default function BookSearch({ handleBookSelect }: BookSearchProps) {
       />
       {focused && search ? (
         <ul className={classes.list} ref={listRef}>
-          {!data?.pages.length && isLoading ? (
+          {!data?.books.length && isLoading ? (
             <>
               {Array.from({ length: 5 }, (_, index) => (
                 <li key={index}>
@@ -85,16 +86,14 @@ export default function BookSearch({ handleBookSelect }: BookSearchProps) {
             </>
           ) : (
             <>
-              {data?.pages.map((bookResult: PaginationResult<Book>) =>
-                bookResult.list.map((book, index) => (
-                  <li
-                    key={`${book.isbn}-${index}`}
-                    onClick={() => handleBookClick(book)}
-                  >
-                    <BookListItem book={book} />
-                  </li>
-                )),
-              )}
+              {data?.books.map((book: Book, index: number) => (
+                <li
+                  key={`${book.isbn}-${index}`}
+                  onClick={() => handleBookClick(book)}
+                >
+                  <BookListItem book={book} />
+                </li>
+              ))}
             </>
           )}
         </ul>

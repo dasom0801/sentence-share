@@ -1,3 +1,4 @@
+import type { Book } from '@/types';
 import BookCoverImage from '@components/book/book-cover-image';
 import classes from './indes.module.scss';
 

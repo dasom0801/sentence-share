@@ -1,6 +1,7 @@
-import React from 'react';
-import Link from 'next/link';
+import type { Sentence } from '@/types';
 import UserInfo from '@components/common/user-info';
+import Link from 'next/link';
+import React from 'react';
 import classes from './index.module.scss';
 
 type SentenceCardProps = {

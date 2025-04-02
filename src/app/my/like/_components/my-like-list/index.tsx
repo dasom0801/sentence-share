@@ -1,17 +1,21 @@
-import { getUserLike } from '@/lib/api';
-import classes from './index.module.scss';
 import MyLikeEmpty from '@/app/my/like/_components/my-like-empty';
+import { fetchAPI } from '@/lib/api/api';
+import { PaginationResult, Sentence } from '@/types';
+import LikeButton from '@components/common/like-button';
 import Pagination from '@components/common/pagination';
 import SentenceCard from '@components/sentence/sentence-card';
-import LikeButton from '@components/common/like-button';
+import classes from './index.module.scss';
 
 type MyLikeListProps = {
-  userId: string;
   page: string;
 };
 
-export default async function MyLikeList({ userId, page }: MyLikeListProps) {
-  const likes = await getUserLike({ userId, page });
+const SENTENCE_PAGE_LIMIT = 24;
+export default async function MyLikeList({ page }: MyLikeListProps) {
+  const { data: likes } = await fetchAPI<PaginationResult<Sentence>>(
+    `/users/me/likes?page=${page}&limit=${SENTENCE_PAGE_LIMIT}`,
+    { cache: 'no-store' },
+  );
 
   return (
     <>
@@ -29,7 +33,7 @@ export default async function MyLikeList({ userId, page }: MyLikeListProps) {
               </li>
             ))}
           </ul>
-          <Pagination count={likes?.pageTotal} />
+          <Pagination count={likes?.totalPages} />
         </>
       ) : (
         <MyLikeEmpty />

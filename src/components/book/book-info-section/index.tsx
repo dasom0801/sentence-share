@@ -1,3 +1,4 @@
+import type { Book } from '@/types';
 import Image from 'next/image';
 import { ReactNode } from 'react';
 import classes from './index.module.scss';

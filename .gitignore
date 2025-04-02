@@ -29,3 +29,6 @@ build-storybook.log*
 # next
 .next
 next-env.d.ts
+
+# firebase 정보
+**/service-account-key.json

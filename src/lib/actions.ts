@@ -1,16 +1,19 @@
 'use server';
 
-import { revalidatePath } from 'next/cache';
 import { fetchAPI } from '@/lib/api/api';
+import { ApiResponse, Book, User } from '@/types';
+import { revalidatePath } from 'next/cache';
 import { cookies } from 'next/headers';
 
 export async function deleteUserSentence(id: string): Promise<void> {
-  await fetchAPI(`/sentence/${id}`, { method: 'DELETE' });
+  await fetchAPI(`/sentences/${id}`, { method: 'DELETE' });
   revalidatePath('/my/sentence');
 }
 
-export async function updateUser(data: Record<string, any>): Promise<User> {
-  const updatedUser = await fetchAPI<User>('/api/user/me', {
+export async function updateUser(
+  data: Record<string, any>,
+): Promise<ApiResponse<User>> {
+  const updatedUser = await fetchAPI<User>('/users/me', {
     method: 'PUT',
     body: JSON.stringify(data),
   });
@@ -23,20 +26,12 @@ type CreateSentenceParams = {
   content: string;
 };
 
-export async function createSentence({ content, book }: CreateSentenceParams) {
-  await fetchAPI('/sentence', {
-    method: 'POST',
-    body: JSON.stringify({ book, content }),
-  });
-
-  revalidatePath('/');
-}
 export async function updateSentence({
   id,
   content,
   book,
 }: CreateSentenceParams & { id: string }) {
-  await fetchAPI(`/sentence/${id}`, {
+  await fetchAPI(`/sentences/${id}`, {
     method: 'PUT',
     body: JSON.stringify({ content, book }),
   });

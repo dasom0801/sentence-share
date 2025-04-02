@@ -1,4 +1,6 @@
-type Book = {
+import { Sentence } from './sentence';
+
+export type Book = {
   _id: string;
   title: string;
   coverUrl: string;

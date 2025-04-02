@@ -1,4 +1,6 @@
-type User = {
+import { Sentence } from './sentence';
+
+export type User = {
   _id: string;
   uid: string;
   name: string;

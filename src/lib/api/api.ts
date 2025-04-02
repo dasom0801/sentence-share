@@ -1,42 +1,38 @@
-import axios from 'axios';
-import { getBearerToken } from '../utils';
+import { ApiResponse } from '@/types';
+import { getServerCookieHeader } from '../utils/server-utils';
 
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
 
 export const fetchAPI = async <T>(
   url: string,
   init: RequestInit = {},
-): Promise<T> => {
-  const token = await getBearerToken();
-  let headers: HeadersInit = {
+): Promise<ApiResponse<T>> => {
+  const isServer = typeof window === 'undefined';
+
+  let headers: Record<string, string> = {
     'Content-Type': 'application/json',
+    ...(init.headers as Record<string, string>),
   };
-  if (token) {
-    headers = {
-      ...headers,
-      Authorization: token,
-    };
-  }
-  init = { ...init, headers };
-  try {
-    const response = await fetch(`${BASE_URL}${url}`, init);
 
-    if (!response.ok) {
-      throw new Error(await response.text());
+  // 서버 환경에서는 쿠키를 직접 붙여야 인증됨
+  if (isServer) {
+    const cookieHeader = await getServerCookieHeader();
+    if (cookieHeader) {
+      headers['cookie'] = cookieHeader;
     }
-    return await response.json();
-  } catch (error) {
-    throw error;
   }
+
+  init = {
+    ...init,
+    headers,
+    credentials: 'include',
+  };
+
+  const response = await fetch(`${BASE_URL}${url}`, init);
+
+  if (!response.ok) {
+    throw new Error(await response.text());
+  }
+
+  return await response.json();
 };
-
-const axiosInstance = axios.create({ baseURL: BASE_URL });
-axiosInstance.interceptors.request.use(async (config) => {
-  const authorization = await getBearerToken();
-  if (authorization) {
-    config.headers.Authorization = authorization;
-  }
-  return config;
-});
-
-export default axiosInstance;

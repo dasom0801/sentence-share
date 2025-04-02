@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from '@mui/material';
-import classes from './index.module.scss';
-import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 import { toggleSentenceLike } from '@/lib/api';
+import { Button } from '@mui/material';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+import { FaHeart, FaRegHeart } from 'react-icons/fa6';
+import classes from './index.module.scss';
 
 type LikeButtonProps = {
   isLiked: boolean;
@@ -32,8 +32,8 @@ export default function LikeButton({
     event.preventDefault();
     event.stopPropagation();
     try {
-      const sentence = await toggleSentenceLike(id);
-      setIsLiked(sentence.isLiked);
+      await toggleSentenceLike(id, isLiked);
+      setIsLiked(!isLiked);
     } catch (e) {
       console.log(e);
       toast('문제가 발생했습니다. 잠시 후 다시 시도 해주세요.');
