@@ -20,6 +20,7 @@ export default async function MySentencePage({
     <main className={classes.container}>
       <MaxWidthWrapper>
         <Suspense fallback={<SentenceListSkeleton />}>
+          {/* @ts-expect-error Server Component */}
           <MySentenceList page={page} />
         </Suspense>
       </MaxWidthWrapper>

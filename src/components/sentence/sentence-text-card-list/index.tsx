@@ -1,3 +1,4 @@
+import type { Sentence } from '@/types';
 import Link from 'next/link';
 import SentenceTextCard from 'src/components/sentence/sentence-text-card';
 import classes from './index.module.scss';

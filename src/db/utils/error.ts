@@ -13,6 +13,7 @@ export const handleError = (
         success: false,
         message: error.message || message,
         error,
+        data: null,
       },
       { status: error.status },
     );
@@ -23,6 +24,7 @@ export const handleError = (
       success: false,
       message,
       error,
+      data: null,
     },
     { status: statusCode },
   );

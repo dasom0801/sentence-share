@@ -43,6 +43,7 @@ export default function SentenceEditContainer({
     setPending(false);
     toast.success(`성공적으로 ${sentence ? '수정' : '작성'}했습니다.`);
     router.push(redirectPath);
+    router.refresh();
   };
 
   return (

@@ -1,9 +1,10 @@
 'use client';
 
-import { Button, FormHelperText, TextField } from '@mui/material';
-import classes from './index.module.scss';
-import { FormEvent, useState } from 'react';
 import { updateUser } from '@/lib/actions';
+import type { User } from '@/types';
+import { Button, FormHelperText, TextField } from '@mui/material';
+import { FormEvent, useState } from 'react';
+import classes from './index.module.scss';
 
 type SettingUserInfoProps = {
   user: User;

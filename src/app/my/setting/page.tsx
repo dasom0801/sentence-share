@@ -1,18 +1,18 @@
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
-import classes from './page.module.scss';
-import { Metadata } from 'next';
 import { getUser } from '@/lib/api';
-import UserActionButtons from './_components/user-action-buttons';
+import MaxWidthWrapper from '@components/common/max-width-wrapper';
+import { Divider } from '@mui/material';
+import { Metadata } from 'next';
 import SettingUserImage from './_components/setting-user-image';
 import SettingUserInfo from './_components/setting-user-info';
-import { Divider } from '@mui/material';
+import UserActionButtons from './_components/user-action-buttons';
+import classes from './page.module.scss';
 
 export const metadata: Metadata = {
   title: '설정 - Sentence Share',
 };
 
 export default async function SettingPage() {
-  const currentUser = await getUser();
+  const { data: currentUser } = await getUser();
 
   return (
     <main>

@@ -1,3 +1,4 @@
+import type { User } from '@/types';
 import { create } from 'zustand';
 import { createSelectors } from './util';
 

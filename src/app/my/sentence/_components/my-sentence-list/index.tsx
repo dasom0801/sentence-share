@@ -12,7 +12,9 @@ type MySentenceListProps = {
 };
 
 const SENTENCE_PAGE_LIMIT = 24;
-export default async function MySentenceList({ page }: MySentenceListProps) {
+export default async function ㅌㅌMySentenceList({
+  page,
+}: MySentenceListProps) {
   const { data: sentences } = await fetchAPI<PaginationResult<Sentence>>(
     `/users/me/sentences?page=${page || 1}&limit=${SENTENCE_PAGE_LIMIT}}`,
     {

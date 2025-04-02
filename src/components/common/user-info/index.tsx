@@ -1,6 +1,7 @@
+import type { User } from '@/types';
 import Image from 'next/image';
-import classes from './index.module.scss';
 import blankProfile from '../../../../public/images/blank-profile.png';
+import classes from './index.module.scss';
 
 type UserInfoProps = {
   user: Partial<User>;

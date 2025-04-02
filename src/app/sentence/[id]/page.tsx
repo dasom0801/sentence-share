@@ -25,6 +25,7 @@ export default async function SentenceDetailPage({
         <UserInfo className={classes.userInfo} user={sentence.author} />
         {/* 관련 문장이 없을 수도 있기 때문에 fallback 표시하지 않음 */}
         <Suspense fallback={<></>}>
+          {/* @ts-expect-error Server Component */}
           <SentenceRelatedList sentenceId={sentence._id} book={sentence.book} />
         </Suspense>
       </MaxWidthWrapper>

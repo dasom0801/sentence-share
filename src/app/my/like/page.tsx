@@ -17,6 +17,7 @@ export default async function MyLikePage({
   return (
     <main className={classes.main}>
       <MaxWidthWrapper>
+        {/* @ts-expect-error Server Component */}
         <MyLikeList page={page} />
       </MaxWidthWrapper>
     </main>

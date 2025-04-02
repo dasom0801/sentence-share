@@ -1,13 +1,14 @@
 'use client';
 
-import { DEFAULT_PROFILE } from '@/constants';
-import { Button } from '@mui/material';
-import classes from './index.module.scss';
-import { ChangeEvent, useState } from 'react';
-import Image from 'next/image';
-import { updateUser } from '@/lib/actions';
-import useUploadProfileImage from '@/app/my/setting/_hooks/useUploadProfileImage';
 import useRemoveProfileImage from '@/app/my/setting/_hooks/useRemoveProfileImage';
+import useUploadProfileImage from '@/app/my/setting/_hooks/useUploadProfileImage';
+import { DEFAULT_PROFILE } from '@/constants';
+import { updateUser } from '@/lib/actions';
+import type { User } from '@/types';
+import { Button } from '@mui/material';
+import Image from 'next/image';
+import { ChangeEvent, useState } from 'react';
+import classes from './index.module.scss';
 
 type SettingUserImageProps = {
   user: User;

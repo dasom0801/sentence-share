@@ -1,11 +1,11 @@
 'use client';
 
-import { Button } from '@mui/material';
 import { deleteUser, logoutWithGoogle } from '@/lib/api';
+import AlertDialog from '@components/common/alert-dialog';
+import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
-import AlertDialog from '@components/common/alert-dialog';
 
 export default function UserActionButtons(props: any) {
   const router = useRouter();
@@ -22,6 +22,7 @@ export default function UserActionButtons(props: any) {
     await deleteUser();
     toast.success('탈퇴했습니다.');
     router.push('/');
+    router.refresh();
   };
 
   return (

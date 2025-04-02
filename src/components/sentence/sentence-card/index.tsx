@@ -1,4 +1,4 @@
-import { Sentence } from '@/types';
+import type { Sentence } from '@/types';
 import UserInfo from '@components/common/user-info';
 import Link from 'next/link';
 import React from 'react';

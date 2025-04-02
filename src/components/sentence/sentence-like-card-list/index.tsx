@@ -1,4 +1,4 @@
-import { Sentence } from '@/types';
+import type { Sentence } from '@/types';
 import LikeButton from '@components/common/like-button';
 import SentenceCard from '@components/sentence/sentence-card';
 import classes from './index.module.scss';
