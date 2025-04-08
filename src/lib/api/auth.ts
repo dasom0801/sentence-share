@@ -11,7 +11,7 @@ export const loginWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
 
     if (result.user) {
-      return await fetchAPI<{ user: User; token: string }>('/auth/google', {
+      return await fetchAPI<User>('/auth/google', {
         method: 'POST',
         body: JSON.stringify({
           uid: result.user.uid,

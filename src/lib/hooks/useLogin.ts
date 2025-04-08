@@ -8,16 +8,15 @@ import { loginWithGoogle } from '../api';
 const mutationFn = async () => await loginWithGoogle();
 
 const useLogin = (afterLogin?: string) => {
-  const setUser = useUserStore.use.setUser();
-  const setIsLogin = useUserStore.use.setIsLogin();
+  const { setUser, setIsLogin } = useUserStore.getState();
   const router = useRouter();
 
   return useMutation({
     mutationKey: ['/api/auth/google'],
     mutationFn,
-    onSuccess: ({ data: { user } }) => {
+    onSuccess: ({ data }) => {
       setIsLogin(true);
-      setUser(user);
+      setUser(data);
       toast.success('로그인했습니다.');
       if (afterLogin) {
         router.push(afterLogin);
