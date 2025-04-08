@@ -1,13 +1,13 @@
 'use client';
 
-import { memo, useState } from 'react';
-import { Button, IconButton, Menu, MenuItem } from '@mui/material';
-import { useUserStore } from '@/store/user';
 import { useLogout, useUserQuery } from '@/lib/hooks';
-import blankProfile from '../../../../public/images/blank-profile.png';
-import { useRouter } from 'next/navigation';
-import Image from 'next/image';
+import { useUserStore } from '@/store/user';
 import LoginButton from '@components/common/login-button';
+import { Button, IconButton, Menu, MenuItem } from '@mui/material';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { memo, useState } from 'react';
+import blankProfile from '../../../../public/images/blank-profile.png';
 import classes from './index.module.scss';
 
 export const navigateMenus: { label: string; path: string }[] = [
@@ -21,7 +21,7 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
   const { mutate: logout } = useLogout();
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
-  const user = useUserStore.use.user();
+  const { user } = useUserStore();
 
   useUserQuery();
 
