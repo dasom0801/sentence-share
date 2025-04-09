@@ -1,6 +1,7 @@
 import { HttpError } from '@/lib/utils';
 import { User } from '@/types';
 import connectDB from '../connectDB';
+import firebaseAdmin from '../firebase.config';
 import models from '../models';
 import { generateUserToken } from '../utils';
 
