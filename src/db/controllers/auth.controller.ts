@@ -34,7 +34,7 @@ export const authWithGoogle = async (
       };
     } else {
       const { uid, name, provider, profileUrl, email } = verifyUser;
-      if (!uid || !email) {
+      if (!uid || !email || !name || !provider) {
         throw new HttpError(
           'INVALID_USER_DATA',
           400,
