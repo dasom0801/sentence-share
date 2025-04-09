@@ -14,7 +14,7 @@ export const authWithGoogle = async (
     const verifyUser = await firebaseAdmin?.auth().verifyIdToken(idToken);
     if (verifyUser) {
       const user = await models.User.findOne({
-        uid: verifyUser?.uid,
+        uid: verifyUser.uid,
       }).lean<User>();
       if (user) {
         const token = generateUserToken(user._id);
@@ -24,6 +24,14 @@ export const authWithGoogle = async (
         };
       } else {
         const { uid, name, provider, profileUrl, email } = verifyUser;
+        if (!uid || !email) {
+          throw new HttpError(
+            'INVALID_USER_DATA',
+            400,
+            'Firebase token에 유효한 사용자 정보가 없습니다.',
+          );
+        }
+
         const user = await models.User.create({
           uid,
           name,
@@ -45,7 +53,10 @@ export const authWithGoogle = async (
       );
     }
   } catch (error) {
-    console.error('google 사용자 인증 오류:', error instanceof HttpError);
+    console.error(
+      'google 사용자 인증 오류:',
+      error instanceof HttpError ? error.message : error,
+    );
     if (error instanceof HttpError) {
       throw error;
     }
