@@ -46,7 +46,7 @@ export const authWithGoogle = async (
       throw new HttpError(
         'FIREBASE_DECODING_FAILED',
         400,
-        'Firebase ID token에 실패했습니다. ',
+        'Firebase ID token 디코딩에 실패했습니다.',
       );
     }
   } catch (error) {
