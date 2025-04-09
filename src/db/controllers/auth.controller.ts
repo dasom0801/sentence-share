@@ -15,46 +15,45 @@ export const authWithGoogle = async (
     }
 
     const verifyUser = await firebaseAdmin.auth().verifyIdToken(idToken);
-
-    if (verifyUser) {
-      const user = await models.User.findOne({
-        uid: verifyUser.uid,
-      }).lean<User>();
-      if (user) {
-        const token = generateUserToken(user._id);
-        return {
-          token,
-          user,
-        };
-      } else {
-        const { uid, name, provider, profileUrl, email } = verifyUser;
-        if (!uid || !email) {
-          throw new HttpError(
-            'INVALID_USER_DATA',
-            400,
-            'Firebase token에 유효한 사용자 정보가 없습니다.',
-          );
-        }
-
-        const user = await models.User.create({
-          uid,
-          name,
-          provider,
-          profileUrl,
-          email,
-        });
-        const token = generateUserToken(user._id);
-        return {
-          user,
-          token,
-        };
-      }
-    } else {
+    if (!verifyUser) {
       throw new HttpError(
         'FIREBASE_DECODING_FAILED',
         400,
         'Firebase ID token 디코딩에 실패했습니다.',
       );
+    }
+
+    const user = await models.User.findOne({
+      uid: verifyUser.uid,
+    }).lean<User>();
+    if (user) {
+      const token = generateUserToken(user._id);
+      return {
+        token,
+        user,
+      };
+    } else {
+      const { uid, name, provider, profileUrl, email } = verifyUser;
+      if (!uid || !email) {
+        throw new HttpError(
+          'INVALID_USER_DATA',
+          400,
+          'Firebase token에 유효한 사용자 정보가 없습니다.',
+        );
+      }
+
+      const user = await models.User.create({
+        uid,
+        name,
+        provider,
+        profileUrl,
+        email,
+      });
+      const token = generateUserToken(user._id);
+      return {
+        user,
+        token,
+      };
     }
   } catch (error) {
     console.error(
