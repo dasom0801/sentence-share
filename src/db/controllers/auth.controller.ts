@@ -5,17 +5,11 @@ import models from '../models';
 import { generateUserToken } from '../utils';
 
 export const authWithGoogle = async (
-  idToken: string | undefined,
+  idToken: string,
 ): Promise<{ user: User; token: string }> => {
   try {
     await connectDB();
-    if (!idToken) {
-      throw new HttpError(
-        'FIREBASE_ID_TOKEN_MISSING',
-        400,
-        'Firebase ID Token이 전달되지 않아 로그인에 실패했습니다.',
-      );
-    }
+
     const verifyUser = await firebaseAdmin?.auth().verifyIdToken(idToken);
     if (verifyUser) {
       const user = await models.User.findOne({
