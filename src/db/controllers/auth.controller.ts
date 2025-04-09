@@ -10,8 +10,12 @@ export const authWithGoogle = async (
 ): Promise<{ user: User; token: string }> => {
   try {
     await connectDB();
+    if (!firebaseAdmin) {
+      throw new HttpError('FIREBASE_ADMIN_NOT_INITIALIZED');
+    }
 
-    const verifyUser = await firebaseAdmin?.auth().verifyIdToken(idToken);
+    const verifyUser = await firebaseAdmin.auth().verifyIdToken(idToken);
+
     if (verifyUser) {
       const user = await models.User.findOne({
         uid: verifyUser.uid,
