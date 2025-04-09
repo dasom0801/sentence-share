@@ -11,16 +11,12 @@ export const loginWithGoogle = async () => {
     const result = await signInWithPopup(auth, provider);
 
     if (result.user) {
+      const idToken = await result.user.getIdToken();
       return await fetchAPI<User>('/auth/google', {
         method: 'POST',
-        body: JSON.stringify({
-          uid: result.user.uid,
-          provider: result.providerId,
-          name: result.user.displayName,
-          email: result.user.email,
-          profileUrl: result.user.photoURL,
-        }),
-        credentials: 'include',
+        headers: {
+          Authorization: `Bearer ${idToken}`,
+        },
       });
     } else {
       throw new Error('로그인/회원가입에 실패했습니다.');

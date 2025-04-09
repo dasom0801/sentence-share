@@ -5,8 +5,8 @@ import { NextRequest, NextResponse } from 'next/server';
 
 export async function POST(req: NextRequest) {
   try {
-    const userInfo = await req.json();
-    const { user, token } = await authWithGoogle(userInfo);
+    const idToken = req.headers.get('authorization')?.split(' ')[1];
+    const { user, token } = await authWithGoogle(idToken);
 
     const cookieStore = cookies();
     cookieStore.set('access_token', token, {
