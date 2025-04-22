@@ -1,7 +1,7 @@
+import ClientProviders from '@/components/common/ClientProviders';
+import Header from '@/components/common/Header';
 import type { Metadata } from 'next';
 import '../styles/global.scss';
-import ClientProviders from '@components/common/client-providers';
-import Header from '@components/common/header/index';
 
 export const metadata: Metadata = {
   title: 'Sentence Share',

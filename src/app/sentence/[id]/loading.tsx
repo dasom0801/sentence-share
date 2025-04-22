@@ -1,4 +1,4 @@
-import BookInfoSectionSkeleton from '@components/book/book-info-section-skeleton';
+import BookInfoSectionSkeleton from '@/components/book/BookInfoSectionSkeleton';
 
 export default function SentenceDetailLoading() {
   return <BookInfoSectionSkeleton />;

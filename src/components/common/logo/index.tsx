@@ -1,5 +1,5 @@
-import classes from './index.module.scss';
 import { BiBookHeart } from 'react-icons/bi';
+import classes from './Logo.module.scss';
 
 export default function Logo() {
   return (

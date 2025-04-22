@@ -1,9 +1,9 @@
-import classes from './index.module.scss';
+import HeaderMenu from '@/components/common/HeaderMenu';
+import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
 import Link from 'next/link';
-import Logo from '../logo/index';
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
-import HeaderMenu from '@components/common/header-menu';
 import { Suspense } from 'react';
+import Logo from '../Logo';
+import classes from './Header.module.scss';
 
 export default function Header() {
   return (

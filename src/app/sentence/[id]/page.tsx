@@ -1,8 +1,8 @@
+import BookInfoSection from '@/components/book/BookInfoSection';
+import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
+import UserInfo from '@/components/common/UserInfo';
+import SentenceRelatedList from '@/components/sentence/SentenceRelatedList';
 import { getSentence } from '@/lib/api';
-import BookInfoSection from '@components/book/book-info-section';
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
-import UserInfo from '@components/common/user-info';
-import SentenceRelatedList from '@components/sentence/sentence-related-list';
 import { Suspense } from 'react';
 import classes from './page.module.scss';
 

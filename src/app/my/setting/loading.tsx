@@ -1,5 +1,5 @@
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
-import Spinner from '@components/common/spinner';
+import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
+import Spinner from '@/components/common/Spinner';
 import classes from './loading.module.scss';
 
 export default function SettingLoading() {

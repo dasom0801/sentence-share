@@ -1,9 +1,9 @@
+import BookInfoSection from '@/components/book/BookInfoSection';
+import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
+import Pagination from '@/components/common/Pagination';
+import SentenceLikeCardList from '@/components/sentence/SentenceLikeCardList';
 import { getBook, getBookSentence } from '@/lib/api';
-import BookInfoSection from '@components/book/book-info-section';
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
-import Pagination from '@components/common/pagination';
 import { Metadata } from 'next';
-import SentenceLikeCardList from 'src/components/sentence/sentence-like-card-list';
 import classes from './page.module.scss';
 
 type BookDetailPageProps = {

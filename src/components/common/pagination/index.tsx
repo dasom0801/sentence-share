@@ -1,9 +1,9 @@
 'use client';
 
-import { useCallback } from 'react';
-import { Pagination as MuiPagination } from '@/lib/utils/mui';
-import classes from './index.module.scss';
 import { usePagination } from '@/lib/hooks';
+import { Pagination as MuiPagination } from '@/lib/utils/mui';
+import { useCallback } from 'react';
+import classes from './Pagination.module.scss';
 
 type PaginationProps = {
   count?: number;

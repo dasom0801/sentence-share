@@ -1,5 +1,5 @@
 import { CgSpinner } from 'react-icons/cg';
-import classes from './index.module.scss';
+import classes from './Spinner.module.scss';
 
 export default function Spinner() {
   return (
