@@ -1,0 +1,10 @@
+{
+  "_id": "1",
+  "uid": "uid",
+  "name": "user name",
+  "provider": "google.com",
+  "email": "user@gmail.com",
+  "profileUrl": "/images/blank-profile.png",
+  "likes": [],
+  "sentence": []
+}
