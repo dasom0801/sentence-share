@@ -3,8 +3,8 @@
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
 import { memo, MouseEvent, useCallback } from 'react';
 
-import { useSort } from '@/hooks';
 import { SortBy, SortOrder } from '@/types/enum';
+import { useSort } from './hooks';
 
 type SortButtonsType = {
   sorts?: { label: string; value: string }[];

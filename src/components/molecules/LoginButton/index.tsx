@@ -1,7 +1,8 @@
 'use client';
 
-import { useLogin } from '@/hooks';
 import { memo } from 'react';
+import { useLogin } from './hooks';
+
 type LoginButtonProps = {
   afterLogin?: string;
 };

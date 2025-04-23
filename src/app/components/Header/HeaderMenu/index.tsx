@@ -1,7 +1,6 @@
 'use client';
 
 import { LoginButton } from '@/components/molecules';
-import { useLogout } from '@/hooks';
 import { useUserStore } from '@/store/user';
 import { Button, IconButton, Menu, MenuItem } from '@mui/material';
 
@@ -11,7 +10,7 @@ import { memo, useState } from 'react';
 
 import blankProfile from '../../../../../public/images/blank-profile.png';
 import classes from './HeaderMenu.module.scss';
-import { useUserQuery } from './hooks';
+import { useLogout, useUserQuery } from './hooks';
 
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },
