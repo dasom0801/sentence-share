@@ -1,9 +1,10 @@
 'use client';
 
+import { fetchAPI } from '@/api/fetcher';
+import { updateSentence } from '@/api/sentence';
 import { MaxWidthWrapper } from '@/components/atoms';
-import { updateSentence } from '@/lib/actions';
-import { fetchAPI } from '@/lib/api/api';
 import type { Book, Sentence } from '@/types';
+
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';

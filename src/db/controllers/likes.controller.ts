@@ -1,4 +1,4 @@
-import { HttpError } from '@/lib/utils';
+import { HttpError } from '@/utils';
 import { models } from 'mongoose';
 import connectDB from '../connectDB';
 import { getAuthenticatedUser } from '../utils';

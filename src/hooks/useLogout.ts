@@ -1,9 +1,9 @@
-import { useMutation } from '@tanstack/react-query';
-import toast from 'react-hot-toast';
+import { logoutWithGoogle } from '@/api/auth';
 import { useUserStore } from '@/store/user';
+import { useMutation } from '@tanstack/react-query';
 
-import { logoutWithGoogle } from '../api';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import toast from 'react-hot-toast';
 
 const mutationFn = async () => await logoutWithGoogle();
 

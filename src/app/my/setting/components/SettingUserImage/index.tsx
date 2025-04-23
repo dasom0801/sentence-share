@@ -1,7 +1,7 @@
 'use client';
 
+import { updateUser } from '@/api/user';
 import { DEFAULT_PROFILE } from '@/constants';
-import { updateUser } from '@/lib/actions';
 import type { User } from '@/types';
 import { Button } from '@mui/material';
 import Image from 'next/image';

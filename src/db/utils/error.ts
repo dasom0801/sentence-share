@@ -1,5 +1,5 @@
-import { HttpError } from '@/lib/utils';
 import type { ApiResponse } from '@/types';
+import { HttpError } from '@/utils';
 import { NextResponse } from 'next/server';
 
 export const handleError = (

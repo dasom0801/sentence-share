@@ -1,6 +1,6 @@
+import { fetchAPI } from '@/api/fetcher';
 import { Pagination } from '@/components/molecules';
 import { SentenceCard } from '@/components/organisms';
-import { fetchAPI } from '@/lib/api/api';
 import { PaginationResult, Sentence } from '@/types';
 import { Suspense } from 'react';
 import MySentenceCardButtons from '../MySentenceCardButtons';

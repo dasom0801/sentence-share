@@ -1,7 +1,7 @@
 'use client';
 
+import { deleteSentence } from '@/api/sentence';
 import { AlertDialog } from '@/components/molecules';
-import { deleteUserSentence } from '@/lib/actions';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
@@ -16,9 +16,10 @@ export default function MySentenceCardButtons({
 }: MySentenceCardButtonsProps) {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState<boolean>(false);
+
   const handleDeleteSentence = async () => {
     if (showAlert) {
-      await deleteUserSentence(sentenceId);
+      await deleteSentence(sentenceId);
       setShowAlert(false);
     }
   };

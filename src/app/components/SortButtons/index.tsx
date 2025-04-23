@@ -1,9 +1,9 @@
 'use client';
 
-import { memo, MouseEvent, useCallback } from 'react';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import { memo, MouseEvent, useCallback } from 'react';
 
-import { useSort } from '@/lib/hooks';
+import { useSort } from '@/hooks';
 import { SortBy, SortOrder } from '@/types/enum';
 
 type SortButtonsType = {

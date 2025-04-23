@@ -1,4 +1,4 @@
-import { useScrollEnd } from '@/lib/hooks';
+import { useScrollEnd } from '@/hooks';
 import type { Book } from '@/types';
 import { debounce, TextField } from '@mui/material';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';

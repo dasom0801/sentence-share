@@ -1,7 +1,8 @@
+import { fetchAPI } from '@/api/fetcher';
 import { LikeButton, Pagination } from '@/components/molecules';
 import { SentenceCard } from '@/components/organisms';
-import { fetchAPI } from '@/lib/api/api';
 import { PaginationResult, Sentence } from '@/types';
+
 import MyLikeEmpty from '../MyLikeEmpty';
 import classes from './MyLikeList.module.scss';
 

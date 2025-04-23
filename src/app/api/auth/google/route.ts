@@ -1,6 +1,6 @@
 import { authWithGoogle } from '@/db/controllers';
 import { handleError } from '@/db/utils';
-import { HttpError } from '@/lib/utils';
+import { HttpError } from '@/utils';
 import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 

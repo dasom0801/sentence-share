@@ -1,6 +1,7 @@
+import { getUser } from '@/api/user';
 import { MaxWidthWrapper } from '@/components/atoms';
-import { getUser } from '@/lib/api';
 import { Divider } from '@mui/material';
+
 import { Metadata } from 'next';
 
 import {

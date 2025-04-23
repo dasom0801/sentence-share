@@ -1,21 +1,13 @@
-import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
-
-import {
-  getBook,
-  getBookSentence,
-  getSentence,
-  getSentences,
-  getUser,
-  getUserLike,
-  getUserSentence,
-  searchBookWithKakaoAPI,
-} from '@/lib/api';
+import { getBook, getBookSentence, searchBookWithKakaoAPI } from '@/api/book';
+import { getSentence, getSentences } from '@/api/sentence';
 import {
   BookSentenceListParams,
   SentenceDetailParams,
   UserListRequestParams,
-} from '@/lib/api/types';
+} from '@/api/types';
+import { getUser, getUserLike, getUserSentence } from '@/api/user';
 import { User } from '@/types';
+import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 export const userQueries = {

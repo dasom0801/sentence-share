@@ -1,6 +1,6 @@
 'use client';
 
-import { updateUser } from '@/lib/actions';
+import { updateUser } from '@/api/user';
 import type { User } from '@/types';
 import { Button, FormHelperText, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';

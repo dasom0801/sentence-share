@@ -1,6 +1,6 @@
 import type { Book, PaginationResult, Sentence } from '@/types';
 import queryString from 'query-string';
-import { fetchAPI } from './api';
+import { fetchAPI } from './fetcher';
 import type { BookSearchParams, BookSentenceListParams } from './types';
 
 export const getBook = async (bookId?: string) => {

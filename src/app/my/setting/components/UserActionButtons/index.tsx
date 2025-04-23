@@ -1,7 +1,8 @@
 'use client';
 
+import { logoutWithGoogle } from '@/api/auth';
+import { deleteUser } from '@/api/user';
 import { AlertDialog } from '@/components/molecules';
-import { deleteUser, logoutWithGoogle } from '@/lib/api';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

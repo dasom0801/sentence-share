@@ -1,6 +1,6 @@
 import { Book, PaginationResult, Sentence } from '@/types';
 import queryString from 'query-string';
-import { fetchAPI } from './api';
+import { fetchAPI } from './fetcher';
 import { SentenceDetailParams } from './types';
 
 export const getSentences = async (params: APIRequestParams) => {
@@ -52,4 +52,8 @@ export const updateSentence = async ({
     method: 'PUT',
     body: JSON.stringify({ content, book }),
   });
+};
+
+export const deleteSentence = (sentenceId: string) => {
+  return fetchAPI(`/sentences/${sentenceId}`, { method: 'DELETE' });
 };

@@ -1,5 +1,6 @@
-import { getBookSentence } from '@/lib/api';
+import { getBookSentence } from '@/api/book';
 import type { Book, Sentence } from '@/types';
+
 import SentenceTextCardList from '../SentenceTextCardList';
 import classes from './SentenceRelatedList.module.scss';
 

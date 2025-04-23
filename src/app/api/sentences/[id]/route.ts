@@ -1,6 +1,7 @@
 import { deleteSentence, getSentence, updateSentence } from '@/db/controllers';
 import { handleError } from '@/db/utils';
 import type { ApiResponse, Sentence } from '@/types';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 type SentenceIdParams = { params: { id: string } };
@@ -44,6 +45,8 @@ export async function DELETE(req: NextRequest, { params }: SentenceIdParams) {
   try {
     const { id: sentenceId } = params;
     const data = await deleteSentence(sentenceId);
+    revalidatePath('/my/sentence');
+
     return NextResponse.json({
       success: true,
       data,

@@ -1,7 +1,7 @@
 'use client';
 
-import { usePagination } from '@/lib/hooks';
-import { Pagination as MuiPagination } from '@/lib/utils/mui';
+import { usePagination } from '@/hooks';
+import { Pagination as MuiPagination } from '@/utils/mui';
 import { useCallback } from 'react';
 import classes from './Pagination.module.scss';
 

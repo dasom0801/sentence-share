@@ -1,4 +1,4 @@
-import { storage } from '@/lib/firebase.config';
+import { storage } from '@/lib/firebase';
 import { useUserStore } from '@/store/user';
 import type { User } from '@/types';
 import {

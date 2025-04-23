@@ -1,8 +1,8 @@
-import { auth } from '@/lib/firebase.config';
+import { auth } from '@/lib/firebase';
 import type { PaginationResult, Sentence, User } from '@/types';
 import { signOut } from '@firebase/auth';
 import querystring from 'query-string';
-import { fetchAPI } from './api';
+import { fetchAPI } from './fetcher';
 import { UserListRequestParams } from './types';
 
 export const getUser = async () => {

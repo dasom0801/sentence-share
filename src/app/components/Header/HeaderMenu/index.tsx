@@ -1,14 +1,17 @@
 'use client';
 
 import { LoginButton } from '@/components/molecules';
-import { useLogout, useUserQuery } from '@/lib/hooks';
+import { useLogout } from '@/hooks';
 import { useUserStore } from '@/store/user';
 import { Button, IconButton, Menu, MenuItem } from '@mui/material';
+
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
+
 import blankProfile from '../../../../../public/images/blank-profile.png';
 import classes from './HeaderMenu.module.scss';
+import { useUserQuery } from './hooks';
 
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },

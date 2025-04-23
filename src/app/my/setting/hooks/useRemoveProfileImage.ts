@@ -1,6 +1,6 @@
-import { useCallback } from 'react';
-import { storage } from '@/lib/firebase.config';
+import { storage } from '@/lib/firebase';
 import { deleteObject, ref } from 'firebase/storage';
+import { useCallback } from 'react';
 
 const useRemoveProfileImage = () => {
   const removeImage = useCallback(async (url: string) => {

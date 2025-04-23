@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
 
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { getSortByValue, getSortOrderValue } from '../utils';
-import { useSearchParams, useRouter, usePathname } from 'next/navigation';
 
 const useSort = (initialValue?: string) => {
   const searchParams = useSearchParams();
