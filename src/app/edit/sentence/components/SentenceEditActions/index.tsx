@@ -1,6 +1,6 @@
 'use client';
 
-import AlertDialog from '@/components/common/AlertDialog';
+import { AlertDialog } from '@/components/molecules';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';

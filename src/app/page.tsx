@@ -1,9 +1,9 @@
-import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
-import Pagination from '@/components/common/Pagination';
-import SortButtons from '@/components/common/SortButtons';
-import SentenceLikeCardList from '@/components/sentence/SentenceLikeCardList';
+import { MaxWidthWrapper } from '@/components/atoms';
+import { Pagination } from '@/components/molecules';
+import { SentenceLikeCardList } from '@/components/organisms';
 import { getSentences } from '@/lib/api';
 import { getSortByValue, getSortOrderValue } from '@/lib/utils';
+import { SortButtons } from './components';
 import classes from './page.module.scss';
 
 type MainPageProps = {

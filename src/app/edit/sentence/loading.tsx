@@ -1,5 +1,4 @@
-import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
-import Spinner from '@/components/common/Spinner';
+import { MaxWidthWrapper, Spinner } from '@/components/atoms';
 import classes from './loading.module.scss';
 
 export default function EditLoading() {

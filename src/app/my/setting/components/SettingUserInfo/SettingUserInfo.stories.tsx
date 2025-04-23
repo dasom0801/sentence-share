@@ -2,7 +2,7 @@ import { MockUser } from '@/mocks/data';
 import type { Meta, StoryObj } from '@storybook/react';
 import SettingUserInfo from '.';
 const meta = {
-  title: 'setting/SettingUserInfo',
+  title: 'page/setting/SettingUserInfo',
   component: SettingUserInfo,
 } satisfies Meta<typeof SettingUserInfo>;
 

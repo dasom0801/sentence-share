@@ -1,6 +1,6 @@
 'use client';
 
-import AlertDialog from '@/components/common/AlertDialog';
+import { AlertDialog } from '@/components/molecules';
 import { deleteUser, logoutWithGoogle } from '@/lib/api';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';

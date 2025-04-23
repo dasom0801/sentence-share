@@ -1,6 +1,6 @@
 'use client';
 
-import NoResult from '@/components/common/NoResult';
+import { NoResult } from '@/components/molecules';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
 

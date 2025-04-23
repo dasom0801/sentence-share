@@ -1,10 +1,10 @@
-import BookListItem from '@/components/book/BookListItem';
-import BookListItemSkeleton from '@/components/book/BookListItemSkeleton';
 import { useScrollEnd } from '@/lib/hooks';
 import type { Book } from '@/types';
 import { debounce, TextField } from '@mui/material';
 import { ChangeEvent, useCallback, useEffect, useRef, useState } from 'react';
 import { useBookSearchQuery } from '../../hooks/useBookSearchQuery';
+import BookListItem from '../BookListItem';
+import BookListItemSkeleton from '../BookListItemSkeleton';
 import classes from './BookSearch.module.scss';
 
 type BookSearchProps = {

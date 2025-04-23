@@ -1,6 +1,6 @@
 'use client';
 
-import AlertDialog from '@/components/common/AlertDialog';
+import { AlertDialog } from '@/components/molecules';
 import { deleteUserSentence } from '@/lib/actions';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';

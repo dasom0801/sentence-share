@@ -1,5 +1,5 @@
 import { getSentence } from '@/lib/api';
-import SentenceEditContainer from '../components/SentenceEditContainer';
+import { SentenceEditContainer } from '../components';
 
 type SentenceEditPageProps = {
   params: { id: string };

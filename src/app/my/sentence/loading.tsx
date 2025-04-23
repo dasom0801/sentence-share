@@ -1,5 +1,5 @@
-import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
-import SentenceListSkeleton from '@/components/sentence/SentenceListSkeleton';
+import { MaxWidthWrapper } from '@/components/atoms';
+import { SentenceListSkeleton } from '@/components/organisms';
 import classes from './loading.module.scss';
 
 export default function MySentenceLoading() {

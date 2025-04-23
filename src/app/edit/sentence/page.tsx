@@ -1,5 +1,5 @@
 import { Metadata } from 'next';
-import SentenceEditContainer from './components/SentenceEditContainer';
+import { SentenceEditContainer } from './components';
 
 export const metadata: Metadata = {
   title: '작성하기 - Sentence Share',

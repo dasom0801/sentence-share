@@ -1,8 +1,8 @@
-import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
-import SentenceListSkeleton from '@/components/sentence/SentenceListSkeleton';
+import { MaxWidthWrapper } from '@/components/atoms';
+import { SentenceListSkeleton } from '@/components/organisms';
 import { Metadata } from 'next';
 import { Suspense } from 'react';
-import MySentenceList from './components/MySentenceList';
+import { MySentenceList } from './components';
 import classes from './page.module.scss';
 
 export const metadata: Metadata = {

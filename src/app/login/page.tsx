@@ -1,5 +1,5 @@
-import LoginButton from '@/components/common/LoginButton';
-import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
+import { MaxWidthWrapper } from '@/components/atoms';
+import { LoginButton } from '@/components/molecules';
 import classes from './page.module.scss';
 
 type LoginPageProps = {

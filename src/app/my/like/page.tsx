@@ -1,6 +1,6 @@
-import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
+import { MaxWidthWrapper } from '@/components/atoms';
 import { Metadata } from 'next';
-import MyLikeList from './components/MyLikeList';
+import { MyLikeList } from './components';
 import classes from './page.module.scss';
 
 export const metadata: Metadata = {

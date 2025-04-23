@@ -1,6 +1,5 @@
-import LikeButton from '@/components/common/LikeButton';
-import Pagination from '@/components/common/Pagination';
-import SentenceCard from '@/components/sentence/SentenceCard';
+import { LikeButton, Pagination } from '@/components/molecules';
+import { SentenceCard } from '@/components/organisms';
 import { fetchAPI } from '@/lib/api/api';
 import { PaginationResult, Sentence } from '@/types';
 import MyLikeEmpty from '../MyLikeEmpty';

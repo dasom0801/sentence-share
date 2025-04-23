@@ -1,5 +1,5 @@
-import Pagination from '@/components/common/Pagination';
-import SentenceCard from '@/components/sentence/SentenceCard';
+import { Pagination } from '@/components/molecules';
+import { SentenceCard } from '@/components/organisms';
 import { fetchAPI } from '@/lib/api/api';
 import { PaginationResult, Sentence } from '@/types';
 import { Suspense } from 'react';

@@ -1,13 +1,14 @@
 'use client';
 
-import BookListItem from '@/components/book/BookListItem';
-import MaxWidthWrapper from '@/components/common/MaxWidthWrapper';
+import { MaxWidthWrapper } from '@/components/atoms';
 import { updateSentence } from '@/lib/actions';
 import { fetchAPI } from '@/lib/api/api';
 import type { Book, Sentence } from '@/types';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+
+import BookListItem from '../BookListItem';
 import BookSearch from '../BookSearch';
 import SentenceEditActions from '../SentenceEditActions';
 import SentenceInput from '../SentenceInput';
