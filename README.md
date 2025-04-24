@@ -8,13 +8,34 @@
 
 https://sentence-share.vercel.app/
 
-**Server Repositories**
-
-https://github.com/dasom0801/sentence-share-server
-
 ### 사용 기술
 
-![Next.js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Typescript](https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) ![Zustand](https://img.shields.io/badge/Zustand-lightgrey?style=for-the-badge) ![Material UI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=MUI&logoColor=white) ![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Vitest](https://img.shields.io/badge/Vitest-6E9F18?style=for-the-badge&logo=vitest&logoColor=white) ![TestingLibrary](https://img.shields.io/badge/React%20Testing%20Library-E33332?style=for-the-badge&logo=testinglibrary&logoColor=white) ![Mock Service Worker](https://img.shields.io/badge/Mock%20Service%20Worker-FF6A33?style=for-the-badge&logo=mockserviceworker&logoColor=white) ![Github Actions](https://img.shields.io/badge/Github%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+![Next.js](https://img.shields.io/badge/next%20js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white) ![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB) ![Typescript](https://img.shields.io/badge/Typescript-3178C6?style=for-the-badge&logo=typescript&logoColor=white) ![Zustand](https://img.shields.io/badge/Zustand-lightgrey?style=for-the-badge) ![Material UI](https://img.shields.io/badge/Material%20UI-007FFF?style=for-the-badge&logo=MUI&logoColor=white) ![Storybook](https://img.shields.io/badge/Storybook-FF4785?style=for-the-badge&logo=storybook&logoColor=white) ![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white) ![Github Actions](https://img.shields.io/badge/Github%20Actions-2088FF?style=for-the-badge&logo=githubactions&logoColor=white) ![Vercel](https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white)
+
+### 폴더 구조
+
+```
+src/
+├── app/                      # Next.js App Router 기반 라우트
+│ ├── [route]/                # 라우트 폴더 (예: sentence, my, setting 등)
+│ │ ├── page.tsx              # 라우트 진입점
+│ │ ├── components/           # 해당 라우트 전용 UI 컴포넌트
+│ │ ├── hooks/                # 해당 라우트 전용 hook
+│ │ └── api/                  # 해당 라우트 전용 API 호출 함수
+├── components/               # 공용 컴포넌트 (Atomic Design 기반)
+│ ├── atoms/
+│ ├── molecules/
+│ └── organisms/
+├── api/                      # 전역 API 호출 함수
+├── constants/                # 전역 상수
+├── db/                       # 데이터베이스 설정, 모델, 컨트롤러
+├── hooks/                    # 전역 공용 훅
+├── lib/                      # 외부 SDK 초기화, config (ex. firebase)
+├── mocks/                    # 테스트 및 Storybook용 mock 데이터
+├── store/                    # 글로벌 상태 관리 (Zustand 관련 코드)
+├── types/                    # 전역 타입 정의
+└── utils/                    # 유틸리티 함수
+```
 
 ### 주요 기능
 
@@ -48,11 +69,8 @@ https://github.com/dasom0801/sentence-share-server
 - React를 버전을 업데이트했습니다.
 - Vite를 사용하여 환경을 구성하였습니다.
 - Typescript를 적용했습니다.
-- 테스트 코드를 추가하였습니다.
 - Storybook로 컴포넌트를 관리합니다.
 - Zustand로 클라이언트 상태를 관리합니다.
-- tanstack query로 서버 상태 관리를 합니다.
-- firestore가 아닌 자체 서버와 통신합니다.
 - github actions로 배포 자동화를 했습니다.
 - 전체적인 UI를 개선했습니다.
 
