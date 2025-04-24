@@ -1,5 +1,5 @@
-import { HttpError } from '@/lib/utils';
 import { User } from '@/types';
+import { HttpError } from '@/utils';
 import connectDB from '../connectDB';
 import firebaseAdmin from '../firebase.config';
 import models from '../models';

@@ -1,6 +1,6 @@
+import { MaxWidthWrapper } from '@/components/atoms';
+import { LoginButton } from '@/components/molecules';
 import classes from './page.module.scss';
-import LoginButton from '@components/common/login-button';
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
 
 type LoginPageProps = {
   searchParams: {

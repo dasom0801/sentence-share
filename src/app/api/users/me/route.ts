@@ -1,5 +1,6 @@
 import { editUserInfo, getUserInfo } from '@/db/controllers';
 import { handleError } from '@/db/utils';
+import { revalidatePath } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 // 로그인한 사용자의 정보 가져오기
@@ -24,6 +25,7 @@ export async function PUT(req: NextRequest) {
   try {
     const { name, profileUrl } = await req.json();
     const user = await editUserInfo({ name, profileUrl });
+    revalidatePath('/my/setting');
     return NextResponse.json(
       {
         success: true,

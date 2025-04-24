@@ -1,9 +1,11 @@
-import { getSentence } from '@/lib/api';
-import BookInfoSection from '@components/book/book-info-section';
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
-import UserInfo from '@components/common/user-info';
-import SentenceRelatedList from '@components/sentence/sentence-related-list';
+import { getSentence } from '@/api/sentence';
+import { MaxWidthWrapper } from '@/components/atoms';
+import { UserInfo } from '@/components/molecules';
+import { BookInfoSection } from '@/components/organisms';
+
 import { Suspense } from 'react';
+
+import { SentenceRelatedList } from './components';
 import classes from './page.module.scss';
 
 type SentenceDetailProps = {

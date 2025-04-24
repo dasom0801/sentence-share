@@ -2,8 +2,8 @@
  * 문장 등록을 할 때 책 검색
  */
 
-import { HttpError } from '@/lib/utils';
 import type { Book, PaginationRequest, PaginationResult } from '@/types';
+import { HttpError } from '@/utils';
 import connectDB from '../connectDB';
 import models from '../models';
 import {

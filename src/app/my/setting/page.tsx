@@ -1,10 +1,14 @@
-import { getUser } from '@/lib/api';
-import MaxWidthWrapper from '@components/common/max-width-wrapper';
+import { getUser } from '@/api/user';
+import { MaxWidthWrapper } from '@/components/atoms';
 import { Divider } from '@mui/material';
+
 import { Metadata } from 'next';
-import SettingUserImage from './_components/setting-user-image';
-import SettingUserInfo from './_components/setting-user-info';
-import UserActionButtons from './_components/user-action-buttons';
+
+import {
+  SettingUserImage,
+  SettingUserInfo,
+  UserActionButtons,
+} from './components';
 import classes from './page.module.scss';
 
 export const metadata: Metadata = {

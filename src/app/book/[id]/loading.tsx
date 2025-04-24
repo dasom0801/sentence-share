@@ -1,4 +1,4 @@
-import BookInfoSectionSkeleton from 'src/components/book/book-info-section-skeleton';
+import { BookInfoSectionSkeleton } from '@/components/organisms';
 
 export default function BookDetailLoading() {
   return <BookInfoSectionSkeleton />;

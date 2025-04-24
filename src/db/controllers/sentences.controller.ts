@@ -11,7 +11,7 @@ import {
   isUserLikedSentence,
 } from '../utils';
 
-import { HttpError } from '@/lib/utils';
+import { HttpError } from '@/utils';
 import connectDB from '../connectDB';
 
 /**
