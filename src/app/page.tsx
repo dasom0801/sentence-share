@@ -1,10 +1,10 @@
-import { getSentences } from '@/api/sentence';
 import { MaxWidthWrapper } from '@/components/atoms';
 import { Pagination } from '@/components/molecules';
 import { SentenceLikeCardList } from '@/components/organisms';
 import { getSortByValue, getSortOrderValue } from '@/utils';
 
-import { SortButtons } from './components';
+import { getSentences } from './(main)/api';
+import { SortButtons } from './(main)/components';
 import classes from './page.module.scss';
 
 type MainPageProps = {

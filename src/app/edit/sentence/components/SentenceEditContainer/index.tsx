@@ -1,7 +1,5 @@
 'use client';
 
-import { fetchAPI } from '@/api/fetcher';
-import { updateSentence } from '@/api/sentence';
 import { MaxWidthWrapper } from '@/components/atoms';
 import type { Book, Sentence } from '@/types';
 
@@ -14,6 +12,7 @@ import BookSearch from '../BookSearch';
 import SentenceEditActions from '../SentenceEditActions';
 import SentenceInput from '../SentenceInput';
 import classes from './SentenceEditContainer.module.scss';
+import { createSentence, updateSentence } from './api';
 
 type SentenceEditContainerProps = {
   sentence?: Sentence;
@@ -36,10 +35,7 @@ export default function SentenceEditContainer({
       await updateSentence({ content, book, id: sentence._id });
       redirectPath = '/my/sentence';
     } else {
-      await fetchAPI('/sentences', {
-        method: 'POST',
-        body: JSON.stringify({ book, content }),
-      });
+      await createSentence({ book, content });
       redirectPath = '/';
     }
     setPending(false);

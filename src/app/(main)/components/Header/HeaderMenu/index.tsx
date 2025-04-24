@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 
-import blankProfile from '../../../../../public/images/blank-profile.png';
+import blankProfile from '../../../../../../public/images/blank-profile.png';
 import classes from './HeaderMenu.module.scss';
 import { useLogout, useUserQuery } from './hooks';
 

@@ -1,22 +1,16 @@
-import { fetchAPI } from '@/api/fetcher';
 import { LikeButton, Pagination } from '@/components/molecules';
 import { SentenceCard } from '@/components/organisms';
-import { PaginationResult, Sentence } from '@/types';
 
 import MyLikeEmpty from '../MyLikeEmpty';
 import classes from './MyLikeList.module.scss';
+import { getUserLikes } from './api';
 
 type MyLikeListProps = {
   page: string;
 };
 
-const SENTENCE_PAGE_LIMIT = 24;
 export default async function MyLikeList({ page }: MyLikeListProps) {
-  const { data: likes } = await fetchAPI<PaginationResult<Sentence>>(
-    `/users/me/likes?page=${page}&limit=${SENTENCE_PAGE_LIMIT}`,
-    { cache: 'no-store' },
-  );
-
+  const { data: likes } = await getUserLikes(page);
   return (
     <>
       <h1 className={classes.title}>

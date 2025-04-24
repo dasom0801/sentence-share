@@ -1,7 +1,7 @@
 import { MockUser } from '@/mocks/data';
 import { useUserStore } from '@/store/user';
 import type { Meta, StoryObj } from '@storybook/react';
-import Header from './';
+import Header from '.';
 
 const meta = {
   title: 'layout/Header',

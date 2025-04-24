@@ -1,6 +1,5 @@
 'use client';
 
-import { toggleSentenceLike } from '@/api/sentence';
 import { Button } from '@mui/material';
 
 import { useState } from 'react';
@@ -8,6 +7,7 @@ import toast from 'react-hot-toast';
 import { FaHeart, FaRegHeart } from 'react-icons/fa6';
 
 import classes from './LikeButton.module.scss';
+import { toggleSentenceLike } from './api';
 
 type LikeButtonProps = {
   isLiked: boolean;

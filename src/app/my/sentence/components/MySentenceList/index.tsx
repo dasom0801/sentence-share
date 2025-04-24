@@ -1,24 +1,18 @@
-import { fetchAPI } from '@/api/fetcher';
 import { Pagination } from '@/components/molecules';
 import { SentenceCard } from '@/components/organisms';
-import { PaginationResult, Sentence } from '@/types';
+
 import { Suspense } from 'react';
 import MySentenceCardButtons from '../MySentenceCardButtons';
 import MySentenceEmpty from '../MySentenceEmpty';
 import classes from './MySentenceList.module.scss';
+import { getUserSentences } from './api';
 
 type MySentenceListProps = {
   page: string;
 };
 
-const SENTENCE_PAGE_LIMIT = 24;
 export default async function MySentenceList({ page }: MySentenceListProps) {
-  const { data: sentences } = await fetchAPI<PaginationResult<Sentence>>(
-    `/users/me/sentences?page=${page || 1}&limit=${SENTENCE_PAGE_LIMIT}}`,
-    {
-      cache: 'no-store',
-    },
-  );
+  const { data: sentences } = await getUserSentences(page);
 
   return (
     <>

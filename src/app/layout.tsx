@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import '../styles/global.scss';
-import { ClientProviders, Header } from './components';
+import { ClientProviders, Header } from './(main)/components';
 
 export const metadata: Metadata = {
   title: 'Sentence Share',

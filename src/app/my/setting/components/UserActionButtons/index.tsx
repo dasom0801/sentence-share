@@ -1,12 +1,14 @@
 'use client';
 
 import { logoutWithGoogle } from '@/api/auth';
-import { deleteUser } from '@/api/user';
 import { AlertDialog } from '@/components/molecules';
 import { Button } from '@mui/material';
+
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import toast from 'react-hot-toast';
+
+import { deleteUser } from './api';
 
 export default function UserActionButtons(props: any) {
   const router = useRouter();

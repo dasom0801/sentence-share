@@ -1,11 +1,13 @@
 'use client';
 
-import { deleteSentence } from '@/api/sentence';
 import { AlertDialog } from '@/components/molecules';
 import { Button } from '@mui/material';
+
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+
 import classes from './MySentenceCardButtons.module.scss';
+import { deleteSentence } from './api';
 
 type MySentenceCardButtonsProps = {
   sentenceId: string;

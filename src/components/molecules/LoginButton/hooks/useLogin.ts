@@ -1,6 +1,6 @@
-import { loginWithGoogle } from '@/api/auth';
 import { useUserStore } from '@/store/user';
 import { useMutation } from '@tanstack/react-query';
+import { loginWithGoogle } from '../api';
 
 import { useRouter } from 'next/navigation';
 import toast from 'react-hot-toast';

@@ -1,10 +1,11 @@
-import { getBook, getBookSentence } from '@/api/book';
+import { getBookSentence } from '@/api/book';
 import { MaxWidthWrapper } from '@/components/atoms';
 import { Pagination } from '@/components/molecules';
 import { BookInfoSection, SentenceLikeCardList } from '@/components/organisms';
 
 import { Metadata } from 'next';
 
+import { getBook } from './api';
 import classes from './page.module.scss';
 
 type BookDetailPageProps = {
