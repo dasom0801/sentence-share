@@ -7,17 +7,24 @@ import {
   getAuthenticatedUser,
   getLoginUserId,
   getPaginatedSentences,
+  verifyToken,
 } from '../utils';
 
 /**
  * 로그인한 사용자 정보를 반환
  */
-export const getUserInfo = async (): Promise<User> => {
+export const getUserInfo = async (token: string): Promise<User | null> => {
   try {
     await connectDB();
-    const user = await getAuthenticatedUser();
+    const decoded = verifyToken(token);
+    const userId = decoded?.userId;
+    if (!userId) {
+      return null;
+    }
+    const user = await models.User.findById(userId).lean<User>();
     if (!user) {
-      throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
+      console.warn(`DB에 해당 사용자 없음, userID: ${userId}`);
+      return null;
     }
     return user;
   } catch (error) {
