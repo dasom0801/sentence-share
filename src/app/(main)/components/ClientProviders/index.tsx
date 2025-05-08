@@ -1,9 +1,9 @@
 'use client';
 
+import { MUI_THEME } from '@/lib/mui/theme';
+import { ThemeProvider } from '@mui/material';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { Toaster } from 'react-hot-toast';
-import { MUI_THEME } from '@/constants';
-import { ThemeProvider } from '@mui/material';
 
 const queryClient = new QueryClient();
 export default function ClientProviders({
