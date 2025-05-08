@@ -8,7 +8,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 
-import blankProfile from '../../../../../../public/images/blank-profile.png';
+import { DEFAULT_PROFILE } from '@/constants';
 import classes from './HeaderMenu.module.scss';
 import { useLogout, useUserQuery } from './hooks';
 
@@ -67,7 +67,7 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
           width={40}
           height={40}
           alt={user.name}
-          src={user.profileUrl || blankProfile}
+          src={user.profileUrl || DEFAULT_PROFILE}
         />
       </IconButton>
       <Menu
