@@ -1,6 +1,6 @@
+import { DEFAULT_PROFILE } from '@/constants';
 import type { User } from '@/types';
 import Image from 'next/image';
-import blankProfile from '../../../../public/images/blank-profile.png';
 import classes from './UserInfo.module.scss';
 
 type UserInfoProps = {
@@ -15,7 +15,7 @@ export default function UserInfo({ user, className }: UserInfoProps) {
         width={30}
         height={30}
         alt={user.name || ''}
-        src={user.profileUrl || blankProfile}
+        src={user.profileUrl || DEFAULT_PROFILE}
       />
       <div className="name">{user.name}</div>
     </div>
