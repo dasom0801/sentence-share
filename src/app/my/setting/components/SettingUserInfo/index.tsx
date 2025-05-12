@@ -2,6 +2,7 @@
 
 import { updateUser } from '@/api/user';
 import type { User } from '@/types';
+import { sanitizeInput } from '@/utils/sanitize';
 import { Button, FormHelperText, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import classes from './SettingUserInfo.module.scss';
@@ -31,7 +32,8 @@ export default function SettingUserInfo({ user }: SettingUserInfoProps) {
   const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setLoading(true);
-    await updateUser({ ...user, name });
+    const sanitizedName = sanitizeInput(name);
+    await updateUser({ ...user, name: sanitizedName });
     setLoading(false);
   };
 

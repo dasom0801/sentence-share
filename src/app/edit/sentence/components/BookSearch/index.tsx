@@ -9,6 +9,8 @@ import BookListItemSkeleton from '../BookListItemSkeleton';
 import classes from './BookSearch.module.scss';
 import { useScrollEnd } from './hooks';
 
+import { sanitizeInput } from '@/utils/sanitize';
+
 type BookSearchProps = {
   handleBookSelect: (book: Book) => void;
 };
@@ -42,7 +44,8 @@ export default function BookSearch({ handleBookSelect }: BookSearchProps) {
   }, [searchRef]);
 
   const debouncedSetSearch = debounce((value: string) => {
-    setSearch(value);
+    const senitizedValue = sanitizeInput(value);
+    setSearch(senitizedValue);
   }, 500);
 
   const handleChange = useCallback(
