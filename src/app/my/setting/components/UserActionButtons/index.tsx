@@ -1,6 +1,5 @@
 'use client';
 
-import { logoutWithGoogle } from '@/api/auth';
 import { AlertDialog } from '@/components/molecules';
 import { Button } from '@mui/material';
 
@@ -10,14 +9,16 @@ import toast from 'react-hot-toast';
 
 import { deleteUser } from './api';
 
+import { useLogout } from '@/hooks';
+
 export default function UserActionButtons(props: any) {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [pendingDeleteUser, setPendingDeleteUser] = useState<boolean>(false);
+  const { mutate: logout } = useLogout();
 
   const handleLogout = async () => {
-    await logoutWithGoogle();
-    router.push('/');
+    logout();
   };
 
   const handleDeleteUser = async () => {
