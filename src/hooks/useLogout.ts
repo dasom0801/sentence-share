@@ -14,33 +14,41 @@ const useLogout = () => {
   const setUser = useUserStore.use.setUser();
   const setIsLogin = useUserStore.use.setIsLogin();
 
-  function goToMain() {
-    const authRoutes = ['edit', 'my'];
-    if (pathname === '/') {
+  const redirectAfterLogout = () => {
+    // 인증이 필요한 페이지 목록
+    const protectedRoutes = ['edit', 'my'];
+
+    const isHome = pathname === '/';
+    const isProtected = protectedRoutes.includes(pathname.split('/')[1]);
+
+    // 현재 경로가 루트('/')인 경우
+    if (isHome) {
+      // 기존 쿼리 파라미터를 유지한 채 router.push 실행
       const params = new URLSearchParams(searchParams.toString());
       router.push(`/?${params.toString()}`);
       return;
     }
 
-    if (authRoutes.includes(pathname.split('/')[1])) {
+    // 로그아웃 상태에서는 접근할 수 없으므로 메인 페이지로 리디렉션
+    if (isProtected) {
       router.push('/');
       return;
     }
-  }
+
+    // 그 외의 경로에서는 이동하지 않음
+  };
 
   return useMutation({
     mutationKey: ['logout'],
     mutationFn,
     onSuccess: () => {
-      localStorage.removeItem('token');
-      localStorage.removeItem('access_token');
       setUser(null);
       setIsLogin(false);
-      goToMain();
+      redirectAfterLogout();
       toast.success('로그아웃 했습니다.');
     },
     onError: (error) => {
-      console.log(error);
+      toast.error('로그아웃에 실패했습니다.');
     },
   });
 };

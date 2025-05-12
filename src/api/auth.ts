@@ -1,15 +1,17 @@
-import { removeToken } from '@/actions/token';
 import { auth } from '@/lib/firebase';
 
 import { signOut } from 'firebase/auth';
-import toast from 'react-hot-toast';
+import { fetchAPI } from './fetcher';
 
 export const logoutWithGoogle = async () => {
   try {
+    // 클라이언트 Firebase 로그아웃
     await signOut(auth);
-    // TODO: 서버에서 호출하도록 수정
-    await removeToken();
+    // 서버 토큰 삭제 API
+    await fetchAPI('/auth/logout', { method: 'POST' });
   } catch (error: unknown) {
-    toast.error('로그아웃에 실패했습니다.');
+    console.log('logout with google error:', error);
+    // 호출하는 곳에서 toast 보여주도록 함
+    throw error;
   }
 };

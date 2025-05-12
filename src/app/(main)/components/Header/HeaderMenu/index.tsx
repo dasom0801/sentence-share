@@ -1,6 +1,8 @@
 'use client';
 
 import { LoginButton } from '@/components/molecules';
+import { DEFAULT_PROFILE } from '@/constants';
+import { useLogout } from '@/hooks';
 import { useUserStore } from '@/store/user';
 import { Button, IconButton, Menu, MenuItem } from '@mui/material';
 
@@ -8,9 +10,8 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 
-import { DEFAULT_PROFILE } from '@/constants';
 import classes from './HeaderMenu.module.scss';
-import { useLogout, useUserQuery } from './hooks';
+import { useUserQuery } from './hooks';
 
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 공유한 문장', path: '/my/sentence' },
