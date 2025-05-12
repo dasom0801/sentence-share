@@ -48,7 +48,7 @@ const useLogout = () => {
       toast.success('로그아웃 했습니다.');
     },
     onError: (error) => {
-      console.log(error);
+      toast.error('로그아웃에 실패했습니다.');
     },
   });
 };
