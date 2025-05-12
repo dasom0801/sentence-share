@@ -9,7 +9,7 @@ import BookListItemSkeleton from '../BookListItemSkeleton';
 import classes from './BookSearch.module.scss';
 import { useScrollEnd } from './hooks';
 
-import DOMPurify from 'dompurify';
+import { sanitizeInput } from '@/utils/sanitize';
 
 type BookSearchProps = {
   handleBookSelect: (book: Book) => void;
@@ -44,7 +44,7 @@ export default function BookSearch({ handleBookSelect }: BookSearchProps) {
   }, [searchRef]);
 
   const debouncedSetSearch = debounce((value: string) => {
-    const senitizedValue = DOMPurify.sanitize(value);
+    const senitizedValue = sanitizeInput(value);
     setSearch(senitizedValue);
   }, 500);
 
