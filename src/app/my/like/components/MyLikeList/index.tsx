@@ -11,7 +11,7 @@ type MyLikeListProps = {
   total: number;
 };
 
-export default async function MyLikeList({
+export default function MyLikeList({
   list,
   totalPages,
   total,
