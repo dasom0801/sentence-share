@@ -1,5 +1,6 @@
 import { MaxWidthWrapper } from '@/components/atoms';
 import { Metadata } from 'next';
+import { getUserLikes } from './api';
 import { MyLikeList } from './components';
 import classes from './page.module.scss';
 
@@ -14,11 +15,11 @@ type MyLikePageProps = {
 export default async function MyLikePage({
   searchParams: { page },
 }: MyLikePageProps) {
+  const { data } = await getUserLikes(page);
   return (
     <main className={classes.main}>
       <MaxWidthWrapper>
-        {/* @ts-expect-error Server Component */}
-        <MyLikeList page={page} />
+        <MyLikeList {...data} />
       </MaxWidthWrapper>
     </main>
   );
