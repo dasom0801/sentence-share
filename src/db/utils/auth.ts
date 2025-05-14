@@ -1,5 +1,5 @@
 import { User } from '@/types/user';
-import jwt, { JwtPayload } from 'jsonwebtoken';
+import jwt, { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import models from '../models';
 
@@ -12,7 +12,7 @@ export const getAuthenticatedUser = async (): Promise<User | null> => {
     const userId = getLoginUserId();
     return userId ? await models.User.findById(userId).lean<User>() : null;
   } catch (error) {
-    console.error('JWT 검증 실패:', error);
+    console.error('사용자 정보 찾기 실패', error);
     return null;
   }
 };
@@ -44,7 +44,10 @@ export const getLoginUserId = (): string | null => {
     const decoded = verifyToken(token);
     return decoded?.userId;
   } catch (error) {
-    console.error('JWT 검증 실패:', error);
+    // 토큰 만료 에러는 무시
+    if (!(error instanceof TokenExpiredError)) {
+      console.error('JWT 검증 실패:', error);
+    }
     return null;
   }
 };

@@ -1,5 +1,6 @@
 import { PaginationRequest, User } from '@/types';
 import { HttpError } from '@/utils';
+import { TokenExpiredError } from 'jsonwebtoken';
 import connectDB from '../connectDB';
 import firebaseAdmin from '../firebase.config';
 import models from '../models';
@@ -28,6 +29,10 @@ export const getUserInfo = async (token: string): Promise<User | null> => {
     }
     return user;
   } catch (error) {
+    // 만료된 토큰은 에러를 던지지 않고 사용자 정보를 보내지 않는 것으로 처리
+    if (error instanceof TokenExpiredError) {
+      return null;
+    }
     console.error(`사용자 정보 가져오기 실패`, error);
     throw new HttpError();
   }

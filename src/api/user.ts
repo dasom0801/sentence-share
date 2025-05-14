@@ -3,7 +3,7 @@ import type { User } from '@/types';
 import { fetchAPI } from './fetcher';
 
 export const getUser = async () => {
-  return fetchAPI<User>('/users/me');
+  return fetchAPI<User>('/users/me', { cache: 'no-store' });
 };
 
 export const updateUser = async (data: Record<string, any>) => {
