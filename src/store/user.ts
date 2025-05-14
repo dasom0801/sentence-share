@@ -10,10 +10,7 @@ export type UserState = {
 };
 
 const useUserStoreBase = create<UserState>((set) => ({
-  isLogin:
-    typeof window === 'undefined'
-      ? false
-      : !!localStorage.getItem('access_token'),
+  isLogin: false,
   user: null,
   setIsLogin: (isLogin: boolean) => set((state) => ({ ...state, isLogin })),
   setUser: (user) => set((state) => ({ ...state, user })),
