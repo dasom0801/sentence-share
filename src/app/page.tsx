@@ -21,7 +21,15 @@ export default async function MainPage({ searchParams }: MainPageProps) {
 
   const cookieStore = cookies();
   const token = cookieStore.get('access_token');
-  const user = !!token?.value ? await getUser() : null;
+  let user = null;
+  if (token?.value) {
+    try {
+      const { data } = await getUser();
+      user = data;
+    } catch (error) {
+      console.error('사용자 정보 가져오기 실패:', error);
+    }
+  }
 
   const {
     data: { list, totalPages },
@@ -33,7 +41,7 @@ export default async function MainPage({ searchParams }: MainPageProps) {
 
   return (
     <main>
-      <UserProvider user={user?.data} />
+      <UserProvider user={user} />
       <MaxWidthWrapper>
         <div className={classes.buttons}>
           <SortButtons />

@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 
 // Zustand 초기화용 컴포넌트
 type UserProviderProps = {
-  user?: User;
+  user: User | null;
 };
 export default function UserProvider({ user }: UserProviderProps) {
   const setUser = useUserStore.use.setUser();
