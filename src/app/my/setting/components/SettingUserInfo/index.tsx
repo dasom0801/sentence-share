@@ -1,17 +1,14 @@
 'use client';
 
 import { updateUser } from '@/api/user';
-import type { User } from '@/types';
+import { useUserStore } from '@/store/user';
 import { sanitizeInput } from '@/utils/sanitize';
 import { Button, FormHelperText, TextField } from '@mui/material';
 import { FormEvent, useState } from 'react';
 import classes from './SettingUserInfo.module.scss';
 
-type SettingUserInfoProps = {
-  user: User;
-};
-
-export default function SettingUserInfo({ user }: SettingUserInfoProps) {
+export default function SettingUserInfo() {
+  const user = useUserStore.use.user();
   const [name, setName] = useState<string>(user?.name || '');
   const [error, setError] = useState<string>('');
   const [loading, setLoading] = useState<boolean>(false);
