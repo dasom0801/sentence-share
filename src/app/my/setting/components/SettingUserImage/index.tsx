@@ -2,18 +2,15 @@
 
 import { updateUser } from '@/api/user';
 import { DEFAULT_PROFILE } from '@/constants';
-import type { User } from '@/types';
+import { useUserStore } from '@/store/user';
 import { Button } from '@mui/material';
 import Image from 'next/image';
 import { ChangeEvent, useState } from 'react';
 import { useRemoveProfileImage, useUploadProfileImage } from '../../hooks';
 import classes from './SettingUserImage.module.scss';
 
-type SettingUserImageProps = {
-  user: User;
-};
-
-export default function SettingUserImage({ user }: SettingUserImageProps) {
+export default function SettingUserImage() {
+  const user = useUserStore.use.user();
   const uploadProfileImage = useUploadProfileImage();
   const removeProfileImage = useRemoveProfileImage();
   const [loading, setLoading] = useState<boolean>(false);

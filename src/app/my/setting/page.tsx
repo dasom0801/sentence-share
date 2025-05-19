@@ -1,4 +1,3 @@
-import { getUser } from '@/api/user';
 import { MaxWidthWrapper } from '@/components/atoms';
 import { Divider } from '@mui/material';
 
@@ -16,13 +15,11 @@ export const metadata: Metadata = {
 };
 
 export default async function SettingPage() {
-  const { data: currentUser } = await getUser();
-
   return (
     <main>
       <MaxWidthWrapper className={classes.wrapper}>
-        <SettingUserImage user={currentUser} />
-        <SettingUserInfo user={currentUser} />
+        <SettingUserImage />
+        <SettingUserInfo />
         <Divider />
         <UserActionButtons />
       </MaxWidthWrapper>
