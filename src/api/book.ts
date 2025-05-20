@@ -16,6 +16,7 @@ export const getBookSentence = async (params: BookSentenceListParams) => {
   const query = queryString.stringify(rest);
   return fetchAPI<PaginationResult<Sentence>>(
     `/books/${bookId}/sentences?${query}`,
+    { next: { revalidate: 300, tags: ['sentence-list'] } },
   );
 };
 

@@ -1,7 +1,7 @@
 import { deleteSentence, getSentence, updateSentence } from '@/db/controllers';
 import { handleError } from '@/db/utils';
 import type { ApiResponse, Sentence } from '@/types';
-import { revalidatePath } from 'next/cache';
+import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 type SentenceIdParams = { params: { id: string } };
@@ -31,6 +31,9 @@ export async function PUT(req: NextRequest, { params }: SentenceIdParams) {
     const { id: sentenceId } = params;
     const { book, content } = await req.json();
     const data = await updateSentence({ sentenceId, book, content });
+    revalidateTag(`sentence-${sentenceId}`);
+    revalidateTag('sentence-list');
+
     return NextResponse.json({
       success: true,
       data,
@@ -45,7 +48,9 @@ export async function DELETE(req: NextRequest, { params }: SentenceIdParams) {
   try {
     const { id: sentenceId } = params;
     const data = await deleteSentence(sentenceId);
-    revalidatePath('/my/sentence');
+
+    revalidateTag(`sentence-${sentenceId}`);
+    revalidateTag('sentence-list');
 
     return NextResponse.json({
       success: true,
