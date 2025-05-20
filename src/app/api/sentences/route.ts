@@ -1,5 +1,6 @@
 import { createSentence, getSentences } from '@/db/controllers';
 import { handleError, parseQuery } from '@/db/utils';
+import { revalidateTag } from 'next/cache';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
@@ -20,6 +21,7 @@ export async function POST(req: NextRequest) {
   try {
     const { book, content } = await req.json();
     const data = await createSentence(book, content);
+    revalidateTag('sentence-list');
     return NextResponse.json(
       {
         success: true,

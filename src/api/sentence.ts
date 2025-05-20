@@ -7,5 +7,7 @@ type SentenceDetailParams = {
 };
 
 export const getSentence = async ({ sentenceId }: SentenceDetailParams) => {
-  return fetchAPI<Sentence>(`/sentences/${sentenceId}`);
+  return fetchAPI<Sentence>(`/sentences/${sentenceId}`, {
+    next: { revalidate: 300, tags: [`sentence-${sentenceId}`] },
+  });
 };

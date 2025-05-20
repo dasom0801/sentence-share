@@ -19,10 +19,12 @@ export default function MySentenceCardButtons({
   const router = useRouter();
   const [showAlert, setShowAlert] = useState<boolean>(false);
 
+  // TODO: hook으로 분리 + useMutation으로 onSuccess, onError 처리
   const handleDeleteSentence = async () => {
     if (showAlert) {
       await deleteSentence(sentenceId);
       setShowAlert(false);
+      router.refresh();
     }
   };
 
