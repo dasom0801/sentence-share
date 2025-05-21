@@ -1,3 +1,6 @@
-.buttons {
-  height: 62px;
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 50vh;
 }
