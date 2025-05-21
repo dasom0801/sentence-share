@@ -6,7 +6,7 @@ export default function MySentenceLoading() {
   return (
     <main className={classes.container}>
       <MaxWidthWrapper>
-        <h1 className={classes.title}>내가 공유한 문장</h1>
+        <h1 className={classes.title}>내가 작성한 문장</h1>
         <SentenceListSkeleton />
       </MaxWidthWrapper>
     </main>

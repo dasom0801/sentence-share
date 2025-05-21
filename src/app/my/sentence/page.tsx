@@ -1,12 +1,11 @@
 import { MaxWidthWrapper } from '@/components/atoms';
-import { SentenceListSkeleton } from '@/components/organisms';
 import { Metadata } from 'next';
-import { Suspense } from 'react';
+import { getUserSentences } from './api';
 import { MySentenceList } from './components';
 import classes from './page.module.scss';
 
 export const metadata: Metadata = {
-  title: '내가 공유한 문장 - Sentence Share',
+  title: '내가 작성한 문장 - Sentence Share',
 };
 
 type MySentencePageProps = {
@@ -16,13 +15,11 @@ type MySentencePageProps = {
 export default async function MySentencePage({
   searchParams: { page },
 }: MySentencePageProps) {
+  const { data } = await getUserSentences(page);
   return (
     <main className={classes.container}>
       <MaxWidthWrapper>
-        <Suspense fallback={<SentenceListSkeleton />}>
-          {/* @ts-expect-error Server Component */}
-          <MySentenceList page={page} />
-        </Suspense>
+        <MySentenceList {...data} />
       </MaxWidthWrapper>
     </main>
   );

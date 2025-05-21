@@ -1,28 +1,31 @@
 import { Pagination } from '@/components/molecules';
 import { SentenceCard } from '@/components/organisms';
 
-import { Suspense } from 'react';
+import type { Sentence } from '@/types';
 import MySentenceCardButtons from '../MySentenceCardButtons';
 import MySentenceEmpty from '../MySentenceEmpty';
-import classes from './MySentenceList.module.scss';
-import { getUserSentences } from './api';
+import classes from './index.module.scss';
 
 type MySentenceListProps = {
-  page: string;
+  list: Sentence[];
+  totalPages: number;
+  total: number;
 };
 
-export default async function MySentenceList({ page }: MySentenceListProps) {
-  const { data: sentences } = await getUserSentences(page);
-
+export default function MySentenceList({
+  list,
+  total,
+  totalPages,
+}: MySentenceListProps) {
   return (
     <>
       <h1 className={classes.title}>
-        내가 공유한 문장 {!!sentences?.total && `(${sentences?.total})`}
+        내가 작성한 문장 {!!total && `(${total})`}
       </h1>
-      {!!sentences?.total ? (
+      {!!total ? (
         <>
           <ul className="grid-container">
-            {sentences?.list.map((sentence) => (
+            {list.map((sentence) => (
               <li key={sentence._id}>
                 <SentenceCard sentence={sentence}>
                   <MySentenceCardButtons sentenceId={sentence._id} />
@@ -30,9 +33,7 @@ export default async function MySentenceList({ page }: MySentenceListProps) {
               </li>
             ))}
           </ul>
-          <Suspense fallback={null}>
-            <Pagination count={sentences.totalPages} />
-          </Suspense>
+          <Pagination count={totalPages} />
         </>
       ) : (
         <MySentenceEmpty />
