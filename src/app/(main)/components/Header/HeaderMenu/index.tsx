@@ -14,7 +14,7 @@ import classes from './HeaderMenu.module.scss';
 import { useUserQuery } from './hooks';
 
 export const navigateMenus: { label: string; path: string }[] = [
-  { label: '내가 공유한 문장', path: '/my/sentence' },
+  { label: '내가 작성한 문장', path: '/my/sentence' },
   { label: '내가 좋아한 문장', path: '/my/like' },
   { label: '설정', path: '/my/setting' },
 ];
