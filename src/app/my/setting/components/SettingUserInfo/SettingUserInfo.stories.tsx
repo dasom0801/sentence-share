@@ -1,5 +1,5 @@
 import { MockUser } from '@/mocks/data';
-import type { Meta, StoryObj } from '@storybook/react';
+import type { Meta, StoryObj } from '@storybook/nextjs';
 import SettingUserInfo from '.';
 const meta = {
   title: 'page/setting/SettingUserInfo',
