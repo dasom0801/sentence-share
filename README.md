@@ -2,7 +2,9 @@
 
 책을 읽다가 마음에 드는 문장을 발견하면 기록하는 서비스입니다.
 
-## v2.0
+### 요구사항
+
+- Node.js 20.0.0 이상
 
 ### 배포 URL
 
@@ -63,38 +65,3 @@ src/
 - 책에 등록된 문장 목록
 
   <img src="./images/BookSentence.png" width="70%" alt="내가 좋아한 문장">
-
-### v1.0에서 달라진 점
-
-- React를 버전을 업데이트했습니다.
-- Vite를 사용하여 환경을 구성하였습니다.
-- Typescript를 적용했습니다.
-- Storybook로 컴포넌트를 관리합니다.
-- Zustand로 클라이언트 상태를 관리합니다.
-- github actions로 배포 자동화를 했습니다.
-- 전체적인 UI를 개선했습니다.
-
----
-
-## v1.0
-
-### 링크
-
-https://sentence-share.firebaseapp.com/
-
-- 기간: 2019. 03. 10 ~ 03. 24
-
-### 사용 기술
-
-- HTML
-- CSS(SCSS)
-- React
-  - create-react-app
-  - react-router
-  - redux
-  - redux-thunk
-- immutable.js
-- axios
-- firebase
-- 카카오 검색 API
-- 반응형 웹
