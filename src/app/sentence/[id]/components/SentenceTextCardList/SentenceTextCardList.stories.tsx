@@ -1,5 +1,5 @@
 import { MockSentence } from '@/mocks/data';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import SentenceTextCardList from '.';
 
 const meta = {

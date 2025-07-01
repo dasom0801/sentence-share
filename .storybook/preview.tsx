@@ -1,5 +1,5 @@
 import { ThemeProvider } from '@mui/material';
-import type { Preview } from '@storybook/nextjs';
+import type { Preview } from '@storybook/nextjs-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
 import '../src/styles/global.scss';

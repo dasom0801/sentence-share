@@ -1,14 +1,25 @@
-import type { StorybookConfig } from '@storybook/react-vite';
+import type { StorybookConfig } from '@storybook/nextjs-vite';
+import path from 'path';
 
 const config: StorybookConfig = {
   stories: ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
   addons: [
     '@storybook/addon-links',
-    '@storybook/addon-onboarding',
     '@chromatic-com/storybook',
-    '@storybook/addon-docs'
+    '@storybook/addon-docs',
+    '@storybook/addon-vitest',
+    '@storybook/addon-a11y'
   ],
-  framework: '@storybook/nextjs', // 👈 Add this
+  framework: '@storybook/nextjs-vite',
   docs: {},
+  async viteFinal(config) {
+    config.css = config.css || {};
+    config.css.preprocessorOptions = config.css.preprocessorOptions || {};
+    config.css.preprocessorOptions.scss = {
+      additionalData: `@use "mixin" as *;`,
+      includePaths: [path.resolve(__dirname, '../src/styles')],
+    };
+    return config;
+  },
 };
 export default config;

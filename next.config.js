@@ -28,8 +28,8 @@ const nextConfig = {
     ],
   },
   sassOptions: {
-    includePaths: [path.join(__dirname, 'styles')],
-    prependData: `@import "@/styles/mixin.scss";`,
+    includePaths: [path.join(__dirname, 'src/styles')],
+    prependData: `@use "mixin" as *;`,
   },
 };
 

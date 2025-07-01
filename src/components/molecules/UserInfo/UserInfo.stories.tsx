@@ -1,5 +1,5 @@
 import { MockUser } from '@/mocks/data';
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import UserInfo from '.';
 
 const meta = {
