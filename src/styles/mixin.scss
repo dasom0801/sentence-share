@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 @mixin textOverflowHidden() {
   overflow: hidden;
   text-overflow: ellipsis;
@@ -7,15 +9,15 @@
 // 미디어 쿼리를 적용
 @mixin mq($bp) {
   $breakpoints: (
-          sm: 640px,
-          md: 768px,
-          lg: 1024px,
-          xl: 1280px
+    sm: 640px,
+    md: 768px,
+    lg: 1024px,
+    xl: 1280px,
   );
 
   // 전달된 breakpoint 값에 따른 미디어 쿼리 생성
-  @if map-has-key($breakpoints, $bp) {
-    $min-width: map-get($breakpoints, $bp);
+  @if map.has-key($breakpoints, $bp) {
+    $min-width: map.get($breakpoints, $bp);
     @media (min-width: #{$min-width}) {
       @content;
     }
@@ -38,7 +40,7 @@
   white-space: nowrap;
 }
 
-@mixin pageTitle(){
+@mixin pageTitle() {
   margin-bottom: 24px;
   font-size: 24px;
   font-weight: 500;
