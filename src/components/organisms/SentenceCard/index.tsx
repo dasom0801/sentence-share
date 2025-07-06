@@ -40,7 +40,7 @@ export default function SentenceCard({
           </Link>
         )}
 
-        <div className={classes.children}>{children}</div>
+        {children && <div className={classes.children}>{children}</div>}
       </div>
     </div>
   );
