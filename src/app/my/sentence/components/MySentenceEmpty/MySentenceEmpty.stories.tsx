@@ -4,7 +4,7 @@ import { expect } from 'storybook/test';
 import MySentenceEmpty from './';
 
 const meta = {
-  title: 'my/sentence/MySentenceEmpty',
+  title: 'page/sentence/MySentenceEmpty',
   component: MySentenceEmpty,
 } satisfies Meta<typeof MySentenceEmpty>;
 

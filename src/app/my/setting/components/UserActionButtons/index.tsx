@@ -11,7 +11,7 @@ import { deleteUser } from './api';
 
 import { useLogout } from '@/hooks';
 
-export default function UserActionButtons(props: any) {
+export default function UserActionButtons() {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState<boolean>(false);
   const [pendingDeleteUser, setPendingDeleteUser] = useState<boolean>(false);

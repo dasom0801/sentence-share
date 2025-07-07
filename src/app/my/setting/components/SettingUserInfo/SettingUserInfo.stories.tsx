@@ -5,7 +5,7 @@ import { expect } from 'storybook/test';
 import SettingUserInfo from '.';
 
 const meta = {
-  title: 'my/setting/SettingUserInfo',
+  title: 'page/setting/SettingUserInfo',
   component: SettingUserInfo,
 } satisfies Meta<typeof SettingUserInfo>;
 

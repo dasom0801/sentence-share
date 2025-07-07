@@ -4,7 +4,7 @@ import { expect, screen } from 'storybook/test';
 import MySentenceCardButtons from './';
 
 const meta = {
-  title: 'my/sentence/MySentenceCardButtons',
+  title: 'page/sentence/MySentenceCardButtons',
   component: MySentenceCardButtons,
   args: {
     sentenceId: '1',
