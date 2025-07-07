@@ -4,7 +4,7 @@
   "name": "user name",
   "provider": "google.com",
   "email": "user@gmail.com",
-  "profileUrl": "/images/blank-profile.png",
+  "profileUrl": "https://placehold.co/400x400",
   "likes": [],
   "sentence": []
 }
