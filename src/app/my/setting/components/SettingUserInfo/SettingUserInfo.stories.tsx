@@ -2,7 +2,7 @@ import { MockUser } from '@/mocks/data';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import SettingUserInfo from '.';
 const meta = {
-  title: 'page/setting/SettingUserInfo',
+  title: 'my/setting/SettingUserInfo',
   component: SettingUserInfo,
 } satisfies Meta<typeof SettingUserInfo>;
 

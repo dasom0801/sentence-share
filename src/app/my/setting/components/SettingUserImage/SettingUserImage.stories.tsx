@@ -3,7 +3,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import SettingUserImage from '.';
 const meta = {
-  title: 'page/setting/SettingUserImage',
+  title: 'my/setting/SettingUserImage',
   component: SettingUserImage,
 } satisfies Meta<typeof SettingUserImage>;
 
