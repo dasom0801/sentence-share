@@ -1,6 +1,7 @@
 /// <reference types="vitest/config" />
 /// <reference types="vitest" />
 import { storybookTest } from '@storybook/addon-vitest/vitest-plugin';
+
 import react from '@vitejs/plugin-react';
 import { fileURLToPath } from 'node:url';
 import path from 'path';
