@@ -18,6 +18,9 @@ export default defineConfig({
     globals: true,
     setupFiles: './src/setupTests.ts',
     environment: 'jsdom',
+    coverage: {
+      exclude: ['src/app/api/**', 'src/db/**', '.next/'],
+    },
     projects: [
       {
         extends: true,
