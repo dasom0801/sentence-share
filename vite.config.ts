@@ -22,6 +22,20 @@ export default defineConfig({
       exclude: ['src/app/api/**', 'src/db/**', '.next/'],
     },
     projects: [
+      // 일반 테스트 파일 프로젝트 (.test.tsx, .test.ts)
+      {
+        extends: true,
+        test: {
+          name: 'default',
+          include: ['**/*.{test,spec}.{js,ts,jsx,tsx}'],
+          exclude: [
+            '**/node_modules/**',
+            '**/dist/**',
+            '**/.{idea,git,cache,output,temp}/**',
+          ],
+          environment: 'jsdom',
+        },
+      },
       {
         extends: true,
         plugins: [
