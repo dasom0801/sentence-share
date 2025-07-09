@@ -8,7 +8,7 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-docs',
     '@storybook/addon-vitest',
-    '@storybook/addon-a11y'
+    '@storybook/addon-a11y',
   ],
   framework: '@storybook/nextjs-vite',
   docs: {},
@@ -20,6 +20,10 @@ const config: StorybookConfig = {
       includePaths: [path.resolve(__dirname, '../src/styles')],
     };
     return config;
+  },
+  staticDirs: ['../public'],
+  features: {
+    experimentalRSC: true,
   },
 };
 export default config;
