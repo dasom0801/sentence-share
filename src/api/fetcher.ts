@@ -1,7 +1,6 @@
 import { ApiResponse } from '@/types';
 import { getServerCookieHeader } from '../utils/server-utils';
-
-const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
+import { BASE_URL } from './constants';
 
 export const fetchAPI = async <T>(
   url: string,
