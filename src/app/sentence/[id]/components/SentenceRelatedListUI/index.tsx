@@ -2,6 +2,7 @@ import type { Sentence } from '@/types';
 
 import SentenceTextCardList from '../SentenceTextCardList';
 import classes from './SentenceRelatedListUI.module.scss';
+import { excludeSentenceFromList } from './utils';
 
 type SentenceRelatedListUIProps = {
   excludeSentenceId: string;
@@ -14,12 +15,9 @@ export default function SentenceRelatedListUI({
   sentences,
   bookTitle,
 }: SentenceRelatedListUIProps) {
-  console.log('UI', sentences);
-
   // 현재 화면의 문장은 제거한 목록을 만들어준다.
-  const excludeCurrentSentenceList: Sentence[] | undefined = sentences.filter(
-    ({ _id }) => excludeSentenceId !== _id,
-  );
+  const excludeCurrentSentenceList: Sentence[] | undefined =
+    excludeSentenceFromList(sentences, excludeSentenceId);
 
   if (excludeCurrentSentenceList?.length) {
     return (

@@ -42,7 +42,8 @@
     "test": "vitest watch",
     "test:no-watch": "vitest run",
     "test:coverage": "vitest run --coverage",
-    "test:default": "vitest run --project=default",
+    "test:default": "vitest run --project=default --watch",
+    "test:default:no-watch": "vitest run --project=default",
     "test:storybook": "vitest --project=storybook",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build"

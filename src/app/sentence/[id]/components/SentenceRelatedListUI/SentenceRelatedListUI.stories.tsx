@@ -39,7 +39,7 @@ export const Default: Story = {
           (link) => link.getAttribute('href') === `/sentence/${sentenceId}`,
         );
         expect(targetSentence).not.toBeDefined();
-        expect(canvas.queryByText('목록에서 제외될 문장')).not.toBeDefined();
+        expect(canvas.queryByText('목록에서 제외될 문장')).toBeNull();
       },
     );
   },

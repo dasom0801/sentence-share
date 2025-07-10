@@ -7,7 +7,7 @@ import Header from '.';
 import { navigateMenus } from './HeaderMenu';
 
 const meta = {
-  title: 'layout/Header',
+  title: 'page/main/Header',
   component: Header,
 } satisfies Meta<typeof Header>;
 

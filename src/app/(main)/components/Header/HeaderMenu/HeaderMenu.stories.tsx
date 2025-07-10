@@ -4,7 +4,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import HeaderMenu from '.';
 
 const meta = {
-  title: 'layout/HeaderMenu',
+  title: 'page/main/HeaderMenu',
   component: HeaderMenu,
   args: {},
 } satisfies Meta<typeof HeaderMenu>;
