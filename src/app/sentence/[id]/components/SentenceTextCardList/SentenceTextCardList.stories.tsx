@@ -5,7 +5,7 @@ import { expect } from 'storybook/test';
 import SentenceTextCardList from '.';
 
 const meta = {
-  title: 'page/sentence-detail/SentenceTextCardList',
+  title: 'page/sentence/[id]/SentenceTextCardList',
   component: SentenceTextCardList,
 } satisfies Meta<typeof SentenceTextCardList>;
 

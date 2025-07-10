@@ -4,7 +4,7 @@ import { expect } from 'storybook/test';
 import SentenceTextCard from '.';
 
 const meta = {
-  title: 'page/sentence-detail/SentenceTextCard',
+  title: 'page/sentence/[id]/SentenceTextCard',
   component: SentenceTextCard,
   args: {
     text: MockSentence.content,
