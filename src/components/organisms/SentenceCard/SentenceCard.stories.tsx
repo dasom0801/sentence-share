@@ -2,7 +2,6 @@ import { LikeButton } from '@/components/molecules';
 import { MockSentence } from '@/mocks/data';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
-import userEvent from '@testing-library/user-event';
 import { expect } from 'storybook/test';
 import SentenceCard from '.';
 
@@ -26,7 +25,7 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {
-  play: async ({ canvas, step }) => {
+  play: async ({ canvas, step, userEvent }) => {
     const links = canvas.getAllByRole('link');
     await step('문장 정보가 화면에 렌더링된다.', () => {
       // 사용자 정보
