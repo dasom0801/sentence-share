@@ -4,7 +4,7 @@ import { expect, fn, screen } from 'storybook/test';
 import SentenceEditActions from './';
 
 const meta = {
-  title: 'page/edit/SentenceEditActions',
+  title: 'page/edit/sentence/SentenceEditActions',
   component: SentenceEditActions,
 } satisfies Meta<typeof SentenceEditActions>;
 

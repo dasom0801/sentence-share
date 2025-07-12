@@ -3,7 +3,7 @@ import { expect, fireEvent, waitFor } from 'storybook/test';
 import BooKCoverImage from './';
 
 const meta = {
-  title: 'page/edit/BooKCoverImage',
+  title: 'page/edit/sentence/BooKCoverImage',
   component: BooKCoverImage,
 } satisfies Meta<typeof BooKCoverImage>;
 

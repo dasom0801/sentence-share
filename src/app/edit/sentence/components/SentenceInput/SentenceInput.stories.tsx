@@ -5,7 +5,7 @@ import { expect } from 'storybook/test';
 import SentenceInput from './';
 
 const meta = {
-  title: 'page/edit/SentenceInput',
+  title: 'page/edit/sentence/SentenceInput',
   component: SentenceInput,
   args: {
     content: '',
