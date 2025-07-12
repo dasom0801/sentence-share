@@ -1,4 +1,4 @@
-import BookListItemSkeleton from '../BookListItemSkeleton';
+import BookListItemSkeleton from '../../../BookListItemSkeleton';
 import classes from './BookSearchListSkeleton.module.scss';
 
 type BookSearchListSkeletonProps = {

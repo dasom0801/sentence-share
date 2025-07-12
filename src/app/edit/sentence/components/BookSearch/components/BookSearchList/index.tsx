@@ -1,5 +1,5 @@
 import { Book } from '@/types';
-import BookListItem from '../BookListItem';
+import BookListItem from '../../../BookListItem';
 import classes from './BookSearchList.module.scss';
 
 type BookSearchListProps = {

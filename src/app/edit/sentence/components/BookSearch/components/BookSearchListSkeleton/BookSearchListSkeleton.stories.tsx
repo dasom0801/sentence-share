@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect } from 'storybook/test';
-import BookSearchListSkeleton from './';
+import BookSearchListSkeleton from '.';
 
 const meta = {
   title: 'page/edit/sentence/BookSearchListSkeleton',
