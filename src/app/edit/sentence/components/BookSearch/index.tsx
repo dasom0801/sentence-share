@@ -3,11 +3,13 @@ import { TextField } from '@mui/material';
 
 import { useRef } from 'react';
 
-import { useBookSearchQuery } from '../../hooks/useBookSearchQuery';
-
 import classes from './BookSearch.module.scss';
 import { BookSearchResults } from './components';
-import { useBookSearchState, useClickOutside } from './hooks';
+import {
+  useBookSearchQuery,
+  useBookSearchState,
+  useClickOutside,
+} from './hooks';
 
 type BookSearchProps = {
   handleBookSelect: (book: Book) => void;
