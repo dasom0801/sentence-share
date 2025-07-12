@@ -1,5 +1,5 @@
-import MockBook from './book.json';
-import MockSentence from './sentence.json';
-import MockSentences from './sentences.json';
-import MockUser from './user.json';
-export { MockBook, MockSentence, MockSentences, MockUser };
+export { default as MockBook } from './book.json';
+export { default as MockBooks } from './books.json';
+export { default as MockSentence } from './sentence.json';
+export { default as MockSentences } from './sentences.json';
+export { default as MockUser } from './user.json';

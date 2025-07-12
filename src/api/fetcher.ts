@@ -6,6 +6,7 @@ export const fetchAPI = async <T>(
   url: string,
   init: RequestInit = {},
 ): Promise<ApiResponse<T>> => {
+  console.log('fetchAPI url', url);
   const isServer = typeof window === 'undefined';
 
   let headers: Record<string, string> = {
