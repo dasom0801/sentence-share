@@ -1,8 +1,11 @@
+'use client';
+
 import type { Book } from '@/types';
 import { TextField } from '@mui/material';
 
 import { useRef } from 'react';
 
+import { useSentenceEdit } from '../../contexts';
 import classes from './BookSearch.module.scss';
 import { BookSearchResults } from './components';
 import {
@@ -11,11 +14,7 @@ import {
   useClickOutside,
 } from './hooks';
 
-type BookSearchProps = {
-  handleBookSelect: (book: Book) => void;
-};
-
-export default function BookSearch({ handleBookSelect }: BookSearchProps) {
+export default function BookSearch() {
   const {
     input,
     search,
@@ -29,14 +28,14 @@ export default function BookSearch({ handleBookSelect }: BookSearchProps) {
   // 무한 로딩
   const { data, isLoading, fetchNextPage } = useBookSearchQuery(search);
 
+  // 컴포넌트 포커스 해제
   const listRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLDivElement>(null);
-
-  // 컴포넌트 포커스 해제
   useClickOutside([searchRef, listRef], () => handleBlur());
 
-  const selectBook = (book: Book) => {
-    handleBookSelect(book);
+  const { selectBook } = useSentenceEdit();
+  const onSelectBook = (book: Book) => {
+    selectBook(book);
     clearSearch();
   };
 
@@ -58,7 +57,7 @@ export default function BookSearch({ handleBookSelect }: BookSearchProps) {
           <BookSearchResults
             books={data?.books || []}
             isLoading={isLoading}
-            onBookSelect={selectBook}
+            onBookSelect={onSelectBook}
             onFetchNextPage={fetchNextPage}
           />
         </div>

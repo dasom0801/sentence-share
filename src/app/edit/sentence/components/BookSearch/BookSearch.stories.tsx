@@ -1,19 +1,24 @@
 import { handleSearchBookWithKakaoAPI } from '@/mocks/handlers';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
-import { expect, fn, waitFor } from 'storybook/test';
+import { expect, waitFor } from 'storybook/test';
+import { SentenceEditProvider } from '../../contexts';
 import BookSearch from './';
 
 const meta = {
   title: 'page/edit/sentence/BookSearch',
   component: BookSearch,
-  args: {
-    handleBookSelect: fn(),
-  },
   parameters: {
     msw: {
       handlers: [handleSearchBookWithKakaoAPI()],
     },
   },
+  decorators: [
+    (Story) => (
+      <SentenceEditProvider>
+        <Story />
+      </SentenceEditProvider>
+    ),
+  ],
 } satisfies Meta<typeof BookSearch>;
 
 export default meta;
@@ -48,13 +53,6 @@ export const SearchBook: Story = {
       await waitFor(async () => {
         await expect(canvas.getByText('긴긴밤')).toBeInTheDocument();
       });
-    });
-
-    await step('책을 클릭하면 handleBookSelect 함수가 호출된다.', async () => {
-      await userEvent.click(canvas.getByText('긴긴밤'));
-      expect(args.handleBookSelect).toBeCalledWith(
-        expect.objectContaining({ title: '긴긴밤' }),
-      );
     });
   },
 };

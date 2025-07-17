@@ -4,4 +4,5 @@ export const BASE_URL =
 export const API_ENDPOINTS = {
   BOOK_SENTENCES: (bookId: string) => `/books/${bookId}/sentences`,
   BOOK_SEARCH_KAKAO: '/books/external/kakao/search',
+  GET_SENTENCE: (sentenceId: string) => `/sentences/${sentenceId}`,
 } as const;
