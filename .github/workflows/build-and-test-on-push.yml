@@ -33,4 +33,4 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
       - name: Run Test
-        run: npm run test:no-watch
+        run: npm run test:default:no-watch
