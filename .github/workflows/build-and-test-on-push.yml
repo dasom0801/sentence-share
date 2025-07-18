@@ -24,9 +24,6 @@ jobs:
       - name: Install Dependencies
         run: npm install
 
-      #      - name: Run Test
-      #        run: npm run test:no-watch
-
       - name: Build
         run: npm run build
         env:
@@ -34,3 +31,6 @@ jobs:
           NEXT_PUBLIC_FIREBASE_SENDER_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_SENDER_ID }}
           NEXT_PUBLIC_FIREBASE_APP_ID: ${{ secrets.NEXT_PUBLIC_FIREBASE_APP_ID }}
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      - name: Run Test
+        run: npm run test:no-watch
