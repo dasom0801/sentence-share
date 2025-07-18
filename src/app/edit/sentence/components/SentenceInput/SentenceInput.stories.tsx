@@ -1,7 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
-import { waitFor } from '@testing-library/react';
 import { useState } from 'react';
-import { expect } from 'storybook/test';
+import { expect, waitFor } from 'storybook/test';
 import SentenceInput from './';
 
 const meta = {
