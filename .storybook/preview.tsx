@@ -7,7 +7,7 @@ import '../src/styles/global.scss';
 import { MUI_THEME } from '../src/lib/mui/theme';
 
 initializeMsw({
-  onUnhandledRequest: 'warn',
+  onUnhandledRequest: 'bypass',
 });
 
 const preview: Preview = {
