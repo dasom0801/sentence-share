@@ -27,5 +27,5 @@ export function useInfiniteScroll(
     return () => {
       observer.disconnect();
     };
-  }, [targetRef.current, callback, options]);
+  }, [targetRef, callback, options]);
 }
