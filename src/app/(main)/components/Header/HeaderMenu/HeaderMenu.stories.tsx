@@ -12,17 +12,21 @@ const meta = {
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Login: Story = {
-  render: () => {
-    const state = useUserStore.getState();
-    useUserStore.setState({ ...state, user: MockUser });
-    return <HeaderMenu />;
-  },
+  decorators: [
+    (Story) => {
+      const state = useUserStore.getState();
+      useUserStore.setState({ ...state, user: MockUser });
+      return <Story />;
+    },
+  ],
 };
 
 export const Logout: Story = {
-  render: () => {
-    const state = useUserStore.getState();
-    useUserStore.setState({ ...state, user: null });
-    return <HeaderMenu />;
-  },
+  decorators: [
+    (Story) => {
+      const state = useUserStore.getState();
+      useUserStore.setState({ ...state, user: null });
+      return <Story />;
+    },
+  ],
 };

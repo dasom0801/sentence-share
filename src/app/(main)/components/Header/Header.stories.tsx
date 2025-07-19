@@ -78,11 +78,11 @@ export const LoggedIn: Story = {
     });
     await step('각 메뉴를 클릭하면 해당 페이지로 이동한다.', async () => {
       await userEvent.click(userProfileImage);
-      navigateMenus.forEach(async (menu) => {
+      for (const menu of navigateMenus) {
         const menuitem = screen.getByRole('menuitem', { name: menu.label });
         await userEvent.click(menuitem);
         expect(getRouter().push).toBeCalledWith(menu.path);
-      });
+      }
     });
   },
 };

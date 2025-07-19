@@ -23,11 +23,17 @@ export const Default: Story = {
     await step('books 배열 길이 만큼 렌더링한다', () => {
       expect(allListitems.length).toEqual(args.books.length);
     });
-    await step('listitem을 클릭하면 handleOnClickBook을 클릭한다.', () => {
-      allListitems.forEach(async (listitem) => {
-        await userEvent.click(listitem);
-        expect(args.handleOnClickBook).toHaveBeenCalled();
-      });
-    });
+
+    await step(
+      'listitem을 클릭하면 handleOnClickBook을 호출한다.',
+      async () => {
+        for (const listitem of allListitems) {
+          await userEvent.click(listitem);
+        }
+        expect(args.handleOnClickBook).toHaveBeenCalledTimes(
+          allListitems.length,
+        );
+      },
+    );
   },
 };
