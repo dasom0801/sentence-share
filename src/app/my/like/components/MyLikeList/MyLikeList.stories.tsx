@@ -4,7 +4,7 @@ import { expect } from 'storybook/test';
 import MyLikeList from './';
 
 const meta = {
-  title: 'page/like/MyLikeList',
+  title: 'page/my/like/MyLikeList',
   component: MyLikeList,
 } satisfies Meta<typeof MyLikeList>;
 

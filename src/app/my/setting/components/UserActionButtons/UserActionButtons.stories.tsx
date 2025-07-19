@@ -3,7 +3,7 @@ import { expect, screen } from 'storybook/test';
 import UserActionButtons from './';
 
 const meta = {
-  title: 'page/setting/UserActionButtons',
+  title: 'page/my/setting/UserActionButtons',
   component: UserActionButtons,
 } satisfies Meta<typeof UserActionButtons>;
 

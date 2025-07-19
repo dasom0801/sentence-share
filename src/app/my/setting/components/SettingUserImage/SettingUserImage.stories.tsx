@@ -5,7 +5,7 @@ import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { expect } from 'storybook/test';
 import SettingUserImage from '.';
 const meta = {
-  title: 'page/setting/SettingUserImage',
+  title: 'page/my/setting/SettingUserImage',
   component: SettingUserImage,
 } satisfies Meta<typeof SettingUserImage>;
 
