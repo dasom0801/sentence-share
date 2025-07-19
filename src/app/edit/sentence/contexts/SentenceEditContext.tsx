@@ -78,7 +78,17 @@ export function SentenceEditProvider({
     toast.success(`성공적으로 ${mode === 'edit' ? '수정' : '작성'}했습니다.`);
     router.push(redirectPath);
     router.refresh();
-  }, []);
+  }, [
+    book,
+    content,
+    mode,
+    initialSentence,
+    router,
+    updateSentence,
+    createSentence,
+    setPending,
+    toast,
+  ]);
 
   const value: SentenceEditContextType = {
     book,
