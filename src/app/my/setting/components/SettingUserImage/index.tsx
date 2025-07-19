@@ -47,7 +47,7 @@ export default function SettingUserImage() {
     <form className={classes.form}>
       <Image
         src={user?.profileUrl || DEFAULT_PROFILE}
-        alt="프로필 이미지"
+        alt={user?.name || '프로필 이미지'}
         width={128}
         height={128}
       />

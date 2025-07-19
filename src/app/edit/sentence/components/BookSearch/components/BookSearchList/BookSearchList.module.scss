@@ -1,0 +1,12 @@
+.list {
+  li {
+    cursor: pointer;
+    &:hover {
+      background-color: var(--blueGrey50);
+    }
+  }
+
+  li + li {
+    margin: 16px 0 0 0;
+  }
+}

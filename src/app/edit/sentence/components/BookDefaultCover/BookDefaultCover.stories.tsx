@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import BookDefaultCover from '.';
 
 const meta = {
-  title: 'page/edit/BookDefaultCover',
+  title: 'page/edit/sentence/BookDefaultCover',
   component: BookDefaultCover,
 } satisfies Meta<typeof BookDefaultCover>;
 

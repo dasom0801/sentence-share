@@ -1,8 +1,8 @@
-import type { Meta, StoryObj } from '@storybook/nextjs';
+import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import BookListItemSkeleton from '.';
 
 const meta = {
-  title: 'page/edit/BookListItemSkeleton',
+  title: 'page/edit/sentence/BookListItemSkeleton',
   component: BookListItemSkeleton,
 } satisfies Meta<typeof BookListItemSkeleton>;
 

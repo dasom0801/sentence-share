@@ -4,7 +4,7 @@ import { SentenceCard } from '@/components/organisms';
 import type { Sentence } from '@/types';
 import MySentenceCardButtons from '../MySentenceCardButtons';
 import MySentenceEmpty from '../MySentenceEmpty';
-import classes from './index.module.scss';
+import classes from './MySentenceList.module.scss';
 
 type MySentenceListProps = {
   list: Sentence[];

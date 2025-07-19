@@ -1,5 +1,6 @@
 import type { Book, PaginationResult, Sentence } from '@/types';
 import queryString from 'query-string';
+import { API_ENDPOINTS } from './constants';
 import { fetchAPI } from './fetcher';
 
 type BookSentenceListParams = PageParams & {
@@ -13,9 +14,12 @@ type BookSearchParams = {
 
 export const getBookSentence = async (params: BookSentenceListParams) => {
   const { bookId, ...rest } = params;
+  if (!bookId) {
+    throw new Error('bookId값이 전달되지 않았습니다.');
+  }
   const query = queryString.stringify(rest);
   return fetchAPI<PaginationResult<Sentence>>(
-    `/books/${bookId}/sentences?${query}`,
+    `${API_ENDPOINTS.BOOK_SENTENCES(bookId)}?${query}`,
     { next: { revalidate: 300, tags: ['sentence-list'] } },
   );
 };
@@ -25,6 +29,6 @@ export const searchBookWithKakaoAPI = async ({
   page = 1,
 }: BookSearchParams) => {
   return await fetchAPI<PaginationResult<Book>>(
-    `/books/external/kakao/search?query=${query}&page=${page}`,
+    `${API_ENDPOINTS.BOOK_SEARCH_KAKAO}?query=${query}&page=${page}`,
   );
 };

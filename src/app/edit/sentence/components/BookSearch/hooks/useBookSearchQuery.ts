@@ -3,5 +3,3 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 export const useBookSearchQuery = (query: string) =>
   useInfiniteQuery(sentenceQueries.bookSearch(query));
-
-export default useBookSearchQuery;
