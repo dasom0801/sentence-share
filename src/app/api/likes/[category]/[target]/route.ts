@@ -12,7 +12,11 @@ export async function DELETE(
     return NextResponse.json(
       {
         success: true,
-        data: null,
+        data: {
+          isLiked: false,
+          target,
+          category,
+        },
         message: '좋아요를 취소했습니다.',
       },
       { status: 200 },
