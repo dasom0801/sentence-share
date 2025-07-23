@@ -7,7 +7,15 @@ export async function POST(req: NextRequest) {
     const { category, target } = await req.json();
     await addLike({ category, target });
     return NextResponse.json(
-      { success: true, data: null, message: '좋아요를 추가했습니다.' },
+      {
+        success: true,
+        data: {
+          isLiked: true,
+          target,
+          category,
+        },
+        message: '좋아요를 추가했습니다.',
+      },
       { status: 200 },
     );
   } catch (error) {
