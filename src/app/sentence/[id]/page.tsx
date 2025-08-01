@@ -5,6 +5,8 @@ import { BookInfoSection } from '@/components/organisms';
 
 import { Suspense } from 'react';
 
+import { ApiError } from '@/utils';
+import { notFound } from 'next/navigation';
 import { SentenceRelatedList } from './components';
 import classes from './page.module.scss';
 
@@ -17,20 +19,40 @@ type SentenceDetailProps = {
 export default async function SentenceDetailPage({
   params: { id },
 }: SentenceDetailProps) {
-  const { data: sentence } = await getSentence({ sentenceId: id });
+  try {
+    if (!id || typeof id !== 'string' || id.trim() === '') {
+      notFound();
+    }
 
-  return (
-    <main>
-      <BookInfoSection book={sentence.book} />
-      <MaxWidthWrapper className={classes.wrapper}>
-        <p>{sentence.content}</p>
-        <UserInfo className={classes.userInfo} user={sentence.author} />
-        {/* 관련 문장이 없을 수도 있기 때문에 fallback 표시하지 않음 */}
-        <Suspense fallback={<></>}>
-          {/* @ts-expect-error Server Component */}
-          <SentenceRelatedList sentenceId={sentence._id} book={sentence.book} />
-        </Suspense>
-      </MaxWidthWrapper>
-    </main>
-  );
+    const { data: sentence } = await getSentence({ sentenceId: id });
+
+    if (!sentence) {
+      notFound();
+    }
+
+    return (
+      <main>
+        <BookInfoSection book={sentence.book} />
+        <MaxWidthWrapper className={classes.wrapper}>
+          <p>{sentence.content}</p>
+          <UserInfo className={classes.userInfo} user={sentence.author} />
+          {/* 관련 문장이 없을 수도 있기 때문에 fallback 표시하지 않음 */}
+          <Suspense fallback={null}>
+            {/* @ts-expect-error Server Component */}
+            <SentenceRelatedList
+              sentenceId={sentence._id}
+              book={sentence.book}
+            />
+          </Suspense>
+        </MaxWidthWrapper>
+      </main>
+    );
+  } catch (error) {
+    if (error instanceof ApiError) {
+      if (error.status === 404) {
+        notFound();
+      }
+    }
+    throw error;
+  }
 }
