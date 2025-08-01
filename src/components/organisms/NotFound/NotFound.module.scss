@@ -1,0 +1,23 @@
+.notFound {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+
+  svg {
+    margin: 0 0 16px;
+    font-size: 120px;
+    color: var(--blueGrey800);
+  }
+
+  button {
+    margin: 16px 0 0;
+  }
+}
+
+.title {
+  margin: 0 0 4px;
+  font-size: 28px;
+  font-weight: 500;
+}
