@@ -33,32 +33,23 @@ export const getSentences = async (
  *  id를 통해 특정 문장 가져오기
  */
 export const getSentence = async (id: string): Promise<Sentence | null> => {
-  try {
-    await connectDB();
-    const sentencePromise = models.Sentence.findById(id)
-      .populate('author', '_id name profileUrl')
-      .populate('book')
-      .lean<Sentence>();
+  await connectDB();
+  const sentencePromise = models.Sentence.findById(id)
+    .populate('author', '_id name profileUrl')
+    .populate('book')
+    .lean<Sentence>();
 
-    const isLikedPromise = isUserLikedSentence(id);
-    const [sentence, isLiked] = await Promise.all([
-      sentencePromise,
-      isLikedPromise,
-    ]);
+  const isLikedPromise = isUserLikedSentence(id);
+  const [sentence, isLiked] = await Promise.all([
+    sentencePromise,
+    isLikedPromise,
+  ]);
 
-    if (!sentence) {
-      throw new HttpError(
-        'NOT_FOUND_SENTENCE',
-        404,
-        '문장을 찾을 수 없습니다. ',
-      );
-    }
-
-    return { ...sentence, isLiked };
-  } catch (error) {
-    console.error(`문장 조회 오류 ID: ${id}`, error);
-    throw new HttpError();
+  if (!sentence) {
+    throw new HttpError('NOT_FOUND_SENTENCE', 404, '문장을 찾을 수 없습니다. ');
   }
+
+  return { ...sentence, isLiked };
 };
 
 /**

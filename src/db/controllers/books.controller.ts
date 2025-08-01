@@ -16,17 +16,12 @@ import {
  * id를 통해 책 정보 가져오기
  */
 export const getBook = async (bookId: string) => {
-  try {
-    await connectDB();
-    const book = await models.Book.findById(bookId).lean<Book>();
-    if (!book) {
-      throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
-    }
-    return book;
-  } catch (error) {
-    console.error(`Book 가져오기 오류: ${bookId}`, error);
-    throw new HttpError();
+  await connectDB();
+  const book = await models.Book.findById(bookId).lean<Book>();
+  if (!book) {
+    throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
   }
+  return book;
 };
 
 /**
@@ -40,32 +35,28 @@ export const getBookSentences = async ({
   bookId: string;
   mine: boolean;
 } & PaginationRequest) => {
-  try {
-    await connectDB();
-    const book = await models.Book.findById(bookId);
+  await connectDB();
+  const book = await models.Book.findById(bookId);
 
-    if (!book) {
-      throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
-    }
-
-    const user = await getAuthenticatedUser();
-
-    // 로그인한 사용자가 작성한 문장만 가져오는 경우
-    if (mine && !user) {
-      throw new HttpError('Unauthorized', 401, '로그인 후 이용해주세요.');
-    }
-    const filter = {
-      book: bookId,
-      user: mine ? user?._id : null,
-    };
-    return await getPaginatedSentences(
-      models.Sentence,
-      filter,
-      paginationRequest,
-    );
-  } catch (error) {
-    throw new HttpError();
+  if (!book) {
+    throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
   }
+
+  const user = await getAuthenticatedUser();
+
+  // 로그인한 사용자가 작성한 문장만 가져오는 경우
+  if (mine && !user) {
+    throw new HttpError('Unauthorized', 401, '로그인 후 이용해주세요.');
+  }
+  const filter = {
+    book: bookId,
+    user: mine ? user?._id : null,
+  };
+  return await getPaginatedSentences(
+    models.Sentence,
+    filter,
+    paginationRequest,
+  );
 };
 
 /**
