@@ -26,10 +26,6 @@ export default async function SentenceDetailPage({
 
     const { data: sentence } = await getSentence({ sentenceId: id });
 
-    if (!sentence) {
-      notFound();
-    }
-
     return (
       <main>
         <BookInfoSection book={sentence.book} />
