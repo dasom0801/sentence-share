@@ -8,3 +8,17 @@ export class HttpError extends Error {
     this.name = 'HttpError';
   }
 }
+
+export class ApiError extends Error {
+  status: number;
+  code?: string;
+  response?: any;
+
+  constructor(responseBody: any) {
+    super(responseBody.message || 'API Error');
+    this.name = 'ApiError';
+    this.status = responseBody.error?.status ?? 500;
+    this.code = responseBody.error?.code;
+    this.response = responseBody;
+  }
+}

@@ -1,6 +1,6 @@
 import { SortBy, SortOrder } from '@/types/enum';
 
-export { HttpError } from './error';
+export { ApiError, HttpError } from './error';
 
 // searchParams를 object로 변환
 export const getSearchParamsObject = (

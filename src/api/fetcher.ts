@@ -1,4 +1,5 @@
 import { ApiResponse } from '@/types';
+import { ApiError } from '@/utils';
 import { getServerCookieHeader } from '../utils/server-utils';
 import { BASE_URL } from './constants';
 
@@ -30,7 +31,8 @@ export const fetchAPI = async <T>(
   const response = await fetch(`${BASE_URL}${url}`, init);
 
   if (!response.ok) {
-    throw new Error(await response.text());
+    const errorBody = await response.json().catch(() => null);
+    throw new ApiError(errorBody || {});
   }
 
   return await response.json();
