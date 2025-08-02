@@ -8,7 +8,7 @@ type UseDeleteSentenceProps = {
 
 export function useDeleteSentence({ onSuccess }: UseDeleteSentenceProps) {
   const mutation = useMutation({
-    mutationFn: async (sentenceId: string) => await deleteSentence(sentenceId),
+    mutationFn: deleteSentence,
     onSuccess: () => {
       onSuccess?.();
       toast.success('문장을 삭제했습니다.');
