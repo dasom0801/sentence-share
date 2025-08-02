@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import classes from './MySentenceCardButtons.module.scss';
-import { deleteSentence } from './api';
+import { useDeleteSentence } from './hooks';
 
 type MySentenceCardButtonsProps = {
   sentenceId: string;
@@ -18,14 +18,15 @@ export default function MySentenceCardButtons({
 }: MySentenceCardButtonsProps) {
   const router = useRouter();
   const [showAlert, setShowAlert] = useState<boolean>(false);
-
-  // TODO: hook으로 분리 + useMutation으로 onSuccess, onError 처리
-  const handleDeleteSentence = async () => {
-    if (showAlert) {
-      await deleteSentence(sentenceId);
-      setShowAlert(false);
+  const { deleteSentence, isDeleting } = useDeleteSentence({
+    onSuccess: () => {
       router.refresh();
-    }
+    },
+  });
+
+  const handleDeleteSentence = () => {
+    setShowAlert(false);
+    deleteSentence(sentenceId);
   };
 
   const handleEditSentence = () => {
@@ -49,6 +50,7 @@ export default function MySentenceCardButtons({
           size="large"
           sx={{ borderRadius: 0 }}
           onClick={() => setShowAlert(true)}
+          disabled={isDeleting}
         >
           삭제
         </Button>
