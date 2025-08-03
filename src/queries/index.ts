@@ -1,7 +1,7 @@
 import { searchBookWithKakaoAPI } from '@/api/book';
 import { getUser } from '@/api/user';
 import type { User } from '@/types';
-import { HttpError } from '@/utils';
+import { HttpError } from '@/utils/error';
 import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
 
 export const userQueries = {

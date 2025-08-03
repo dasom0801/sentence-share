@@ -1,6 +1,5 @@
 import { PaginationRequest, User } from '@/types';
-import { HttpError } from '@/utils';
-import { TokenExpiredError } from 'jsonwebtoken';
+import { HttpError, withErrorHandler } from '@/utils/error';
 import connectDB from '../connectDB';
 import firebaseAdmin from '../firebase.config';
 import models from '../models';
@@ -15,7 +14,7 @@ import {
  * 로그인한 사용자 정보를 반환
  */
 export const getUserInfo = async (token: string): Promise<User | null> => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const decoded = verifyToken(token);
     const userId = decoded?.userId;
@@ -28,14 +27,7 @@ export const getUserInfo = async (token: string): Promise<User | null> => {
       return null;
     }
     return user;
-  } catch (error) {
-    // 만료된 토큰은 에러를 던지지 않고 사용자 정보를 보내지 않는 것으로 처리
-    if (error instanceof TokenExpiredError) {
-      return null;
-    }
-    console.error(`사용자 정보 가져오기 실패`, error);
-    throw new HttpError();
-  }
+  }, '사용자 정보 가져오기');
 };
 
 /**
@@ -48,7 +40,7 @@ export const editUserInfo = async ({
   name: string;
   profileUrl: string;
 }): Promise<User> => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const userId = getLoginUserId();
     if (!userId) {
@@ -65,17 +57,14 @@ export const editUserInfo = async ({
     }
 
     return updatedUserInfo;
-  } catch (error) {
-    console.error('사용자 정보 수정 실패', error);
-    throw new HttpError();
-  }
+  }, '사용자 정보 수정');
 };
 
 /**
  * 회원 탈퇴
  */
 export const deleteUser = async () => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
@@ -101,42 +90,33 @@ export const deleteUser = async () => {
     }
 
     return true;
-  } catch (error) {
-    console.error(`사용자 탈퇴 실패`, error);
-    throw new HttpError();
-  }
+  }, '사용자 탈퇴');
 };
 
 /**
  * 내가 작성한 문장 목록 가져오기
  */
 export const getMySentences = async (params: PaginationRequest) => {
-  try {
+  return withErrorHandler(async () => {
     const userId: string | null = getLoginUserId();
     if (!userId) {
       throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
     }
     return await getUserSentences({ userId, ...params });
-  } catch (error) {
-    console.error('내가 작성한 문장 목록 가져오기 실패', error);
-    throw new HttpError();
-  }
+  }, '내가 작성한 문장 목록 가져오기');
 };
 
 /**
  * 내가 좋아요한 문장 가져오기
  */
 export const getLikedSentences = async (params: PaginationRequest) => {
-  try {
+  return withErrorHandler(async () => {
     const userId: string | null = getLoginUserId();
     if (!userId) {
       throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
     }
     return await getUserLikedSentences({ userId, ...params });
-  } catch (error) {
-    console.error('내가 좋아요한 문장 목록 가져오기 실패', error);
-    throw new HttpError();
-  }
+  }, '내가 좋아요한 문장 목록 가져오기');
 };
 
 /**
@@ -146,7 +126,7 @@ export const getUserSentences = async ({
   userId,
   ...paginationRequest
 }: { userId: string } & PaginationRequest) => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const user = await models.User.findById(userId);
     if (!user) {
@@ -158,10 +138,7 @@ export const getUserSentences = async ({
       filter,
       paginationRequest,
     );
-  } catch (error) {
-    console.error(`사용자가 작성한 문장 가져오기 실패-${userId}`, error);
-    throw new HttpError();
-  }
+  }, `사용자가 작성한 문장 가져오기(id:${userId})`);
 };
 
 /**
@@ -171,7 +148,7 @@ export const getUserLikedSentences = async ({
   userId,
   ...paginationRequest
 }: { userId: string } & PaginationRequest) => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const targetUser = await models.User.findById(userId);
     if (!targetUser) {
@@ -188,8 +165,5 @@ export const getUserLikedSentences = async ({
       paginationRequest,
       'target',
     );
-  } catch (error) {
-    console.error(`사용자가 작성한 문장 가져오기 실패-${userId}`, error);
-    throw new HttpError();
-  }
+  }, `사용자가 작성한 문장 가져오기(id:${userId})`);
 };

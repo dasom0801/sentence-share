@@ -1,6 +1,6 @@
 import { searchBookWithKakaoOpenAPI } from '@/db/controllers';
 import { handleError, parseQuery } from '@/db/utils';
-import { HttpError } from '@/utils';
+import { HttpError } from '@/utils/error';
 import { NextRequest, NextResponse } from 'next/server';
 
 export async function GET(req: NextRequest) {
