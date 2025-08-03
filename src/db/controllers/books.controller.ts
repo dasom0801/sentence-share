@@ -53,7 +53,7 @@ export const getBookSentences = async ({
     }
     const filter = {
       book: bookId,
-      user: mine ? user?._id : null,
+      author: mine ? user?._id : null,
     };
     return await getPaginatedSentences(
       models.Sentence,
