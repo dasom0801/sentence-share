@@ -3,7 +3,7 @@
  */
 
 import type { Book, PaginationRequest, PaginationResult } from '@/types';
-import { HttpError } from '@/utils/error';
+import { HttpError, withErrorHandler } from '@/utils/error';
 import connectDB from '../connectDB';
 import models from '../models';
 import {
@@ -16,12 +16,14 @@ import {
  * id를 통해 책 정보 가져오기
  */
 export const getBook = async (bookId: string) => {
-  await connectDB();
-  const book = await models.Book.findById(bookId).lean<Book>();
-  if (!book) {
-    throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
-  }
-  return book;
+  return withErrorHandler(async () => {
+    await connectDB();
+    const book = await models.Book.findById(bookId).lean<Book>();
+    if (!book) {
+      throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
+    }
+    return book;
+  }, `책 정보 가져오기(id:${bookId})`);
 };
 
 /**
@@ -35,28 +37,30 @@ export const getBookSentences = async ({
   bookId: string;
   mine: boolean;
 } & PaginationRequest) => {
-  await connectDB();
-  const book = await models.Book.findById(bookId);
+  return withErrorHandler(async () => {
+    await connectDB();
+    const book = await models.Book.findById(bookId);
 
-  if (!book) {
-    throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
-  }
+    if (!book) {
+      throw new HttpError('NOT_FOUND_BOOK', 404, '책을 찾을 수 없습니다.');
+    }
 
-  const user = await getAuthenticatedUser();
+    const user = await getAuthenticatedUser();
 
-  // 로그인한 사용자가 작성한 문장만 가져오는 경우
-  if (mine && !user) {
-    throw new HttpError('Unauthorized', 401, '로그인 후 이용해주세요.');
-  }
-  const filter = {
-    book: bookId,
-    user: mine ? user?._id : null,
-  };
-  return await getPaginatedSentences(
-    models.Sentence,
-    filter,
-    paginationRequest,
-  );
+    // 로그인한 사용자가 작성한 문장만 가져오는 경우
+    if (mine && !user) {
+      throw new HttpError('Unauthorized', 401, '로그인 후 이용해주세요.');
+    }
+    const filter = {
+      book: bookId,
+      user: mine ? user?._id : null,
+    };
+    return await getPaginatedSentences(
+      models.Sentence,
+      filter,
+      paginationRequest,
+    );
+  }, `책에 등록된 문장 목록 가져오기(id:${bookId})`);
 };
 
 /**
@@ -71,7 +75,7 @@ export const searchBookWithKakaoOpenAPI = async ({
   page: number;
   limit: number;
 }): Promise<PaginationResult<Book>> => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const convertToBookType = (book: any) => {
       const { authors, isbn, publisher, title, thumbnail, datetime } = book;
@@ -113,8 +117,5 @@ export const searchBookWithKakaoOpenAPI = async ({
       limit,
       page,
     });
-  } catch (error) {
-    console.error(error);
-    throw new HttpError();
-  }
+  }, `카카오 책 검색(${query})`);
 };

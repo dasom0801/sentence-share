@@ -18,7 +18,6 @@ export async function GET(
       { status: 200 },
     );
   } catch (error) {
-    console.error(`Book 가져오기 오류: ${id}`, error);
     return handleError(error);
   }
 }

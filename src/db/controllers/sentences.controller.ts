@@ -11,7 +11,7 @@ import {
   isUserLikedSentence,
 } from '../utils';
 
-import { HttpError } from '@/utils/error';
+import { HttpError, withErrorHandler } from '@/utils/error';
 import connectDB from '../connectDB';
 
 /**
@@ -20,43 +20,46 @@ import connectDB from '../connectDB';
 export const getSentences = async (
   paginationRequest: PaginationRequest,
 ): Promise<PaginationResult<Sentence>> => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     return await getPaginatedSentences(models.Sentence, {}, paginationRequest);
-  } catch (error) {
-    console.error(error);
-    throw new HttpError();
-  }
+  }, '문장 목록 가져오기');
 };
 
 /**
  *  id를 통해 특정 문장 가져오기
  */
 export const getSentence = async (id: string): Promise<Sentence | null> => {
-  await connectDB();
-  const sentencePromise = models.Sentence.findById(id)
-    .populate('author', '_id name profileUrl')
-    .populate('book')
-    .lean<Sentence>();
+  return withErrorHandler(async () => {
+    await connectDB();
+    const sentencePromise = models.Sentence.findById(id)
+      .populate('author', '_id name profileUrl')
+      .populate('book')
+      .lean<Sentence>();
 
-  const isLikedPromise = isUserLikedSentence(id);
-  const [sentence, isLiked] = await Promise.all([
-    sentencePromise,
-    isLikedPromise,
-  ]);
+    const isLikedPromise = isUserLikedSentence(id);
+    const [sentence, isLiked] = await Promise.all([
+      sentencePromise,
+      isLikedPromise,
+    ]);
 
-  if (!sentence) {
-    throw new HttpError('NOT_FOUND_SENTENCE', 404, '문장을 찾을 수 없습니다. ');
-  }
+    if (!sentence) {
+      throw new HttpError(
+        'NOT_FOUND_SENTENCE',
+        404,
+        '문장을 찾을 수 없습니다. ',
+      );
+    }
 
-  return { ...sentence, isLiked };
+    return { ...sentence, isLiked };
+  }, `문장 가져오기(id: ${id})`);
 };
 
 /**
  * 신규 문장 등록하기
  */
 export const createSentence = async (book: Book, content: string) => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
@@ -80,14 +83,7 @@ export const createSentence = async (book: Book, content: string) => {
     });
 
     return sentence;
-  } catch (error) {
-    console.error('Sentence 작성 실패', error);
-    throw new HttpError(
-      'INTERNAL_SERVER_ERROR',
-      500,
-      error instanceof Error ? error.message : undefined,
-    );
-  }
+  }, '신규 문장 등록하기');
 };
 
 type UpdateSentenceParams = {
@@ -103,7 +99,7 @@ export const updateSentence = async ({
   content,
   book,
 }: UpdateSentenceParams) => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
@@ -130,21 +126,14 @@ export const updateSentence = async ({
     );
 
     return updatedSentence;
-  } catch (error) {
-    console.error('Sentence 수정 실패', error);
-    throw new HttpError(
-      'INTERNAL_SERVER_ERROR',
-      500,
-      error instanceof Error ? error.message : undefined,
-    );
-  }
+  }, `문장 수정(${sentenceId})`);
 };
 
 /**
  * 문장 삭제하기
  */
 export const deleteSentence = async (id: string) => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
@@ -169,15 +158,5 @@ export const deleteSentence = async (id: string) => {
       models.Sentence.findByIdAndDelete(id),
     ]);
     return true;
-  } catch (error) {
-    console.error('Sentence 삭제 실패', error);
-    if (error instanceof HttpError) {
-      throw error;
-    }
-    throw new HttpError(
-      'INTERNAL_SERVER_ERROR',
-      500,
-      error instanceof Error ? error.message : undefined,
-    );
-  }
+  }, `문장 삭제 실패: ${id}`);
 };

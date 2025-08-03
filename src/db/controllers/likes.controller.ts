@@ -1,4 +1,4 @@
-import { HttpError } from '@/utils/error';
+import { HttpError, withErrorHandler } from '@/utils/error';
 import { models } from 'mongoose';
 import connectDB from '../connectDB';
 import { getAuthenticatedUser } from '../utils';
@@ -13,10 +13,10 @@ export const addLike = async ({
   category: 'sentence' | 'book';
   target: string;
 }) => {
-  if (!category || !target) {
-    throw new HttpError('BAD_REQUEST', 400);
-  }
-  try {
+  return withErrorHandler(async () => {
+    if (!category || !target) {
+      throw new HttpError('BAD_REQUEST', 400);
+    }
     await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
@@ -40,10 +40,7 @@ export const addLike = async ({
 
     await models.Like.create({ user: user._id, category, target });
     return true;
-  } catch (error) {
-    console.error(`Like 추가 에러 ${category}-${target}`, error);
-    throw new HttpError();
-  }
+  }, `Like 추가 에러 ${category}-${target}`);
 };
 
 /**
@@ -56,7 +53,7 @@ export const deleteLike = async ({
   target: string;
   category: 'sentence' | 'book';
 }) => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     const user = await getAuthenticatedUser();
     if (!user) {
@@ -77,8 +74,5 @@ export const deleteLike = async ({
 
     await models.Like.deleteOne({ _id: foundLike._id });
     return true;
-  } catch (error) {
-    console.error(`Like 취소 에러 ${category}-${target}`, error);
-    throw new HttpError();
-  }
+  }, `Like 취소 에러 ${category}-${target}`);
 };

@@ -1,5 +1,5 @@
 import { User } from '@/types';
-import { HttpError } from '@/utils/error';
+import { HttpError, withErrorHandler } from '@/utils/error';
 import connectDB from '../connectDB';
 import firebaseAdmin from '../firebase.config';
 import models from '../models';
@@ -8,7 +8,7 @@ import { generateUserToken } from '../utils';
 export const authWithGoogle = async (
   idToken: string,
 ): Promise<{ user: User; token: string }> => {
-  try {
+  return withErrorHandler(async () => {
     await connectDB();
     if (!firebaseAdmin) {
       throw new HttpError('FIREBASE_ADMIN_NOT_INITIALIZED');
@@ -55,14 +55,5 @@ export const authWithGoogle = async (
         token,
       };
     }
-  } catch (error) {
-    console.error(
-      'google 사용자 인증 오류:',
-      error instanceof HttpError ? error.message : error,
-    );
-    if (error instanceof HttpError) {
-      throw error;
-    }
-    throw new HttpError();
-  }
+  }, 'google 사용자 인증');
 };
