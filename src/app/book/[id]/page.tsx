@@ -5,7 +5,7 @@ import { BookInfoSection, SentenceLikeCardList } from '@/components/organisms';
 
 import { Metadata } from 'next';
 
-import { ApiError } from '@/utils';
+import { ApiError } from '@/utils/error';
 import { notFound } from 'next/navigation';
 import { getBook } from './api';
 import classes from './page.module.scss';

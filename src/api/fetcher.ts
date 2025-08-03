@@ -1,5 +1,5 @@
 import { ApiResponse } from '@/types';
-import { ApiError } from '@/utils';
+import { ApiError } from '@/utils/error';
 import { getServerCookieHeader } from '../utils/server-utils';
 import { BASE_URL } from './constants';
 

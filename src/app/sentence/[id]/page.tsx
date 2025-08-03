@@ -5,7 +5,7 @@ import { BookInfoSection } from '@/components/organisms';
 
 import { Suspense } from 'react';
 
-import { ApiError } from '@/utils';
+import { ApiError } from '@/utils/error';
 import { notFound } from 'next/navigation';
 import { SentenceRelatedList } from './components';
 import classes from './page.module.scss';

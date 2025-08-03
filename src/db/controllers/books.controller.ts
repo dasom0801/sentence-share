@@ -3,7 +3,7 @@
  */
 
 import type { Book, PaginationRequest, PaginationResult } from '@/types';
-import { HttpError } from '@/utils';
+import { HttpError } from '@/utils/error';
 import connectDB from '../connectDB';
 import models from '../models';
 import {
