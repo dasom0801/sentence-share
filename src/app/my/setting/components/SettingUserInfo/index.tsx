@@ -1,59 +1,71 @@
 'use client';
 
-import { updateUser } from '@/api/user';
 import { useUserStore } from '@/store/user';
 import { sanitizeInput } from '@/utils/sanitize';
-import { Button, FormHelperText, TextField } from '@mui/material';
-import { FormEvent, useState } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Button, TextField } from '@mui/material';
+import { useForm } from 'react-hook-form';
+import { z } from 'zod';
+
 import classes from './SettingUserInfo.module.scss';
+import { useUpdateUserName } from './hooks';
+
+const userInfoSchema = z.object({
+  name: z
+    .string()
+    .min(1, '이름을 입력해주세요.')
+    .min(2, '이름은 최소 2자 이상이어야 합니다.')
+    .max(10, '이름은 최대 10자까지 입력 가능합니다.')
+    .regex(
+      /^[a-zA-Z0-9가-힣_]+$/,
+      '이름에는 문자, 숫자, 언더바(_)만 사용할 수 있습니다.',
+    ),
+});
+type UserInfoForm = z.infer<typeof userInfoSchema>;
 
 export default function SettingUserInfo() {
   const user = useUserStore.use.user();
-  const [name, setName] = useState<string>(user?.name || '');
-  const [error, setError] = useState<string>('');
-  const [loading, setLoading] = useState<boolean>(false);
+  const { updateUserName, isPending } = useUpdateUserName();
 
-  const handleChange = (value: string) => {
-    setName(value);
-    validateForm(value);
-  };
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isSubmitting },
+  } = useForm<UserInfoForm>({
+    resolver: zodResolver(userInfoSchema),
+    defaultValues: {
+      name: user?.name || '',
+    },
+    mode: 'onBlur',
+  });
 
-  const validateForm = (value: string) => {
-    if (!value) {
-      setError('이름을 입력해주세요.');
-      return;
-    }
-    setError('');
-  };
+  const onSubmit = ({ name }: UserInfoForm) => {
+    if (!user) return;
 
-  const handleFormSubmit = async (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-    setLoading(true);
     const sanitizedName = sanitizeInput(name);
-    await updateUser({ ...user, name: sanitizedName });
-    setLoading(false);
+    updateUserName({ ...user, name: sanitizedName });
   };
+
+  const isLoading = isSubmitting || isPending;
 
   return (
-    <form className={classes.form} onSubmit={(e) => handleFormSubmit(e)}>
+    <form className={classes.form} onSubmit={handleSubmit(onSubmit)}>
       <TextField
-        color={error ? 'error' : 'secondary'}
+        {...register('name')}
+        color={errors.name ? 'error' : 'secondary'}
         size="medium"
         label="이름"
-        name="name"
-        value={name}
-        onChange={(e) => handleChange(e.target.value)}
-        onBlur={(e) => validateForm(e.target.value)}
+        error={!!errors.name}
+        helperText={errors.name?.message}
       />
-      {error && <FormHelperText>값을 입력해주세요.</FormHelperText>}
       <Button
         size="large"
         variant="contained"
         color="primary"
         type="submit"
-        disabled={loading || !!error}
+        disabled={isLoading}
       >
-        저장
+        {isLoading ? '저장 중...' : '저장'}
       </Button>
     </form>
   );
