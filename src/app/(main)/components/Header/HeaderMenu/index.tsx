@@ -11,7 +11,6 @@ import { useRouter } from 'next/navigation';
 import { memo, useState } from 'react';
 
 import classes from './HeaderMenu.module.scss';
-import { useUserQuery } from './hooks';
 
 export const navigateMenus: { label: string; path: string }[] = [
   { label: '내가 작성한 문장', path: '/my/sentence' },
@@ -25,8 +24,6 @@ const HeaderMenu: React.FC = memo(function HeaderMenu() {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const { user } = useUserStore();
-
-  useUserQuery();
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);
