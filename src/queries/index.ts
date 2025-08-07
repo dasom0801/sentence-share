@@ -1,33 +1,5 @@
 import { searchBookWithKakaoAPI } from '@/api/book';
-import { getUser } from '@/api/user';
-import type { User } from '@/types';
-import { HttpError } from '@/utils/error';
-import { infiniteQueryOptions, queryOptions } from '@tanstack/react-query';
-
-export const userQueries = {
-  all: () => ['user'],
-  me: ({ onSuccess }: { onSuccess: (user: User) => void }) =>
-    queryOptions({
-      queryKey: [...userQueries.all(), 'me'],
-      queryFn: async () => {
-        try {
-          const { data: user } = await getUser();
-          onSuccess(user);
-          return user;
-        } catch (error) {
-          if (error instanceof HttpError) {
-            if (error.status === 401) {
-              localStorage.removeItem('access_token');
-            }
-          }
-          return null;
-        }
-      },
-      enabled:
-        !(typeof window === 'undefined') &&
-        !!localStorage.getItem('access_token'),
-    }),
-};
+import { infiniteQueryOptions } from '@tanstack/react-query';
 
 export const sentenceQueries = {
   all: () => ['sentences'],

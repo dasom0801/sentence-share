@@ -15,3 +15,18 @@ export const logoutWithGoogle = async () => {
     throw error;
   }
 };
+
+/**
+ * 토큰 만료 시 클린업 처리
+ * 쿠키 제거를 위해 서버 API 호출
+ */
+export const cleanupExpiredToken = async () => {
+  try {
+    // Firebase 로그아웃 (에러 무시)
+    await signOut(auth).catch(() => {});
+    // 서버 쿠키 삭제
+    await fetchAPI('/auth/logout', { method: 'POST' });
+  } catch (error) {
+    console.warn('토큰 클린업 실패:', error);
+  }
+};

@@ -1,6 +1,5 @@
-import { getUser } from '@/api/user';
 import type { Metadata } from 'next';
-import { cookies } from 'next/headers';
+import { validateUserOnServer } from '@/utils/server-utils';
 import '../styles/global.scss';
 import { ClientProviders, Header } from './(main)/components';
 import UserProvider from './(main)/components/UserProvider';
@@ -15,23 +14,13 @@ export default async function RootLayout({
 }: {
   children: React.ReactNode;
 }) {
-  const cookieStore = cookies();
-  const token = cookieStore.get('access_token');
-  let user = null;
-  if (token?.value) {
-    try {
-      const { data } = await getUser();
-      user = data;
-    } catch (error) {
-      console.error('사용자 정보 가져오기 실패:', error);
-    }
-  }
+  const { user, isTokenExpired } = await validateUserOnServer();
 
   return (
     <html lang="ko-KR">
       <body>
         <div id="root">
-          <UserProvider user={user} />
+          <UserProvider user={user} isTokenExpired={isTokenExpired} />
           <ClientProviders>
             <div style={{ paddingTop: 56 }}>
               <Header />
