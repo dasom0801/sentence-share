@@ -57,10 +57,14 @@ export const validateToken = (): TokenValidationResult => {
   if (!token) {
     return { userId: null, isExpired: false, hasToken: false };
   }
-  
+
   try {
     const decoded = verifyToken(token);
-    return { userId: decoded?.userId || null, isExpired: false, hasToken: true };
+    return {
+      userId: decoded?.userId || null,
+      isExpired: false,
+      hasToken: true,
+    };
   } catch (error) {
     if (error instanceof TokenExpiredError) {
       return { userId: null, isExpired: true, hasToken: true };
@@ -75,19 +79,23 @@ export const validateToken = (): TokenValidationResult => {
  */
 export const getValidatedUserId = (): string => {
   const tokenResult = validateToken();
-  
+
   if (!tokenResult.hasToken) {
     throw new HttpError('UNAUTHORIZED', 401, '로그인이 필요합니다.');
   }
-  
+
   if (tokenResult.isExpired) {
-    throw new HttpError('TOKEN_EXPIRED', 401, '토큰이 만료되었습니다. 다시 로그인해주세요.');
+    throw new HttpError(
+      'TOKEN_EXPIRED',
+      401,
+      '토큰이 만료되었습니다. 다시 로그인해주세요.',
+    );
   }
-  
+
   if (!tokenResult.userId) {
     throw new HttpError('INVALID_TOKEN', 401, '유효하지 않은 토큰입니다.');
   }
-  
+
   return tokenResult.userId;
 };
 
