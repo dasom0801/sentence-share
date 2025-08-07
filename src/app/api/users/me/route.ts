@@ -1,14 +1,12 @@
 import { editUserInfo, getUserInfo } from '@/db/controllers';
 import { handleError } from '@/db/utils';
 import { revalidatePath } from 'next/cache';
-import { cookies } from 'next/headers';
 import { NextRequest, NextResponse } from 'next/server';
 
 // 로그인한 사용자의 정보 가져오기
-export async function GET(req: NextRequest) {
-  const token = cookies().get('access_token')?.value;
+export async function GET() {
   try {
-    const data = token ? await getUserInfo(token) : null;
+    const data = await getUserInfo();
     return NextResponse.json(
       {
         success: true,
