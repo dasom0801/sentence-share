@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import { memo } from 'react';
 import { useLogin } from './hooks';
 
@@ -14,10 +15,12 @@ const LoginButton: React.FC<LoginButtonProps> = memo(function LoginButton({
 
   return (
     <button onClick={() => mutate()} aria-label="continue with google">
-      <img
+      <Image
         src="/images/google-ctn.svg"
         alt="continue with google"
         aria-hidden="true"
+        width={189}
+        height={40}
       />
     </button>
   );
