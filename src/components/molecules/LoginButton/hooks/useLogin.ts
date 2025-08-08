@@ -20,6 +20,8 @@ const useLogin = (afterLogin?: string) => {
       toast.success('로그인했습니다.');
       if (afterLogin) {
         router.push(afterLogin);
+      } else {
+        router.push('/');
       }
     },
     onError: () => {
