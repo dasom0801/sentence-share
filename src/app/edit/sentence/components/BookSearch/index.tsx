@@ -59,6 +59,7 @@ export default function BookSearch() {
             isLoading={isLoading}
             onBookSelect={onSelectBook}
             onFetchNextPage={fetchNextPage}
+            scrollContainer={listRef}
           />
         </div>
       )}
