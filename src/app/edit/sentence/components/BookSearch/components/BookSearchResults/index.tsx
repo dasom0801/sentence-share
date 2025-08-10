@@ -1,5 +1,5 @@
 import { Book } from '@/types';
-import { useRef } from 'react';
+import { RefObject, useRef } from 'react';
 import { useInfiniteScroll } from '../../hooks';
 import BookSearchList from '../BookSearchList';
 import BookSearchListSkeleton from '../BookSearchListSkeleton';
@@ -9,6 +9,7 @@ type BookSearchResultsProps = {
   isLoading: boolean;
   onBookSelect: (book: Book) => void;
   onFetchNextPage: () => void;
+  scrollContainer?: RefObject<HTMLElement>;
 };
 
 export default function BookSearchResults({
@@ -16,9 +17,12 @@ export default function BookSearchResults({
   isLoading,
   onBookSelect,
   onFetchNextPage,
+  scrollContainer,
 }: BookSearchResultsProps) {
   const listLoaderRef = useRef<HTMLDivElement>(null);
-  useInfiniteScroll(listLoaderRef, onFetchNextPage);
+  useInfiniteScroll(listLoaderRef, onFetchNextPage, {
+    root: scrollContainer?.current,
+  });
 
   if (isLoading && books?.length === 0) {
     return <BookSearchListSkeleton length={5} />;
