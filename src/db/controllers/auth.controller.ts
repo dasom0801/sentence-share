@@ -33,8 +33,9 @@ export const authWithGoogle = async (
         user,
       };
     } else {
-      const { uid, name, provider, profileUrl, email } = verifyUser;
-      if (!uid || !email || !name || !provider) {
+      const { uid, name, profileUrl, email } = verifyUser;
+
+      if (!uid || !email || !name) {
         throw new HttpError(
           'INVALID_USER_DATA',
           400,
@@ -45,7 +46,7 @@ export const authWithGoogle = async (
       const user = await models.User.create({
         uid,
         name,
-        provider,
+        provider: 'google',
         profileUrl,
         email,
       });
