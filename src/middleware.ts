@@ -13,7 +13,7 @@ export const config = {
 };
 
 export function middleware(request: NextRequest) {
-  const token = request.cookies.get('access_token');
+  const token = request.cookies.get('access_token')?.value;
   if (!token) {
     return redirectToLogin(request);
   }
