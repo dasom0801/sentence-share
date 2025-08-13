@@ -9,6 +9,8 @@ export {
   generateUserToken,
   getAuthenticatedUser,
   getLoginUserId,
+  getValidatedUserId,
+  validateToken,
   verifyToken,
 } from './auth';
 

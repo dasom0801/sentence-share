@@ -1,4 +1,5 @@
 import { User } from '@/types/user';
+import { HttpError } from '@/utils/error';
 import jwt, { JwtPayload, TokenExpiredError } from 'jsonwebtoken';
 import { cookies } from 'next/headers';
 import models from '../models';
@@ -32,24 +33,70 @@ export const verifyToken = (token: string): JwtPayload | null => {
 };
 
 /**
+ * 토큰 검증 결과 타입
+ */
+export interface TokenValidationResult {
+  userId: string | null;
+  isExpired: boolean;
+  hasToken: boolean;
+}
+
+/**
  * token을 통해 로그인한 사용자 ID 찾기
  */
-
 export const getLoginUserId = (): string | null => {
+  const result = validateToken();
+  return result.userId;
+};
+
+/**
+ * 토큰 검증 및 상세 정보 반환
+ */
+export const validateToken = (): TokenValidationResult => {
   const token = cookies().get('access_token')?.value;
   if (!token) {
-    return null;
+    return { userId: null, isExpired: false, hasToken: false };
   }
+
   try {
     const decoded = verifyToken(token);
-    return decoded?.userId;
+    return {
+      userId: decoded?.userId || null,
+      isExpired: false,
+      hasToken: true,
+    };
   } catch (error) {
-    // 토큰 만료 에러는 무시
-    if (!(error instanceof TokenExpiredError)) {
-      console.error('JWT 검증 실패:', error);
+    if (error instanceof TokenExpiredError) {
+      return { userId: null, isExpired: true, hasToken: true };
     }
-    return null;
+    console.error('JWT 검증 실패:', error);
+    return { userId: null, isExpired: false, hasToken: true };
   }
+};
+
+/**
+ * 토큰 검증 후 userId 반환 (에러 발생 시 throw)
+ */
+export const getValidatedUserId = (): string => {
+  const tokenResult = validateToken();
+
+  if (!tokenResult.hasToken) {
+    throw new HttpError('UNAUTHORIZED', 401, '로그인이 필요합니다.');
+  }
+
+  if (tokenResult.isExpired) {
+    throw new HttpError(
+      'TOKEN_EXPIRED',
+      401,
+      '토큰이 만료되었습니다. 다시 로그인해주세요.',
+    );
+  }
+
+  if (!tokenResult.userId) {
+    throw new HttpError('INVALID_TOKEN', 401, '유효하지 않은 토큰입니다.');
+  }
+
+  return tokenResult.userId;
 };
 
 /**

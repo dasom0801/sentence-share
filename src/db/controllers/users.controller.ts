@@ -4,27 +4,22 @@ import connectDB from '../connectDB';
 import firebaseAdmin from '../firebase.config';
 import models from '../models';
 import {
-  getAuthenticatedUser,
-  getLoginUserId,
   getPaginatedSentences,
-  verifyToken,
+  getValidatedUserId,
 } from '../utils';
 
 /**
  * 로그인한 사용자 정보를 반환
  */
-export const getUserInfo = async (token: string): Promise<User | null> => {
+export const getUserInfo = async (): Promise<User | null> => {
   return withErrorHandler(async () => {
     await connectDB();
-    const decoded = verifyToken(token);
-    const userId = decoded?.userId;
-    if (!userId) {
-      return null;
-    }
+    const userId = getValidatedUserId();
+    
     const user = await models.User.findById(userId).lean<User>();
     if (!user) {
       console.warn(`DB에 해당 사용자 없음, userID: ${userId}`);
-      return null;
+      throw new HttpError('USER_NOT_FOUND', 404, '사용자 정보를 찾을 수 없습니다.');
     }
     return user;
   }, '사용자 정보 가져오기');
@@ -42,10 +37,8 @@ export const editUserInfo = async ({
 }): Promise<User> => {
   return withErrorHandler(async () => {
     await connectDB();
-    const userId = getLoginUserId();
-    if (!userId) {
-      throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
-    }
+    const userId = getValidatedUserId();
+    
     const updatedUserInfo = await models.User.findByIdAndUpdate(
       userId,
       { name, profileUrl },
@@ -53,7 +46,7 @@ export const editUserInfo = async ({
     );
 
     if (!updatedUserInfo) {
-      throw new HttpError('NOT_FOUND', 404, '사용자를 찾을 수 없습니다.');
+      throw new HttpError('USER_NOT_FOUND', 404, '사용자를 찾을 수 없습니다.');
     }
 
     return updatedUserInfo;
@@ -66,9 +59,11 @@ export const editUserInfo = async ({
 export const deleteUser = async () => {
   return withErrorHandler(async () => {
     await connectDB();
-    const user = await getAuthenticatedUser();
+    const userId = getValidatedUserId();
+    
+    const user = await models.User.findById(userId);
     if (!user) {
-      throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
+      throw new HttpError('USER_NOT_FOUND', 404, '사용자를 찾을 수 없습니다.');
     }
 
     await Promise.all([
@@ -98,10 +93,8 @@ export const deleteUser = async () => {
  */
 export const getMySentences = async (params: PaginationRequest) => {
   return withErrorHandler(async () => {
-    const userId: string | null = getLoginUserId();
-    if (!userId) {
-      throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
-    }
+    const userId = getValidatedUserId();
+    
     return await getUserSentences({ userId, ...params });
   }, '내가 작성한 문장 목록 가져오기');
 };
@@ -111,10 +104,8 @@ export const getMySentences = async (params: PaginationRequest) => {
  */
 export const getLikedSentences = async (params: PaginationRequest) => {
   return withErrorHandler(async () => {
-    const userId: string | null = getLoginUserId();
-    if (!userId) {
-      throw new HttpError('UNAUTHORIZED', 401, '로그인 후 이용해주세요.');
-    }
+    const userId = getValidatedUserId();
+    
     return await getUserLikedSentences({ userId, ...params });
   }, '내가 좋아요한 문장 목록 가져오기');
 };

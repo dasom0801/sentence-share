@@ -9,6 +9,9 @@ import { MUI_THEME } from '../src/lib/mui/theme';
 
 initializeMsw({
   onUnhandledRequest: 'bypass',
+  serviceWorker: {
+    url: '/mockServiceWorker.js',
+  },
 });
 
 const preview: Preview = {
