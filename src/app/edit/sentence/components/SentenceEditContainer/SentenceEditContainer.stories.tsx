@@ -22,7 +22,8 @@ export const SelectedSentence: Story = {
     await step('전달 받은 문장이 화면에 렌더링되어야 한다.', async () => {
       if (args.sentence) {
         expect(canvas.getByText(args.sentence.book.title)).toBeInTheDocument();
-        expect(canvas.getByText(args.sentence.content)).toBeInTheDocument();
+        const textarea = canvas.getByRole('textbox');
+        expect(textarea).toHaveValue(args.sentence.content);
       }
     });
   },

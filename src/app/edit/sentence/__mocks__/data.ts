@@ -5,6 +5,8 @@ export const empty = {
   content: '',
   pending: false,
   mode: 'create' as const,
+  isValid: false,
+  errors: {},
 };
 
 export const valid = {
@@ -12,6 +14,8 @@ export const valid = {
   content: 'Valid Status Example',
   pending: false,
   mode: 'create' as const,
+  isValid: true,
+  errors: {},
 };
 
 export const edit = {
@@ -20,6 +24,8 @@ export const edit = {
   pending: false,
   mode: 'edit' as const,
   initialSentence: MockSentence,
+  isValid: true,
+  errors: {},
 };
 
 export const pending = {
@@ -27,4 +33,6 @@ export const pending = {
   content: 'Pending Status Example',
   pending: true,
   mode: 'create' as const,
+  isValid: false,
+  errors: {},
 };
