@@ -1,6 +1,7 @@
 'use client';
 
 import { Book, Sentence } from '@/types';
+import { zodResolver } from '@hookform/resolvers/zod';
 import { useRouter } from 'next/navigation';
 import {
   createContext,
@@ -9,23 +10,14 @@ import {
   useContext,
   useState,
 } from 'react';
+import { FormProvider, useForm } from 'react-hook-form';
 import toast from 'react-hot-toast';
 import { createSentence, updateSentence } from '../api';
-
-type SentenceEditContextType = {
-  book?: Book;
-  content: string;
-  pending: boolean;
-
-  selectBook: (book: Book) => void;
-  updateContent: (content: string) => void;
-  setPending: (pending: boolean) => void;
-  handleSubmit: () => void;
-
-  mode: 'edit' | 'create';
-
-  initialSentence?: Sentence;
-};
+import {
+  SentenceEditContextType,
+  SentenceEditForm,
+  sentenceEditSchema,
+} from './types';
 
 export const SentenceEditContext =
   createContext<SentenceEditContextType | null>(null);
@@ -40,78 +32,107 @@ export function SentenceEditProvider({
   initialSentence,
 }: SentenceEditProviderProps) {
   const router = useRouter();
-  const [book, setBook] = useState<Book | undefined>(
-    initialSentence?.book || undefined,
-  );
-  const [content, setContent] = useState<string>(
-    initialSentence?.content || '',
-  );
-  const [pending, setPending] = useState<boolean>(false);
-
-  const selectBook = useCallback((book: Book) => {
-    setBook(book);
-  }, []);
-
-  const updateContent = useCallback((content: string) => {
-    setContent(content);
-  }, []);
-
   const mode = initialSentence ? 'edit' : 'create';
+  const [pending, setPending] = useState<boolean>(false);
+  const [showConfirmAlert, setShowConfirmAlert] = useState(false);
 
-  const handleSubmit = useCallback(async () => {
-    if (!book || !content.length) return;
+  const methods = useForm<SentenceEditForm>({
+    resolver: zodResolver(sentenceEditSchema),
+    defaultValues: {
+      book: initialSentence?.book || (null as unknown as Book),
+      content: initialSentence?.content || '',
+    },
+    mode: 'onBlur',
+  });
+  const {
+    watch,
+    setValue,
+    formState: { errors, isValid },
+    handleSubmit: rhfHandleSubmit,
+  } = methods;
+
+  const watchedBook = watch('book');
+  const watchedContent = watch('content');
+
+  const selectBook = useCallback(
+    (book: Book) => {
+      setValue('book', book, { shouldValidate: true });
+    },
+    [setValue],
+  );
+
+  const updateContent = useCallback(
+    (content: string) => {
+      setValue('content', content, { shouldValidate: true });
+    },
+    [setValue],
+  );
+
+  const onSubmit = async (data: SentenceEditForm) => {
     setPending(true);
+    setShowConfirmAlert(true);
     let redirectPath = '/';
 
-    switch (mode) {
-      case 'edit':
-        await updateSentence({ content, book, id: initialSentence!._id });
+    try {
+      if (mode === 'edit' && initialSentence) {
+        await updateSentence({ ...data, id: initialSentence._id });
         redirectPath = '/my/sentence';
-        break;
-      case 'create':
-        await createSentence({ book, content });
+      } else {
+        await createSentence(data);
         redirectPath = '/';
-        break;
-    }
+      }
 
-    setPending(false);
-    toast.success(`성공적으로 ${mode === 'edit' ? '수정' : '작성'}했습니다.`);
-    router.push(redirectPath);
-    router.refresh();
-  }, [
-    book,
-    content,
-    mode,
-    initialSentence,
-    router,
-    updateSentence,
-    createSentence,
-    setPending,
-    toast,
-  ]);
+      toast.success(`성공적으로 ${mode === 'edit' ? '수정' : '작성'}했습니다.`);
+      router.push(redirectPath);
+      router.refresh();
+    } catch (error) {
+      toast.error('문제가 발생했습니다. 잠시 후 다시 시도해주세요.');
+    } finally {
+      setPending(false);
+    }
+  };
+
+  const handleSubmit = rhfHandleSubmit(() => {
+    setShowConfirmAlert(true);
+  });
+
+  const confirmSubmit = rhfHandleSubmit(onSubmit);
 
   const value: SentenceEditContextType = {
-    book,
-    content,
+    book: watchedBook,
+    content: watchedContent,
     pending,
+    showConfirmAlert,
+
     selectBook,
     updateContent,
+    handleSubmit,
+    submitForm: confirmSubmit,
     setPending,
+    setShowConfirmAlert,
+
     mode,
     initialSentence,
-    handleSubmit,
+
+    errors: {
+      book: errors.book?.message,
+      content: errors.content?.message,
+    },
+    isValid,
   };
 
   return (
-    <SentenceEditContext.Provider value={value}>
-      {children}
-    </SentenceEditContext.Provider>
+    <FormProvider {...methods}>
+      <SentenceEditContext.Provider value={value}>
+        {children}
+      </SentenceEditContext.Provider>
+    </FormProvider>
   );
 }
 
 export function useSentenceEdit() {
   const context = useContext(SentenceEditContext);
-  if (!context) {
+  if (context === null) {
     throw new Error(
       'useSentenceEdit은 SentenceEditProvider와 함께 사용해야 합니다.',
     );

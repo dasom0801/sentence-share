@@ -33,7 +33,7 @@ export default function BookSearch() {
   const searchRef = useRef<HTMLDivElement>(null);
   useClickOutside([searchRef, listRef], () => handleBlur());
 
-  const { selectBook } = useSentenceEdit();
+  const { selectBook, errors } = useSentenceEdit();
   const onSelectBook = (book: Book) => {
     selectBook(book);
     clearSearch();
@@ -50,6 +50,8 @@ export default function BookSearch() {
         onChange={handleInputChange}
         onFocus={handleFocus}
         ref={searchRef}
+        error={!!errors.book}
+        helperText={errors.book}
       />
 
       {shouldShowList && (
