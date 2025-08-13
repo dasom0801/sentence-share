@@ -9,8 +9,8 @@ type UserProviderProps = {
   user: User | null;
 };
 export default function UserProvider({ user }: UserProviderProps) {
-  const setUser = useUserStore.use.setUser();
-  const setIsLogin = useUserStore.use.setIsLogin();
+  const setUser = useUserStore((state) => state.setUser);
+  const setIsLogin = useUserStore((state) => state.setIsLogin);
 
   useEffect(() => {
     if (user) {

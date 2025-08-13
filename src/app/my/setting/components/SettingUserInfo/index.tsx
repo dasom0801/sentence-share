@@ -24,7 +24,7 @@ const userInfoSchema = z.object({
 type UserInfoForm = z.infer<typeof userInfoSchema>;
 
 export default function SettingUserInfo() {
-  const user = useUserStore.use.user();
+  const user = useUserStore((state) => state.user);
   const { updateUserName, isPending } = useUpdateUserName();
 
   const {

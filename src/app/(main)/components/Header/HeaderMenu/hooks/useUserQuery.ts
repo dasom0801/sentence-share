@@ -4,7 +4,7 @@ import type { User } from '@/types';
 import { useQuery } from '@tanstack/react-query';
 
 const useUserQuery = () => {
-  const setUser = useUserStore.use.setUser();
+  const setUser = useUserStore((state) => state.setUser);
   const onSuccess = (user: User) => {
     setUser(user);
   };

@@ -11,8 +11,8 @@ const useLogout = () => {
   const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const setUser = useUserStore.use.setUser();
-  const setIsLogin = useUserStore.use.setIsLogin();
+  const setUser = useUserStore((state) => state.setUser);
+  const setIsLogin = useUserStore((state) => state.setIsLogin);
 
   const redirectAfterLogout = () => {
     // 인증이 필요한 페이지 목록
