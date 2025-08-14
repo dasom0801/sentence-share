@@ -1,14 +1,24 @@
 import { Decorator } from '@storybook/nextjs-vite';
+import { FormEventHandler, ReactNode } from 'react';
 import { useSentenceEdit } from '../contexts';
 import {
   MockedSentenceEditProvider,
   MockSentenceEditValues,
 } from './decorators';
 
-const FormWrapper = ({ children }: { children: React.ReactNode }) => {
+const FormWrapper = ({ children }: { children: ReactNode }) => {
   const { handleSubmit } = useSentenceEdit();
 
-  return <form onSubmit={handleSubmit}>{children}</form>;
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    handleSubmit(e);
+  };
+
+  return (
+    <form onSubmit={onSubmit} noValidate>
+      {children}
+    </form>
+  );
 };
 
 export const withMockedSentenceEditContext = (

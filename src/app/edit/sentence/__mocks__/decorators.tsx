@@ -1,5 +1,5 @@
 import type { Book, Sentence } from '@/types';
-import { ReactNode, useState } from 'react';
+import { ReactNode, useEffect, useState } from 'react';
 import { fn } from 'storybook/test';
 import { SentenceEditContext } from '../contexts/SentenceEditContext';
 
@@ -45,8 +45,6 @@ export const MockedSentenceEditProvider = ({
   children: ReactNode;
   mockValues?: Partial<MockSentenceEditValues>;
 }) => {
-  const [showConfirmAlert, setShowConfirmAlert] = useState(false);
-
   let values = defaultMockValues;
   if (mockValues) {
     values = {
@@ -54,6 +52,16 @@ export const MockedSentenceEditProvider = ({
       ...mockValues,
     };
   }
+
+  const [showConfirmAlert, setShowConfirmAlert] = useState(
+    values.showConfirmAlert ?? false,
+  );
+
+  useEffect(() => {
+    if (mockValues?.showConfirmAlert !== undefined) {
+      setShowConfirmAlert(mockValues.showConfirmAlert);
+    }
+  }, [mockValues?.showConfirmAlert]);
 
   const enhancedHandleSubmit = fn(async (e?: any) => {
     e?.preventDefault?.();
@@ -63,6 +71,7 @@ export const MockedSentenceEditProvider = ({
 
   const enhancedSetShowConfirmAlert = fn((value: boolean) => {
     setShowConfirmAlert(value);
+    values.setShowConfirmAlert?.(value);
   });
 
   const enhancedValues = {
