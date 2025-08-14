@@ -33,14 +33,14 @@ const getButtons = (canvas: Canvas) => {
   };
 };
 
-// 기본 상태 (빈 폼) - 버튼들이 비활성화되어야 함
+// 기본 상태 (빈 폼) - 제출 버튼만 비활성화되어야 함
 export const EmptyForm: Story = {
   decorators: [withMockedSentenceEditContext(empty)],
   play: async ({ canvas, step }) => {
-    await step('폼이 비어있을 때 모든 버튼이 비활성화되어야 한다', () => {
+    await step('폼이 비어있을 때 제출 버튼만 비활성화되어야 한다', () => {
       const { cancelButton, submitButton } = getButtons(canvas);
 
-      expect(cancelButton()).toBeDisabled();
+      expect(cancelButton()).toBeEnabled();
       expect(submitButton()).toBeDisabled();
       expect(submitButton()).toHaveTextContent('등록');
     });
@@ -249,8 +249,8 @@ export const ButtonStateAndAttributes: Story = {
     await step('버튼들이 올바른 속성과 초기 상태를 가져야 한다', () => {
       const { cancelButton, submitButton } = getButtons(canvas);
 
-      // 초기 상태: 비활성화됨 (빈 폼이므로)
-      expect(cancelButton()).toBeDisabled();
+      // 초기 상태: 취소는 활성화, 제출은 비활성화됨 (빈 폼이므로)
+      expect(cancelButton()).toBeEnabled();
       expect(submitButton()).toBeDisabled();
       expect(submitButton()).toHaveTextContent('등록');
 
