@@ -17,9 +17,15 @@ const SentenceEditActions = () => {
     setShowConfirmAlert,
   } = useSentenceEdit();
 
-  const handleConfirm = () => {
+  const handleConfirm = async () => {
     setShowConfirmAlert(false);
-    submitForm();
+    try {
+      await submitForm();
+    } catch (error) {
+      console.error('Form submission failed:', error);
+      // Error is already handled in the context (toast notification)
+      // but we log it here to prevent uncaught promise rejection
+    }
   };
 
   return (
@@ -28,7 +34,7 @@ const SentenceEditActions = () => {
         <Button
           variant="outlined"
           color="secondary"
-          disabled={!isValid || pending}
+          disabled={pending}
           onClick={() => router.back()}
         >
           취소
