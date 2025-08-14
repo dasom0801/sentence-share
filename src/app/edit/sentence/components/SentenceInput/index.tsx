@@ -16,6 +16,7 @@ const SentenceInput = () => {
       className={classes.textarea}
       multiline
       placeholder="내용을 입력해주세요."
+      aria-label="문장 내용"
       rows={4}
       error={!!errors?.content}
       helperText={errors?.content?.message}
