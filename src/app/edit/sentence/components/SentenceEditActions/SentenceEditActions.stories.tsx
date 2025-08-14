@@ -1,4 +1,3 @@
-import { MockSentence } from '@/mocks/data';
 import type { Meta, StoryObj } from '@storybook/nextjs-vite';
 import { getRouter } from '@storybook/nextjs-vite/navigation.mock';
 import { Canvas } from 'storybook/internal/csf';
@@ -10,7 +9,6 @@ import {
   valid,
   withMockedSentenceEditContext,
 } from '../../__mocks__';
-import { SentenceEditProvider } from '../../contexts';
 import SentenceEditActions from './';
 
 const meta = {
@@ -65,13 +63,7 @@ export const ValidForm: Story = {
 
 // 수정 모드 - 수정 버튼이 표시되어야 함
 export const EditMode: Story = {
-  decorators: [
-    (Story) => (
-      <SentenceEditProvider initialSentence={MockSentence}>
-        <Story />
-      </SentenceEditProvider>
-    ),
-  ],
+  decorators: [withMockedSentenceEditContext(edit)],
   play: async ({ canvas, step }) => {
     await step('수정 모드에서는 수정 버튼이 표시되어야 한다', () => {
       const { cancelButton, editButton } = getButtons(canvas);
@@ -252,13 +244,7 @@ export const KeyboardAccessibility: Story = {
 
 // 버튼 상태와 속성 테스트
 export const ButtonStateAndAttributes: Story = {
-  decorators: [
-    (Story) => (
-      <SentenceEditProvider>
-        <Story />
-      </SentenceEditProvider>
-    ),
-  ],
+  decorators: [withMockedSentenceEditContext(empty)],
   play: async ({ canvas, step }) => {
     await step('버튼들이 올바른 속성과 초기 상태를 가져야 한다', () => {
       const { cancelButton, submitButton } = getButtons(canvas);
