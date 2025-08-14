@@ -8,18 +8,18 @@ import SentenceInput from '../SentenceInput';
 import classes from './SentenceEditContent.module.scss';
 
 export default function SentenceEditContent() {
-  const { book, content, updateContent } = useSentenceEdit();
+  const { book, handleSubmit } = useSentenceEdit();
 
   return (
-    <div className={classes.wrapper}>
+    <form onSubmit={handleSubmit} className={classes.wrapper}>
       <BookSearch />
       {book && (
         <>
           <BookListItem book={book} />
-          <SentenceInput content={content} handleContent={updateContent} />
+          <SentenceInput />
           <SentenceEditActions />
         </>
       )}
-    </div>
+    </form>
   );
 }

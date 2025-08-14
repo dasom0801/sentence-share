@@ -10,7 +10,7 @@ import { useRemoveProfileImage, useUploadProfileImage } from '../../hooks';
 import classes from './SettingUserImage.module.scss';
 
 export default function SettingUserImage() {
-  const user = useUserStore.use.user();
+  const user = useUserStore((state) => state.user);
   const uploadProfileImage = useUploadProfileImage();
   const removeProfileImage = useRemoveProfileImage();
   const [loading, setLoading] = useState<boolean>(false);

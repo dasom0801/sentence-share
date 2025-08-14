@@ -14,8 +14,8 @@ export default function UserProvider({
   user,
   isTokenExpired,
 }: UserProviderProps) {
-  const setUser = useUserStore.use.setUser();
-  const setIsLogin = useUserStore.use.setIsLogin();
+  const setUser = useUserStore((state) => state.setUser);
+  const setIsLogin = useUserStore((state) => state.setIsLogin);
 
   useEffect(() => {
     const setLoggedInUser = (user: User) => {

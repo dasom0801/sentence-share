@@ -1,40 +1,26 @@
 'use client';
 import { TextField } from '@mui/material';
-import { useCallback, useState } from 'react';
+import { useFormContext } from 'react-hook-form';
+import { SentenceEditForm } from '../../contexts/types';
 import classes from './SentenceInput.module.scss';
 
-type SentenceInputProps = {
-  content: string;
-  handleContent: (content: string) => void;
-};
-
-const SentenceInput = ({ content, handleContent }: SentenceInputProps) => {
-  const [showError, setShowError] = useState<boolean>(false);
-
-  const validateContent = useCallback(() => {
-    if (!content || content.length <= 5) {
-      setShowError(true);
-    } else {
-      setShowError(false);
-    }
-  }, [setShowError, content]);
+const SentenceInput = () => {
+  const {
+    register,
+    formState: { errors },
+  } = useFormContext<SentenceEditForm>();
 
   return (
-    <>
-      <TextField
-        className={classes.textarea}
-        multiline
-        placeholder="내용을 입력해주세요."
-        value={content}
-        rows={4}
-        onChange={(e) => handleContent(e.target.value)}
-        onBlur={validateContent}
-        color={showError ? 'error' : 'primary'}
-      />
-      {showError && (
-        <span className={classes.error}>다섯 글자 이상 입력해 주세요. </span>
-      )}
-    </>
+    <TextField
+      {...register('content')}
+      className={classes.textarea}
+      multiline
+      placeholder="내용을 입력해주세요."
+      aria-label="문장 내용"
+      rows={4}
+      error={!!errors?.content}
+      helperText={errors?.content?.message}
+    />
   );
 };
 

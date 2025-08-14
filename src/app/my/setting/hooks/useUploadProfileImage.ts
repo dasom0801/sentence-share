@@ -11,7 +11,7 @@ import { useCallback } from 'react';
 import toast from 'react-hot-toast';
 
 const useUploadProfileImage = () => {
-  const user = useUserStore.use.user();
+  const user = useUserStore((state) => state.user);
 
   // 이미지 경로를 설정
   const getImageRef = ({

@@ -3,21 +3,27 @@
 import { AlertDialog } from '@/components/molecules';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { useState } from 'react';
 import { useSentenceEdit } from '../../contexts';
 import classes from './SentenceEditActions.module.scss';
 
 const SentenceEditActions = () => {
   const router = useRouter();
-  const { mode, book, content, pending, handleSubmit } = useSentenceEdit();
-  const [showAlert, setShowAlert] = useState<boolean>(false);
+  const {
+    mode,
+    pending,
+    isValid,
+    submitForm,
+    showConfirmAlert,
+    setShowConfirmAlert,
+  } = useSentenceEdit();
 
-  const isValid = !!book && !!content.length && !pending;
-
-  const handleConfirm = () => {
-    if (!isValid) return;
-    setShowAlert(false);
-    handleSubmit();
+  const handleConfirm = async () => {
+    setShowConfirmAlert(false);
+    try {
+      await submitForm();
+    } catch (error) {
+      console.error('Form submission failed:', error);
+    }
   };
 
   return (
@@ -26,28 +32,28 @@ const SentenceEditActions = () => {
         <Button
           variant="outlined"
           color="secondary"
-          disabled={!isValid}
+          disabled={pending}
           onClick={() => router.back()}
         >
           취소
         </Button>
         <Button
+          type="submit"
           variant="contained"
-          disabled={!isValid}
-          onClick={() => setShowAlert(true)}
+          disabled={!isValid || pending}
         >
-          {mode === 'edit' ? '수정' : '등록'}
+          {pending ? '처리 중...' : mode === 'edit' ? '수정' : '등록'}
         </Button>
       </div>
       <AlertDialog
-        open={showAlert}
+        open={showConfirmAlert}
         content={
           mode === 'edit'
             ? '내용을 수정하시겠습니까?'
             : '작성한 내용을 등록하시겠습니까?'
         }
         confirmLabel={mode === 'edit' ? '수정' : '등록'}
-        handleClose={() => setShowAlert(false)}
+        handleClose={() => setShowConfirmAlert(false)}
         handleConfirm={handleConfirm}
       />
     </>
