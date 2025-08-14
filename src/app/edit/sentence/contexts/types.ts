@@ -1,21 +1,13 @@
 import { Book, Sentence } from '@/types';
 import { z } from 'zod';
 
-const bookSchema = z.object({
-  _id: z.string().min(1, '책 ID가 필요합니다.'),
-  title: z.string().min(1, '책 제목이 필요합니다.'),
-  coverUrl: z.string().min(1, '표지 URL이 필요합니다.'),
-  publisher: z.string().min(1, '출판사가 필요합니다.'),
-  author: z.array(z.string().min(1)).min(1, '저자가 필요합니다.'),
-  isbn: z.string().min(1, 'ISBN이 필요합니다.'),
-  sentence: z.array(z.any()).optional(),
-  publishedAt: z.date().optional(),
-}) satisfies z.ZodType<Book>;
-
 export const sentenceEditSchema = z.object({
-  book: bookSchema.refine((val) => val !== undefined, {
-    message: '책을 선택해주세요.',
-  }),
+  book: z.custom<Book>(
+    (val) => {
+      return val && typeof val === 'object';
+    },
+    { message: '책을 선택해주세요.' },
+  ),
   content: z.string().min(5, '다섯 글자 이상 입력해주세요.'),
 });
 

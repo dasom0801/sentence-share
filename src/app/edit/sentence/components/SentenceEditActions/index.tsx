@@ -23,8 +23,6 @@ const SentenceEditActions = () => {
       await submitForm();
     } catch (error) {
       console.error('Form submission failed:', error);
-      // Error is already handled in the context (toast notification)
-      // but we log it here to prevent uncaught promise rejection
     }
   };
 
