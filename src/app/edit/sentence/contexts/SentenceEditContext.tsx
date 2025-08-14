@@ -42,7 +42,7 @@ export function SentenceEditProvider({
       book: initialSentence?.book ?? (undefined as unknown as Book),
       content: initialSentence?.content || '',
     },
-    mode: 'onBlur',
+    mode: 'onChange',
   });
   const {
     watch,

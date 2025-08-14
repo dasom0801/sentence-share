@@ -25,10 +25,10 @@ export const Default: Story = {
     });
 
     await step(
-      '값을 입력하지 않고 Input에서 벗어나면 에러 메시지가 표시된다.',
+      '다섯 글자 미만을 입력하면 에러 메시지가 표시된다.',
       async () => {
-        await userEvent.click(textField);
-        await userEvent.tab();
+        await userEvent.clear(textField);
+        await userEvent.type(textField, '하나둘셋');
         await waitFor(() => {
           expect(
             canvas.queryByText('다섯 글자 이상 입력해주세요.'),
@@ -38,15 +38,14 @@ export const Default: Story = {
     );
 
     await step(
-      '다섯 글자 이상을 입력하지 않고 Input에서 벗어나면 에러 메시지가 표시된다.',
+      '다섯 글자 이상을 입력하면 에러 메시지가 사라진다.',
       async () => {
         await userEvent.clear(textField);
-        await userEvent.type(textField, '하나둘셋');
-        await userEvent.tab();
+        await userEvent.type(textField, '다섯글자이상입력');
         await waitFor(() => {
           expect(
             canvas.queryByText('다섯 글자 이상 입력해주세요.'),
-          ).toBeInTheDocument();
+          ).not.toBeInTheDocument();
         });
       },
     );
