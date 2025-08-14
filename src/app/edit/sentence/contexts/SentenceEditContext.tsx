@@ -39,7 +39,7 @@ export function SentenceEditProvider({
   const methods = useForm<SentenceEditForm>({
     resolver: zodResolver(sentenceEditSchema),
     defaultValues: {
-      book: initialSentence?.book || (null as unknown as Book),
+      book: initialSentence?.book ?? (undefined as unknown as Book),
       content: initialSentence?.content || '',
     },
     mode: 'onBlur',
@@ -51,7 +51,7 @@ export function SentenceEditProvider({
     handleSubmit: rhfHandleSubmit,
   } = methods;
 
-  const watchedBook = watch('book');
+  const watchedBook = watch('book') as Book | undefined;
   const watchedContent = watch('content');
 
   const selectBook = useCallback(
@@ -70,7 +70,7 @@ export function SentenceEditProvider({
 
   const onSubmit = async (data: SentenceEditForm) => {
     setPending(true);
-    setShowConfirmAlert(true);
+    setShowConfirmAlert(false);
     let redirectPath = '/';
 
     try {
@@ -99,7 +99,7 @@ export function SentenceEditProvider({
   const confirmSubmit = rhfHandleSubmit(onSubmit);
 
   const value: SentenceEditContextType = {
-    book: watchedBook,
+    book: watchedBook ?? undefined,
     content: watchedContent,
     pending,
     showConfirmAlert,
