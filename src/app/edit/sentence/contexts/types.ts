@@ -24,7 +24,7 @@ export type SentenceEditContextType = {
   setPending: (pending: boolean) => void;
   setShowConfirmAlert: (show: boolean) => void;
   handleSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
-  submitForm: () => Promise<void>;
+  submitForm: () => void;
 
   mode: 'edit' | 'create';
   initialSentence?: Sentence;

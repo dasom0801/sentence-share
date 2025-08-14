@@ -107,7 +107,7 @@ export function SentenceEditProvider({
     selectBook,
     updateContent,
     handleSubmit,
-    submitForm: confirmSubmit,
+    submitForm: () => { void confirmSubmit(); },
     setPending,
     setShowConfirmAlert,
 
